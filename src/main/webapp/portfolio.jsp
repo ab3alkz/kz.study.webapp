@@ -33,7 +33,7 @@
 <body>
 <div class="container panel">
     <header>
-        <h1 class="text-uppercase">My-site</h1>
+        <h1 class="text-uppercase">STUDY.KZ</h1>
     </header>
     <nav class="row">
         <div class="navbar navbar-inverse">
