@@ -148,7 +148,7 @@
 
 </div>
 <footer class="panel-footer  text-center">
-    Copyright © 2015 Cайт на bootstrap | Design by <a href="">Abzal</a>
+    Copyright © 2017 Cайт на bootstrap | Design by <a href="">Abzal</a>
 </footer>
 </body>
 </html>
