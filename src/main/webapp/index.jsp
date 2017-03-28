@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="author" content="" />
-    <title>сайт на bootstrap</title>
+    <title>STUDY.KZ</title>
     <link href="plugin/font-awesome-4.6.3/css/font-awesome.css" type="text/css" rel="stylesheet"/>
     <link href="plugin/bootstrap-3.3.4-dist/css/bootstrap.css" type="text/css" rel="stylesheet"/>
     <link href="css/style.css" type="text/css" rel="stylesheet"/>
