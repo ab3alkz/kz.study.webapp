@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <parent>
+        <artifactId>kz.study.webapp</artifactId>
+        <groupId>kz.study</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>kz.study.web2</artifactId>
+    <packaging>war</packaging>
+    <name>kz.study.web2 Maven Webapp</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>kz.study</groupId>
+            <artifactId>kz.study.ejb</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <finalName>kz.study.web2</finalName>
+    </build>
+</project>

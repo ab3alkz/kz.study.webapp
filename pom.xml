@@ -3,16 +3,35 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>kz.study</groupId>
   <artifactId>kz.study.webapp</artifactId>
-  <packaging>war</packaging>
+  <packaging>pom</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>kz.study.webapp Maven Webapp</name>
-  <url>http://maven.apache.org</url>
+    <modules>
+      <module>kz.study.web2</module>
+      <module>kz.study.web1</module>
+      <module>kz.study.webix</module>
+      <module>kz.study.ejb</module>
+      <module>kz.study.ear</module>
+    </modules>
+    <name>kz.study.webapp Maven Webapp</name>
+
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <version>3.8.1</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-web-api</artifactId>
+      <version>6.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.3.1</version>
+      <type>jar</type>
     </dependency>
   </dependencies>
   <build>
