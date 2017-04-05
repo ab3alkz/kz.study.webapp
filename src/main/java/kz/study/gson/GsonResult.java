@@ -28,6 +28,4 @@ public class GsonResult {
     public void setMessage(Object message) {
         this.message = message;
     }
-    
-    
 }

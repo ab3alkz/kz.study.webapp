@@ -8,7 +8,8 @@ package kz.study.gson;
 import java.io.Serializable;
 
 /**
- * Created by a.amanzhol on 20.11.2016.
+ * @author a.amanzhol;
+ * @since on 20.11.2016.
  */
 public class GsonGroupmembers implements Serializable {
 

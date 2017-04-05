@@ -12,10 +12,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-/**
- *
- * @author Bekzhan
- */
 public class DateUtil {
 
     public static String dateToString(Date date, String f) {                        

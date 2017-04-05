@@ -5,7 +5,8 @@ import javax.transaction.NotSupportedException;
 import javax.transaction.SystemException;
 
 /**
- * Created by amanzhol-ak on 01.11.2016.
+ * @author amanzhol-ak;
+ * @since on 01.11.2016.
  */
 public class Utx {
 

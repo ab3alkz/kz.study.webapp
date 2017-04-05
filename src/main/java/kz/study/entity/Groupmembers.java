@@ -10,7 +10,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
- * Created by kusein-at on 17.11.2016.
+ * @author kusein-at;
+ * @since on 17.11.2016.
  */
 @Entity
 @Table(name = "GROUPMEMBERS")

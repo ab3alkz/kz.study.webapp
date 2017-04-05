@@ -21,7 +21,6 @@ import java.math.BigDecimal;
 
 /*
 * REST Web Service
-*
 * @author a.amanzhol
 */
 @Stateless

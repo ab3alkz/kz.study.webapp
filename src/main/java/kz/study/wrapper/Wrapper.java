@@ -58,7 +58,6 @@ public class Wrapper {
         return null;
     }
 
-
     public static List<GsonGroupmembers> wrapToGsonGroupmembersList(List<Groupmembers> list) {
         List<GsonGroupmembers> result = new ArrayList<>();
         for (Groupmembers groupmembers : list) {
@@ -66,7 +65,6 @@ public class Wrapper {
         }
         return result;
     }
-
 
     private static GsonGroupmembers wrapToGsonGroupmembers(Groupmembers g) {
         if (g != null) {
@@ -77,7 +75,6 @@ public class Wrapper {
         }
         return null;
     }
-
 
     public static List<GsonGroups> wrapToGsonGroupsList(List<Groups> list) {
         List<GsonGroups> result = new ArrayList<>();
@@ -97,7 +94,6 @@ public class Wrapper {
         return null;
     }
 
-
     public static List<Groupmembers> wrapToGroupmembersList(List<GsonGroupmembers> gsonList, String uName) {
         List<Groupmembers> result = new ArrayList<>();
         for (GsonGroupmembers gson : gsonList) {
@@ -105,7 +101,6 @@ public class Wrapper {
         }
         return result;
     }
-
 
     private static Groupmembers wrapToGroupmembers(GsonGroupmembers g, String uName) {
         if (g != null) {
@@ -115,5 +110,4 @@ public class Wrapper {
         }
         return null;
     }
-
 }
