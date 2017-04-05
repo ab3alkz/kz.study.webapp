@@ -32,6 +32,7 @@ import static kz.study.util.Util.isNullOrEmpty;
 public class AuthServlet extends HttpServlet {
 
     @EJB
+    private
     UserSession userSession;
 
     public static final String USER = "user";
