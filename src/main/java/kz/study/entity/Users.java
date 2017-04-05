@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-        @NamedQuery(name = "Users.findByUName", query = "SELECT u FROM Users u WHERE u.uName = :uName"),
+        @NamedQuery(name = "Users.findByUName", query = "SELECT u FROM Users u WHERE upper(u.uName) = upper(:uName)"),
         @NamedQuery(name = "Users.findByUPassword", query = "SELECT u FROM Users u WHERE u.uPassword = :uPassword"),
         @NamedQuery(name = "Users.findByUDescription", query = "SELECT u FROM Users u WHERE u.uDescription = :uDescription"),
         @NamedQuery(name = "Users.findByUnameAndUpass", query = "SELECT u FROM Users u WHERE u.uName = :uName and u.uPassword = :uPassword")

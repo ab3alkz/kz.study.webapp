@@ -38,7 +38,7 @@ public class UserSession {
         return null;
     }
 
-    private Users getUser(String uName) {
+    public Users getUser(String uName) {
         try {
             return (Users) getSingleResultOrNull(em.createNamedQuery("Users.findByUName").setParameter("uName", uName));
         } catch (Exception e) {
