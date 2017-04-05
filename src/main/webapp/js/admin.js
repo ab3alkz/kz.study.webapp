@@ -6,8 +6,6 @@ $(document).ready(function () {
 
 function load() {
     form_init();
-    var slide = {id: "ebf0f173-2960-4b2a-b8fb-68ccb9c11c09", type: slideTypeEnum.onlyImg};
-    slideEditWin(slide);
 }
 
 window.onresize = function (e) {
@@ -30,7 +28,8 @@ function form_init() {
                     data: [
                         {id: 1, title: "Текущая игра"},
                         {id: 2, title: "Архив"},
-                        {id: 3, title: "Фотогалерея"}
+                        {id: 3, title: "Фотогалерея"},
+                        {id: 4, title: "Әліпби"}
                     ],
                     on: {
                         onItemClick: function (val) {
@@ -41,6 +40,9 @@ function form_init() {
                                     break;
                                 case "2":
                                     createArchiveGameTable();
+                                    break;
+                                case "4":
+                                    createAudio();
                                     break;
                             }
                         }
@@ -324,6 +326,45 @@ function createArchiveGameTable() {
         ]
 
     })
+}
+
+function createAudio() {
+    getAllLetters();
+    $$("body").addView({
+        id: "content",
+        rows: [
+            {
+                view: 'label',
+                label: 'Кандай арип'
+            },
+            {
+                cols: [
+                    {},
+                    {
+                        id: "textNoticeCont",
+                        width: 200,
+                        height: 200,
+                        template: '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/316222556&amp;liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>'
+                    },
+                    {}
+                ]
+            }
+        ]
+
+    })
+}
+
+function getAllLetters() {
+    get_ajax('/study/wr/lrn/getAllLetters', 'GET', {}, function (gson) {
+        if (!gson || !gson.result) {
+            notifyMessage('Ошибка! ', gson.message, notifyType.danger);
+            return;
+        }
+        $$("body").removeView("content");
+        createLastGameForm(gson.message, data.name)
+        $$("addGameWin").hide();
+        notifyMessage('Информация! ', 'Игра добавлена!', notifyType.info);
+    });
 }
 
 function addSlide(gameId) {

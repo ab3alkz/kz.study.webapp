@@ -9,7 +9,6 @@ import javax.ws.rs.core.Application;
 import java.util.Set;
 
 /**
- *
  * @author a.amanzhol
  */
 @javax.ws.rs.ApplicationPath("wr")
@@ -29,7 +28,7 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(kz.study.rest.AppResource.class);
+        resources.add(AppResource.class);
+        resources.add(LearnResource.class);
     }
-
 }

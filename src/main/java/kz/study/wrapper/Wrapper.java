@@ -110,4 +110,23 @@ public class Wrapper {
         }
         return null;
     }
+
+    public static List<GsonAllDic> wrapToGsonAlphLinksList(List<AlphLinks> list) {
+        List<GsonAllDic> result = new ArrayList<>();
+        for (AlphLinks group : list) {
+            result.add(wrapToGsonAlphLinks(group));
+        }
+        return result;
+    }
+
+    private static GsonAllDic wrapToGsonAlphLinks(AlphLinks group) {
+        if (group != null) {
+            GsonAllDic gson = new GsonAllDic();
+            gson.setId(group.getId());
+            gson.setValue(group.getValue());
+            gson.setAddValue(group.getLetter());
+            return gson;
+        }
+        return null;
+    }
 }

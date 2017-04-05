@@ -26,10 +26,8 @@ public class Utx {
         try {
             System.out.println("rollback successful");
             utx.rollback();
-        } catch (SystemException e) {
+        } catch (SystemException | IllegalStateException e) {
             e.printStackTrace();
-        } catch (IllegalStateException e) {
-
         }
     }
 }
