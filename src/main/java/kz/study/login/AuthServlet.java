@@ -59,20 +59,18 @@ public class AuthServlet extends HttpServlet {
                     request.logout();
                 }
 
-
                 GsonUsers user = userSession.getGsonUser(j_username);
 
                 if (user != null) {
                    if(!user.getuPassword().equals(Crypt.MD5(j_password))) {}
                    else {
-                       throw new Exception();
+                       out.print(getResultGsonString(false, "Неправильно ввели пароль"));
                    }
                     HttpSession session = request.getSession(true);
                     session.setAttribute(USER, user);
                     out.print(getResultGsonString(true, null));
-                }
-                else {
-                    throw new Exception();
+                } else {
+                    out.print(getResultGsonString(false, "Пользователь "+j_username+" не найден"));
                 }
 
             } catch (Exception e) {
