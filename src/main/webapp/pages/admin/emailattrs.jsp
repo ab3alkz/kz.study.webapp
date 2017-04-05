@@ -1,45 +1,37 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: amanzhol-ak
-  Date: 03.09.2016
-  Time: 11:40
-  To change this template use File | Settings | File Templates.
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Параметры почты</title>
-    <script src="/study/plugin/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
-    <link href="/study/plugin/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <script src="/study/plugin/bootstrap-3.3.4-dist/js/bootstrap.min.js" type="text/javascript"></script>
-    <script src="/study/plugin/webix/codebase/webix.js" type="text/javascript"></script>
-    <link href="/study/plugin/webix/codebase/skins/terrace.css" rel="stylesheet" type="text/css"/>
-    <script src="/study/plugin/webix/codebase/sidebar.js" type="text/javascript"></script>
-    <link href="/study/plugin/webix/codebase/sidebar.css" rel="stylesheet" type="text/css"/>
-    <script src="/study/js/locale.js" type="text/javascript"></script>
-    <script src="/study/js/emailAttrs.js" type="text/javascript"></script>
-    <link href="/study/plugin/bootstrap-notify/animate.css" rel="stylesheet" type="text/css"/>
-    <script src="/study/plugin/bootstrap-notify/bootstrap-notify.min.js" type="text/javascript"></script>
-    <link href="/study/css/style.css" rel="stylesheet" type="text/css"/>
-    <link href="/study/css/app.css" rel="stylesheet" type="text/css"/>
-    <script src="/study/js/newutils.js" type="text/javascript"></script>
+    <script src="${contextPath}/plugin/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
+    <link href="${contextPath}/plugin/bootstrap-3.3.4-dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <script src="${contextPath}/plugin/bootstrap-3.3.4-dist/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="${contextPath}/plugin/webix/codebase/webix.js" type="text/javascript"></script>
+    <link href="${contextPath}/plugin/webix/codebase/skins/terrace.css" rel="stylesheet" type="text/css"/>
+    <script src="${contextPath}/plugin/webix/codebase/sidebar.js" type="text/javascript"></script>
+    <link href="${contextPath}/plugin/webix/codebase/sidebar.css" rel="stylesheet" type="text/css"/>
+    <script src="${contextPath}/js/locale.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/emailAttrs.js" type="text/javascript"></script>
+    <link href="${contextPath}/plugin/bootstrap-notify/animate.css" rel="stylesheet" type="text/css"/>
+    <script src="${contextPath}/plugin/bootstrap-notify/bootstrap-notify.min.js" type="text/javascript"></script>
+    <link href="${contextPath}/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="${contextPath}/css/app.css" rel="stylesheet" type="text/css"/>
+    <script src="${contextPath}/js/newutils.js" type="text/javascript"></script>
 </head>
 <body>
-<div id="menu" >
+<div id="menu">
     <%@include file='/incloudes/menu.jsp' %>
 </div>
 <div class="pagetitle">
     <ul class="breadcrumbs">
-        <li><a href="/study/">Главная страница</a></li>
+        <li><a href="${contextPath}/">Главная страница</a></li>
         <li class="current"><a>Параметры почты</a></li>
     </ul>
 </div>
 <div class="mywrapper">
-
-
     <div class="middle">
         <div class="mycontainer">
             <div class="mycontent">
