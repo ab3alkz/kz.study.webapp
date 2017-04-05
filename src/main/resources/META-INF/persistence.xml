@@ -3,17 +3,7 @@
   <persistence-unit name="study" transaction-type="JTA">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <jta-data-source>jdbc/study</jta-data-source>
-    <class>kz.study.entity.Games</class>
-      <class>kz.study.entity.Slide</class>
       <exclude-unlisted-classes>false</exclude-unlisted-classes>
-    <properties>
-      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/study?characterEncoding=utf8"/>
-      <property name="eclipselink.query-results-cache" value="false"/>
-      <property name="eclipselink.cache.shared.default" value="false"/>
-      <property name="eclipselink.jpa.uppercase-column-names" value="true"/>
-      <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost:3306/study"/>
-      <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-    </properties>
+
   </persistence-unit>
 </persistence>
