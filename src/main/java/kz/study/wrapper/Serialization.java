@@ -19,19 +19,6 @@ public class Serialization {
         return gson.fromJson(json, GsonUserDetail.class);
     }
 
-    public static GsonEmailDetail wrapToGsonEmailDetailByJsonString(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, GsonEmailDetail.class);
-    }
-
-    public static GsonEmail wrapToGsonEmailByJsonString(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, GsonEmail.class);
-    }
-    public static GsonGames wrapToGsonGamesByJsonString(String json) {
-        Gson gson = new Gson();
-        return gson.fromJson(json, GsonGames.class);
-    }
 
     public static GsonMsgTemplate wrapToGsonMsgTemplateByJsonString(String json) {
         Gson gson = new Gson();

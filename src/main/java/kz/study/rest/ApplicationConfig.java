@@ -29,7 +29,6 @@ public class ApplicationConfig extends Application {
      * If required, comment out calling this method in getClasses().
      */
     private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(kz.study.rest.AdminResource.class);
         resources.add(kz.study.rest.AppResource.class);
     }
 
