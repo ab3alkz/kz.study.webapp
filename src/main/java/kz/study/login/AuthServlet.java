@@ -7,7 +7,6 @@ package kz.study.login;
 
 import kz.study.entity.Users;
 import kz.study.session.UserSession;
-import kz.study.util.Crypt;
 import org.apache.log4j.Logger;
 
 import javax.ejb.EJB;
@@ -21,8 +20,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import static kz.study.util.Util.getResultGsonString;
-import static kz.study.util.Util.isNullOrEmpty;
+import static kz.study.util.Util.*;
 
 /**
  * @author a.kussein
@@ -63,7 +61,7 @@ public class AuthServlet extends HttpServlet {
                 Users user = userSession.getUser(j_username);
 
                 if (user != null) {
-                    if (!user.getuPassword().equals(Crypt.MD5(j_password)))  {
+                    if (!user.getuPassword().equals(getMd5Apache(j_password)))  {
                         out.print(getResultGsonString(false, "Неправильно ввели пароль"));
                     }
                     HttpSession session = request.getSession(true);
