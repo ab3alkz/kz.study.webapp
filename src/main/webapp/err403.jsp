@@ -1,4 +1,3 @@
-<%@ page import="java.util.Date" %>
 <%--
   Created by IntelliJ IDEA.
   User: amanzhol-ak
@@ -6,8 +5,6 @@
   Time: 9:41
   To change this template use File | Settings | File Templates.
 --%>
-
-
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -22,7 +19,7 @@
 
 <div style=" width: 940px; margin: 50px auto 0;">
     <H1>Возможно у вас нет прав для просмотра</H1>
-    <img style="margin: 0px auto;" src="/aoz/images/404error.jpg">
+    <img style="margin: 0px auto;" src="/study/images/404error.jpg">
 </div>
 
 </body>

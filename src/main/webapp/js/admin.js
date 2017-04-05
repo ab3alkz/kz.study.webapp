@@ -1,6 +1,5 @@
 var activeGameId;
 
-
 $(document).ready(function () {
     load();
 });
@@ -14,7 +13,6 @@ function load() {
 window.onresize = function (e) {
     slideEditWinResize();
 }
-
 
 function form_init() {
     webix.ready(function () {
@@ -63,7 +61,6 @@ function form_init() {
 
 function createSlidesView(gameId) {
     $$("mainlayot").hide();
-
     var layout = webix.ui({
         id: "slideslayot",
         container: "sldesContainer",
@@ -152,7 +149,6 @@ function createSlidesView(gameId) {
     });
 }
 
-
 function getLastGame() {
     get_ajax('/study/wr/admin/getLastGameName', 'GET', null, function (gson) {
         if (gson && gson.result) {
@@ -165,7 +161,6 @@ function getLastGame() {
         }
     });
 }
-
 
 function createLastGameForm(gameId, gameName) {
 
@@ -204,7 +199,6 @@ function createLastGameForm(gameId, gameName) {
 
     })
 }
-
 
 function addGameWin() {
     if (!$$('addGameWin')) {
@@ -332,7 +326,6 @@ function createArchiveGameTable() {
     })
 }
 
-
 function addSlide(gameId) {
     if (!$$('addSlideWin')) {
         webix.ui({
@@ -397,7 +390,6 @@ function addSlide(gameId) {
     };
 }
 
-
 function getSlidesTemplateArr() {
     return [
         {id: slideTypeEnum.onlyText, center: "fa-file-text-o"},
@@ -441,7 +433,6 @@ function selectTemplate(id) {
                 webix.html.removeCss(inp.$view, "selected");
             }
         }
-
     }
     $$("addSlideWin").config.selected = id;
     $$("selectTemplate" + id).define("css", "selected");
@@ -465,7 +456,6 @@ function addSlideWinSubmit() {
         }
     });
 }
-
 
 function slideEditWin(slide) {
 
@@ -516,7 +506,6 @@ function slideEditWin(slide) {
     slideEditWinResize();
 }
 
-
 function slideEditWinResize() {
     var win = $$('slideEditWin');
     if (win) {
@@ -549,6 +538,7 @@ function getSlideBodyText() {
         value: "..." //text and HTML markup
     }
 }
+
 function getSlideBodyImg(slide) {
     return {
         view: "uploader",
