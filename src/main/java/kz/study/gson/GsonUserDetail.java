@@ -3,6 +3,7 @@ package kz.study.gson;
 import java.util.List;
 
 public class GsonUserDetail {
+
     private String id;
     private String uName;
     private String firstname;
@@ -18,7 +19,6 @@ public class GsonUserDetail {
 
     public void setuName(String uName) {
         this.uName = uName;
-        this.id = uName;
     }
 
     public List<GsonGroupmembers> getRoles() {

@@ -8,11 +8,12 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
 /**
- * Created by amanzhol-ak on 03.09.2016.
+ * @author amanzhol-ak;
+ * @since on 03.09.2016.
  */
 public class DesEncrypter {
-    Cipher ecipher;
-    Cipher dcipher;
+    private Cipher ecipher;
+    private Cipher dcipher;
 
     public static final String seed = "AM6ROFFBABFAKILLEMALL";
 

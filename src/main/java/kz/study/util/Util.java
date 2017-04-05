@@ -1,12 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kz.study.util;
 
 import com.google.gson.Gson;
 import kz.study.gson.GsonResult;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
@@ -127,4 +123,12 @@ public class Util {
         return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
     }
 
+    /**
+     * @param uPassword;
+     * @return String;
+     * @desc Хэширования по MD5 код;
+     */
+    public static String getMd5Apache(String uPassword) {
+        return DigestUtils.md5Hex(uPassword);
+    }
 }

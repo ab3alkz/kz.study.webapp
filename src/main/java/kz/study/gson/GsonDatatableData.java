@@ -1,10 +1,9 @@
 package kz.study.gson;
 
 /**
- * Created by a.amanzhol on 20.11.2016.
+ * @author a.amanzhol;
+ * @since on 20.11.2016.
  */
-
-
 public class GsonDatatableData {
     private int pos;
     private int total_count;

@@ -4,9 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
- * Created by kusein-at on 17.11.2016.
+ * @author kusein-at;
+ * @since on 17.11.2016.
  */
 @Entity
 @Table(name = "USERS")
@@ -18,7 +20,7 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "Users.findByUDescription", query = "SELECT u FROM Users u WHERE u.uDescription = :uDescription"),
         @NamedQuery(name = "Users.findByUnameAndUpass", query = "SELECT u FROM Users u WHERE u.uName = :uName and u.uPassword = :uPassword")
 })
-public class Users {
+public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

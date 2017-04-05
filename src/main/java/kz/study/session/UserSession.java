@@ -20,7 +20,8 @@ import static kz.study.wrapper.Serialization.wrapToGsonUserDetailByJsonString;
 import static kz.study.wrapper.Wrapper.*;
 
 /**
- * Created by kusein-at on 17.11.2016.
+ * @author kusein-at;
+ * @since on 17.11.2016.
  */
 @Stateless
 public class UserSession {

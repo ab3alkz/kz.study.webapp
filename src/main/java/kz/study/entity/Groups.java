@@ -13,7 +13,8 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by kusein-at on 17.11.2016.
+ * @author kusein-at;
+ * @since on 17.11.2016.
  */
 @Entity
 @Table(name = "GROUPS")
