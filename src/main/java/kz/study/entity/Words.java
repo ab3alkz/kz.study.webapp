@@ -1,15 +1,21 @@
 package kz.study.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * Created by amanzhol-ak on 08.04.2017.
  */
 @Entity
-public class Words {
+@Table(name = "WORDS")
+@XmlRootElement
+@NamedQueries({
+        @NamedQuery(name = "Words.findAll", query = "SELECT g FROM Words g"),
+        @NamedQuery(name = "Words.findById", query = "SELECT g FROM Words g WHERE g.id = :id")
+})
+public class Words implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id")
     private String id;
@@ -36,6 +42,7 @@ public class Words {
     public Words(String id) {
         this.id = id;
     }
+
     public Words() {
     }
 }
