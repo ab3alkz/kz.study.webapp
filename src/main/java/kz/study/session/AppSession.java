@@ -5,12 +5,14 @@
  */
 package kz.study.session;
 
+import kz.study.entity.Words;
 import kz.study.util.Utx;
 import org.apache.log4j.Logger;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 
 /**
@@ -30,4 +32,12 @@ public class AppSession extends Utx {
     private static final int PER_DEF_COUNT = 30;
 
 
-}
+
+    public List<Words> getRandom10WordList() {
+        return em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(10).getResultList();
+    }
+
+    public List<Words> getTestTypeList() {
+        return em.createNamedQuery("TestType.findAll").getResultList();
+    }
+ }

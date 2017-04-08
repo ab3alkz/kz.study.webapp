@@ -19,6 +19,8 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 import java.math.BigDecimal;
 
+import static kz.study.util.Util.objectToJson;
+
 /*
 * REST Web Service
 * @author a.amanzhol
@@ -45,6 +47,20 @@ public class AppResource {
     @Path("beforeCreateApp")
     public String beforeCreateApp(@QueryParam("id") BigDecimal id, @QueryParam("personid") BigDecimal sicid) {
         return null;
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("getRandom10WordList")
+    public String getRandom10WordList() {
+        return objectToJson(appSession.getRandom10WordList());
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("getTestTypeList")
+    public String getTestTypeList() {
+        return objectToJson(appSession.getTestTypeList());
     }
 
 }

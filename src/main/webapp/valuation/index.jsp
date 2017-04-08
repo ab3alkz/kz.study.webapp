@@ -32,7 +32,7 @@
                         <h1 style="padding-bottom:20px ; border-bottom: 1px solid silver">Қазақ тілі білімін бағалау жүйесі</h1>
                         <h3 style="color: #222">Тіл біліміңді тексеру үшін сынақтан өт</h3>
                         <br>
-                        <button class='btn btn-success' style="padding-left: 50px;padding-right: 50px">Сынақты бастау</button>
+                        <button onclick="getTestTypeList()" class='btn btn-success' style="padding-left: 50px;padding-right: 50px">Сынақты бастау</button>
                     </div>
                     <div style="float: left;width: 30%;border-left: 1px solid silver" id="loginForm">
                     </div>
