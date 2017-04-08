@@ -131,4 +131,8 @@ public class Util {
     public static String getMd5Apache(String uPassword) {
         return DigestUtils.md5Hex(uPassword);
     }
+
+
+
+
 }
