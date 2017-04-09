@@ -47,7 +47,7 @@ function startFillWords() {
                         }, {
                             view: 'text',
                             width: 40,
-                            attributes: {maxlength: 10},
+                            attributes: {maxlength: 1},
                             id: gson[i].id,
                             on: {
                                 onChange: function (newV, oldV) {
@@ -63,7 +63,8 @@ function startFillWords() {
                                     if (obj) {
                                         obj.selected = this.config.id;
                                     } else {
-                                        console.log("символ " + newV + " не найден")
+                                        //$$(this.config.id + "Required").define("label", "<p style='margin-top: 0;color: red;'>әріп " + newV + " табылмады</p>")
+                                        $$(this.config.id + "Required").define("label", "<p style='margin-top: 0;color: red;'>қате</p>")
                                     }
                                     setSelectedCharArray();
                                 }
@@ -72,8 +73,16 @@ function startFillWords() {
                         {
                             view: "label",
                             height: 40,
+                            autowidth: true,
                             id: gson[i].id + "Right",
                             label: "<h3 style='margin-top: 0'>" + right + "</h3>"
+                        },
+                        {
+                            view: "label",
+                            height: 40,
+                            ///autowidth: true,
+                            id: gson[i].id + "Required",
+                            label: ""
                         }
                     ]
                 });
@@ -113,8 +122,8 @@ function setSelectedCharArray() {
 
 function charArraySort() {
     charArray.sort(function (a, b) {
-        var c = a.char,
-            d = b.char;
+        var c = a.id,
+            d = b.id;
 
         if (c < d) {
             return -1;
