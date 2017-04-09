@@ -1,4 +1,5 @@
 var charArray = [];
+var allWords;
 
 function startFillWords() {
     get_ajax('/study/wr/app/getRandom10WordList', 'GET', null, function (gson) {
@@ -10,6 +11,7 @@ function startFillWords() {
 
 function createFillWords(gson) {
     if (gson) {
+        allWords = gson;
         $$("fillWordsContainer").removeView("fillWordsArena");
         $$("fillWordsContainer").addView({
             id: "fillWordsArena",
@@ -50,7 +52,8 @@ function createFillWords(gson) {
                         labelAlign: 'right',
                         hidden: left.length == 0,
                         id: gson[i].id + "Left",
-                        label: "<h3 style='margin-top: 0'>" + left + "</h3>"
+                        label: "<h3 style='margin-top: 0'>" + left + "</h3>",
+                        word: left
                     }, {
                         view: 'text',
                         width: 40,
@@ -60,7 +63,6 @@ function createFillWords(gson) {
                             onChange: function (newV, oldV) {
                                 newV = newV.toLowerCase();
                                 var me = this;
-                                console.log(me)
                                 var sel = getCharBySelected(charArray, this.config.id);
                                 if (sel) {
                                     sel.selected = null;
@@ -86,7 +88,8 @@ function createFillWords(gson) {
                         height: 40,
                         autowidth: true,
                         id: gson[i].id + "Right",
-                        label: "<h3 style='margin-top: 0'>" + right + "</h3>"
+                        label: "<h3 style='margin-top: 0'>" + right + "</h3>",
+                        word: right
                     },
                     {
                         view: "label",
@@ -116,7 +119,7 @@ function createFillWords(gson) {
                     id: "fillWordsRequireBtn",
                     width: 155,
                     css: "noBorder",
-                    template: "<button style='width: 145px;' class='btn btn-success'>Аяқтау</button>"
+                    template: "<button id='fillWordsRequireBtn' style='width: 145px;' onclick=\"fillWordsRequired('fillWordsRequireBtn')\" class='btn btn-success'>Аяқтау</button>",
                 }
             ]
         });
@@ -162,7 +165,7 @@ function charArraySort() {
 function getCharById(list, id) {
     for (var i in list) {
         if (list[i].id == id && isNullOrEmpty(list[i].selected)) {
-            return list[i]
+            return list[i];
         }
     }
     return null;
@@ -171,8 +174,31 @@ function getCharById(list, id) {
 function getCharBySelected(list, selected) {
     for (var i in list) {
         if (list[i].selected == selected) {
-            return list[i]
+            return list[i];
         }
     }
     return null;
+}
+
+function fillWordsRequired(btnId) {
+    var btn = $('#' + btnId);
+    btn.prop('disabled', true);
+    if (allWords) {
+        for (var i in allWords) {
+            var word = allWords[i];
+            var inp = $$(word.id);
+            if (inp) {
+                inp.define("readonly", true);
+                inp.adjust()
+            }
+            var left = $$(word.id + "Left").config.word;
+            var right = $$(word.id + "Right").config.word;
+            var sel = getCharBySelected(charArray, word.id);
+            var ch = "_";
+            if(sel) {
+                ch = sel.id;
+            }
+            console.log(left+ch+right,word.valueKz)
+        }
+    }
 }
