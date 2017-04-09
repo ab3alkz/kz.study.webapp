@@ -6,13 +6,13 @@ function load() {
     form_init();
 }
 
-window.onresize = function (e) {
-    slideEditWinResize();
-}
-
 function form_init() {
     webix.ready(function () {
         createLoginForm();
+        startTest("fillWords", {
+            id: "fillWords",
+            name: "Сөздерді толықтыр"
+        });
     });
 }
 
@@ -80,7 +80,6 @@ function getTestTypeList() {
             viewTestTypeListWin(gson);
     }, function (url) {
         messageBox("Ошибка", "Ошибка службы " + ' ' + url);
-        hideAppProgress();
     });
 }
 
@@ -126,9 +125,14 @@ function viewTestTypeListWin(gson) {
                         header: false,
                         footer: false,
                         rowHeight: 45,
+                        select: 'row',
                         columns: [
                             {id: "startBtn", header: " ", width: 120},
-                            {template: "<b style='font-size: 16px; color:#317eac'>#name#</b>", header: " ", fillspace: 1}
+                            {
+                                template: "<b style='font-size: 16px; color:#317eac'>#name#</b>",
+                                header: " ",
+                                fillspace: 1
+                            }
                         ],
                         scheme: {
                             $init: function (obj) {
@@ -137,7 +141,11 @@ function viewTestTypeListWin(gson) {
                         },
                         onClick: {
                             startTest: function (e, item, cell) {
-                                startTest(item.row);
+                                setTimeout(function () {
+                                    var obj = $$("viewTestTypeListTable").getSelectedItem();
+                                    startTest(item.row, obj);
+                                    $$("viewTestTypeListWin").hide();
+                                }, 100)
                             }
                         }
                     }
@@ -153,6 +161,51 @@ function viewTestTypeListWin(gson) {
     };
 }
 
-function startTest(id) {
-    console.log(id)
+function startTest(id, item) {
+    console.log(id);
+    $("#mainContainer").hide();
+    switch (id) {
+        case "fillWords":
+            createFillWordsContainer(id, item);
+            break;
+        default:
+            createDefContainer(id, item);
+    }
+
+}
+
+
+function createDefContainer(id, item) {
+    webix.ui(
+        {
+            id: "defContainer",
+            container: "defContainer",
+            rows: [
+                {
+                    view: 'label',
+                    height: 60,
+                    label: "<h2>" + item.name + "</h2>"
+                }
+            ]
+        }
+    );
+}
+
+function createFillWordsContainer(id, item) {
+    webix.ui(
+        {
+            id: "fillWordsContainer",
+            container: "fillWordsContainer",
+            rows: [
+                {
+                    view: 'label',
+                    height: 60,
+                    label: "<h2>" + item.name + "</h2>"
+                }, {
+                    height: 50
+                }
+            ]
+        }
+    );
+    startFillWords();
 }

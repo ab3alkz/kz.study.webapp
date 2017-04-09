@@ -42,6 +42,11 @@ public class Words implements Serializable {
     public Words(String id) {
         this.id = id;
     }
+    public Words(String id,String valueKz) {
+        this.id = id;
+        this.valueKz = valueKz;
+
+    }
 
     public Words() {
     }

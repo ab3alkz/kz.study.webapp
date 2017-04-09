@@ -486,3 +486,16 @@ function getDateMask(value, mask, key) {
     }
     return newValue;
 }
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getObjectById(list, id) {
+    for (var i in list) {
+        if (list[i].id == id) {
+            return list[i]
+        }
+    }
+    return null;
+}

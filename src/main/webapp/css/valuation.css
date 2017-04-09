@@ -660,3 +660,18 @@ body {
     border: none;
 }
 
+.webix_icon.fa-fa.fa-times{
+    color: red!important;
+}
+
+.fill-words-arena-chars {
+    text-transform: lowercase;
+    color: navy;
+    margin-top: 0;
+}
+
+.fill-words-arena-chars.fill-words-arena-line-through {
+    text-decoration: line-through;
+    color: #000;
+}
+

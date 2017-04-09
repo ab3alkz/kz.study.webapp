@@ -16,7 +16,8 @@
     <script src="${contextPath}/plugin/bootstrap-3.3.4-dist/js/bootstrap.min.js" type="text/javascript"></script>
     <link href="${contextPath}/plugin/bootswatch-gh-pages/cerulean/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/plugin/bootstrap-3.3.4-dist/css/bootstrap-menu.css" rel="stylesheet" type="text/css"/>
-    <script src="${contextPath}/js/valuation.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/valuation/valuation.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/valuation/fill-words.js" type="text/javascript"></script>
     <script src="${contextPath}/js/common.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js?version=<%= new Date()%>" type="text/javascript"></script>
     <link href="${contextPath}/css/valuation.css" rel="stylesheet" type="text/css"/>
@@ -26,13 +27,21 @@
 <div>
     <div class="container panel panel-default" style="margin-top: 80px">
         <div class="panel-body">
-            <div >
-                <div id="mainContainer">
+            <div>
+                <div>
                     <div style="float: left;width: 70%">
-                        <h1 style="padding-bottom:20px ; border-bottom: 1px solid silver">Қазақ тілі білімін бағалау жүйесі</h1>
-                        <h3 style="color: #222">Тіл біліміңді тексеру үшін сынақтан өт</h3>
-                        <br>
-                        <button onclick="getTestTypeList()" class='btn btn-success' style="padding-left: 50px;padding-right: 50px">Сынақты бастау</button>
+                        <div id="mainContainer">
+                            <h1 style="padding-bottom:20px ; border-bottom: 1px solid silver">Қазақ тілі білімін бағалау
+                                жүйесі</h1>
+                            <h3 style="color: #222">Тіл біліміңді тексеру үшін сынақтан өт</h3>
+                            <br>
+                            <button onclick="getTestTypeList()" class='btn btn-success'
+                                    style="padding-left: 50px;padding-right: 50px">Сынақты бастау
+                            </button>
+                        </div>
+                        <div id="defContainer"></div>
+                        <div id="fillWordsContainer"></div>
+
                     </div>
                     <div style="float: left;width: 30%;border-left: 1px solid silver" id="loginForm">
                     </div>

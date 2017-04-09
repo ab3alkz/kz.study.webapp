@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -34,7 +35,20 @@ public class AppSession extends Utx {
 
 
     public List<Words> getRandom10WordList() {
-        return em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(10).getResultList();
+        //return em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(10).getResultList();
+        List<Words> wordsList = new ArrayList<>();
+        int i =1;
+        wordsList.add(new Words("a"+(i++),"Сәлеметсізбе"));
+        wordsList.add(new Words("a"+(i++),"Жаз"));
+        wordsList.add(new Words("a"+(i++),"Көктем"));
+        wordsList.add(new Words("a"+(i++),"Күз"));
+        wordsList.add(new Words("a"+(i++),"Әке"));
+        wordsList.add(new Words("a"+(i++),"Қазақстан"));
+        wordsList.add(new Words("a"+(i++),"Қыс"));
+        wordsList.add(new Words("a"+(i++),"Балапан"));
+        wordsList.add(new Words("a"+(i++),"Мысық"));
+        wordsList.add(new Words("a"+(i++),"Қазақ"));
+        return wordsList;
     }
 
     public List<Words> getTestTypeList() {
