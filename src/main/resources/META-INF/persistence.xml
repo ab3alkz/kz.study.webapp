@@ -6,10 +6,8 @@
         <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
         <jta-data-source>jdbc/arma</jta-data-source>
         <class>kz.study.entity.TestType</class>
+        <class>kz.study.entity.AlphLinks</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <properties>
-            <property name="eclipselink.jdbc.url" value="jdbc:mysql://10.1.0.86:3306/arma"/>
-            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-        </properties>
+        <properties/>
     </persistence-unit>
 </persistence>

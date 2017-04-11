@@ -7,7 +7,9 @@ package kz.study.session;
 
 import kz.study.entity.Words;
 import kz.study.util.Utx;
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,7 +25,7 @@ import java.util.List;
 public class AppSession extends Utx {
 
 
-    private static final Logger logger = Logger.getLogger(AppSession.class);
+    private static final Logger logger = LoggerFactory.getLogger(AppSession.class);
 
     @PersistenceContext(unitName = "study")
     private EntityManager em;

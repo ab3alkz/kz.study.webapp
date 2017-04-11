@@ -9,7 +9,6 @@
     <script src="${contextPath}/plugin/bootstrap-3.3.4-dist/js/bootstrap.min.js" type="text/javascript"></script>
     <link href="${contextPath}/plugin/bootswatch-gh-pages/cerulean/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/plugin/bootstrap-3.3.4-dist/css/bootstrap-menu.css" rel="stylesheet" type="text/css"/>
-    <script src="${contextPath}/js/password.js?version=<%= new Date()%>" type="text/javascript"></script>
     <link href="${contextPath}/css/main.css" rel="stylesheet" type="text/css"/>
     <script>
         function logout() {
@@ -26,7 +25,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href=${contextPath}><span class="glyphicon glyphicon-home"></span></a></li>
-                <li><a href=${contextPath}><span class="glyphicon glyphicon-sort-by-alphabet">Әліпби</span></a></li>
+                <li><a href="${contextPath}/pages/letter.jsp"><span class="glyphicon glyphicon-sort-by-alphabet">Әліпби</span></a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span>Сабақтар</span><span class="caret"></span></a>

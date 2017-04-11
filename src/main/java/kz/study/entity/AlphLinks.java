@@ -19,7 +19,7 @@ import java.io.Serializable;
 @Table(name = "ALPH_LINKS")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "AlphLinks.findAll", query = "SELECT g FROM Groups g")
+        @NamedQuery(name = "AlphLinks.findAll", query = "SELECT g FROM AlphLinks g")
 })
 public class AlphLinks implements Serializable {
 
