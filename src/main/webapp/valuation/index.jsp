@@ -21,6 +21,9 @@
     <script src="${contextPath}/js/common.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js?version=<%= new Date()%>" type="text/javascript"></script>
     <link href="${contextPath}/css/valuation.css" rel="stylesheet" type="text/css"/>
+    <script>
+        var uName = null;
+    </script>
 </head>
 <body>
 
@@ -44,6 +47,7 @@
 
                     </div>
                     <div style="float: left;width: 30%;border-left: 1px solid silver" id="loginForm">
+                    <div style="float: left;width: 30%;border-left: 1px solid silver; display: none;" id="userInfo">
                     </div>
                     <div class="clearfix"></div>
                 </div>

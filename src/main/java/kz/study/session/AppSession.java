@@ -16,6 +16,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -35,9 +36,18 @@ public class AppSession extends Utx {
     private static final int PER_DEF_COUNT = 30;
 
 
+    private List<Integer> randList;
 
     public List<Words> getRandom10WordList() {
-        //return em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(10).getResultList();
+        /*List<Words> list = em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(100).getResultList();
+        List<Words> result = new ArrayList<>();
+        randList = new ArrayList<>();
+        Integer cnt = 10 > list.size() - 1 ? list.size() - 1 : 10;
+        for (int i = 0; i <= cnt; i++) {
+            Integer randIdx = getRandIdxWord(0, list.size() - 1);
+            result.add(list.get(randIdx));
+        }
+        return result;*/
         List<Words> wordsList = new ArrayList<>();
         int i =1;
         wordsList.add(new Words("a"+(i++),"Сәлеметсізбе"));
@@ -53,7 +63,22 @@ public class AppSession extends Utx {
         return wordsList;
     }
 
+    private Integer getRandIdxWord(Integer maximum, Integer minimum) {
+        Integer rand = getRandom(0, maximum);
+        if (randList.contains(rand)) {
+            return getRandIdxWord(maximum, minimum);
+        }
+        return rand;
+    }
+
+    private static Integer getRandom(Integer maximum, Integer minimum) {
+        Random rn = new Random();
+        int n = maximum - minimum + 1;
+        int i = rn.nextInt() % n;
+        return minimum + i;
+    }
+
     public List<Words> getTestTypeList() {
         return em.createNamedQuery("TestType.findAll").getResultList();
     }
- }
+}
