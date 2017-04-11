@@ -8,11 +8,16 @@ function load() {
 
 function form_init() {
     webix.ready(function () {
-        createLoginForm();
-        startTest("fillWords", {
-            id: "fillWords",
-            name: "Сөздерді толықтыр"
-        });
+        uName = getURLParameters("uname");
+        if (isNullOrEmpty(uName)) {
+            createLoginForm();
+        } else {
+            authSuccess();
+        }
+        // startTest("fillWords", {
+        //     id: "fillWords",
+        //     name: "Сөздерді толықтыр"
+        // });
     });
 }
 
@@ -75,6 +80,9 @@ function createLoginForm() {
 }
 
 function getTestTypeList() {
+    if (isNullOrEmpty(uName)) {
+        return viewLoginWin();
+    }
     get_ajax('/study/wr/app/getTestTypeList', 'GET', null, function (gson) {
         if (gson)
             viewTestTypeListWin(gson);
@@ -162,7 +170,6 @@ function viewTestTypeListWin(gson) {
 }
 
 function startTest(id, item) {
-    console.log(id);
     $("#mainContainer").hide();
     switch (id) {
         case "fillWords":
@@ -173,7 +180,6 @@ function startTest(id, item) {
     }
 
 }
-
 
 function createDefContainer(id, item) {
     webix.ui(
@@ -208,4 +214,254 @@ function createFillWordsContainer(id, item) {
         }
     );
     startFillWords();
+}
+
+function viewLoginWin() {
+    if (!$$('viewLoginWin')) {
+        webix.ui({
+            view: "window",
+            id: "viewLoginWin",
+            modal: true,
+            position: "center",
+            width: 650,
+            head: {
+                cols: [
+                    {width: 10},
+                    {view: "label", label: "Сынақты бастау үшін тіркелуіңіз керек"},
+                    {
+                        borderless: true,
+                        view: "toolbar",
+                        paddingY: 2,
+                        height: 40,
+                        cols: [
+                            {
+                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                click: function () {
+                                    this.getTopParentView().close();
+                                    window.onscroll = null;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            body: {
+                rows: [
+                    {
+                        id: "viewLoginWinForm",
+                        view: "form",
+                        width: 500,
+                        elements: [
+                            {
+                                view: "text",
+                                name: "uname",
+                                label: "Логин",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "name",
+                                label: "Аты жөні",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "email",
+                                label: "Почтасы",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "password",
+                                label: "Құпия сөз",
+                                type: "password",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "password",
+                                label: "Құпия сөз",
+                                type: "passwordс",
+                                required: true
+                            }
+                        ]
+                    },
+                    {
+                        height: 20
+                    }, {
+                        cols: [
+                            {
+                                width: 20
+                            },
+                            {
+                                height: 50,
+                                width: 155,
+                                css: "noBorder",
+                                template: "<button style='width: 145px;'  class='btn btn-success'>Тіркелу</button>"
+                            }, {
+                                height: 50,
+                                width: 155,
+                                css: "noBorder",
+                                template: "<button onclick='viewSignInWin()'  style='width: 145px;' class='btn btn-primary'>Мен тіркелгенмін</button>"
+                            }
+                        ]
+                    },
+                    {
+                        height: 20
+                    }
+                ]
+            }
+        }).hide();
+    }
+    $$('viewLoginWin').show(false, false);
+    var y = window.scrollY;
+    window.onscroll = function () {
+        window.scrollTo(0, y);
+    };
+}
+
+
+function viewSignInWin() {
+    if ($$("viewLoginWin")) {
+        $$("viewLoginWin").hide();
+    }
+    if (!$$('viewSignInWin')) {
+        webix.ui({
+            view: "window",
+            id: "viewSignInWin",
+            modal: true,
+            position: "center",
+            head: {
+                cols: [
+                    {width: 10},
+                    {view: "label", label: "Кіру"},
+                    {
+                        borderless: true,
+                        view: "toolbar",
+                        paddingY: 2,
+                        height: 40,
+                        cols: [
+                            {
+                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                click: function () {
+                                    this.getTopParentView().close();
+                                    window.onscroll = null;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            body: {
+                rows: [
+                    {
+                        id: "viewSignInWinForm",
+                        view: 'form',
+                        width: 450,
+                        elements: [
+                            {
+                                view: "text",
+                                name: "uname",
+                                label: "Логин",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "password",
+                                label: "Құпия сөз",
+                                type: "password",
+                                required: true
+                            }
+                        ]
+                    },
+                    {
+                        height: 20
+                    }, {
+                        cols: [
+                            {
+                                width: 20
+                            },
+                            {
+                                height: 50,
+                                width: 155,
+                                css: "noBorder",
+                                template: "<button onclick='viewSignInWinSubmit()' style='width: 145px;'  class='btn btn-primary'>Кіру</button>"
+                            }, {
+                                height: 50,
+                                width: 155,
+                                css: "noBorder",
+                                template: "<button onclick='viewLoginWin()'  style='width: 145px;' class='btn btn-success'>Тіркелу</button>"
+                            }
+                        ]
+                    },
+                    {
+                        height: 20
+                    }
+                ]
+            }
+        }).hide();
+    }
+    $$('viewSignInWin').show(false, false);
+    var y = window.scrollY;
+    window.onscroll = function () {
+        window.scrollTo(0, y);
+    };
+}
+
+function viewSignInWinSubmit() {
+    var username = $$("viewSignInWinForm").elements['uname'].getValue();
+    var password = $$("viewSignInWinForm").elements['password'].getValue();
+    loginSubmit(username, password);
+}
+
+function loginSubmit(username, password) {
+
+    if (username.trim().length == 0 || password.trim().length == 0) {
+        alertError("Введите логин и пароль");
+        return;
+    }
+
+    $.ajax({
+        url: "/study/auth",
+        type: 'GET',
+        data: {j_username: username, j_password: password},
+        success: function (gson) {
+            if (gson) {
+                if (gson.result) {
+                    authSuccess();
+                } else {
+                    alertError(gson.message);
+                }
+            }
+        },
+        error: function () {
+            alertError('Ошибка', 'Ошибка сервера');
+        }
+    });
+}
+
+function authSuccess() {
+    $('#loginForm').hide();
+
+    webix.ui({
+        id: "userInfo",
+        container: "userInfo",
+        borderless: true,
+        elementsConfig: {
+            labelPosition: "left",
+            labelWidth: 100,
+            width: 300
+        },
+        rows: [
+            {
+                view: "label",
+                label: "<img style='width: 100px;height: 100px' src='../../images/no-avatar.jpg'>",
+                height: 80
+            },
+            {
+                view: "label",
+                label: uName
+            }
+        ]
+    });
 }
