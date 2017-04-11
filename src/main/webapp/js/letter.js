@@ -3,45 +3,49 @@ $(document).ready(function () {
 });
 
 function form_init() {
-    webix.ready(function () {
-        var layout = webix.ui({
-            id: "mainlayot",
-            container: "mainContainer",
-            cols: [
-                {width: 10},
-                {id: "body", rows: [{id: "content"}]},
-                {width: 10}
-            ]
-        });
-
+    webix.ui({
+        id: "mainlayot",
+        container: "mainContainer",
+        css: 'blueW',
+        cols: [
+            {width: 10},
+            {
+                id: "body",
+                rows: []
+            },
+            {width: 10}
+        ]
     });
-    createAudio();
+    getAllLetters();
 }
 
-function createAudio() {
-    getAllLetters();
+function createAudio(json, i) {
+    var src = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/316222556&amp;";
     $$("body").addView({
-        id: "content",
+        id: "content" + i,
+        css: 'boxLetter',
+        margin: 10,
         rows: [
             {
-                view: 'label',
-                label: 'Кандай арип'
-            },
-            {
                 cols: [
-                    {},
                     {
-                        id: "textNoticeCont",
+                        view: 'label',
+                        label: json.addValue,
+                        css: 'pLetter',
+                        height: 60
+                    },
+                    {
+                        id: "textNoticeCont" + i,
                         width: 200,
                         height: 200,
-                        template: '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/316222556&amp;liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>'
+                        template: '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="' + src + '"liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>'
                     },
                     {}
                 ]
             }
         ]
 
-    })
+    });
 }
 
 function getAllLetters() {
@@ -50,9 +54,9 @@ function getAllLetters() {
             notifyMessage('Ошибка! ', gson.message, notifyType.danger);
             return;
         }
-        $$("body").removeView("content");
-        createLastGameForm(gson.message, data.name)
-        $$("addGameWin").hide();
-        notifyMessage('Информация! ', 'Игра добавлена!', notifyType.info);
+        for (var i in gson.message) {
+            createAudio(gson.message[i], i);
+        }
+
     });
 }

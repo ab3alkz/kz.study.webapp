@@ -1,0 +1,20 @@
+.pLetter {
+    font: 80px/88px 'DSFreeSetEB bold' !important;
+    color: #333333 !important;;
+    padding: 10px 0px 12px 0px !important;;
+}
+
+.boxLetter {
+    border: solid 3px #26b4ff!important;
+    width: 75%;
+    padding: 64px 35px 48px 35px;
+    border-top-left-radius: 4em 3em;
+    border-bottom-left-radius: 5em 20em;
+    border-bottom-right-radius: 5em 20em;
+    border-top-right-radius: 4em 3em;
+    position: relative;
+}
+.boxLetter.webix_layout_line {
+    width: 80%!important;
+    margin: 0 auto!important;
+}

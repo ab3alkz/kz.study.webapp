@@ -37,7 +37,7 @@ public class LearnSession extends Utx {
     public GsonResult getAllLeters() {
         try {
             List<AlphLinks> alphLinks = em.createNamedQuery("AlphLinks.findAll").getResultList();
-            GsonAllDic gsonAllDic = (GsonAllDic) wrapToGsonAlphLinksList(alphLinks);
+            List<GsonAllDic> gsonAllDic = wrapToGsonAlphLinksList(alphLinks);
             return getGsonResult(Boolean.TRUE, gsonAllDic);
         } catch (Exception e) {
             LOGGER.error("error", e);
