@@ -1,5 +1,6 @@
 <%@ page import="kz.study.entity.Users" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="kz.study.entity.UserDetail" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -11,9 +12,18 @@
     <script type="text/javascript">
         <%
         Users user = (Users) request.getSession().getAttribute("user");
-        String uName = user!=null?user.getuName():"";
+        String uName =   "";
+        String fio = "";
+        if(user!=null) {
+            uName=user.getuName();
+            if(user.getUserDetail()!=null) {
+                UserDetail ud = user.getUserDetail();
+            fio = ud.getLastname()+" "+ud.getFirstname();
+            }
+        }
         %>
         var myuser = '<%=uName%>';
+        var myuserFio = '<%=fio%>';
         console.log(myuser)
     </script>
     <script src="${contextPath}/plugin/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>

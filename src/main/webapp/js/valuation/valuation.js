@@ -102,6 +102,11 @@ function viewTestTypeListWin(gson) {
             view: "window",
             id: "viewTestTypeListWin",
             modal: true,
+            on: {
+                onHide: function () {
+                    window.onscroll = null;
+                }
+            },
             position: "center",
             width: 650,
             head: {
@@ -227,6 +232,11 @@ function viewLoginWin() {
             view: "window",
             id: "viewLoginWin",
             modal: true,
+            on: {
+                onHide: function () {
+                    window.onscroll = null;
+                }
+            },
             position: "center",
             width: 650,
             head: {
@@ -336,6 +346,11 @@ function viewSignInWin() {
             id: "viewSignInWin",
             modal: true,
             position: "center",
+            on: {
+                onHide: function () {
+                    window.onscroll = null;
+                }
+            },
             head: {
                 cols: [
                     {width: 10},
@@ -438,8 +453,9 @@ function loginSubmit1(username, password) {
         success: function (gson) {
             if (gson) {
                 if (gson.result) {
-                    myuser = username;
                     authSuccess();
+
+                    window.location.href = "";
                 } else {
                     alertError(gson.message);
                 }
@@ -459,16 +475,27 @@ function authSuccess() {
         container: "userInfo",
         rows: [
             {
-                template: "<img style='width: 100px;height: 100px;margin: 10px;' src='/study/images/no-avatar.jpg'>",
-                height: 120,
-                width: 120
+                cols: [
+                    {},{
+                        template: "<img style='width: 100px;height: 100px;margin: 10px;' src='/study/images/no-avatar.jpg'>",
+                        height: 120,
+                        width: 120
+                    },
+                    {}
+                ]
             },
             {
                 view: "label",
-                label: "<h3 style='text-align: center'>" + myuser + "</h3>",
-                height:50
+                label: "<h3 style='text-align: center;margin-bottom: 0'>" + myuserFio + "</h3><span onclick='logout1()'>Шығу</span>",
+                height: 110
             }
         ]
     });
     $('#userInfo').show();
+}
+
+function logout1() {
+    $.post("/study/auth", function () {
+        window.location.href = "";
+    });
 }
