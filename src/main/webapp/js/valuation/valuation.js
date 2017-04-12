@@ -457,12 +457,12 @@ function loginSubmit1(username, password) {
 
                     window.location.href = "";
                 } else {
-                    alertError(gson.message);
+                    messageBox("Ошибка", gson.message);
                 }
             }
         },
         error: function () {
-            alertError('Ошибка', 'Ошибка сервера');
+            messageBox("Ошибка", "Ошибка службы ");
         }
     });
 }

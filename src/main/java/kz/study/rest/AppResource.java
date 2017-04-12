@@ -59,8 +59,8 @@ public class AppResource {
     @GET
     @Produces("application/json")
     @Path("setGameResult")
-    public String setGameResult(@QueryParam("gameId") String gameId, @QueryParam("uName") String uName, @QueryParam("result") String result) {
-        return objectToJson(appSession.setGameResult(gameId,uName,result));
+    public String setGameResult(@QueryParam("gameId") String gameId, @QueryParam("uName") String uName, @QueryParam("result") Long result) {
+        return objectToJson(appSession.setGameResult(gameId, uName, result));
     }
 
     @GET
