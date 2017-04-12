@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.5.2
--- https://www.phpmyadmin.net/
+-- version 4.5.0.2
+-- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 09 2017 г., 11:24
--- Версия сервера: 10.1.21-MariaDB
--- Версия PHP: 7.1.1
+-- Время создания: Апр 12 2017 г., 07:26
+-- Версия сервера: 10.0.17-MariaDB
+-- Версия PHP: 5.5.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -44,11 +44,11 @@ INSERT INTO `alph_links` (`id`, `link`, `letter`) VALUES
 (5, '', 'Г г'),
 (6, '', 'Ғ ғ'),
 (7, '', 'Д д'),
-(8, '', 'Е е'),
+(8, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/317296308&amp;', 'Е е'),
 (9, '', 'Ё ё'),
 (10, '', 'Ж ж'),
 (11, '', 'З з'),
-(12, '', 'И и'),
+(12, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/317296422&amp;', 'И и'),
 (13, '', 'Й й'),
 (14, '', 'К к'),
 (15, '', 'Қ қ'),
@@ -56,15 +56,15 @@ INSERT INTO `alph_links` (`id`, `link`, `letter`) VALUES
 (17, '', 'М м'),
 (18, '', 'Н н'),
 (19, '', 'Ң ң'),
-(20, '', 'О о'),
-(21, '', 'Ө ө'),
+(20, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/317294720&amp;', 'О о'),
+(21, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/317295409&amp;', 'Ө ө'),
 (22, '', 'П п'),
 (23, '', 'Р р'),
 (24, '', 'С с'),
 (25, '', 'Т т'),
-(26, '', 'У у'),
-(27, '', 'Ұ ұ'),
-(28, '', 'Ү ү'),
+(26, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/317296678&amp;', 'У у'),
+(27, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/317295793&amp;', 'Ұ ұ'),
+(28, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/317295932&amp;', 'Ү ү'),
 (29, '', 'Ф ф'),
 (30, '', 'Х х'),
 (31, '', 'Һ һ'),
@@ -73,12 +73,25 @@ INSERT INTO `alph_links` (`id`, `link`, `letter`) VALUES
 (34, '', 'Ш ш'),
 (35, '', 'Щ щ'),
 (36, '', 'ъ'),
-(37, '', 'Ы ы'),
-(38, '', 'І і'),
+(37, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/317296084&amp;', 'Ы ы'),
+(38, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/317296198&amp;', 'І і'),
 (39, '', 'ь'),
 (40, '', 'Э э'),
 (41, '', 'Ю ю'),
 (42, '', 'Я я');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `game_result`
+--
+
+CREATE TABLE `game_result` (
+  `id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `game_Id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `uName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `result` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -97,7 +110,9 @@ CREATE TABLE `groupmembers` (
 --
 
 INSERT INTO `groupmembers` (`G_NAME`, `G_MEMBER`, `ID`) VALUES
-('admin_role', 'admin', 88);
+('admin_role', 'admin', 88),
+('game_role', 'urizat', 0),
+('game_role', 'urizat', 2);
 
 -- --------------------------------------------------------
 
@@ -116,7 +131,7 @@ CREATE TABLE `groups` (
 
 INSERT INTO `groups` (`G_NAME`, `G_DESCRIPTION`) VALUES
 ('admin_role', 'root - право'),
-('kitchen_role', 'кухня');
+('game_role', 'кухня');
 
 -- --------------------------------------------------------
 
@@ -156,9 +171,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`U_NAME`, `U_PASSWORD`, `U_DESCRIPTION`) VALUES
 ('admin', '64c5b12b7729e5076eaa577436042951', 's'),
-('kitchen', 'e10adc3949ba59abbe56e057f20f883e', ''),
-('mysql', 'e10adc3949ba59abbe56e057f20f883e', ''),
-('weblogic', 'e10adc3949ba59abbe56e057f20f883e', 'asd');
+('urizat', 'e10adc3949ba59abbe56e057f20f883e', '');
 
 -- --------------------------------------------------------
 
@@ -181,8 +194,7 @@ CREATE TABLE `user_detail` (
 
 INSERT INTO `user_detail` (`U_NAME`, `FIRSTNAME`, `LASTNAME`, `MIDDLENAME`, `EMAIL`, `LOCKED`) VALUES
 ('admin', 'asd', 'asd', 'asdasd', 'abzal_amanzhol_94@mail.ru', 0),
-('kitchen', 'кухня', 'кухня', 'кухня', '', 0),
-('mysql', 'Test', 'Test', 'Test', '', 0),
+('urizat', 'Уризат', 'Акжол', '', '', 0),
 ('weblogic', '????asdsa', '???dasd', '', '', 1);
 
 -- --------------------------------------------------------
@@ -210,10 +222,14 @@ INSERT INTO `words` (`id`, `value_kz`) VALUES
 ('74f013a5-f0e0-4637-9617-934452848a22', 'Қазақстан'),
 ('a633fa76-e8f7-469f-afa8-efaddb3ae21d', 'Балапан'),
 ('aa8a092b-97fc-41e8-8fc7-4800bf32d321', 'Мысық'),
+('adasds54sadsdsddddddddddddddddddd', 'Жеті'),
 ('afe09951-ae5c-40ad-9ecc-44a411146698', 'Қазақ'),
 ('e9dc5b3a-dea7-42de-9b35-ee1798c96490', 'Әже'),
 ('f3c8c6eb-6164-476f-8933-6cd67dcf0762', 'Ата'),
-('fc266d3a-35ee-47bc-9891-3d54e721fd60', 'Ана');
+('fc266d3a-35ee-47bc-9891-3d54e721fd60', 'Ана'),
+('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq1', 'Сегіз'),
+('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq2', 'Тоғыз'),
+('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 'Төрт');
 
 --
 -- Индексы сохранённых таблиц
@@ -226,10 +242,34 @@ ALTER TABLE `alph_links`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `game_result`
+--
+ALTER TABLE `game_result`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`G_NAME`);
+
+--
 -- Индексы таблицы `test_type`
 --
 ALTER TABLE `test_type`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`U_NAME`);
+
+--
+-- Индексы таблицы `user_detail`
+--
+ALTER TABLE `user_detail`
+  ADD PRIMARY KEY (`U_NAME`);
 
 --
 -- Индексы таблицы `words`
