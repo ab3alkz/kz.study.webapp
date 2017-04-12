@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static kz.study.util.DateUtil.dateToString;
+import static kz.study.util.DateUtil.stringToSqlDate;
 import static kz.study.util.Util.createGuid;
 import static kz.study.util.Util.getGsonResult;
 
@@ -45,8 +47,8 @@ public class AppSession extends Utx {
         List<Words> list = em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(100).getResultList();
         List<Words> result = new ArrayList<>();
         randList = new ArrayList<>();
-        Integer cnt = 10 > list.size() - 1 ? list.size() - 1 : 10;
-        for (int i = 0; i <= cnt; i++) {
+        Integer cnt = 9 > list.size() - 1 ? list.size() - 1 : 9;
+        for (int i = 0; i < cnt; i++) {
             Integer randIdx = getRandIdxWord(0, list.size() - 1);
             randList.add(randIdx);
             result.add(list.get(randIdx));
@@ -75,13 +77,21 @@ public class AppSession extends Utx {
         return rand;
     }
 
-    private static Integer getRandom(Integer minimum , Integer maximum) {
+    private static Integer getRandom(Integer minimum, Integer maximum) {
         Random r = new Random();
         return r.nextInt((maximum - minimum) + 1) + minimum;
     }
 
     public List<Words> getTestTypeList() {
         return em.createNamedQuery("TestType.findAll").getResultList();
+    }
+
+    public List<GameResult> getGameResultList(Integer start, Integer count) {
+        if (start == null) {
+            start = 0;
+            count = 10;
+        }
+        return em.createNamedQuery("GameResult.findAll").getResultList();
     }
 
     public GsonResult setGameResult(String gameId, String uName, Long result, String info) {
@@ -91,6 +101,7 @@ public class AppSession extends Utx {
         obj.setResult(result);
         obj.setuName(uName);
         obj.setInfo(info);
+        obj.setgDate(stringToSqlDate(dateToString(new java.util.Date(), "dd.MM.yyyy HH.mm.ss"), "dd.MM.yyyy HH.mm.ss"));
         em.merge(obj);
         return getGsonResult(true, null);
     }

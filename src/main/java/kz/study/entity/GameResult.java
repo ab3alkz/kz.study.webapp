@@ -3,6 +3,7 @@ package kz.study.entity;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
+import java.sql.Date;
 
 /**
  * @since 12.04.2017
@@ -12,7 +13,7 @@ import java.io.Serializable;
 @Table(name = "GAME_RESULT")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "GameResult.findAll", query = "SELECT g FROM GameResult g"),
+        @NamedQuery(name = "GameResult.findAll", query = "SELECT g FROM GameResult g order by g.gDate desc"),
         @NamedQuery(name = "GameResult.findById", query = "SELECT g FROM GameResult g WHERE g.id = :id")
 })
 public class GameResult implements Serializable{
@@ -30,6 +31,8 @@ public class GameResult implements Serializable{
     private String info;
     @Column(name = "result")
     private Long result;
+    @Column(name = "d_date")
+    private Date gDate;
 
     public GameResult() {
     }
@@ -71,5 +74,13 @@ public class GameResult implements Serializable{
 
     public void setInfo(String info) {
         this.info = info;
+    }
+
+    public Date getgDate() {
+        return gDate;
+    }
+
+    public void setgDate(Date gDate) {
+        this.gDate = gDate;
     }
 }

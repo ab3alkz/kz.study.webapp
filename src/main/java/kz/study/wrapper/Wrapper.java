@@ -113,7 +113,9 @@ public class Wrapper {
 
     public static List<GsonAllDic> wrapToGsonAlphLinksList(List<AlphLinks> list) {
         List<GsonAllDic> result = new ArrayList<>();
-        list.forEach(s -> result.add(wrapToGsonAlphLinks(s)));
+        for(AlphLinks s :list) {
+            result.add(wrapToGsonAlphLinks(s));
+        }
         return result;
     }
 
@@ -130,7 +132,10 @@ public class Wrapper {
 
     public static List<GsonAllDic> wrapToGsonVideoLessonsList(List<VideoLessons> list) {
         List<GsonAllDic> result = new ArrayList<>();
-        list.forEach(s -> result.add(wrapToGsonVideoLessons(s)));
+
+        for(VideoLessons s :list) {
+            result.add(wrapToGsonVideoLessons(s));
+        }
         return result;
     }
 

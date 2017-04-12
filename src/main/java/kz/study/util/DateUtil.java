@@ -53,9 +53,29 @@ public class DateUtil {
         return null;
     }
 
+    public static Date stringToDate(String date, String format) {
+        if (date != null && !date.isEmpty()) {
+
+            try {
+                return new SimpleDateFormat(format, Locale.ENGLISH).parse(date);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+        return null;
+    }
+
     public static java.sql.Date stringToSqlDate(String date){
         if (date != null && !date.isEmpty()) {
             return  new java.sql.Date(stringToDate(date).getTime());
+        }
+        return null;
+    }
+    public static java.sql.Date stringToSqlDate(String date, String format){
+        if (date != null && !date.isEmpty()) {
+            return  new java.sql.Date(stringToDate(date, format).getTime());
         }
         return null;
     }

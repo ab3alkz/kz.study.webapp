@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 12 2017 г., 08:29
+-- Время создания: Апр 12 2017 г., 11:55
 -- Версия сервера: 10.0.17-MariaDB
 -- Версия PHP: 5.5.30
 
@@ -91,8 +91,18 @@ CREATE TABLE `game_result` (
   `game_Id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `uName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `result` int(11) NOT NULL,
-  `info` varchar(455) COLLATE utf8_unicode_ci DEFAULT NULL
+  `info` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `d_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `game_result`
+--
+
+INSERT INTO `game_result` (`id`, `game_Id`, `uName`, `result`, `info`, `d_date`) VALUES
+('258dfa3d-fe3d-4fd5-85db-063520826207', 'fillWords', 'aknur', 9, '<h4 style=''padding: 0 10px''><b style="color: green;">?</b>???????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br /><b style="color: red;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />???<b style="color: red;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style="color: red;">_</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style="color: red;">?</b>????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br /><b style="color: red;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style="color: red;">_</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />?<b style="color: red;">_</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?????<b style="color: red;">_</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???????<br />?<b style="color: red;">_</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />?<b style="color: red;">_</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br /></h4><h4> ??????:9%</h4>', NULL),
+('aca8fdbf-2ff3-4138-b9e3-1a3ebdad7784', 'fillWords', 'aknur', 82, '<h4 style=''padding: 0 10px''><b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style="color: green;">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />???<b style="color: green;">?</b>????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br />??<b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />??<b style="color: green;">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br />?<b style="color: green;">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />??<b style="color: red;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />????<b style="color: red;">?</b>??????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????????????<br />?<b style="color: green;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /></h4><h4> ??????:82%</h4>', NULL),
+('fd36ca0f-53e6-498d-a53e-4b6f10b96c8b', 'fillWords', 'aknur', 82, '<h4 style=''padding: 0 10px''>?<b style="color: green;">?</b>?????????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????????????<br />?<b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />????<b style="color: green;">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br />??<b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style="color: green;">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style="color: green;">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />?<b style="color: green;">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br />?<b style="color: red;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?<b style="color: green;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?????<b style="color: green;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???????<br />?<b style="color: red;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /></h4><h4> ??????:82%</h4>', NULL);
 
 -- --------------------------------------------------------
 
@@ -112,8 +122,8 @@ CREATE TABLE `groupmembers` (
 
 INSERT INTO `groupmembers` (`G_NAME`, `G_MEMBER`, `ID`) VALUES
 ('admin_role', 'admin', 88),
-('game_role', 'urizat', 0),
-('game_role', 'urizat', 2);
+('game_role', 'aknur', 0),
+('game_role', 'aknur', 2);
 
 -- --------------------------------------------------------
 
@@ -172,7 +182,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`U_NAME`, `U_PASSWORD`, `U_DESCRIPTION`) VALUES
 ('admin', '64c5b12b7729e5076eaa577436042951', 's'),
-('urizat', 'e10adc3949ba59abbe56e057f20f883e', '');
+('aknur', 'e10adc3949ba59abbe56e057f20f883e', '');
 
 -- --------------------------------------------------------
 
@@ -195,8 +205,38 @@ CREATE TABLE `user_detail` (
 
 INSERT INTO `user_detail` (`U_NAME`, `FIRSTNAME`, `LASTNAME`, `MIDDLENAME`, `EMAIL`, `LOCKED`) VALUES
 ('admin', 'asd', 'asd', 'asdasd', 'abzal_amanzhol_94@mail.ru', 0),
-('urizat', 'Уризат', 'Акжол', '', '', 0),
+('aknur', 'Уризат', 'Акжол', '', '', 0),
 ('weblogic', '????asdsa', '???dasd', '', '', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `video_lessons`
+--
+
+CREATE TABLE `video_lessons` (
+  `id` int(11) NOT NULL,
+  `value` varchar(222) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `description` varchar(22) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `video_lessons`
+--
+
+INSERT INTO `video_lessons` (`id`, `value`, `description`) VALUES
+(1, 'https://www.youtube.com/embed/pw8qgxpwoZI?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 1'),
+(2, 'https://www.youtube.com/embed/02Vqc-Ku2q8?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТiлашарENTER серия 2'),
+(3, 'https://www.youtube.com/embed/I9lPIyjIrgU?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 3'),
+(4, 'https://www.youtube.com/embed/1BbwAfGnHp4?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO"', 'ТілашарENTER серия 4'),
+(5, 'https://www.youtube.com/embed/cSHrzQ6kNBY?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 5'),
+(6, 'https://www.youtube.com/embed/Y7Zctrc7Oko?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 6'),
+(7, 'https://www.youtube.com/embed/nvsd96WLmNw?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 7'),
+(8, 'https://www.youtube.com/embed/n28i-hbcD7s?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 8'),
+(9, 'https://www.youtube.com/embed/ee9u9_bkpgQ?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 9'),
+(10, 'https://www.youtube.com/embed/jst_eZV0_UM?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 10'),
+(11, 'https://www.youtube.com/embed/SpWngzR_3Ak?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 11'),
+(12, 'https://www.youtube.com/embed/N9v8cS-ODBo?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 12');
 
 -- --------------------------------------------------------
 
@@ -271,6 +311,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `user_detail`
   ADD PRIMARY KEY (`U_NAME`);
+
+--
+-- Индексы таблицы `video_lessons`
+--
+ALTER TABLE `video_lessons`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `words`

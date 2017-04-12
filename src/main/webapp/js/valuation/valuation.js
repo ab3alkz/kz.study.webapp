@@ -16,11 +16,65 @@ function form_init() {
         } else {
             authSuccess();
         }
+        gameResultContainerCreate();
         // startTest("fillWords", {
         //     id: "fillWords",
         //     name: "Сөздерді толықтыр"
         // });
     });
+}
+
+function gameResultContainerCreate() {
+    $('#gameResultContainerWrapper').show();
+    webix.ui(
+        {
+            id: "gameResultTable",
+            container:'gameResultContainerWrapper',
+            view: "datatable",
+            // css: "sSListPersonTable",
+            resizeColumn: true,
+            autoheight: true,
+            minHeight: 400,
+            scroll: true,
+            url: '/study/wr/app/getGameResultList',
+            tooltip: true,
+            rowLineHeight: 30,
+            columns: [
+                {id: "uName", header: " ", width: 100},
+                {id: "gameId", header: " ", width: 120},
+                {id: "result", header: " ", width: 120,
+                    tooltip:"#info#"}
+
+            ],
+            select: "row",
+            datafetch: 12,
+            pager: {
+                container: "gameResultTablePaging",
+                size: 10,
+                group: 15
+            },
+            scheme: {
+                $init: function (obj) {
+                    //  obj.action = "<span onclick=\"suspendWin(" + obj.sicid + ", " + obj.osn + ")\"   class='btn btn-danger' style='width: 70px;padding: 2px;margin-bottom:3px'>Приост.</span>"
+                }
+            },
+            on: {
+                onAfterLoad: function () {
+                    this.enable();
+                    $$("gameResultTablePaging").enable();
+                    this.hideProgress();
+                    this.hideOverlay();
+                    if (!this.count())
+                        this.showOverlay("<span class='no_data_found'>" + getResourceName('no.data.found') + "</span>");
+                },
+                onBeforeLoad: function () {
+                    this.disable();
+                    $$("gameResultTablePaging").disable();
+                    webix.extend($$("gameResultTable"), webix.ProgressBar);
+                    this.showProgress();
+                }
+            }
+        });
 }
 
 function createLoginForm() {
@@ -476,7 +530,7 @@ function authSuccess() {
         rows: [
             {
                 cols: [
-                    {},{
+                    {}, {
                         template: "<img style='width: 100px;height: 100px;margin: 10px;' src='/study/images/no-avatar.jpg'>",
                         height: 120,
                         width: 120

@@ -63,7 +63,7 @@ public class AppResource {
                                 @QueryParam("uName") String uName,
                                 @QueryParam("info") String info,
                                 @QueryParam("result") Long result) {
-        return objectToJson(appSession.setGameResult(gameId, uName, result,info));
+        return objectToJson(appSession.setGameResult(gameId, uName, result, info));
     }
 
     @GET
@@ -71,6 +71,13 @@ public class AppResource {
     @Path("getTestTypeList")
     public String getTestTypeList() {
         return objectToJson(appSession.getTestTypeList());
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("getGameResultList")
+    public String getGameResultList(@QueryParam("start") Integer start, @QueryParam("count") Integer count) {
+        return objectToJson(appSession.getGameResultList(start, count));
     }
 
 }
