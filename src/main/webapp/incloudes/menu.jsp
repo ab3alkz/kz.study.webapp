@@ -37,6 +37,9 @@
                     </ul>
                 </li>
             </ul>
+            <ul>
+                <li><a href="${contextPath}/valuation/index.jsp">өз деңгейінді тексеру</a></li>
+            </ul>
         </div>
     </div>
 </nav>

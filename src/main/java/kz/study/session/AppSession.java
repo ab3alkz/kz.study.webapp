@@ -35,7 +35,6 @@ public class AppSession extends Utx {
     private static final int PER_DEF_START = 0;
     private static final int PER_DEF_COUNT = 30;
 
-
     private List<Integer> randList;
 
     public List<Words> getRandom10WordList() {

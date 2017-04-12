@@ -7,6 +7,7 @@ function form_init() {
         id: "mainlayot",
         container: "mainContainer",
         css: 'blueW',
+        scroll: true,
         cols: [
             {width: 10},
             {
@@ -27,18 +28,20 @@ function createAudio(json, i) {
         margin: 10,
         rows: [
             {
+                height: 150,
                 cols: [
                     {
                         view: 'label',
                         label: json.addValue,
                         css: 'pLetter',
+                        width: 300,
                         height: 60
                     },
                     {
                         id: "textNoticeCont" + i,
-                        width: 200,
-                        height: 200,
-                        template: '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="' + src + '"liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>'
+                        hidden: json.value == "",
+                        width: 300,
+                        template: '<iframe width="100%" height="166" scrolling="no" frameborder="no" src="' + json.value + 'liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>'
                     },
                     {}
                 ]
