@@ -219,7 +219,7 @@ function fillWordsRequired(btnId) {
 function fillWordsResultWin(templ, result) {
 
     templ += "<br /><br /><h4>" + result + "%</h4>";
-    setGameResult(game, result)
+    setGameResult('fillWords', result)
     if (!$$('fillWordsResultWin')) {
         webix.ui({
             view: "window",

@@ -8,7 +8,7 @@ function load() {
 
 function form_init() {
     webix.ready(function () {
-        if(!isNullOrEmpty(getURLParameters("myuser"))) {
+        if (!isNullOrEmpty(getURLParameters("myuser"))) {
             myuser = getURLParameters("myuser");
         }
         if (isNullOrEmpty(myuser)) {
@@ -427,7 +427,7 @@ function loginFormSubmit() {
 function loginSubmit1(username, password) {
 
     if (username.trim().length == 0 || password.trim().length == 0) {
-        alertError("Введите логин и пароль");
+        messageBox("Введите логин и пароль");
         return;
     }
 
@@ -438,6 +438,7 @@ function loginSubmit1(username, password) {
         success: function (gson) {
             if (gson) {
                 if (gson.result) {
+                    myuser = username;
                     authSuccess();
                 } else {
                     alertError(gson.message);
@@ -458,13 +459,14 @@ function authSuccess() {
         container: "userInfo",
         rows: [
             {
-                template: "<img style='width: 100px;height: 100px;margin: 10px' src='/study/images/no-avatar.jpg'>",
+                template: "<img style='width: 100px;height: 100px;margin: 10px;' src='/study/images/no-avatar.jpg'>",
                 height: 120,
                 width: 120
             },
             {
                 view: "label",
-                label: myuser
+                label: "<h3 style='text-align: center'>" + myuser + "</h3>",
+                height:50
             }
         ]
     });

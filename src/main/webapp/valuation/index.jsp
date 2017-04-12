@@ -11,7 +11,7 @@
     <script type="text/javascript">
         <%
         Users user = (Users) request.getSession().getAttribute("user");
-        String uName = user!=null?user.getuName():null;
+        String uName = user!=null?user.getuName():"";
         %>
         var myuser = '<%=uName%>';
         console.log(myuser)
@@ -55,7 +55,7 @@
                     </div>
                     <div style="float: left;width: 30%;border-left: 1px solid silver" id="loginForm"></div>
 
-                    <div style="float: left;width: 30%;border-left: 1px solid silver;" id="userInfo"></div>
+                    <div style="float: left;width: 30%;border-left: 1px solid silver;padding: 10px" id="userInfo"></div>
                     <div class="clearfix"></div>
                 </div>
             </div>
