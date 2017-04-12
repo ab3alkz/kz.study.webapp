@@ -13,7 +13,7 @@
     <link href="${contextPath}/plugin/webix/codebase/webix.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/plugin/webix/codebase/sidebar.js" type="text/javascript"></script>
     <link href="${contextPath}/plugin/webix/codebase/sidebar.css" rel="stylesheet" type="text/css"/>
-    <link href="${contextPath}/css/video.css" rel="stylesheet" type="text/css"/>
+    <link href="${contextPath}/css/app.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/js/video.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js" type="text/javascript"></script>
 </head>

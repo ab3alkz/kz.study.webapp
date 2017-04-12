@@ -28,24 +28,22 @@ public class VideoLessons implements Serializable {
 
     @Id
     @NotNull
-    @Size(min = 1, max = 200)
     @Column(name = "id")
-    private Long id;
+    private int id;
     @Size(max = 1000)
     @Column(name = "value")
     private String value;
-    @Size(max = 2)
-    @Column(name = "desc")
-    private String desc;
+    @Column(name = "description")
+    private String description;
 
     public VideoLessons() {
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -57,11 +55,11 @@ public class VideoLessons implements Serializable {
         this.value = value;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

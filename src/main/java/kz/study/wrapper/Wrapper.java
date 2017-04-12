@@ -139,7 +139,7 @@ public class Wrapper {
             GsonAllDic gson = new GsonAllDic();
             gson.setId(obj.getId());
             gson.setValue(obj.getValue());
-            gson.setAddValue(obj.getDesc());
+            gson.setAddValue(obj.getDescription());
             return gson;
         }
         return null;

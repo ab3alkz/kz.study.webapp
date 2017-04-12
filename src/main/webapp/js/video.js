@@ -7,9 +7,7 @@ $(document).ready(function () {
         cols: [
             {
                 id: "body",
-                rows: [
-
-                ]
+                rows: []
             }
         ]
     });
@@ -48,15 +46,11 @@ function getData(id) {
             notifyMessage('Ошибка! ', gson.message, notifyType.danger);
             return;
         }
-        for (var i in gson.message) {
-            console.log(gson.message)
-            createVideShowWin(gson.message[i], i);
-        }
-
+        createVideShowWin(gson.message.value, gson.message.addValue);
     });
 }
 
-function createVideShowWin() {
+function createVideShowWin(value, title) {
     var cont_h = $(window).height() - 70;
     var cont_w = $(window).width() - 70;
     if (!$$('reportWin')) {
@@ -77,22 +71,18 @@ function createVideShowWin() {
             head: {
                 cols: [
                     {width: 10},
-                    {view: 'label', id: 'reportName'},
+                    {view: 'label', id: 'videName'},
                     {
                         borderless: true,
                         view: "toolbar",
                         paddingY: 2,
                         height: 40,
                         cols: [
+                            {},
                             {
-                                view: "icon", icon: "print",
+                                view: "icon", icon: "times", css: 'buttonIconRed',
                                 click: function () {
-                                    printReport();
-                                }
-                            },
-                            {
-                                view: "icon", icon: "times",
-                                click: function () {
+                                    $$('videContent').removeView('videoCont');
                                     this.getTopParentView().hide();
                                     window.onscroll = null;
                                 }
@@ -109,16 +99,10 @@ function createVideShowWin() {
                     id: "reportWinBody",
                     rows: [
                         {
-                            cols: [
-                                {},
-                                {
-                                    id: "textNoticeCont",
-                                    height: 500,
-                                    width: 700,
-                                    template: '<iframe width="700" height="500" src="https://www.youtube.com/embed/pw8qgxpwoZI?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO" frameborder="0" allowfullscreen></iframe>'
-                                },
-                                {}
-                            ]
+                            id: 'videContent',
+                            height: 500,
+                            width: 700,
+                            cols: []
                         }
                     ]
                 }],
@@ -127,6 +111,15 @@ function createVideShowWin() {
         }).hide();
     }
     $$('reportWin').show(false, false);
+    $$('videName').setValue(title);
+    $$('videContent').addView(
+        {
+            id: "videoCont",
+            height: 500,
+            width: 700,
+            template: '<iframe width="700" height="500" src="' + value + '" frameborder="0" allowfullscreen></iframe>'
+        }
+    );
     var y = window.scrollY;
     window.onscroll = function () {
         window.scrollTo(0, y);
