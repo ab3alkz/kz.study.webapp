@@ -5,6 +5,7 @@
  */
 package kz.study.session;
 
+import kz.study.entity.GameResult;
 import kz.study.entity.Words;
 import kz.study.gson.GsonResult;
 import kz.study.util.Utx;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import static kz.study.util.Util.createGuid;
 import static kz.study.util.Util.getGsonResult;
 
 
@@ -46,6 +48,7 @@ public class AppSession extends Utx {
         Integer cnt = 10 > list.size() - 1 ? list.size() - 1 : 10;
         for (int i = 0; i <= cnt; i++) {
             Integer randIdx = getRandIdxWord(0, list.size() - 1);
+            randList.add(randIdx);
             result.add(list.get(randIdx));
         }
         return result;
@@ -64,27 +67,30 @@ public class AppSession extends Utx {
         return wordsList;*/
     }
 
-    private Integer getRandIdxWord(Integer maximum, Integer minimum) {
-        Integer rand = getRandom(0, maximum);
+    private Integer getRandIdxWord(Integer minimum, Integer maximum) {
+        Integer rand = getRandom(minimum, maximum);
         if (randList.contains(rand)) {
-            return getRandIdxWord(maximum, minimum);
+            return getRandIdxWord(minimum, maximum);
         }
         return rand;
     }
 
-    private static Integer getRandom(Integer maximum, Integer minimum) {
-        Random rn = new Random();
-        int n = maximum - minimum + 1;
-        int i = rn.nextInt() % n;
-        return minimum + i;
+    private static Integer getRandom(Integer minimum , Integer maximum) {
+        Random r = new Random();
+        return r.nextInt((maximum - minimum) + 1) + minimum;
     }
 
     public List<Words> getTestTypeList() {
         return em.createNamedQuery("TestType.findAll").getResultList();
     }
 
-    public GsonResult setGameResult(String gameId, String uName, String result) {
-
+    public GsonResult setGameResult(String gameId, String uName, Long result) {
+        GameResult obj = new GameResult();
+        obj.setId(createGuid());
+        obj.setGameId(gameId);
+        obj.setResult(result);
+        obj.setuName(uName);
+        em.merge(obj);
         return getGsonResult(true, null);
     }
 }

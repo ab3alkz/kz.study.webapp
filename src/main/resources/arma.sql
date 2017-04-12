@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 12 2017 г., 07:26
+-- Время создания: Апр 12 2017 г., 08:29
 -- Версия сервера: 10.0.17-MariaDB
 -- Версия PHP: 5.5.30
 
@@ -90,7 +90,8 @@ CREATE TABLE `game_result` (
   `id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `game_Id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `uName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `result` int(11) NOT NULL
+  `result` int(11) NOT NULL,
+  `info` varchar(455) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

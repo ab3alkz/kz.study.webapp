@@ -183,7 +183,7 @@ function getCharBySelected(list, selected) {
 function fillWordsRequired(btnId) {
     var btn = $('#' + btnId);
     btn.prop('disabled', true);
-    var templ = "";
+    var templ = "<h4 style='padding: 0 10px'>";
     var result = 0;
     var all = 0;
     if (allWords) {
@@ -203,8 +203,8 @@ function fillWordsRequired(btnId) {
                 ch = sel.id;
             }
 
-            templ += left.toLowerCase() + '<b style="color: red;">' + ch .toLowerCase()+ '</b>' + right.toLowerCase() + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + word.valueKz.toLowerCase() + "<br />";
-            if (left + ch + right == word.valueKz) {
+            templ += left.toLowerCase() + '<b style="color: red;">' + ch.toLowerCase()+ '</b>' + right.toLowerCase() + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + word.valueKz.toLowerCase() + "<br />";
+            if (left.toLowerCase() + ch.toLowerCase() + right.toLowerCase() == word.valueKz.toLowerCase()) {
                 result++;
             }
             console.log(left.toLowerCase() + ch.toLowerCase() + right.toLowerCase(), word.valueKz.toLowerCase())
@@ -212,6 +212,7 @@ function fillWordsRequired(btnId) {
         }
     }
 
+    templ+="</h4>";
     fillWordsResultWin(templ, (100 / all * result));
 }
 
