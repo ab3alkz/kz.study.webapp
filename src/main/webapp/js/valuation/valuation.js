@@ -8,8 +8,10 @@ function load() {
 
 function form_init() {
     webix.ready(function () {
-        uName = getURLParameters("uname");
-        if (isNullOrEmpty(uName)) {
+        if(!isNullOrEmpty(getURLParameters("myuser"))) {
+            myuser = getURLParameters("myuser");
+        }
+        if (isNullOrEmpty(myuser)) {
             createLoginForm();
         } else {
             authSuccess();
@@ -22,6 +24,9 @@ function form_init() {
 }
 
 function createLoginForm() {
+
+    $('#userInfo').hide();
+    $('#loginForm').show();
     webix.ui({
         id: "loginForm",
         container: "loginForm",
@@ -60,13 +65,13 @@ function createLoginForm() {
                                         height: 50,
                                         width: 155,
                                         css: "noBorder",
-                                        template: "<button style='width: 145px;' class='btn btn-success'>Кіру</button>"
+                                        template: "<button onclick='loginFormSubmit();' style='width: 145px;' class='btn btn-success'>Кіру</button>"
                                     },
                                     {
                                         height: 50,
                                         width: 155,
                                         css: "noBorder",
-                                        template: "<button style='width: 145px;'  class='btn btn-primary'>Тіркелу</button>"
+                                        template: "<button onclick='viewLoginWin()' style='width: 145px;'  class='btn btn-primary'>Тіркелу</button>"
                                     }
                                 ]
                             }
@@ -80,7 +85,7 @@ function createLoginForm() {
 }
 
 function getTestTypeList() {
-    if (isNullOrEmpty(uName)) {
+    if (isNullOrEmpty(myuser)) {
         return viewLoginWin();
     }
     get_ajax('/study/wr/app/getTestTypeList', 'GET', null, function (gson) {
@@ -411,10 +416,15 @@ function viewSignInWin() {
 function viewSignInWinSubmit() {
     var username = $$("viewSignInWinForm").elements['uname'].getValue();
     var password = $$("viewSignInWinForm").elements['password'].getValue();
-    loginSubmit(username, password);
+    loginSubmit1(username, password);
+}
+function loginFormSubmit() {
+    var username = $$("loginForm").elements['uname'].getValue();
+    var password = $$("loginForm").elements['password'].getValue();
+    loginSubmit1(username, password);
 }
 
-function loginSubmit(username, password) {
+function loginSubmit1(username, password) {
 
     if (username.trim().length == 0 || password.trim().length == 0) {
         alertError("Введите логин и пароль");
@@ -446,22 +456,17 @@ function authSuccess() {
     webix.ui({
         id: "userInfo",
         container: "userInfo",
-        borderless: true,
-        elementsConfig: {
-            labelPosition: "left",
-            labelWidth: 100,
-            width: 300
-        },
         rows: [
             {
-                view: "label",
-                label: "<img style='width: 100px;height: 100px' src='../../images/no-avatar.jpg'>",
-                height: 80
+                template: "<img style='width: 100px;height: 100px;margin: 10px' src='/study/images/no-avatar.jpg'>",
+                height: 120,
+                width: 120
             },
             {
                 view: "label",
-                label: uName
+                label: myuser
             }
         ]
     });
+    $('#userInfo').show();
 }

@@ -183,8 +183,12 @@ function getCharBySelected(list, selected) {
 function fillWordsRequired(btnId) {
     var btn = $('#' + btnId);
     btn.prop('disabled', true);
+    var templ = "";
+    var result = 0;
+    var all = 0;
     if (allWords) {
         for (var i in allWords) {
+            all++;
             var word = allWords[i];
             var inp = $$(word.id);
             if (inp) {
@@ -195,10 +199,82 @@ function fillWordsRequired(btnId) {
             var right = $$(word.id + "Right").config.word;
             var sel = getCharBySelected(charArray, word.id);
             var ch = "_";
-            if(sel) {
+            if (sel) {
                 ch = sel.id;
             }
-            console.log(left+ch+right,word.valueKz)
+
+            templ += left + '<b style="color: red;">' + ch + '</b>' + right + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + word.valueKz + "<br />";
+            if (left + ch + right == word.valueKz) {
+                result++;
+            }
+            console.log(left + ch + right, word.valueKz)
+
         }
     }
+
+    fillWordsResultWin(templ, (100 / all * result));
+}
+
+
+function fillWordsResultWin(templ, result) {
+
+    templ += "<br /><br /><h4>" + result + "%</h4>";
+    setGameResult(game, result)
+    if (!$$('fillWordsResultWin')) {
+        webix.ui({
+            view: "window",
+            id: "fillWordsResultWin",
+            modal: true,
+            position: "center",
+            width: 650,
+            head: {
+                cols: [
+                    {width: 10},
+                    {view: "label", label: "Сынақ нәтижесі"},
+                    {
+                        borderless: true,
+                        view: "toolbar",
+                        paddingY: 2,
+                        height: 40,
+                        cols: [
+                            {
+                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                click: function () {
+                                    this.getTopParentView().close();
+                                    window.onscroll = null;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            body: {
+                id: "fillWordsResultWinBody",
+                rows: []
+            }
+        }).hide();
+    }
+    $$('fillWordsResultWin').show(false, false);
+    $$("fillWordsResultWinBody").removeView("fillWordsResultWinTempl");
+    $$("fillWordsResultWinBody").addView({
+        id: "fillWordsResultWinTempl",
+        template: templ,
+        width: 600,
+        height: 600
+    });
+    var y = window.scrollY;
+    window.onscroll = function () {
+        window.scrollTo(0, y);
+    };
+}
+
+
+function setGameResult(game, result) {
+    get_ajax('/study/wr/app/setGameResult', 'GET', {
+        gameId: game,
+        uName: myuser,
+        result: result
+    }, null, function (url) {
+        messageBox("Ошибка", "Ошибка службы " + ' ' + url);
+    });
 }
