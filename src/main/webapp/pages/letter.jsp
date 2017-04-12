@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="icon" type="image/ico" sizes="16x16" href="../images/favicon.ico">
-    <title>Заявления</title>
+    <title>Әліпби</title>
     <script src="${contextPath}/plugin/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
     <link href="${contextPath}/plugin/font-awesome-4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/plugin/webix/codebase/webix.js" type="text/javascript"></script>

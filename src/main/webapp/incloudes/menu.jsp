@@ -37,8 +37,13 @@
                     </ul>
                 </li>
             </ul>
-            <ul>
-                <li><a href="${contextPath}/valuation/index.jsp">өз деңгейінді тексеру</a></li>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown light only-icon language-selector ">
+                    <a class="dropdown-toggle btn " href="${contextPath}/valuation/index.jsp">
+                        <span class="glyphicon glyphicon-leaf"></span>
+                        Өз деңгейінді тексеру
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
