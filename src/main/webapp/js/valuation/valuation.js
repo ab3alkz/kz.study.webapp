@@ -29,8 +29,9 @@ function gameResultContainerCreate() {
     webix.ui(
         {
             id: "gameResultTable",
-            container:'gameResultContainerWrapper',
+            container: 'gameResultContainerWrapper',
             view: "datatable",
+            width:1160,
             // css: "sSListPersonTable",
             resizeColumn: true,
             autoheight: true,
@@ -42,13 +43,16 @@ function gameResultContainerCreate() {
             columns: [
                 {id: "uName", header: " ", width: 100},
                 {id: "gameId", header: " ", width: 120},
-                {id: "result", header: " ", width: 120,
-                    tooltip:"#info#"}
+                {
+                    id: "result", header: " ", width: 120,
+                    tooltip: "#info#"
+                }
 
             ],
             select: "row",
             datafetch: 12,
             pager: {
+                id: "gameResultTablePaging",
                 container: "gameResultTablePaging",
                 size: 10,
                 group: 15
@@ -61,7 +65,7 @@ function gameResultContainerCreate() {
             on: {
                 onAfterLoad: function () {
                     this.enable();
-                    $$("gameResultTablePaging").enable();
+                    //$$("gameResultTablePaging").enable();
                     this.hideProgress();
                     this.hideOverlay();
                     if (!this.count())
@@ -69,7 +73,7 @@ function gameResultContainerCreate() {
                 },
                 onBeforeLoad: function () {
                     this.disable();
-                    $$("gameResultTablePaging").disable();
+                    //$$("gameResultTablePaging").disable();
                     webix.extend($$("gameResultTable"), webix.ProgressBar);
                     this.showProgress();
                 }
