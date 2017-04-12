@@ -310,7 +310,7 @@ function getYearToData(value) {
 
 
 function isNullOrEmpty(e) {
-    if (e == null || e == "")
+    if (e == null || e == "" || e == undefined)
         return true;
     else
         return false;

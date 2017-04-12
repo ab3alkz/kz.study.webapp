@@ -203,11 +203,11 @@ function fillWordsRequired(btnId) {
                 ch = sel.id;
             }
 
-            templ += left + '<b style="color: red;">' + ch + '</b>' + right + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + word.valueKz + "<br />";
+            templ += left.toLowerCase() + '<b style="color: red;">' + ch .toLowerCase()+ '</b>' + right.toLowerCase() + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + word.valueKz.toLowerCase() + "<br />";
             if (left + ch + right == word.valueKz) {
                 result++;
             }
-            console.log(left + ch + right, word.valueKz)
+            console.log(left.toLowerCase() + ch.toLowerCase() + right.toLowerCase(), word.valueKz.toLowerCase())
 
         }
     }
@@ -219,7 +219,7 @@ function fillWordsRequired(btnId) {
 function fillWordsResultWin(templ, result) {
 
     templ += "<br /><br /><h4>" + result + "%</h4>";
-    setGameResult(game, result)
+    setGameResult('fillWords', result)
     if (!$$('fillWordsResultWin')) {
         webix.ui({
             view: "window",
@@ -260,7 +260,7 @@ function fillWordsResultWin(templ, result) {
         id: "fillWordsResultWinTempl",
         template: templ,
         width: 600,
-        height: 600
+        height: 400
     });
     var y = window.scrollY;
     window.onscroll = function () {

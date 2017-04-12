@@ -6,10 +6,10 @@
 package kz.study.session;
 
 import kz.study.entity.Words;
+import kz.study.gson.GsonResult;
 import kz.study.util.Utx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,6 +17,8 @@ import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import static kz.study.util.Util.getGsonResult;
 
 
 /**
@@ -79,5 +81,10 @@ public class AppSession extends Utx {
 
     public List<Words> getTestTypeList() {
         return em.createNamedQuery("TestType.findAll").getResultList();
+    }
+
+    public GsonResult setGameResult(String gameId, String uName, String result) {
+
+        return getGsonResult(true, null);
     }
 }
