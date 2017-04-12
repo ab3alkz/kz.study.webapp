@@ -4,6 +4,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import kz.study.entity.AlphLinks;
 import kz.study.entity.VideoLessons;
 import kz.study.gson.GsonAllDic;
+import kz.study.gson.GsonDatatableData;
 import kz.study.gson.GsonResult;
 import kz.study.util.Utx;
 import org.slf4j.Logger;
@@ -13,14 +14,17 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static kz.study.util.Util.getGsonResult;
 import static kz.study.util.Util.getSingleResultOrNull;
-import static kz.study.wrapper.Wrapper.wrapToGsonAlphLinksList;
-import static kz.study.wrapper.Wrapper.wrapToGsonVideoLessons;
-import static kz.study.wrapper.Wrapper.wrapToGsonVideoLessonsList;
+import static kz.study.wrapper.Wrapper.*;
 
 /**
  * @author beljerin
@@ -36,13 +40,14 @@ public class LearnSession extends Utx {
 
 
     private static final int PER_DEF_START = 0;
-    private static final int PER_DEF_COUNT = 30;
+    private static final int PER_DEF_COUNT = 10;
 
-    public GsonResult getAllLeters() {
+    public GsonResult getAllLeters(final int id) {
         try {
-            List<AlphLinks> alphLinks = em.createNamedQuery("AlphLinks.findAll").getResultList();
-            List<GsonAllDic> gsonAllDic = wrapToGsonAlphLinksList(alphLinks);
-            return getGsonResult(Boolean.TRUE, gsonAllDic);
+            AlphLinks alphLinks = (AlphLinks) getSingleResultOrNull(
+                    em.createNamedQuery("AlphLinks.findById").setParameter("id", id)
+            );
+            return getGsonResult(Boolean.TRUE, wrapToGsonAlphLinks(alphLinks));
         } catch (Exception e) {
             LOGGER.error("error", e);
         }

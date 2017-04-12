@@ -45,8 +45,8 @@ public class LearnResource {
     @GET
     @Produces("application/json")
     @Path("getAllLetters")
-    public String beforeCreateApp() {
-        return objectToJson(learnSession.getAllLeters());
+    public String beforeCreateApp(@QueryParam("id") final int id) {
+        return objectToJson(learnSession.getAllLeters(id));
     }
 
     @GET

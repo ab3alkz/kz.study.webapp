@@ -26,7 +26,7 @@ function lessons() {
                             {
                                 view: 'label',
                                 id: i,
-                                template: "<a>" + i + ' -шы сабақ' + "</a>",
+                                template: "<a>" + i + ' -шi сабақ' + "</a>",
                                 click: function () {
                                     getData(this.data.id)
                                 }

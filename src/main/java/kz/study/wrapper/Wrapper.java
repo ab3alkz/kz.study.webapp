@@ -117,7 +117,7 @@ public class Wrapper {
         return result;
     }
 
-    private static GsonAllDic wrapToGsonAlphLinks(AlphLinks obj) {
+    public static GsonAllDic wrapToGsonAlphLinks(AlphLinks obj) {
         if (obj != null) {
             GsonAllDic gson = new GsonAllDic();
             gson.setId(obj.getId());

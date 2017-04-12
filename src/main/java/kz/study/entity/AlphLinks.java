@@ -19,15 +19,14 @@ import java.io.Serializable;
 @Table(name = "ALPH_LINKS")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "AlphLinks.findAll", query = "SELECT g FROM AlphLinks g")
+        @NamedQuery(name = "AlphLinks.findAll", query = "SELECT g FROM AlphLinks g"),
+        @NamedQuery(name = "AlphLinks.findById", query = "SELECT g FROM AlphLinks g where g.id = :id")
 })
 public class AlphLinks implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @NotNull
-    @Size(min = 1, max = 200)
     @Column(name = "id")
     private Long id;
     @Size(max = 1000)
