@@ -84,12 +84,13 @@ public class AppSession extends Utx {
         return em.createNamedQuery("TestType.findAll").getResultList();
     }
 
-    public GsonResult setGameResult(String gameId, String uName, Long result) {
+    public GsonResult setGameResult(String gameId, String uName, Long result, String info) {
         GameResult obj = new GameResult();
         obj.setId(createGuid());
         obj.setGameId(gameId);
         obj.setResult(result);
         obj.setuName(uName);
+        obj.setInfo(info);
         em.merge(obj);
         return getGsonResult(true, null);
     }

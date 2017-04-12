@@ -202,25 +202,29 @@ function fillWordsRequired(btnId) {
             if (sel) {
                 ch = sel.id;
             }
-
-            templ += left.toLowerCase() + '<b style="color: red;">' + ch.toLowerCase()+ '</b>' + right.toLowerCase() + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + word.valueKz.toLowerCase() + "<br />";
+            var color="red";
             if (left.toLowerCase() + ch.toLowerCase() + right.toLowerCase() == word.valueKz.toLowerCase()) {
                 result++;
+                color="navy"
             }
+            templ += left.toLowerCase() + '<b style="color: '+color+';">' + ch.toLowerCase() + '</b>' + right.toLowerCase() + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + word.valueKz.toLowerCase() + "<br />";
+
             console.log(left.toLowerCase() + ch.toLowerCase() + right.toLowerCase(), word.valueKz.toLowerCase())
 
         }
     }
 
-    templ+="</h4>";
+    templ += "</h4>";
     fillWordsResultWin(templ, (100 / all * result));
 }
 
 
 function fillWordsResultWin(templ, result) {
 
-    templ += "<br /><br /><h4>" + result + "%</h4>";
-    setGameResult('fillWords', result)
+    var round = Math.round;
+    var x = round(result);
+    templ += "<h4> нәтиже:" + x + "%</h4>";
+    setGameResult('fillWords', x, templ)
     if (!$$('fillWordsResultWin')) {
         webix.ui({
             view: "window",
@@ -269,12 +273,12 @@ function fillWordsResultWin(templ, result) {
     };
 }
 
-
-function setGameResult(game, result) {
+function setGameResult(game, result, templ) {
     get_ajax('/study/wr/app/setGameResult', 'GET', {
         gameId: game,
         uName: myuser,
-        result: result
+        result: result,
+        info: templ
     }, null, function (url) {
         messageBox("Ошибка", "Ошибка службы " + ' ' + url);
     });

@@ -1,6 +1,7 @@
 package kz.study.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
@@ -9,7 +10,12 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "GAME_RESULT")
-public class GameResult implements Serializable {
+@XmlRootElement
+@NamedQueries({
+        @NamedQuery(name = "GameResult.findAll", query = "SELECT g FROM GameResult g"),
+        @NamedQuery(name = "GameResult.findById", query = "SELECT g FROM GameResult g WHERE g.id = :id")
+})
+public class GameResult implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -20,6 +26,8 @@ public class GameResult implements Serializable {
     private String gameId;
     @Column(name = "uName")
     private String uName;
+    @Column(name = "info")
+    private String info;
     @Column(name = "result")
     private Long result;
 
@@ -55,5 +63,13 @@ public class GameResult implements Serializable {
 
     public void setResult(Long result) {
         this.result = result;
+    }
+
+    public String getInfo() {
+        return info;
+    }
+
+    public void setInfo(String info) {
+        this.info = info;
     }
 }

@@ -63,6 +63,7 @@ public class AuthServlet extends HttpServlet {
                 if (user != null) {
                     if (!user.getuPassword().equals(getMd5Apache(j_password)))  {
                         out.print(getResultGsonString(false, "Неправильно ввели пароль"));
+                        return;
                     }
                     HttpSession session = request.getSession(true);
                     session.setAttribute(USER, user);
