@@ -1,3 +1,4 @@
+<%@ page import="kz.study.entity.Users" %>
 <%@ page import="java.util.Date" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,6 +8,14 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Казак тілі білімін бағалау жүйесі</title>
+    <script type="text/javascript">
+        <%
+        Users user = (Users) request.getSession().getAttribute("user");
+        String uName = user!=null?user.getuName():null;
+        %>
+        var myuser = '<%=uName%>';
+        console.log(myuser)
+    </script>
     <script src="${contextPath}/plugin/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script src="${contextPath}/js/locale.js" type="text/javascript"></script>
     <link href="${contextPath}/plugin/webix/codebase/webix.css" rel="stylesheet" type="text/css"/>
@@ -21,9 +30,7 @@
     <script src="${contextPath}/js/common.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js?version=<%= new Date()%>" type="text/javascript"></script>
     <link href="${contextPath}/css/valuation.css" rel="stylesheet" type="text/css"/>
-    <script>
-        var uName = null;
-    </script>
+
 </head>
 <body>
 
@@ -46,9 +53,9 @@
                         <div id="fillWordsContainer"></div>
 
                     </div>
-                    <div style="float: left;width: 30%;border-left: 1px solid silver" id="loginForm">
-                    <div style="float: left;width: 30%;border-left: 1px solid silver; display: none;" id="userInfo">
-                    </div>
+                    <div style="float: left;width: 30%;border-left: 1px solid silver" id="loginForm"></div>
+
+                    <div style="float: left;width: 30%;border-left: 1px solid silver;" id="userInfo"></div>
                     <div class="clearfix"></div>
                 </div>
             </div>

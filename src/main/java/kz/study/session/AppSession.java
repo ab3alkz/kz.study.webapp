@@ -39,7 +39,7 @@ public class AppSession extends Utx {
     private List<Integer> randList;
 
     public List<Words> getRandom10WordList() {
-        /*List<Words> list = em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(100).getResultList();
+        List<Words> list = em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(100).getResultList();
         List<Words> result = new ArrayList<>();
         randList = new ArrayList<>();
         Integer cnt = 10 > list.size() - 1 ? list.size() - 1 : 10;
@@ -47,8 +47,8 @@ public class AppSession extends Utx {
             Integer randIdx = getRandIdxWord(0, list.size() - 1);
             result.add(list.get(randIdx));
         }
-        return result;*/
-        List<Words> wordsList = new ArrayList<>();
+        return result;
+        /*List<Words> wordsList = new ArrayList<>();
         int i =1;
         wordsList.add(new Words("a"+(i++),"Сәлеметсізбе"));
         wordsList.add(new Words("a"+(i++),"Жаз"));
@@ -60,7 +60,7 @@ public class AppSession extends Utx {
         wordsList.add(new Words("a"+(i++),"Балапан"));
         wordsList.add(new Words("a"+(i++),"Мысық"));
         wordsList.add(new Words("a"+(i++),"Қазақ"));
-        return wordsList;
+        return wordsList;*/
     }
 
     private Integer getRandIdxWord(Integer maximum, Integer minimum) {
