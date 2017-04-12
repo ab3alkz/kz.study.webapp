@@ -36,6 +36,7 @@
                         <li><a onclick="reportType(3);">B2 деңгейі</a></li>
                     </ul>
                 </li>
+                <li><a href="${contextPath}/pages/video.jsp"><span class="glyphicon glyphicon-facetime-video"></span> Видео сабақтар</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown light only-icon language-selector ">

@@ -9,23 +9,19 @@ function form_init() {
         css: 'blueW',
         scroll: true,
         cols: [
-            {width: 10},
             {
                 id: "body",
                 rows: []
-            },
-            {width: 10}
+            }
         ]
     });
     getAllLetters();
 }
 
 function createAudio(json, i) {
-    var src = "https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/316222556&amp;";
     $$("body").addView({
         id: "content" + i,
         css: 'boxLetter',
-        margin: 10,
         rows: [
             {
                 height: 150,
@@ -47,7 +43,6 @@ function createAudio(json, i) {
                 ]
             }
         ]
-
     });
 }
 

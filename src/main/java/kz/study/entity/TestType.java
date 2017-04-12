@@ -2,9 +2,11 @@ package kz.study.entity;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
- * Created by amanzhol-ak on 08.04.2017.
+ * @since 08.04.2017
+ * @author amanzhol-ak.
  */
 @Entity
 @Table(name = "test_type" )
@@ -13,7 +15,10 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "TestType.findAll", query = "SELECT g FROM TestType g"),
         @NamedQuery(name = "TestType.findById", query = "SELECT g FROM TestType g WHERE g.id = :id")
 })
-public class TestType {
+public class TestType implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id")
     private String id;
@@ -44,6 +49,5 @@ public class TestType {
     public TestType(String id) {
         this.id = id;
     }
-
 
 }

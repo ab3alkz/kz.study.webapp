@@ -6,10 +6,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Created by amanzhol-ak on 12.04.2017.
+ * @since 12.04.2017
+ * @author amanzhol-ak.
  */
 @Entity
-@Table(name = "game_result", schema = "arma", catalog = "")
+@Table(name = "game_result", schema = "arma")
 public class GameResult {
     private String id;
     private String gameId;

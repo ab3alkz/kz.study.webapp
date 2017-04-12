@@ -2,6 +2,7 @@ package kz.study.session;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import kz.study.entity.AlphLinks;
+import kz.study.entity.VideoLessons;
 import kz.study.gson.GsonAllDic;
 import kz.study.gson.GsonResult;
 import kz.study.util.Utx;
@@ -16,7 +17,10 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static kz.study.util.Util.getGsonResult;
+import static kz.study.util.Util.getSingleResultOrNull;
 import static kz.study.wrapper.Wrapper.wrapToGsonAlphLinksList;
+import static kz.study.wrapper.Wrapper.wrapToGsonVideoLessons;
+import static kz.study.wrapper.Wrapper.wrapToGsonVideoLessonsList;
 
 /**
  * @author beljerin
@@ -38,6 +42,18 @@ public class LearnSession extends Utx {
         try {
             List<AlphLinks> alphLinks = em.createNamedQuery("AlphLinks.findAll").getResultList();
             List<GsonAllDic> gsonAllDic = wrapToGsonAlphLinksList(alphLinks);
+            return getGsonResult(Boolean.TRUE, gsonAllDic);
+        } catch (Exception e) {
+            LOGGER.error("error", e);
+        }
+        return null;
+    }
+
+    public GsonResult getVideoById(int id) {
+        try {
+            VideoLessons videoLessons = (VideoLessons) getSingleResultOrNull(
+                    em.createNamedQuery("VideoLessons.findById").setParameter("id", id));
+            GsonAllDic gsonAllDic = wrapToGsonVideoLessons(videoLessons);
             return getGsonResult(Boolean.TRUE, gsonAllDic);
         } catch (Exception e) {
             LOGGER.error("error", e);

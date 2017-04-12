@@ -5,7 +5,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
 /**
- * Created by amanzhol-ak on 08.04.2017.
+ * @author amanzhol-ak.
+ * @since 08.04.2017
  */
 @Entity
 @Table(name = "WORDS")
@@ -15,7 +16,9 @@ import java.io.Serializable;
         @NamedQuery(name = "Words.findById", query = "SELECT g FROM Words g WHERE g.id = :id")
 })
 public class Words implements Serializable {
+
     private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "id")
     private String id;
@@ -42,7 +45,8 @@ public class Words implements Serializable {
     public Words(String id) {
         this.id = id;
     }
-    public Words(String id,String valueKz) {
+
+    public Words(String id, String valueKz) {
         this.id = id;
         this.valueKz = valueKz;
 
