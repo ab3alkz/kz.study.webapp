@@ -31,5 +31,6 @@ public class ApplicationConfig extends Application {
         resources.add(AnalizeResource.class);
         resources.add(AppResource.class);
         resources.add(LearnResource.class);
+        resources.add(UserResource.class);
     }
 }

@@ -119,11 +119,13 @@ public class UserSession {
                 return getGsonResult(false, gson.getuName()+ " Логин жүйеде бар, басқасын енгізіңіз");
             }
             user = new Users(gson.getuName());
-            user.setuPassword(gson.getPassword());
+            user.setuPassword(getMd5Apache(gson.getPassword()));
+            user.setuDescription(" ");
             UserDetail uDet = new UserDetail(new Users(gson.getuName()));
             uDet.setEmail(gson.getEmail());
             uDet.setFirstname(gson.getfName());
             uDet.setLastname(gson.getlName());
+            uDet.setLocked(0);
             user.setUserDetail(uDet);
             em.persist(user);
             return getGsonResult(true, null);

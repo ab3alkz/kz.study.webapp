@@ -28,7 +28,7 @@ function gameResultContainerCreate() {
     $('#gameResultContainerWrapper').show();
     webix.ui({
         container: 'gameResultContainerWrapper',
-        rows:[
+        rows: [
             {
                 id: "gameResultTable",
                 view: "datatable",
@@ -69,7 +69,7 @@ function gameResultContainerCreate() {
                         this.hideProgress();
                         this.hideOverlay();
                         if (!this.count())
-                            this.showOverlay("<span class='no_data_found'>" + getResourceName('no.data.found') + "</span>");
+                            this.showOverlay("<span class='no_data_found'></span>");
                     },
                     onBeforeLoad: function () {
                         this.disable();
@@ -577,10 +577,22 @@ function registration() {
     if (form.validate()) {
 
         var json = JSON.stringify(form.getValues(), null, 2);
-        get_ajax('/study/wr/app/registration', 'POST', json, function (gson) {
+        var username = json.uName;
+        var password = json.password;
+        get_ajax('/study/wr/user/registration', 'POST', {json: json}, function (gson) {
+            if (gson) {
+                if (gson.result) {
+                    loginSubmit1(username, password)
+                } else {
+                    messageBox("Ошибка", gson.message);
+                }
+            } else {
+
+                messageBox("Ошибка", gson);
+            }
             console.log(gson)
         }, function (url) {
-            messageBox("Ошибка", "Ошибка службы "  + url);
+            messageBox("Ошибка", "Ошибка службы " + url);
         });
     }
 }
