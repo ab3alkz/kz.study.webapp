@@ -499,3 +499,12 @@ function getObjectById(list, id) {
     }
     return null;
 }
+
+/*set and get localStorage to page*/
+function setLocalStorage(value, k) {
+    localStorage.setItem(value, k);
+}
+
+function getLocalStorage(value) {
+    return localStorage.getItem(value);
+}

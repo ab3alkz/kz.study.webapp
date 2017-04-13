@@ -10,6 +10,7 @@
     <link href="${contextPath}/plugin/bootswatch-gh-pages/cerulean/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/plugin/bootstrap-3.3.4-dist/css/bootstrap-menu.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/css/main.css" rel="stylesheet" type="text/css"/>
+    <script src="${contextPath}/js/newutils.js" type="text/javascript"></script>
     <script>
         function logout() {
             $.post("${contextPath}/auth", function () {
@@ -17,6 +18,11 @@
             });
         }
     </script>
+    <style>
+        a {
+            cursor: pointer!important;
+        }
+    </style>
 </head>
 <body>
 <div style="height: 70px"></div>
@@ -25,7 +31,8 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href=${contextPath}><span class="glyphicon glyphicon-home"></span></a></li>
-                <li><a href="${contextPath}/pages/letter.jsp"><span class="glyphicon glyphicon-sort-by-alphabet">  Әліпби</span></a></li>
+                <li><a href="${contextPath}/pages/letter.jsp"><span class="glyphicon glyphicon-sort-by-alphabet">  Әліпби</span></a>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span>Сабақтар</span><span class="caret"></span></a>
@@ -40,9 +47,10 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span>Талдаулар</span><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a onclick="reportType(1);" href=""> Морфологиялық талдау </a></li>
-                        <li><a onclick="reportType(2);"> Синтаксистық талдау </a></li>
-                        <li><a onclick="reportType(3);"> Лексикалық талдау </a></li>
+                        <li><a onclick="analizeType(1);"> Семантикалық талдау </a></li>
+                        <li><a onclick="analizeType(2);" href=""> Морфологиялық талдау </a></li>
+                        <li><a onclick="analizeType(3);"> Синтаксистық талдау </a></li>
+                        <li><a onclick="analizeType(4);"> Лексикалық талдау </a></li>
                     </ul>
                 </li>
             </ul>
@@ -59,6 +67,12 @@
 </nav>
 <script type="text/javascript">
     $('#profileName').html("<%=request.getRemoteUser()%>");
+</script>
+<script type="text/javascript">
+    function analizeType(id) {
+        setLocalStorage("analize", id);
+        window.location.href = "${contextPath}/pages/analize.jsp";
+    }
 </script>
 </body>
 </html>
