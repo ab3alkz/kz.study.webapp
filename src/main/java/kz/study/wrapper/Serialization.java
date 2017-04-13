@@ -20,8 +20,9 @@ public class Serialization {
     }
 
 
-    public static GsonMsgTemplate wrapToGsonMsgTemplateByJsonString(String json) {
+    public static GsonRegistration wrapToGsonRegistrationByJsonString(String json) {
         Gson gson = new Gson();
-        return gson.fromJson(json, GsonMsgTemplate.class);
+        return gson.fromJson(json, GsonRegistration.class);
     }
+
 }

@@ -50,6 +50,10 @@ public class UserDetail implements Serializable {
     public UserDetail() {
     }
 
+    public UserDetail(Users uName) {
+        this.uName = uName;
+    }
+
     public Integer getLocked() {
         return locked;
     }

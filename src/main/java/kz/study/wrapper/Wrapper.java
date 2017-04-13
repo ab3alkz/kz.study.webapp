@@ -6,6 +6,8 @@ import kz.study.gson.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static kz.study.util.DateUtil.dateToString;
+
 
 /**
  * Created by a.amanzhol.
@@ -145,6 +147,32 @@ public class Wrapper {
             gson.setId(obj.getId());
             gson.setValue(obj.getValue());
             gson.setAddValue(obj.getDescription());
+            return gson;
+        }
+        return null;
+    }
+    public static List<GsonGameResult> wrapToGsonGameResultList(List<GameResult> list) {
+        List<GsonGameResult> result = new ArrayList<>();
+
+        for(GameResult s :list) {
+            result.add(wrapToGsonGameResult(s));
+        }
+        return result;
+    }
+
+    public static GsonGameResult wrapToGsonGameResult(GameResult obj) {
+        if (obj != null) {
+            GsonGameResult gson = new GsonGameResult();
+            gson.setId(obj.getId());
+            UserDetail uDet = obj.getuName().getUserDetail();
+            gson.setuName("");
+            if(uDet!=null ) {
+                gson.setuName(uDet.getLastname()+" "+uDet.getFirstname());
+            }
+            gson.setGameId(obj.getGameId().getName());
+            gson.setgDate(dateToString(obj.getgDate()));
+            gson.setInfo(obj.getInfo());
+            gson.setResult(obj.getResult());
             return gson;
         }
         return null;

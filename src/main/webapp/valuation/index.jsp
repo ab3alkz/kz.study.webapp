@@ -71,7 +71,7 @@
             </div>
         </div>
     </div>
-    <div class="container panel panel-default"  id="gameResultContainerWrapper">
+    <div class="container panel panel-default"  style="margin-top: 10px" id="gameResultContainerWrapper">
         <div class="panel-body">
             <div id="gameResultContainer"> </div>
 

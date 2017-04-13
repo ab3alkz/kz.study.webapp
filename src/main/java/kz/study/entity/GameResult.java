@@ -6,8 +6,8 @@ import java.io.Serializable;
 import java.sql.Date;
 
 /**
- * @since 12.04.2017
  * @author amanzhol-ak.
+ * @since 12.04.2017
  */
 @Entity
 @Table(name = "GAME_RESULT")
@@ -16,17 +16,17 @@ import java.sql.Date;
         @NamedQuery(name = "GameResult.findAll", query = "SELECT g FROM GameResult g order by g.gDate desc"),
         @NamedQuery(name = "GameResult.findById", query = "SELECT g FROM GameResult g WHERE g.id = :id")
 })
-public class GameResult implements Serializable{
+public class GameResult implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id")
     private String id;
-    @Column(name = "game_Id")
-    private String gameId;
-    @Column(name = "uName")
-    private String uName;
+    @JoinColumn(name = "game_Id", referencedColumnName = "ID")
+    private TestType gameId;
+    @JoinColumn(name = "uName", referencedColumnName = "u_Name")
+    private Users uName;
     @Column(name = "info")
     private String info;
     @Column(name = "result")
@@ -44,19 +44,20 @@ public class GameResult implements Serializable{
     public void setId(String id) {
         this.id = id;
     }
-    public String getGameId() {
+
+    public TestType getGameId() {
         return gameId;
     }
 
-    public void setGameId(String gameId) {
+    public void setGameId(TestType gameId) {
         this.gameId = gameId;
     }
 
-    public String getuName() {
+    public Users getuName() {
         return uName;
     }
 
-    public void setuName(String uName) {
+    public void setuName(Users uName) {
         this.uName = uName;
     }
 

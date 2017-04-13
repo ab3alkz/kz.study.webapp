@@ -4,7 +4,6 @@ import kz.study.entity.Groupmembers;
 import kz.study.entity.UserDetail;
 import kz.study.entity.Users;
 import kz.study.gson.*;
-import kz.study.gson.GsonUsers;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static kz.study.util.Util.*;
+import static kz.study.wrapper.Serialization.wrapToGsonRegistrationByJsonString;
 import static kz.study.wrapper.Serialization.wrapToGsonUserDetailByJsonString;
 import static kz.study.wrapper.Wrapper.*;
 
@@ -101,5 +101,34 @@ public class UserSession {
         }
         em.flush();
         return getGsonResult(true, null);
+    }
+
+
+    public GsonResult registration(MultivaluedMap<String, String> formParams) {
+        try {
+            String json = formParams.getFirst("json");
+            GsonRegistration gson = wrapToGsonRegistrationByJsonString(json);
+            if (!gson.getPassword().equals(gson.getPasswordс())) {
+                return getGsonResult(false, "Құпия сөздер сәйкес келмейді");
+            }
+            if (isNullOrEmpty(gson.getuName())) {
+                return getGsonResult(false, "Логинды енгізіңіз");
+            }
+            Users user = getUser(gson.getuName());
+            if (user != null) {
+                return getGsonResult(false, gson.getuName()+ " Логин жүйеде бар, басқасын енгізіңіз");
+            }
+            user = new Users(gson.getuName());
+            user.setuPassword(gson.getPassword());
+            UserDetail uDet = new UserDetail(new Users(gson.getuName()));
+            uDet.setEmail(gson.getEmail());
+            uDet.setFirstname(gson.getfName());
+            uDet.setLastname(gson.getlName());
+            user.setUserDetail(uDet);
+            em.persist(user);
+            return getGsonResult(true, null);
+        } catch (Exception e) {
+            return getGsonResult(false, e.toString());
+        }
     }
 }

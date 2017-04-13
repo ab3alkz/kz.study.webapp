@@ -6,7 +6,10 @@
 package kz.study.session;
 
 import kz.study.entity.GameResult;
+import kz.study.entity.TestType;
+import kz.study.entity.Users;
 import kz.study.entity.Words;
+import kz.study.gson.GsonRegistration;
 import kz.study.gson.GsonResult;
 import kz.study.util.Utx;
 import org.slf4j.Logger;
@@ -15,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.core.MultivaluedMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,6 +27,8 @@ import static kz.study.util.DateUtil.dateToString;
 import static kz.study.util.DateUtil.stringToSqlDate;
 import static kz.study.util.Util.createGuid;
 import static kz.study.util.Util.getGsonResult;
+import static kz.study.wrapper.Serialization.wrapToGsonRegistrationByJsonString;
+import static kz.study.wrapper.Wrapper.wrapToGsonGameResultList;
 
 
 /**
@@ -91,15 +97,15 @@ public class AppSession extends Utx {
             start = 0;
             count = 10;
         }
-        return em.createNamedQuery("GameResult.findAll").getResultList();
+        return wrapToGsonGameResultList(em.createNamedQuery("GameResult.findAll").setFirstResult(start).setMaxResults(count).getResultList());
     }
 
     public GsonResult setGameResult(String gameId, String uName, Long result, String info) {
         GameResult obj = new GameResult();
         obj.setId(createGuid());
-        obj.setGameId(gameId);
+        obj.setGameId(new TestType(gameId));
         obj.setResult(result);
-        obj.setuName(uName);
+        obj.setuName(new Users(uName));
         obj.setInfo(info);
         obj.setgDate(stringToSqlDate(dateToString(new java.util.Date(), "dd.MM.yyyy HH.mm.ss"), "dd.MM.yyyy HH.mm.ss"));
         em.merge(obj);

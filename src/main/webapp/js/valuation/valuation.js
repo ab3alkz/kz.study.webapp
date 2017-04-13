@@ -26,59 +26,67 @@ function form_init() {
 
 function gameResultContainerCreate() {
     $('#gameResultContainerWrapper').show();
-    webix.ui(
-        {
-            id: "gameResultTable",
-            container: 'gameResultContainerWrapper',
-            view: "datatable",
-            width:1160,
-            // css: "sSListPersonTable",
-            resizeColumn: true,
-            autoheight: true,
-            minHeight: 400,
-            scroll: true,
-            url: '/study/wr/app/getGameResultList',
-            tooltip: true,
-            rowLineHeight: 30,
-            columns: [
-                {id: "uName", header: " ", width: 100},
-                {id: "gameId", header: " ", width: 120},
-                {
-                    id: "result", header: " ", width: 120,
-                    tooltip: "#info#"
-                }
+    webix.ui({
+        container: 'gameResultContainerWrapper',
+        rows:[
+            {
+                id: "gameResultTable",
+                view: "datatable",
+                width: 1160,
+                // css: "sSListPersonTable",
+                resizeColumn: true,
+                autoheight: true,
+                minHeight: 300,
+                scroll: true,
+                url: '/study/wr/app/getGameResultList',
+                tooltip: true,
+                rowLineHeight: 30,
+                columns: [
+                    {id: "gameId", header: " ", width: 150},
+                    {id: "uName", header: " ", fillspace: 1},
+                    {
+                        id: "result", header: " ", width: 120,
+                        tooltip: "#info#"
+                    }
 
-            ],
-            select: "row",
-            datafetch: 12,
-            pager: {
-                id: "gameResultTablePaging",
-                container: "gameResultTablePaging",
-                size: 10,
-                group: 15
-            },
-            scheme: {
-                $init: function (obj) {
-                    //  obj.action = "<span onclick=\"suspendWin(" + obj.sicid + ", " + obj.osn + ")\"   class='btn btn-danger' style='width: 70px;padding: 2px;margin-bottom:3px'>Приост.</span>"
-                }
-            },
-            on: {
-                onAfterLoad: function () {
-                    this.enable();
-                    //$$("gameResultTablePaging").enable();
-                    this.hideProgress();
-                    this.hideOverlay();
-                    if (!this.count())
-                        this.showOverlay("<span class='no_data_found'>" + getResourceName('no.data.found') + "</span>");
+                ],
+                select: "row",
+                datafetch: 12,
+                pager: {
+                    id: "gameResultTablePaging",
+                    size: 10,
+                    group: 15
                 },
-                onBeforeLoad: function () {
-                    this.disable();
-                    //$$("gameResultTablePaging").disable();
-                    webix.extend($$("gameResultTable"), webix.ProgressBar);
-                    this.showProgress();
+                scheme: {
+                    $init: function (obj) {
+                        //  obj.action = "<span onclick=\"suspendWin(" + obj.sicid + ", " + obj.osn + ")\"   class='btn btn-danger' style='width: 70px;padding: 2px;margin-bottom:3px'>Приост.</span>"
+                    }
+                },
+                on: {
+                    onAfterLoad: function () {
+                        this.enable();
+                        //$$("gameResultTablePaging").enable();
+                        this.hideProgress();
+                        this.hideOverlay();
+                        if (!this.count())
+                            this.showOverlay("<span class='no_data_found'>" + getResourceName('no.data.found') + "</span>");
+                    },
+                    onBeforeLoad: function () {
+                        this.disable();
+                        //$$("gameResultTablePaging").disable();
+                        webix.extend($$("gameResultTable"), webix.ProgressBar);
+                        this.showProgress();
+                    }
                 }
+            },
+            {
+                view: "template",
+                height: 50,
+                id: "gameResultTablePaging",
+                content: "gameResultTablePaging"
             }
-        });
+        ]
+    });
 }
 
 function createLoginForm() {
@@ -129,7 +137,7 @@ function createLoginForm() {
                                         height: 50,
                                         width: 155,
                                         css: "noBorder",
-                                        template: "<button onclick='viewLoginWin()' style='width: 145px;'  class='btn btn-primary'>Тіркелу</button>"
+                                        template: "<button onclick='registrationWin()' style='width: 145px;'  class='btn btn-primary'>Тіркелу</button>"
                                     }
                                 ]
                             }
@@ -144,7 +152,7 @@ function createLoginForm() {
 
 function getTestTypeList() {
     if (isNullOrEmpty(myuser)) {
-        return viewLoginWin();
+        return registrationWin();
     }
     get_ajax('/study/wr/app/getTestTypeList', 'GET', null, function (gson) {
         if (gson)
@@ -284,11 +292,11 @@ function createFillWordsContainer(id, item) {
     startFillWords();
 }
 
-function viewLoginWin() {
-    if (!$$('viewLoginWin')) {
+function registrationWin() {
+    if (!$$('registrationWin')) {
         webix.ui({
             view: "window",
-            id: "viewLoginWin",
+            id: "registrationWin",
             modal: true,
             on: {
                 onHide: function () {
@@ -321,20 +329,26 @@ function viewLoginWin() {
             body: {
                 rows: [
                     {
-                        id: "viewLoginWinForm",
+                        id: "registrationWinForm",
                         view: "form",
                         width: 500,
                         elements: [
                             {
                                 view: "text",
-                                name: "uname",
+                                name: "uName",
                                 label: "Логин",
                                 required: true
                             },
                             {
                                 view: "text",
-                                name: "name",
-                                label: "Аты жөні",
+                                name: "fName",
+                                label: "Аты",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "lName",
+                                label: "Фамилия",
                                 required: true
                             },
                             {
@@ -352,9 +366,9 @@ function viewLoginWin() {
                             },
                             {
                                 view: "text",
-                                name: "password",
+                                name: "passwordс",
                                 label: "Құпия сөз",
-                                type: "passwordс",
+                                type: "password",
                                 required: true
                             }
                         ]
@@ -370,7 +384,7 @@ function viewLoginWin() {
                                 height: 50,
                                 width: 155,
                                 css: "noBorder",
-                                template: "<button style='width: 145px;'  class='btn btn-success'>Тіркелу</button>"
+                                template: "<button onclick='registration()' style='width: 145px;'  class='btn btn-success'>Тіркелу</button>"
                             }, {
                                 height: 50,
                                 width: 155,
@@ -386,7 +400,7 @@ function viewLoginWin() {
             }
         }).hide();
     }
-    $$('viewLoginWin').show(false, false);
+    $$('registrationWin').show(false, false);
     var y = window.scrollY;
     window.onscroll = function () {
         window.scrollTo(0, y);
@@ -395,8 +409,8 @@ function viewLoginWin() {
 
 
 function viewSignInWin() {
-    if ($$("viewLoginWin")) {
-        $$("viewLoginWin").hide();
+    if ($$("registrationWin")) {
+        $$("registrationWin").hide();
     }
     if (!$$('viewSignInWin')) {
         webix.ui({
@@ -468,7 +482,7 @@ function viewSignInWin() {
                                 height: 50,
                                 width: 155,
                                 css: "noBorder",
-                                template: "<button onclick='viewLoginWin()'  style='width: 145px;' class='btn btn-success'>Тіркелу</button>"
+                                template: "<button onclick='registrationWin()'  style='width: 145px;' class='btn btn-success'>Тіркелу</button>"
                             }
                         ]
                     },
@@ -556,4 +570,17 @@ function logout1() {
     $.post("/study/auth", function () {
         window.location.href = "";
     });
+}
+
+function registration() {
+    var form = $$('registrationWinForm');
+    if (form.validate()) {
+
+        var json = JSON.stringify(form.getValues(), null, 2);
+        get_ajax('/study/wr/app/registration', 'POST', json, function (gson) {
+            console.log(gson)
+        }, function (url) {
+            messageBox("Ошибка", "Ошибка службы "  + url);
+        });
+    }
 }
