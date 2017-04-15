@@ -28,62 +28,79 @@ function gameResultContainerCreate() {
     $('#gameResultContainerWrapper').show();
     webix.ui({
         container: 'gameResultContainerWrapper',
-        rows: [
+        cols: [
             {
-                id: "gameResultTable",
-                view: "datatable",
-                width: 1160,
-                // css: "sSListPersonTable",
-                resizeColumn: true,
-                autoheight: true,
-                minHeight: 300,
-                scroll: true,
-                url: '/study/wr/app/getGameResultList',
-                tooltip: true,
-                rowLineHeight: 30,
-                columns: [
-                    {id: "gameId", header: " ", width: 150},
-                    {id: "uName", header: " ", fillspace: 1},
+                rows: [
                     {
-                        id: "result", header: " ", width: 120,
-                        tooltip: "#info#"
-                    }
+                        id: "gameResultTable",
+                        view: "datatable",
+                        width: 800,
+                        // css: "sSListPersonTable",
+                        resizeColumn: true,
+                        autoheight: true,
+                        minHeight: 300,
+                        scroll: true,
+                        url: '/study/wr/app/getGameResultList',
+                        tooltip: true,
+                        rowLineHeight: 30,
+                        columns: [
+                            {id: "gameId", header: " ", width: 150},
+                            {id: "uName", header: " ", fillspace: 1},
+                            {
+                                id: "result", header: " ", width: 120,
+                                tooltip: "#info#"
+                            }
 
-                ],
-                select: "row",
-                datafetch: 12,
-                pager: {
-                    id: "gameResultTablePaging",
-                    size: 10,
-                    group: 15
-                },
-                scheme: {
-                    $init: function (obj) {
-                        //  obj.action = "<span onclick=\"suspendWin(" + obj.sicid + ", " + obj.osn + ")\"   class='btn btn-danger' style='width: 70px;padding: 2px;margin-bottom:3px'>Приост.</span>"
-                    }
-                },
-                on: {
-                    onAfterLoad: function () {
-                        this.enable();
-                        //$$("gameResultTablePaging").enable();
-                        this.hideProgress();
-                        this.hideOverlay();
-                        if (!this.count())
-                            this.showOverlay("<span class='no_data_found'></span>");
+                        ],
+                        select: "row",
+                        datafetch: 12,
+                        pager: {
+                            id: "gameResultTablePaging",
+                            size: 10,
+                            group: 15
+                        },
+                        scheme: {
+                            $init: function (obj) {
+                                //  obj.action = "<span onclick=\"suspendWin(" + obj.sicid + ", " + obj.osn + ")\"   class='btn btn-danger' style='width: 70px;padding: 2px;margin-bottom:3px'>Приост.</span>"
+                            }
+                        },
+                        on: {
+                            onAfterLoad: function () {
+                                this.enable();
+                                this.hideProgress();
+                                this.hideOverlay();
+                                if (!this.count())
+                                    this.showOverlay("<span class='no_data_found'></span>");
+                            },
+                            onBeforeLoad: function () {
+                                this.disable();
+                                webix.extend($$("gameResultTable"), webix.ProgressBar);
+                                this.showProgress();
+                            },
+                            onItemClick: function () {
+                                var obj = this.getSelectedItem();
+                                $$("gameResultInfo").removeView("gameResultInfoW");
+                                $$("gameResultInfo").addView({
+                                    id: "gameResultInfoW",
+                                    template:obj.info
+                                });
+                            }
+                        }
                     },
-                    onBeforeLoad: function () {
-                        this.disable();
-                        //$$("gameResultTablePaging").disable();
-                        webix.extend($$("gameResultTable"), webix.ProgressBar);
-                        this.showProgress();
+                    {
+                        view: "template",
+                        height: 50,
+                        id: "gameResultTablePaging",
+                        content: "gameResultTablePaging"
+                    }, {
+                        height: 20
                     }
-                }
-            },
-            {
-                view: "template",
-                height: 50,
-                id: "gameResultTablePaging",
-                content: "gameResultTablePaging"
+                ]
+            }, {
+                id: "gameResultInfo",
+                rows: [
+
+                ]
             }
         ]
     });
