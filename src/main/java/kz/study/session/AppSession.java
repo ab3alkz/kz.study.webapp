@@ -9,7 +9,7 @@ import kz.study.entity.GameResult;
 import kz.study.entity.TestType;
 import kz.study.entity.Users;
 import kz.study.entity.Words;
-import kz.study.gson.GsonRegistration;
+import kz.study.gson.GsonFillWordsResult;
 import kz.study.gson.GsonResult;
 import kz.study.util.Utx;
 import org.slf4j.Logger;
@@ -18,7 +18,6 @@ import org.slf4j.LoggerFactory;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.core.MultivaluedMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -27,7 +26,7 @@ import static kz.study.util.DateUtil.dateToString;
 import static kz.study.util.DateUtil.stringToSqlDate;
 import static kz.study.util.Util.createGuid;
 import static kz.study.util.Util.getGsonResult;
-import static kz.study.wrapper.Serialization.wrapToGsonRegistrationByJsonString;
+import static kz.study.wrapper.Serialization.wrapToGsonFillWordsResultByJsonString;
 import static kz.study.wrapper.Wrapper.wrapToGsonGameResultList;
 
 
@@ -53,7 +52,7 @@ public class AppSession extends Utx {
         List<Words> list = em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(100).getResultList();
         List<Words> result = new ArrayList<>();
         randList = new ArrayList<>();
-        Integer cnt = 9 > list.size() - 1 ? list.size() - 1 : 9;
+        Integer cnt = 10 > list.size() - 1 ? list.size() - 1 : 10;
         for (int i = 0; i < cnt; i++) {
             Integer randIdx = getRandIdxWord(0, list.size() - 1);
             randList.add(randIdx);
@@ -93,22 +92,22 @@ public class AppSession extends Utx {
     }
 
     public List<GameResult> getGameResultList(Integer start, Integer count) {
-        if (start == null) {
-            start = 0;
-            count = 10;
-        }
-        return wrapToGsonGameResultList(em.createNamedQuery("GameResult.findAll").setFirstResult(start).setMaxResults(count).getResultList());
+        return wrapToGsonGameResultList(em.createNamedQuery("GameResult.findAll").setFirstResult(0).setMaxResults(10).getResultList());
     }
 
-    public GsonResult setGameResult(String gameId, String uName, Long result, String info) {
+    public GsonResult setGameResult(String gameId, String uName, Long result, String json) {
+
         GameResult obj = new GameResult();
         obj.setId(createGuid());
         obj.setGameId(new TestType(gameId));
         obj.setResult(result);
         obj.setuName(new Users(uName));
-        obj.setInfo(info);
+        obj.setInfo(json);
         obj.setgDate(stringToSqlDate(dateToString(new java.util.Date(), "dd.MM.yyyy HH.mm.ss"), "dd.MM.yyyy HH.mm.ss"));
         em.merge(obj);
+
+
+        GsonFillWordsResult gson = wrapToGsonFillWordsResultByJsonString(json);
         return getGsonResult(true, null);
     }
 }

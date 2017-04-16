@@ -1,6 +1,6 @@
+<%@ page import="kz.study.entity.UserDetail" %>
 <%@ page import="kz.study.entity.Users" %>
 <%@ page import="java.util.Date" %>
-<%@ page import="kz.study.entity.UserDetail" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -44,8 +44,13 @@
 </head>
 <body>
 
-<div>
-    <div class="container panel panel-default" style="margin-top: 80px">
+<div  style="margin-top: 80px;margin-bottom: 70px">
+    <div class="container panel panel-default" id="navbar">
+        <div class="panel-body">
+            <div id="navbarContainer"></div>
+        </div>
+    </div>
+    <div class="container panel panel-default"  style="margin-top: 20px" >
         <div class="panel-body">
             <div>
                 <div>
@@ -71,11 +76,9 @@
             </div>
         </div>
     </div>
-    <div class="container panel panel-default"  style="margin-top: 10px" id="gameResultContainerWrapper">
+    <div class="container panel panel-default" style="margin-top: 10px" id="gameResultContainerWrapper">
         <div class="panel-body">
-            <div id="gameResultContainer"> </div>
-
-            <div id="gameResultTablePaging"></div>
+            <div id="gameResultContainer"></div>
         </div>
     </div>
 </div>

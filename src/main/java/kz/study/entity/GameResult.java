@@ -13,7 +13,7 @@ import java.sql.Date;
 @Table(name = "GAME_RESULT")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "GameResult.findAll", query = "SELECT g FROM GameResult g order by g.gDate desc"),
+        @NamedQuery(name = "GameResult.findAll", query = "SELECT g FROM GameResult g order by g.result desc,g.gDate asc"),
         @NamedQuery(name = "GameResult.findById", query = "SELECT g FROM GameResult g WHERE g.id = :id")
 })
 public class GameResult implements Serializable {

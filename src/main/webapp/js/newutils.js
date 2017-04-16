@@ -508,3 +508,11 @@ function setLocalStorage(value, k) {
 function getLocalStorage(value) {
     return localStorage.getItem(value);
 }
+
+
+function nvl(val1, val2) {
+    if (isNullOrEmpty(val1))
+        return val2;
+    else
+        return val1;
+}
