@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 16 2017 г., 07:33
+-- Время создания: Апр 16 2017 г., 15:26
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.1
 
@@ -19,6 +19,107 @@ SET time_zone = "+00:00";
 --
 -- База данных: `arma`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `all_ending`
+--
+
+CREATE TABLE `all_ending` (
+  `id` int(11) NOT NULL,
+  `value` varchar(222) COLLATE utf8_unicode_ci NOT NULL,
+  `d_ending_id` int(11) NOT NULL,
+  `d_case_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `all_ending`
+--
+
+INSERT INTO `all_ending` (`id`, `value`, `d_ending_id`, `d_case_id`) VALUES
+(1, 'дар', 2, NULL),
+(2, 'дер', 2, NULL),
+(3, 'тар', 2, NULL),
+(4, 'тер', 2, NULL),
+(5, 'лар', 2, NULL),
+(6, 'лер', 2, NULL),
+(7, 'ым', 3, NULL),
+(8, 'ім', 3, NULL),
+(9, 'м', 3, NULL),
+(10, 'ың', 3, NULL),
+(11, 'ің', 3, NULL),
+(12, 'ң', 3, NULL),
+(13, 'ыңыз', 3, NULL),
+(14, 'ңыз', 3, NULL),
+(15, 'ңіз', 3, NULL),
+(16, 'сы', 3, NULL),
+(17, 'сі', 3, NULL),
+(18, 'ы', 3, NULL),
+(19, 'і', 3, NULL),
+(20, 'ымыз', 3, NULL),
+(21, 'іміз', 3, NULL),
+(22, 'мыз', 3, NULL),
+(23, 'міз', 3, NULL),
+(24, 'ың', 3, NULL),
+(25, 'ің', 3, NULL),
+(26, 'ң', 3, NULL),
+(27, 'ыңыз', 3, NULL),
+(28, 'іңіз', 3, NULL),
+(29, 'ңыз', 3, NULL),
+(30, 'ңіз', 3, NULL),
+(31, 'сы', 3, NULL),
+(32, 'сі', 3, NULL),
+(33, 'ы', 3, NULL),
+(34, 'і', 3, NULL),
+(35, 'мын', 4, NULL),
+(36, 'мін', 4, NULL),
+(37, 'мыз', 4, NULL),
+(38, 'бын', 4, NULL),
+(39, 'бін', 4, NULL),
+(40, 'быз', 4, NULL),
+(41, 'біз', 4, NULL),
+(42, 'пын', 4, NULL),
+(43, 'пін', 4, NULL),
+(44, 'пыз', 4, NULL),
+(45, 'піз', 4, NULL),
+(46, 'сың', 4, NULL),
+(47, 'сыз', 4, NULL),
+(48, 'сің', 4, NULL),
+(49, 'сіз', 4, NULL),
+(50, 'сыңдар', 4, NULL),
+(51, 'сыздар', 4, NULL),
+(52, 'сіңдер', 4, NULL),
+(53, 'сіздер', 4, NULL),
+(54, 'ның', 1, NULL),
+(55, 'нің', 2, NULL),
+(56, 'дың', 3, NULL),
+(57, 'дің', 4, NULL),
+(58, 'тың', 3, NULL),
+(59, 'тің', 4, NULL),
+(60, 'ға', 1, NULL),
+(61, 'ге', 2, NULL),
+(62, 'қа', 3, NULL),
+(63, 'ке', 4, NULL),
+(64, 'ны', 1, NULL),
+(65, 'ні', 2, NULL),
+(66, 'ды', 3, NULL),
+(67, 'ді', 4, NULL),
+(68, 'ты', 3, NULL),
+(69, 'ті', 4, NULL),
+(70, 'да', 1, NULL),
+(71, 'де', 2, NULL),
+(72, 'та', 3, NULL),
+(73, 'те', 4, NULL),
+(74, 'нан', 1, NULL),
+(75, 'нен', 2, NULL),
+(76, 'тан', 3, NULL),
+(77, 'тен', 4, NULL),
+(78, 'дан', 3, NULL),
+(79, 'ден', 4, NULL),
+(80, 'мен', 1, NULL),
+(81, 'бен', 2, NULL),
+(82, 'пен', 3, NULL);
 
 -- --------------------------------------------------------
 
@@ -93,6 +194,19 @@ CREATE TABLE `d_case` (
   `c_disc` varchar(222) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Дамп данных таблицы `d_case`
+--
+
+INSERT INTO `d_case` (`id`, `name`, `qs`, `c_disc`) VALUES
+(1, 'Атау септік', 'кім? не?', 'Жалғауы жоқ'),
+(2, 'Ілік септік', 'Кімнің? Ненің?', 'Дауысты және  м, н, ң, р, л дауыссыздарынан соң\r\n- мен -менен - з,ж дыбыстарынан соң\r\n- бен - бенен к, қ, п, с, т, ф, ш, б, в, г, д дыбыстарынан соң  - пен - пенен '),
+(3, 'Барыс септік', 'Кімге? Неге? Қайда?', 'Дауысты және н, ң, м, ж, р, л, й дыбыстары- нан соң) - ға - ге -а –е - п, с, т, ф, ш, б, в, г, д дыбыстарынан соң - қа - ке -1 және 2 жақтың тәуелдік жалғауларынан кейін  -а, - е-\r\n-а, - е-)3 жақта'),
+(4, 'Табыс септік', 'Кімді? Нені? Кімін? Несін?', '-ны - ні - н м, н, ң , з, ж, р, л, й, у\r\nдыбыстарынан соң- ды - ді - к, қ,п,с,т, ф, ш, б, в, г, д\r\nдыбыстарынан соң - ты - ті - '),
+(5, 'Жатыс септік', 'Кімде? Неде? Қайда? Қашан?', 'Дауысты және  \r\nм, н, ң, з, ж, л, р, й дауыссыздарынан соң - да - - де - -сы, - сі- тәуелдік жалғауларынан соң) - нда - - нде - к, қ, п, с, т, ф, ш, б, в, г, д дыбыстарынан соң - та - - те '),
+(6, 'Шығыс септік', 'Кімнен? Қайдан? Қалай?', 'Дауысты және з, ж, р, л дауыссыздарынан соң - дан - ден - м, н, ң, сы, сі дыбыстарынан соң - нан - нен - к, қ, п, с, т, ф, ш, б, в\r\nдыбыстарынан соң  - тан - тен - '),
+(7, 'Көмектес септік', 'Кіммен? Немен? Қалай?', 'Дауысты және  м, н, ң, р, л дауыссыздарынан соң - мен -менен - з,ж дыбыстарынан соң\r\n- бен - бенен к, қ, п, с, т, ф, ш, б, в, г, д дыбыстарынан соң   - пен - пенен ');
+
 -- --------------------------------------------------------
 
 --
@@ -144,7 +258,7 @@ CREATE TABLE `game_result` (
   `game_Id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `uName` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `result` int(11) NOT NULL,
-  `info` varchar(1000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `info` varchar(5000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `d_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -153,9 +267,8 @@ CREATE TABLE `game_result` (
 --
 
 INSERT INTO `game_result` (`id`, `game_Id`, `uName`, `result`, `info`, `d_date`) VALUES
-('258dfa3d-fe3d-4fd5-85db-063520826207', 'fillWords', 'aknur', 9, '<h4 style=\'padding: 0 10px\'><b style=\"color: green;\">?</b>???????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br /><b style=\"color: red;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />???<b style=\"color: red;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style=\"color: red;\">_</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style=\"color: red;\">?</b>????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br /><b style=\"color: red;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style=\"color: red;\">_</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />?<b style=\"color: red;\">_</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?????<b style=\"color: red;\">_</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???????<br />?<b style=\"color: red;\">_</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />?<b style=\"color: red;\">_</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br /></h4><h4> ??????:9%</h4>', NULL),
-('aca8fdbf-2ff3-4138-b9e3-1a3ebdad7784', 'fillWords', 'aknur', 82, '<h4 style=\'padding: 0 10px\'><b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style=\"color: green;\">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />???<b style=\"color: green;\">?</b>????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br />??<b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />??<b style=\"color: green;\">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br />?<b style=\"color: green;\">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />??<b style=\"color: red;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />????<b style=\"color: red;\">?</b>??????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????????????<br />?<b style=\"color: green;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /></h4><h4> ??????:82%</h4>', NULL),
-('fd36ca0f-53e6-498d-a53e-4b6f10b96c8b', 'fillWords', 'aknur', 82, '<h4 style=\'padding: 0 10px\'>?<b style=\"color: green;\">?</b>?????????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????????????<br />?<b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />????<b style=\"color: green;\">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br />??<b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style=\"color: green;\">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style=\"color: green;\">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />?<b style=\"color: green;\">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br />?<b style=\"color: red;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?<b style=\"color: green;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?????<b style=\"color: green;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???????<br />?<b style=\"color: red;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /></h4><h4> ??????:82%</h4>', NULL);
+('0c86b855-9a07-469e-a67e-32fb5e6ab90f', 'fillWords', 'abzal', 0, '{\"data\":[{\"center\":\"_\",\"right\":\"та\",\"word\":\"ата\",\"id\":\"f3c8c6eb-6164-476f-8933-6cd67dcf0762\",\"result\":false},{\"center\":\"_\",\"right\":\"үз\",\"word\":\"күз\",\"id\":\"495bddd5-764f-4b29-9836-ad11f8d28d39\",\"result\":false},{\"left\":\"балап\",\"center\":\"_\",\"right\":\"н\",\"word\":\"балапан\",\"id\":\"a633fa76-e8f7-469f-afa8-efaddb3ae21d\",\"result\":false},{\"left\":\"көк\",\"center\":\"_\",\"right\":\"ем\",\"word\":\"көктем\",\"id\":\"2d5a8461-5565-49b5-88e8-43bfd1cdfa1e\",\"result\":false},{\"left\":\"қ\",\"center\":\"_\",\"right\":\"зақстан\",\"word\":\"қазақстан\",\"id\":\"74f013a5-f0e0-4637-9617-934452848a22\",\"result\":false},{\"center\":\"_\",\"right\":\"аз\",\"word\":\"жаз\",\"id\":\"15210d64-9a72-4d6f-9ec1-8c78ad845059\",\"result\":false},{\"center\":\"_\",\"right\":\"өрт\",\"word\":\"төрт\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq\",\"result\":false},{\"left\":\"сәлеме\",\"center\":\"_\",\"right\":\"сізбе\",\"word\":\"сәлеметсізбе\",\"id\":\"05f8ba0e-c94f-42b4-80e3-b30cda8b4123\",\"result\":false},{\"left\":\"се\",\"center\":\"_\",\"right\":\"із\",\"word\":\"сегіз\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq1\",\"result\":false}],\"total\":0}', '2017-04-16 00:00:00'),
+('4b1f9a4f-ef05-4b47-8399-ab6b50843ede', 'fillWords', 'abzal', 100, '{\"data\":[{\"left\":\"се\",\"center\":\"г\",\"right\":\"із\",\"word\":\"сегіз\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq1\",\"result\":true},{\"left\":\"қ\",\"center\":\"а\",\"right\":\"зақстан\",\"word\":\"қазақстан\",\"id\":\"74f013a5-f0e0-4637-9617-934452848a22\",\"result\":true},{\"center\":\"қ\",\"right\":\"ыс\",\"word\":\"қыс\",\"id\":\"600dfe39-aab7-4ab5-8810-ed33dc84b50c\",\"result\":true},{\"left\":\"м\",\"center\":\"ы\",\"right\":\"сық\",\"word\":\"мысық\",\"id\":\"aa8a092b-97fc-41e8-8fc7-4800bf32d321\",\"result\":true},{\"center\":\"т\",\"right\":\"өрт\",\"word\":\"төрт\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq\",\"result\":true},{\"center\":\"к\",\"right\":\"үз\",\"word\":\"күз\",\"id\":\"495bddd5-764f-4b29-9836-ad11f8d28d39\",\"result\":true},{\"left\":\"сәлемет\",\"center\":\"с\",\"right\":\"ізбе\",\"word\":\"сәлеметсізбе\",\"id\":\"05f8ba0e-c94f-42b4-80e3-b30cda8b4123\",\"result\":true},{\"left\":\"бал\",\"center\":\"а\",\"right\":\"пан\",\"word\":\"балапан\",\"id\":\"a633fa76-e8f7-469f-afa8-efaddb3ae21d\",\"result\":true},{\"left\":\"ә\",\"center\":\"к\",\"right\":\"е\",\"word\":\"әке\",\"id\":\"51e65471-8a3a-44e1-af7f-0bf75b9113c3\",\"result\":true}],\"total\":100}', '2017-04-16 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -234,6 +347,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`U_NAME`, `U_PASSWORD`, `U_DESCRIPTION`) VALUES
+('abzal', 'e10adc3949ba59abbe56e057f20f883e', ' '),
 ('admin', '64c5b12b7729e5076eaa577436042951', 's'),
 ('aknur', 'e10adc3949ba59abbe56e057f20f883e', '');
 
@@ -257,9 +371,9 @@ CREATE TABLE `user_detail` (
 --
 
 INSERT INTO `user_detail` (`U_NAME`, `FIRSTNAME`, `LASTNAME`, `MIDDLENAME`, `EMAIL`, `LOCKED`) VALUES
+('abzal', 'Абзал', 'Аманжол', NULL, 'abzal@qq.kz', 0),
 ('admin', 'asd', 'asd', 'asdasd', 'abzal_amanzhol_94@mail.ru', 0),
-('aknur', 'Уризат', 'Акжол', '', '', 0),
-('weblogic', '????asdsa', '???dasd', '', '', 1);
+('aknur', 'Акнур', 'Оразбаева', '', '', 0);
 
 -- --------------------------------------------------------
 
@@ -328,6 +442,12 @@ INSERT INTO `words` (`id`, `value_kz`) VALUES
 --
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `all_ending`
+--
+ALTER TABLE `all_ending`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `alph_links`
@@ -400,6 +520,11 @@ ALTER TABLE `words`
 --
 
 --
+-- AUTO_INCREMENT для таблицы `all_ending`
+--
+ALTER TABLE `all_ending`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+--
 -- AUTO_INCREMENT для таблицы `alph_links`
 --
 ALTER TABLE `alph_links`
@@ -408,7 +533,7 @@ ALTER TABLE `alph_links`
 -- AUTO_INCREMENT для таблицы `d_case`
 --
 ALTER TABLE `d_case`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT для таблицы `d_ending`
 --
