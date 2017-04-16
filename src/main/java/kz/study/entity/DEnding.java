@@ -23,7 +23,6 @@ public class DEnding implements Serializable {
     @Id
     @Column(name = "id")
     private Long id;
-    @Size(max = 1000)
     @Column(name = "NAME")
     private String value;
 
