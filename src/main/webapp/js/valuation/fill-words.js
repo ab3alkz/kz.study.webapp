@@ -1,4 +1,4 @@
-var charArray = [];
+var charArray;
 var allWords;
 
 function startFillWords() {

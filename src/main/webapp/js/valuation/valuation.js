@@ -255,6 +255,9 @@ function startTest(id, item) {
         case "fillWords":
             createFillWordsContainer(id, item);
             break;
+        case "test":
+            createTestsContainer(id, item);
+            break;
         default:
             createDefContainer(id, item);
     }
@@ -295,6 +298,26 @@ function createFillWordsContainer(id, item) {
         }
     );
     startFillWords();
+}
+
+function createTestsContainer(id, item) {
+    webix.ui(
+        {
+            id: "testsContainer",
+            container: "testsContainer",
+            rows: [
+                {
+                    view: 'label',
+                    height: 60,
+                    autowidth: true,
+                    label: "<h2>" + item.name + "</h2>"
+                }, {
+                    height: 50
+                }
+            ]
+        }
+    );
+    startTesting();
 }
 
 function registrationWin() {
