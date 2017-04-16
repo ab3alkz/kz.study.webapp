@@ -1,4 +1,3 @@
-
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -323,7 +322,7 @@ button {
     color: navy;
 }
 
-.nonePadding, .nonePadding .webix_cell ,.appTable .webix_first .webix_hcell {
+.nonePadding, .nonePadding .webix_cell, .appTable .webix_first .webix_hcell {
     padding: 0px !important;
 }
 
@@ -456,18 +455,19 @@ button {
     display: none !important;
 }
 
-.breadcrumbs{
+.breadcrumbs {
     /* Сбрасываем обтекание текста */
     margin-top: 7px;
     overflow: hidden;
     width: 100%;
 }
 
-.breadcrumbs li{
+.breadcrumbs li {
     float: left;
     height: 30px;
     margin: 0 .2em 0 1em;
 }
+
 .trashBtn {
     color: #777777;
     cursor: pointer;
@@ -479,7 +479,7 @@ button {
     text-align: center;
 }
 
-.breadcrumbs a{
+.breadcrumbs a {
     background: #3ea9d9;
     padding: .4em 1em;
     float: left;
@@ -489,16 +489,16 @@ button {
     font-family: Calibri;
 }
 
-.breadcrumbs a:hover{
+.breadcrumbs a:hover {
     background: #4d7dbf;
 }
 
-.breadcrumbs a:hover,.breadcrumbs a:focus{
+.breadcrumbs a:hover, .breadcrumbs a:focus {
     text-decoration: none;
     color: white;
 }
 
-.breadcrumbs a::before{
+.breadcrumbs a::before {
     content: "";
     position: absolute;
     top: 50%;
@@ -509,11 +509,11 @@ button {
     left: -1em;
 }
 
-.breadcrumbs a:hover::before{
+.breadcrumbs a:hover::before {
     border-color: #4d7dbf #4d7dbf #4d7dbf transparent;
 }
 
-.breadcrumbs a::after{
+.breadcrumbs a::after {
     content: "";
     position: absolute;
     top: 50%;
@@ -524,26 +524,26 @@ button {
     right: -1em;
 }
 
-.breadcrumbs a:hover::after{
+.breadcrumbs a:hover::after {
     border-left-color: #4d7dbf;
 }
 
-ul{
+ul {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.breadcrumbs li.current a{
+.breadcrumbs li.current a {
     background: #4d7dbf;
     cursor: default;
 }
 
-.breadcrumbs li.current a::before{
+.breadcrumbs li.current a::before {
     border-color: #4d7dbf #4d7dbf #4d7dbf transparent;
 }
 
-.breadcrumbs li.current a::after{
+.breadcrumbs li.current a::after {
     border-left: 1em solid #4d7dbf;
 }
 
@@ -560,33 +560,35 @@ ul{
     font-weight: bold;
 }
 
-.angleLeft, .angleRight ,.editOrder,.viewOrder{
+.angleLeft, .angleRight, .editOrder, .viewOrder {
     cursor: pointer;
     color: navy;
-    font-size: 16px;padding: 10px
+    font-size: 16px;
+    padding: 10px
 }
 
-.appTable .webix_cell ,.appTable .webix_hcell {
+.appTable .webix_cell, .appTable .webix_hcell {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 11px;
 }
+
 .appCntTable .webix_cell {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
 
-.appTable .webix_dd_drag_column,.appCntTable .webix_dd_drag_column, .webix_ss_header, .webix_ss_header TD, .webix_ss_vscroll_header {
+.appTable .webix_dd_drag_column, .appCntTable .webix_dd_drag_column, .webix_ss_header, .webix_ss_header TD, .webix_ss_vscroll_header {
     background: white none repeat scroll 0 0;
     color: #686868;
     font-size: 13px;
 }
 
-.appTable .webix_ss_header td ,.appCntTable .webix_ss_header td {
+.appTable .webix_ss_header td, .appCntTable .webix_ss_header td {
     border-bottom: 1px solid #ebebeb;
     border-right: 1px solid #ebebeb;
 }
 
-.appTable .webix_dtable .webix_ss_vscroll_header,.appCntTable .webix_dtable .webix_ss_vscroll_header {
+.appTable .webix_dtable .webix_ss_vscroll_header, .appCntTable .webix_dtable .webix_ss_vscroll_header {
     border-bottom: 1px solid #ebebeb;
 }
 
@@ -594,16 +596,16 @@ ul{
     border-left: 1px solid #ebebeb;
 }
 
-.appTable .webix_ss_center_scroll,.appTable .webix_ss_center_scroll,.appCntTable,.appCntTable .webix_cell {
-    cursor: default!important;
+.appTable .webix_ss_center_scroll, .appTable .webix_ss_center_scroll, .appCntTable, .appCntTable .webix_cell {
+    cursor: default !important;
 }
 
 .webix_layout_toolbar.webix_toolbar {
-    background-color: white!important;
+    background-color: white !important;
 }
 
 .webix_layout_toolbar.webix_toolbar .webix_el_label {
-    color: #317eac!important;
+    color: #317eac !important;
 }
 
 .webix_layout_toolbar.webix_toolbar .buttonIconGreen .webix_icon_button .webix_icon {
@@ -624,10 +626,10 @@ ul{
     color: red;
 }
 
-.emailattrs_mainlayout{
-    width:720px;
-    padding:10px;
-    margin:0 auto;
+.emailattrs_mainlayout {
+    width: 720px;
+    padding: 10px;
+    margin: 0 auto;
 }
 
 body {
@@ -637,7 +639,6 @@ body {
     background-position-y: 230px;
 }
 
-
 .container {
     width: 1200px;
     margin: 0 auto;
@@ -646,7 +647,7 @@ body {
 
 .container:after, .container:before, .clearfix:after, .clearfix:before {
     content: " ";
-    display: table ;
+    display: table;
     clear: both;
 }
 
@@ -660,8 +661,8 @@ body {
     border: none;
 }
 
-.webix_icon.fa-fa.fa-times{
-    color: red!important;
+.webix_icon.fa-fa.fa-times {
+    color: red !important;
 }
 
 .fill-words-arena-chars {
@@ -675,3 +676,21 @@ body {
     color: silver;
 }
 
+.webix_full_screen {
+    overflow: auto !important;
+}
+
+.fa.fa-sign-out {
+    color: red;
+    font-size: 25px;
+    margin-left: 30px;
+    cursor: pointer;
+}
+.fa.fa-home {
+    font-size: 25px;
+}
+
+.myuser-Fio {
+    font-size: 18px;
+    color: #317eac;
+}

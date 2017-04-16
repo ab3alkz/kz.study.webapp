@@ -11,6 +11,7 @@ function startFillWords() {
 
 function createFillWords(gson) {
     if (gson) {
+        charArray = [];
         allWords = gson;
         $$("fillWordsContainer").removeView("fillWordsArena");
         $$("fillWordsContainer").addView({
@@ -60,26 +61,12 @@ function createFillWords(gson) {
                         attributes: {maxlength: 1},
                         id: gson[i].id,
                         on: {
+                            onTimedKeyPress: function (newV) {
+                                onChangeFillWordCenter(this.getValue(), this)
+                            },
                             onChange: function (newV, oldV) {
-                                newV = newV.toLowerCase();
-                                var me = this;
-                                var sel = getCharBySelected(charArray, this.config.id);
-                                if (sel) {
-                                    sel.selected = null;
-                                }
+                                onChangeFillWordCenter(newV, this)
 
-                                var obj = getCharById(charArray, newV);
-                                if (obj) {
-                                    obj.selected = this.config.id;
-                                    $$(this.config.id + "Required").hide()
-                                } else {
-                                    if (isNullOrEmpty(newV)) {
-                                        $$(this.config.id + "Required").hide();
-                                    } else {
-                                        $$(this.config.id + "Required").show();
-                                    }
-                                }
-                                setSelectedCharArray();
                             }
                         }
                     },
@@ -120,10 +107,39 @@ function createFillWords(gson) {
                     width: 155,
                     css: "noBorder",
                     template: "<button id='fillWordsRequireBtn' style='width: 145px;' onclick=\"fillWordsRequired('fillWordsRequireBtn')\" class='btn btn-success'>Аяқтау</button>",
+                },
+                {
+                    height: 50,
+                    id: "fillWordsRestartBtn",
+                    width: 195,
+                    hidden: true,
+                    css: "noBorder",
+                    template: "<button id='fillWordsRestartBtn' style='width: 145px;' onclick=\"startFillWords('fillWordsRestartBtn')\" class='btn btn-primary'>Қайтадан бастау</button>",
                 }
             ]
         });
     }
+}
+
+function onChangeFillWordCenter(newV, me) {
+    newV = newV.toLowerCase();
+    var sel = getCharBySelected(charArray, me.config.id);
+    if (sel) {
+        sel.selected = null;
+    }
+
+    var obj = getCharById(charArray, newV);
+    if (obj) {
+        obj.selected = me.config.id;
+        $$(me.config.id + "Required").hide()
+    } else {
+        if (isNullOrEmpty(newV)) {
+            $$(me.config.id + "Required").hide();
+        } else {
+            $$(me.config.id + "Required").show();
+        }
+    }
+    setSelectedCharArray();
 }
 
 function setSelectedCharArray() {
@@ -183,7 +199,8 @@ function getCharBySelected(list, selected) {
 function fillWordsRequired(btnId) {
     var btn = $('#' + btnId);
     btn.prop('disabled', true);
-    var templ = "<h4 style='padding: 0 10px'>";
+    var json = {};
+    json.data = [];
     var result = 0;
     var all = 0;
     if (allWords) {
@@ -202,29 +219,37 @@ function fillWordsRequired(btnId) {
             if (sel) {
                 ch = sel.id;
             }
-            var color="red";
+            var result_ = false;
             if (left.toLowerCase() + ch.toLowerCase() + right.toLowerCase() == word.valueKz.toLowerCase()) {
                 result++;
-                color="navy"
+                var result_ = true;
             }
-            templ += left.toLowerCase() + '<b style="color: '+color+';">' + ch.toLowerCase() + '</b>' + right.toLowerCase() + " &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;" + word.valueKz.toLowerCase() + "<br />";
+            var resultObj = {};
+            if (!isNullOrEmpty(left)) {
+                resultObj.left = left.toLowerCase();
+            }
+            resultObj.center = ch.toLowerCase();
+            if (!isNullOrEmpty(right)) {
+                resultObj.right = right.toLowerCase();
+            }
+            resultObj.word = word.valueKz.toLowerCase();
+            resultObj.id = word.id;
+            resultObj.result = result_;
 
-            console.log(left.toLowerCase() + ch.toLowerCase() + right.toLowerCase(), word.valueKz.toLowerCase())
-
+            json.data.push(resultObj)
         }
     }
 
-    templ += "</h4>";
-    fillWordsResultWin(templ, (100 / all * result));
+    var round = Math.round;
+    var total = round(100 / all * result);
+    json.total = total;
+    fillWordsResultWin(json, total);
 }
 
 
-function fillWordsResultWin(templ, result) {
+function fillWordsResultWin(json, total) {
 
-    var round = Math.round;
-    var x = round(result);
-    templ += "<h4> нәтиже:" + x + "%</h4>";
-    setGameResult('fillWords', x, templ)
+    setGameResult('fillWords', total, json)
     if (!$$('fillWordsResultWin')) {
         webix.ui({
             view: "window",
@@ -263,7 +288,7 @@ function fillWordsResultWin(templ, result) {
     $$("fillWordsResultWinBody").removeView("fillWordsResultWinTempl");
     $$("fillWordsResultWinBody").addView({
         id: "fillWordsResultWinTempl",
-        template: templ,
+        template: getFillWordsResultByJson(json),
         width: 600,
         height: 400
     });
@@ -273,13 +298,27 @@ function fillWordsResultWin(templ, result) {
     };
 }
 
-function setGameResult(game, result, templ) {
+function setGameResult(game, result, json) {
     get_ajax('/study/wr/app/setGameResult', 'GET', {
         gameId: game,
         uName: myuser,
         result: result,
-        info: templ
-    }, null, function (url) {
+        json: JSON.stringify(json)
+    }, function (gson) {
+        $$("fillWordsRequireBtn").hide();
+        $$("fillWordsRestartBtn").show();
+    }, function (url) {
         messageBox("Ошибка", "Ошибка службы " + ' ' + url);
     });
+}
+
+function getFillWordsResultByJson(json) {
+    var result = "";
+    var data = json.data;
+    for (var i in data) {
+        var obj = data[i];
+        result += "<h4>" + nvl(obj.left, '') + "<span style='color: " + (obj.result ? "navy" : "red") + "'>" + obj.center + "</span>" + nvl(obj.right, '') + "  &nbsp; " + obj.word + "</h4>";
+    }
+    result += " <h3>Нәтиже:" + json.total + "</h3>";
+    return result;
 }

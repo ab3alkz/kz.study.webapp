@@ -13,8 +13,8 @@ import java.io.Serializable;
 @Table(name = "D_ENDING")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "DSuffix.findAll", query = "SELECT g FROM DEnding g"),
-        @NamedQuery(name = "DSuffix.findById", query = "SELECT g FROM DEnding g where g.id = :id")
+        @NamedQuery(name = "DEnding.findAll", query = "SELECT g FROM DEnding g"),
+        @NamedQuery(name = "DEnding.findById", query = "SELECT g FROM DEnding g where g.id = :id")
 })
 public class DEnding implements Serializable {
 

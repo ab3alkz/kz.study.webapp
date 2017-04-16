@@ -24,7 +24,9 @@ function form_init() {
     });
 }
 
+var refreshgameResultCounter;
 function gameResultContainerCreate() {
+    refreshgameResultCounter = 0;
     $('#gameResultContainerWrapper').show();
     webix.ui({
         container: 'gameResultContainerWrapper',
@@ -39,28 +41,24 @@ function gameResultContainerCreate() {
                         resizeColumn: true,
                         autoheight: true,
                         minHeight: 300,
-                        scroll: true,
                         url: '/study/wr/app/getGameResultList',
-                        tooltip: true,
                         rowLineHeight: 30,
                         columns: [
                             {id: "gameId", header: " ", width: 150},
                             {id: "uName", header: " ", fillspace: 1},
                             {
-                                id: "result", header: " ", width: 120,
-                                tooltip: "#info#"
+                                id: "result", header: " ", width: 120
                             }
 
                         ],
                         select: "row",
                         datafetch: 12,
-                        pager: {
-                            id: "gameResultTablePaging",
-                            size: 10,
-                            group: 15
-                        },
                         scheme: {
                             $init: function (obj) {
+                                refreshgameResultCounter++;
+                                if (refreshgameResultCounter == 1) {
+                                    setGameResultInfo(obj);
+                                }
                                 //  obj.action = "<span onclick=\"suspendWin(" + obj.sicid + ", " + obj.osn + ")\"   class='btn btn-danger' style='width: 70px;padding: 2px;margin-bottom:3px'>Приост.</span>"
                             }
                         },
@@ -79,28 +77,16 @@ function gameResultContainerCreate() {
                             },
                             onItemClick: function () {
                                 var obj = this.getSelectedItem();
-                                $$("gameResultInfo").removeView("gameResultInfoW");
-                                $$("gameResultInfo").addView({
-                                    id: "gameResultInfoW",
-                                    template:obj.info
-                                });
+                                setGameResultInfo(obj);
                             }
                         }
-                    },
-                    {
-                        view: "template",
-                        height: 50,
-                        id: "gameResultTablePaging",
-                        content: "gameResultTablePaging"
                     }, {
                         height: 20
                     }
                 ]
             }, {
                 id: "gameResultInfo",
-                rows: [
-
-                ]
+                rows: []
             }
         ]
     });
@@ -108,6 +94,7 @@ function gameResultContainerCreate() {
 
 function createLoginForm() {
 
+    $('#navbar').hide();
     $('#userInfo').hide();
     $('#loginForm').show();
     webix.ui({
@@ -169,7 +156,7 @@ function createLoginForm() {
 
 function getTestTypeList() {
     if (isNullOrEmpty(myuser)) {
-        return registrationWin();
+        return viewSignInWin();
     }
     get_ajax('/study/wr/app/getTestTypeList', 'GET', null, function (gson) {
         if (gson)
@@ -299,6 +286,7 @@ function createFillWordsContainer(id, item) {
                 {
                     view: 'label',
                     height: 60,
+                    autowidth: true,
                     label: "<h2>" + item.name + "</h2>"
                 }, {
                     height: 50
@@ -325,7 +313,7 @@ function registrationWin() {
             head: {
                 cols: [
                     {width: 10},
-                    {view: "label", label: "Сынақты бастау үшін тіркелуіңіз керек"},
+                    {view: "label", label: "Тіркелу"},
                     {
                         borderless: true,
                         view: "toolbar",
@@ -572,15 +560,35 @@ function authSuccess() {
                     },
                     {}
                 ]
+            }
+        ]
+    });
+    webix.ui({
+        id: "navbarContainer",
+        container: "navbarContainer",
+        autoheight: true,
+        cols: [
+            {
+                view: "label",
+                label: "<a href='' class='fa fa-home'></a>",
+                width: 60
+            },
+            {},
+            {},
+            {
+                view: "label",
+                autowidth: true,
+                label: "<span class='myuser-Fio'>" + myuserFio + "</span>",
             },
             {
                 view: "label",
-                label: "<h3 style='text-align: center;margin-bottom: 0'>" + myuserFio + "</h3><span onclick='logout1()'>Шығу</span>",
-                height: 110
+                label: "<span onclick='logout1()' class='fa fa-sign-out'></span>",
+                width: 60
             }
         ]
     });
     $('#userInfo').show();
+    $('#navbar').show();
 }
 
 function logout1() {
@@ -592,10 +600,10 @@ function logout1() {
 function registration() {
     var form = $$('registrationWinForm');
     if (form.validate()) {
-
-        var json = JSON.stringify(form.getValues(), null, 2);
-        var username = json.uName;
-        var password = json.password;
+        var values = form.getValues();
+        var json = JSON.stringify(values, null, 2);
+        var username = values.uName;
+        var password = values.password;
         get_ajax('/study/wr/user/registration', 'POST', {json: json}, function (gson) {
             if (gson) {
                 if (gson.result) {
@@ -612,4 +620,15 @@ function registration() {
             messageBox("Ошибка", "Ошибка службы " + url);
         });
     }
+}
+
+function setGameResultInfo(obj) {
+
+    $$("gameResultInfo").removeView("gameResultInfoW");
+    $$("gameResultInfo").addView({
+        id: "gameResultInfoW",
+        template: "<h4>" + obj.uName + "</h4>" + getFillWordsResultByJson(JSON.parse(obj.info)),
+        width: 360,
+        height: 404
+    });
 }

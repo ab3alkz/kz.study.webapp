@@ -11,9 +11,11 @@ import kz.study.session.AppSession;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.SecurityContext;
 import java.math.BigDecimal;
 
@@ -59,9 +61,9 @@ public class AppResource {
     @Path("setGameResult")
     public String setGameResult(@QueryParam("gameId") String gameId,
                                 @QueryParam("uName") String uName,
-                                @QueryParam("info") String info,
+                                @QueryParam("json") String json,
                                 @QueryParam("result") Long result) {
-        return objectToJson(appSession.setGameResult(gameId, uName, result, info));
+        return objectToJson(appSession.setGameResult(gameId, uName, result, json));
     }
 
     @GET

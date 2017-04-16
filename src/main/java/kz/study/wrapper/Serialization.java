@@ -24,5 +24,9 @@ public class Serialization {
         Gson gson = new Gson();
         return gson.fromJson(json, GsonRegistration.class);
     }
+    public static GsonFillWordsResult wrapToGsonFillWordsResultByJsonString(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, GsonFillWordsResult.class);
+    }
 
 }
