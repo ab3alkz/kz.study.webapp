@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.0.2
--- http://www.phpmyadmin.net
+-- version 4.6.5.2
+-- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 12 2017 г., 11:55
--- Версия сервера: 10.0.17-MariaDB
--- Версия PHP: 5.5.30
+-- Время создания: Апр 16 2017 г., 07:33
+-- Версия сервера: 10.1.21-MariaDB
+-- Версия PHP: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -83,6 +83,59 @@ INSERT INTO `alph_links` (`id`, `link`, `letter`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `d_case`
+--
+
+CREATE TABLE `d_case` (
+  `id` int(11) NOT NULL,
+  `name` varchar(222) COLLATE utf8_unicode_ci NOT NULL,
+  `qs` varchar(222) COLLATE utf8_unicode_ci NOT NULL,
+  `c_disc` varchar(222) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `d_ending`
+--
+
+CREATE TABLE `d_ending` (
+  `ID` int(6) NOT NULL,
+  `NAME` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `d_ending`
+--
+
+INSERT INTO `d_ending` (`ID`, `NAME`) VALUES
+(1, 'Септік'),
+(2, 'Көптік'),
+(3, 'Тәуелдiк'),
+(4, 'Жіктік');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `d_suffix`
+--
+
+CREATE TABLE `d_suffix` (
+  `ID` int(11) NOT NULL,
+  `TYPE` varchar(222) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `d_suffix`
+--
+
+INSERT INTO `d_suffix` (`ID`, `TYPE`) VALUES
+(1, 'Сөз тудырушы'),
+(2, 'Сөз түрлендіруші');
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `game_result`
 --
 
@@ -100,9 +153,9 @@ CREATE TABLE `game_result` (
 --
 
 INSERT INTO `game_result` (`id`, `game_Id`, `uName`, `result`, `info`, `d_date`) VALUES
-('258dfa3d-fe3d-4fd5-85db-063520826207', 'fillWords', 'aknur', 9, '<h4 style=''padding: 0 10px''><b style="color: green;">?</b>???????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br /><b style="color: red;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />???<b style="color: red;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style="color: red;">_</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style="color: red;">?</b>????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br /><b style="color: red;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style="color: red;">_</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />?<b style="color: red;">_</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?????<b style="color: red;">_</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???????<br />?<b style="color: red;">_</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />?<b style="color: red;">_</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br /></h4><h4> ??????:9%</h4>', NULL),
-('aca8fdbf-2ff3-4138-b9e3-1a3ebdad7784', 'fillWords', 'aknur', 82, '<h4 style=''padding: 0 10px''><b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style="color: green;">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />???<b style="color: green;">?</b>????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br />??<b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />??<b style="color: green;">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br />?<b style="color: green;">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />??<b style="color: red;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />????<b style="color: red;">?</b>??????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????????????<br />?<b style="color: green;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /></h4><h4> ??????:82%</h4>', NULL),
-('fd36ca0f-53e6-498d-a53e-4b6f10b96c8b', 'fillWords', 'aknur', 82, '<h4 style=''padding: 0 10px''>?<b style="color: green;">?</b>?????????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????????????<br />?<b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />????<b style="color: green;">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br />??<b style="color: green;">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style="color: green;">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style="color: green;">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />?<b style="color: green;">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br />?<b style="color: red;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?<b style="color: green;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?????<b style="color: green;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???????<br />?<b style="color: red;">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /></h4><h4> ??????:82%</h4>', NULL);
+('258dfa3d-fe3d-4fd5-85db-063520826207', 'fillWords', 'aknur', 9, '<h4 style=\'padding: 0 10px\'><b style=\"color: green;\">?</b>???????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br /><b style=\"color: red;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />???<b style=\"color: red;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style=\"color: red;\">_</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style=\"color: red;\">?</b>????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br /><b style=\"color: red;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style=\"color: red;\">_</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />?<b style=\"color: red;\">_</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?????<b style=\"color: red;\">_</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???????<br />?<b style=\"color: red;\">_</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />?<b style=\"color: red;\">_</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br /></h4><h4> ??????:9%</h4>', NULL),
+('aca8fdbf-2ff3-4138-b9e3-1a3ebdad7784', 'fillWords', 'aknur', 82, '<h4 style=\'padding: 0 10px\'><b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style=\"color: green;\">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /><b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />???<b style=\"color: green;\">?</b>????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br />??<b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />??<b style=\"color: green;\">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br />?<b style=\"color: green;\">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br />??<b style=\"color: red;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />????<b style=\"color: red;\">?</b>??????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????????????<br />?<b style=\"color: green;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /></h4><h4> ??????:82%</h4>', NULL),
+('fd36ca0f-53e6-498d-a53e-4b6f10b96c8b', 'fillWords', 'aknur', 82, '<h4 style=\'padding: 0 10px\'>?<b style=\"color: green;\">?</b>?????????? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????????????<br />?<b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />????<b style=\"color: green;\">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????????<br />??<b style=\"color: green;\">?</b>?? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style=\"color: green;\">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;?????<br /><b style=\"color: green;\">?</b>??? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;????<br />?<b style=\"color: green;\">?</b>???? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;??????<br />?<b style=\"color: red;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?<b style=\"color: green;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br />?????<b style=\"color: green;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???????<br />?<b style=\"color: red;\">?</b>? &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;???<br /></h4><h4> ??????:82%</h4>', NULL);
 
 -- --------------------------------------------------------
 
@@ -228,7 +281,7 @@ INSERT INTO `video_lessons` (`id`, `value`, `description`) VALUES
 (1, 'https://www.youtube.com/embed/pw8qgxpwoZI?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 1'),
 (2, 'https://www.youtube.com/embed/02Vqc-Ku2q8?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТiлашарENTER серия 2'),
 (3, 'https://www.youtube.com/embed/I9lPIyjIrgU?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 3'),
-(4, 'https://www.youtube.com/embed/1BbwAfGnHp4?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO"', 'ТілашарENTER серия 4'),
+(4, 'https://www.youtube.com/embed/1BbwAfGnHp4?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO\"', 'ТілашарENTER серия 4'),
 (5, 'https://www.youtube.com/embed/cSHrzQ6kNBY?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 5'),
 (6, 'https://www.youtube.com/embed/Y7Zctrc7Oko?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 6'),
 (7, 'https://www.youtube.com/embed/nvsd96WLmNw?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 7'),
@@ -283,6 +336,24 @@ ALTER TABLE `alph_links`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `d_case`
+--
+ALTER TABLE `d_case`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `d_ending`
+--
+ALTER TABLE `d_ending`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Индексы таблицы `d_suffix`
+--
+ALTER TABLE `d_suffix`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Индексы таблицы `game_result`
 --
 ALTER TABLE `game_result`
@@ -333,6 +404,21 @@ ALTER TABLE `words`
 --
 ALTER TABLE `alph_links`
   MODIFY `id` int(222) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+--
+-- AUTO_INCREMENT для таблицы `d_case`
+--
+ALTER TABLE `d_case`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT для таблицы `d_ending`
+--
+ALTER TABLE `d_ending`
+  MODIFY `ID` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT для таблицы `d_suffix`
+--
+ALTER TABLE `d_suffix`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
