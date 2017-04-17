@@ -75,21 +75,21 @@ public class AppSession extends Utx {
         List<TestQuestions> list = getTestQuestionsList(srcId, 0, 100);
 
         List<TestQuestions> result = new ArrayList<>();
-        randList = new ArrayList<>();
+        /*randList = new ArrayList<>();
         Integer cnt = 25 > list.size() - 1 ? list.size() - 1 : 25;
         for (int i = 0; i < cnt; i++) {
             Integer randIdx = getRandIdxWord(0, list.size() - 1);
             randList.add(randIdx);
             result.add(list.get(randIdx));
         }
-
-        /*for (int i = 1; i <= 25; i++) {
+*/
+        for (int i = 1; i <= 25; i++) {
 
             result.add(
                     new TestQuestions("a" + (i), i + " Lorem Ipsum is simply dummy ?", "text of the printing ",
                             " typesetting industry", "standard dummy text", "ever since the 1500s", "")
             );
-        }*/
+        }
         return result;
     }
 
