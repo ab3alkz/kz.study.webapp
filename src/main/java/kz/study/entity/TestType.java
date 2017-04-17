@@ -26,8 +26,11 @@ public class TestType implements Serializable {
     @Column(name = "name")
     private String name;
     @Basic
-    @Column(name = "SOURCE_ID")
-    private String sourceId;
+    @Column(name = "TYPE")
+    private String type;
+    @Basic
+    @Column(name = "Level")
+    private Integer level;
 
     public String getId() {
         return id;
@@ -45,14 +48,6 @@ public class TestType implements Serializable {
         this.name = name;
     }
 
-    public String getSourceId() {
-        return sourceId;
-    }
-
-    public void setSourceId(String sourceId) {
-        this.sourceId = sourceId;
-    }
-
     public TestType() {
     }
 
@@ -60,4 +55,19 @@ public class TestType implements Serializable {
         this.id = id;
     }
 
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }

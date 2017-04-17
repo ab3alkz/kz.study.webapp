@@ -1,3 +1,0 @@
-INSERT INTO arma.user_detail (U_NAME, FIRSTNAME, LASTNAME, MIDDLENAME, EMAIL, LOCKED) VALUES ('abzal', 'Абзал', 'Аманжол', null, 'abzal@qq.kz', 0);
-INSERT INTO arma.user_detail (U_NAME, FIRSTNAME, LASTNAME, MIDDLENAME, EMAIL, LOCKED) VALUES ('admin', 'asd', 'asd', 'asdasd', 'abzal_amanzhol_94@mail.ru', 0);
-INSERT INTO arma.user_detail (U_NAME, FIRSTNAME, LASTNAME, MIDDLENAME, EMAIL, LOCKED) VALUES ('aknur', 'Акнур', 'Оразбаева', '', '', 0);

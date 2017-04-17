@@ -85,6 +85,7 @@ function gameResultContainerCreate() {
                 ]
             }, {
                 id: "gameResultInfo",
+                width: 360,
                 rows: []
             }
         ]
@@ -219,11 +220,15 @@ function viewTestTypeListWin(gson) {
                                 template: "<b style='font-size: 16px; color:#317eac'>#name#</b>",
                                 header: " ",
                                 fillspace: 1
-                            }
+                            },
+                            {id: "editBtn", header: " ", width: 60},
                         ],
                         scheme: {
                             $init: function (obj) {
                                 obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>Бастау</button>";
+                                if (obj.gameId == 'test') {
+                                    obj.editBtn = "<button style='width:40px;'  class='editTest btn btn-danger'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                }
                             }
                         },
                         onClick: {
@@ -251,7 +256,7 @@ function viewTestTypeListWin(gson) {
 function startTest(id, item) {
     $("#mainContainer").hide();
     activeGameId = id;
-    switch (id) {
+    switch (item.type) {
         case "fillWords":
             createFillWordsContainer(id, item);
             break;
@@ -649,6 +654,7 @@ function registration() {
 }
 
 function setGameResultInfo(obj) {
+    return;
     $$("gameResultInfo").removeView("gameResultInfoW");
     $$("gameResultInfo").addView({
         id: "gameResultInfoW",

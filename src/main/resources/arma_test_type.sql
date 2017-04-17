@@ -1,2 +1,0 @@
-INSERT INTO arma.test_type (id, name, SOURCE_ID) VALUES ('fillWords', 'Сөздерді толықтыр', null);
-INSERT INTO arma.test_type (id, name, SOURCE_ID) VALUES ('test', 'Lorem Ipsum Test', 'dcb98944-3805-46f5-af8c-50fbece5500c');
