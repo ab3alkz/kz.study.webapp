@@ -60,8 +60,8 @@ public class AppResource {
     @GET
     @Produces("application/json")
     @Path("getRandom25Guestions")
-    public String getRandom25Guestions() {
-        return objectToJson(appSession.getRandom25Guestions());
+    public String getRandom25Guestions(@QueryParam("srcId") String srcId, @QueryParam("start") Integer start, @QueryParam("count") Integer count) {
+        return objectToJson(appSession.getRandom25Guestions(srcId, start, count));
     }
 
     @GET
@@ -85,7 +85,7 @@ public class AppResource {
     @Produces("application/json")
     @Path("getGameResultList")
     public String getGameResultList(@QueryParam("start") Integer start, @QueryParam("count") Integer count) {
-        return objectToJson(appSession.getGameResultList(start, count));
+        return objectToJson(appSession.getGameResultList());
     }
 
 

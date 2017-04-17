@@ -1,8 +1,8 @@
 var testData;
 var activeQuestionIdx = 0;
 
-function startTesting() {
-    get_ajax('/study/wr/app/getRandom25Guestions', 'GET', null, function (gson) {
+function startTesting(item) {
+    get_ajax('/study/wr/app/getRandom25Guestions?srcId=' + item.sourceId + "&start=0&count=25", 'GET', null, function (gson) {
 
         testData = gson;
         createAnswTempl();

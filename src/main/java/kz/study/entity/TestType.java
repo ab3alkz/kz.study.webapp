@@ -25,6 +25,9 @@ public class TestType implements Serializable {
     @Basic
     @Column(name = "name")
     private String name;
+    @Basic
+    @Column(name = "SOURCE_ID")
+    private String sourceId;
 
     public String getId() {
         return id;
@@ -42,6 +45,13 @@ public class TestType implements Serializable {
         this.name = name;
     }
 
+    public String getSourceId() {
+        return sourceId;
+    }
+
+    public void setSourceId(String sourceId) {
+        this.sourceId = sourceId;
+    }
 
     public TestType() {
     }

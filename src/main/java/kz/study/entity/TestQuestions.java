@@ -1,12 +1,18 @@
 package kz.study.entity;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Created by amanzhol-ak on 17.04.2017.
  */
 @Entity
-@Table(name = "test_questions", schema = "arma", catalog = "")
+@Table(name = "test_questions")
+@XmlRootElement
+@NamedQueries({
+        @NamedQuery(name = "TestQuestions.findAll", query = "SELECT g FROM TestQuestions g "),
+        @NamedQuery(name = "TestQuestions.findBySrcId", query = "SELECT g FROM TestQuestions g WHERE g.srcId = :srcId")
+})
 public class TestQuestions {
     @Id
     @Column(name = "ID")
@@ -25,6 +31,9 @@ public class TestQuestions {
     @Basic
     @Column(name = "answ_4")
     private String answ4;
+    @Basic
+    @Column(name = "SRC_ID")
+    private String srcId;
 
     public TestQuestions() {
     }
@@ -33,13 +42,14 @@ public class TestQuestions {
         this.id = id;
     }
 
-    public TestQuestions(String id, String question, String answ1, String answ2, String answ3, String answ4) {
+    public TestQuestions(String id, String question, String answ1, String answ2, String answ3, String answ4, String srcId) {
         this.id = id;
         this.question = question;
         this.answ1 = answ1;
         this.answ2 = answ2;
         this.answ3 = answ3;
         this.answ4 = answ4;
+        this.srcId = srcId;
     }
 
     public String getId() {
@@ -88,5 +98,13 @@ public class TestQuestions {
 
     public void setAnsw4(String answ4) {
         this.answ4 = answ4;
+    }
+
+    public String getSrcId() {
+        return srcId;
+    }
+
+    public void setSrcId(String srcId) {
+        this.srcId = srcId;
     }
 }

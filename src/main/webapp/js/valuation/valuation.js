@@ -17,16 +17,15 @@ function form_init() {
             authSuccess();
         }
         gameResultContainerCreate();
-        // startTest("test1", {
-        //     id: "test1",
+        // startTest("test", {
+        //     id: "test",
         //     name: "Дұрыс жауабын тап"
         // });
     });
 }
 
-var refreshgameResultCounter;
 function gameResultContainerCreate() {
-    refreshgameResultCounter = 0;
+    var refreshgameResultCounter = 0;
     $('#gameResultContainerWrapper').show();
     webix.ui({
         container: 'gameResultContainerWrapper',
@@ -256,7 +255,7 @@ function startTest(id, item) {
         case "fillWords":
             createFillWordsContainer(id, item);
             break;
-        case "test1":
+        case "test":
             createTestsContainer(id, item);
             break;
         default:
@@ -322,7 +321,7 @@ function createTestsContainer(id, item) {
 
     $('.mainwrapper').removeClass(' top80px');
     $('.mainwrapper').addClass(' top20px');
-    startTesting();
+    startTesting(item);
 }
 
 function registrationWin() {
