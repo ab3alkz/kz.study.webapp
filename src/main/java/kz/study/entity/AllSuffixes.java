@@ -1,6 +1,7 @@
 package kz.study.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 
@@ -9,26 +10,26 @@ import java.io.Serializable;
  * @since on 17.11.2016.
  */
 @Entity
-@Table(name = "D_SUFFIX")
+@Table(name = "ALL_SUFFIXES")
 @XmlRootElement
 @NamedQueries({
-        @NamedQuery(name = "DSuffix.findAll", query = "SELECT g FROM DSuffix g"),
-        @NamedQuery(name = "DSuffix.findById", query = "SELECT g FROM DSuffix g where g.id = :id")
+        @NamedQuery(name = "AllSuffixes.findAll", query = "SELECT g FROM AllSuffixes g"),
+        @NamedQuery(name = "AllSuffixes.findById", query = "SELECT g FROM AllSuffixes g where g.id = :id")
 })
-public class DSuffix implements Serializable {
+public class AllSuffixes implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @Column(name = "id")
     private Long id;
-    @Column(name = "TYPE")
+    @Column(name = "value")
     private String value;
-    @JoinColumn(name = "PARENT_ID", referencedColumnName = "ID")
-    @ManyToOne
-    private DSuffix parentId;
+    @JoinColumn(name = "D_SUFFIX_ID", referencedColumnName = "ID")
+    @OneToOne
+    private DSuffix dSuffix;
 
-    public DSuffix() {
+    public AllSuffixes() {
     }
 
     public Long getId() {
@@ -47,11 +48,11 @@ public class DSuffix implements Serializable {
         this.value = value;
     }
 
-    public DSuffix getParentId() {
-        return parentId;
+    public DSuffix getdSuffix() {
+        return dSuffix;
     }
 
-    public void setParentId(DSuffix parentId) {
-        this.parentId = parentId;
+    public void setdSuffix(DSuffix dSuffix) {
+        this.dSuffix = dSuffix;
     }
 }

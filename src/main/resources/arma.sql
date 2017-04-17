@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 16 2017 г., 15:26
+-- Время создания: Апр 17 2017 г., 14:30
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.1
 
@@ -124,6 +124,46 @@ INSERT INTO `all_ending` (`id`, `value`, `d_ending_id`, `d_case_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `all_suffixes`
+--
+
+CREATE TABLE `all_suffixes` (
+  `id` int(11) NOT NULL,
+  `value` varchar(222) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `D_SUFFIX_ID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `all_suffixes`
+--
+
+INSERT INTO `all_suffixes` (`id`, `value`, `D_SUFFIX_ID`) VALUES
+(1, 'інші', 3),
+(2, 'ыншы', 3),
+(3, 'ншы', 3),
+(4, 'нші', 3),
+(5, 'ілдір', 4),
+(6, 'шыл', 4),
+(7, 'шіл', 4),
+(8, 'шы', 5),
+(9, 'ші', 5),
+(10, 'ымыз', 6),
+(11, 'ңыз', 6),
+(12, 'ңіз', 6),
+(13, 'сын', 7),
+(14, 'сын', 7),
+(15, 'тай', 7),
+(16, 'тей', 7),
+(17, 'пайынша', 7),
+(18, 'іре', 8),
+(19, 'ірей', 8),
+(20, 'ай', 8),
+(21, 'да', 8),
+(22, 'де', 8);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `alph_links`
 --
 
@@ -236,16 +276,23 @@ INSERT INTO `d_ending` (`ID`, `NAME`) VALUES
 
 CREATE TABLE `d_suffix` (
   `ID` int(11) NOT NULL,
-  `TYPE` varchar(222) COLLATE utf8_unicode_ci NOT NULL
+  `TYPE` varchar(222) COLLATE utf8_unicode_ci NOT NULL,
+  `PARENT_ID` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `d_suffix`
 --
 
-INSERT INTO `d_suffix` (`ID`, `TYPE`) VALUES
-(1, 'Сөз тудырушы'),
-(2, 'Сөз түрлендіруші');
+INSERT INTO `d_suffix` (`ID`, `TYPE`, `PARENT_ID`) VALUES
+(1, 'Сөз тудырушы', NULL),
+(2, 'Сөз түрлендіруші', NULL),
+(3, 'Реттік сан есім жұрнағы', 2),
+(4, 'Сын есімнің шырайы жұрнағы', 2),
+(5, 'Өтіну, тілек мәнді білдіретін жұрнақ', 2),
+(6, 'Тәуелдік жалғау', 2),
+(7, 'Үстеу тудыратын жұрнақ', 2),
+(8, 'Еліктеу сөзден етістік тудыратын жұрнақ', 2);
 
 -- --------------------------------------------------------
 
@@ -267,8 +314,10 @@ CREATE TABLE `game_result` (
 --
 
 INSERT INTO `game_result` (`id`, `game_Id`, `uName`, `result`, `info`, `d_date`) VALUES
+('03e7bf1c-0a16-441a-b21b-bb0071aacab2', 'test1', 'abzal', 8, '{\"data\":[{\"id\":\"a1\",\"question\":\"1 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":1,\"result\":true},{\"id\":\"a2\",\"question\":\"2 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":2,\"result\":false},{\"id\":\"a3\",\"question\":\"3 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":2,\"result\":false},{\"id\":\"a4\",\"question\":\"4 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":2,\"result\":false},{\"id\":\"a5\",\"question\":\"5 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":1,\"result\":true},{\"id\":\"a6\",\"question\":\"6 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":2,\"result\":false},{\"id\":\"a7\",\"question\":\"7 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":2,\"result\":false},{\"id\":\"a8\",\"question\":\"8 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":2,\"result\":false},{\"id\":\"a9\",\"question\":\"9 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a10\",\"question\":\"10 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":4,\"result\":false},{\"id\":\"a11\",\"question\":\"11 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a12\",\"question\":\"12 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a13\",\"question\":\"13 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a14\",\"question\":\"14 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a15\",\"question\":\"15 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a16\",\"question\":\"16 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a17\",\"question\":\"17 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a18\",\"question\":\"18 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a19\",\"question\":\"19 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a20\",\"question\":\"20 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a21\",\"question\":\"21 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a22\",\"question\":\"22 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a23\",\"question\":\"23 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a24\",\"question\":\"24 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a25\",\"question\":\"25 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"}],\"total\":8}', '2017-04-17 00:00:00'),
 ('0c86b855-9a07-469e-a67e-32fb5e6ab90f', 'fillWords', 'abzal', 0, '{\"data\":[{\"center\":\"_\",\"right\":\"та\",\"word\":\"ата\",\"id\":\"f3c8c6eb-6164-476f-8933-6cd67dcf0762\",\"result\":false},{\"center\":\"_\",\"right\":\"үз\",\"word\":\"күз\",\"id\":\"495bddd5-764f-4b29-9836-ad11f8d28d39\",\"result\":false},{\"left\":\"балап\",\"center\":\"_\",\"right\":\"н\",\"word\":\"балапан\",\"id\":\"a633fa76-e8f7-469f-afa8-efaddb3ae21d\",\"result\":false},{\"left\":\"көк\",\"center\":\"_\",\"right\":\"ем\",\"word\":\"көктем\",\"id\":\"2d5a8461-5565-49b5-88e8-43bfd1cdfa1e\",\"result\":false},{\"left\":\"қ\",\"center\":\"_\",\"right\":\"зақстан\",\"word\":\"қазақстан\",\"id\":\"74f013a5-f0e0-4637-9617-934452848a22\",\"result\":false},{\"center\":\"_\",\"right\":\"аз\",\"word\":\"жаз\",\"id\":\"15210d64-9a72-4d6f-9ec1-8c78ad845059\",\"result\":false},{\"center\":\"_\",\"right\":\"өрт\",\"word\":\"төрт\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq\",\"result\":false},{\"left\":\"сәлеме\",\"center\":\"_\",\"right\":\"сізбе\",\"word\":\"сәлеметсізбе\",\"id\":\"05f8ba0e-c94f-42b4-80e3-b30cda8b4123\",\"result\":false},{\"left\":\"се\",\"center\":\"_\",\"right\":\"із\",\"word\":\"сегіз\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq1\",\"result\":false}],\"total\":0}', '2017-04-16 00:00:00'),
-('4b1f9a4f-ef05-4b47-8399-ab6b50843ede', 'fillWords', 'abzal', 100, '{\"data\":[{\"left\":\"се\",\"center\":\"г\",\"right\":\"із\",\"word\":\"сегіз\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq1\",\"result\":true},{\"left\":\"қ\",\"center\":\"а\",\"right\":\"зақстан\",\"word\":\"қазақстан\",\"id\":\"74f013a5-f0e0-4637-9617-934452848a22\",\"result\":true},{\"center\":\"қ\",\"right\":\"ыс\",\"word\":\"қыс\",\"id\":\"600dfe39-aab7-4ab5-8810-ed33dc84b50c\",\"result\":true},{\"left\":\"м\",\"center\":\"ы\",\"right\":\"сық\",\"word\":\"мысық\",\"id\":\"aa8a092b-97fc-41e8-8fc7-4800bf32d321\",\"result\":true},{\"center\":\"т\",\"right\":\"өрт\",\"word\":\"төрт\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq\",\"result\":true},{\"center\":\"к\",\"right\":\"үз\",\"word\":\"күз\",\"id\":\"495bddd5-764f-4b29-9836-ad11f8d28d39\",\"result\":true},{\"left\":\"сәлемет\",\"center\":\"с\",\"right\":\"ізбе\",\"word\":\"сәлеметсізбе\",\"id\":\"05f8ba0e-c94f-42b4-80e3-b30cda8b4123\",\"result\":true},{\"left\":\"бал\",\"center\":\"а\",\"right\":\"пан\",\"word\":\"балапан\",\"id\":\"a633fa76-e8f7-469f-afa8-efaddb3ae21d\",\"result\":true},{\"left\":\"ә\",\"center\":\"к\",\"right\":\"е\",\"word\":\"әке\",\"id\":\"51e65471-8a3a-44e1-af7f-0bf75b9113c3\",\"result\":true}],\"total\":100}', '2017-04-16 00:00:00');
+('4b1f9a4f-ef05-4b47-8399-ab6b50843ede', 'fillWords', 'abzal', 100, '{\"data\":[{\"left\":\"се\",\"center\":\"г\",\"right\":\"із\",\"word\":\"сегіз\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq1\",\"result\":true},{\"left\":\"қ\",\"center\":\"а\",\"right\":\"зақстан\",\"word\":\"қазақстан\",\"id\":\"74f013a5-f0e0-4637-9617-934452848a22\",\"result\":true},{\"center\":\"қ\",\"right\":\"ыс\",\"word\":\"қыс\",\"id\":\"600dfe39-aab7-4ab5-8810-ed33dc84b50c\",\"result\":true},{\"left\":\"м\",\"center\":\"ы\",\"right\":\"сық\",\"word\":\"мысық\",\"id\":\"aa8a092b-97fc-41e8-8fc7-4800bf32d321\",\"result\":true},{\"center\":\"т\",\"right\":\"өрт\",\"word\":\"төрт\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq\",\"result\":true},{\"center\":\"к\",\"right\":\"үз\",\"word\":\"күз\",\"id\":\"495bddd5-764f-4b29-9836-ad11f8d28d39\",\"result\":true},{\"left\":\"сәлемет\",\"center\":\"с\",\"right\":\"ізбе\",\"word\":\"сәлеметсізбе\",\"id\":\"05f8ba0e-c94f-42b4-80e3-b30cda8b4123\",\"result\":true},{\"left\":\"бал\",\"center\":\"а\",\"right\":\"пан\",\"word\":\"балапан\",\"id\":\"a633fa76-e8f7-469f-afa8-efaddb3ae21d\",\"result\":true},{\"left\":\"ә\",\"center\":\"к\",\"right\":\"е\",\"word\":\"әке\",\"id\":\"51e65471-8a3a-44e1-af7f-0bf75b9113c3\",\"result\":true}],\"total\":100}', '2017-04-16 00:00:00'),
+('5ae834ef-55e5-4fbc-aa5e-0407b3cf777d', 'test1', 'abzal', 20, '{\"data\":[{\"id\":\"a1\",\"question\":\"1 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":3,\"result\":false},{\"id\":\"a2\",\"question\":\"2 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":3,\"result\":false},{\"id\":\"a3\",\"question\":\"3 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":4,\"result\":false},{\"id\":\"a4\",\"question\":\"4 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":4,\"result\":false},{\"id\":\"a5\",\"question\":\"5 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":2,\"result\":false},{\"id\":\"a6\",\"question\":\"6 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":1,\"result\":true},{\"id\":\"a7\",\"question\":\"7 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":1,\"result\":true},{\"id\":\"a8\",\"question\":\"8 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":1,\"result\":true},{\"id\":\"a9\",\"question\":\"9 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":1,\"result\":true},{\"id\":\"a10\",\"question\":\"10 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":3,\"result\":false},{\"id\":\"a11\",\"question\":\"11 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"answIdx\":1,\"result\":true},{\"id\":\"a12\",\"question\":\"12 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a13\",\"question\":\"13 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a14\",\"question\":\"14 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a15\",\"question\":\"15 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a16\",\"question\":\"16 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a17\",\"question\":\"17 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a18\",\"question\":\"18 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a19\",\"question\":\"19 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a20\",\"question\":\"20 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a21\",\"question\":\"21 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a22\",\"question\":\"22 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a23\",\"question\":\"23 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a24\",\"question\":\"24 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"},{\"id\":\"a25\",\"question\":\"25 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\"}],\"total\":20}', '2017-04-17 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -313,22 +362,38 @@ INSERT INTO `groups` (`G_NAME`, `G_DESCRIPTION`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `test_questions`
+--
+
+CREATE TABLE `test_questions` (
+  `ID` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `question` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `answ_1` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `answ_2` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `answ_3` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `answ_4` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SRC_ID` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `test_type`
 --
 
 CREATE TABLE `test_type` (
   `id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL
+  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SOURCE_ID` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Дамп данных таблицы `test_type`
 --
 
-INSERT INTO `test_type` (`id`, `name`) VALUES
-('fillWords', 'Сөздерді толықтыр'),
-('other', 'Басқа сынақ'),
-('other2', 'Басқа сынақ 2');
+INSERT INTO `test_type` (`id`, `name`, `SOURCE_ID`) VALUES
+('fillWords', 'Сөздерді толықтыр', NULL),
+('test', 'Lorem Ipsum Test', 'dcb98944-3805-46f5-af8c-50fbece5500c');
 
 -- --------------------------------------------------------
 
@@ -450,6 +515,12 @@ ALTER TABLE `all_ending`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `all_suffixes`
+--
+ALTER TABLE `all_suffixes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `alph_links`
 --
 ALTER TABLE `alph_links`
@@ -525,6 +596,11 @@ ALTER TABLE `words`
 ALTER TABLE `all_ending`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 --
+-- AUTO_INCREMENT для таблицы `all_suffixes`
+--
+ALTER TABLE `all_suffixes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+--
 -- AUTO_INCREMENT для таблицы `alph_links`
 --
 ALTER TABLE `alph_links`
@@ -543,7 +619,7 @@ ALTER TABLE `d_ending`
 -- AUTO_INCREMENT для таблицы `d_suffix`
 --
 ALTER TABLE `d_suffix`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
