@@ -56,6 +56,14 @@ public class AppResource {
         return objectToJson(appSession.getRandom10WordList());
     }
 
+
+    @GET
+    @Produces("application/json")
+    @Path("getRandom25Guestions")
+    public String getRandom25Guestions() {
+        return objectToJson(appSession.getRandom25Guestions());
+    }
+
     @GET
     @Produces("application/json")
     @Path("setGameResult")

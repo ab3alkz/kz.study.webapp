@@ -17,9 +17,9 @@ function form_init() {
             authSuccess();
         }
         gameResultContainerCreate();
-        // startTest("fillWords", {
-        //     id: "fillWords",
-        //     name: "Сөздерді толықтыр"
+        // startTest("test1", {
+        //     id: "test1",
+        //     name: "Дұрыс жауабын тап"
         // });
     });
 }
@@ -255,7 +255,7 @@ function startTest(id, item) {
         case "fillWords":
             createFillWordsContainer(id, item);
             break;
-        case "test":
+        case "test1":
             createTestsContainer(id, item);
             break;
         default:
@@ -310,13 +310,17 @@ function createTestsContainer(id, item) {
                     view: 'label',
                     height: 60,
                     autowidth: true,
-                    label: "<h2>" + item.name + "</h2>"
-                }, {
-                    height: 50
+                    label: "<h3 style='margin: 0'>" + item.name + "</h3>"
                 }
             ]
         }
     );
+
+    $('#gameResultContainerWrapper').hide();
+    $('#userInfo').hide();
+
+    $('.mainwrapper').removeClass(' top80px');
+    $('.mainwrapper').addClass(' top20px');
     startTesting();
 }
 

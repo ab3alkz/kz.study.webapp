@@ -5,10 +5,7 @@
  */
 package kz.study.session;
 
-import kz.study.entity.GameResult;
-import kz.study.entity.TestType;
-import kz.study.entity.Users;
-import kz.study.entity.Words;
+import kz.study.entity.*;
 import kz.study.gson.GsonFillWordsResult;
 import kz.study.gson.GsonResult;
 import kz.study.util.Utx;
@@ -72,6 +69,17 @@ public class AppSession extends Utx {
         wordsList.add(new Words("a"+(i++),"Мысық"));
         wordsList.add(new Words("a"+(i++),"Қазақ"));
         return wordsList;*/
+    }
+
+    public List<TestQuestions> getRandom25Guestions() {
+
+        List<TestQuestions> wordsList = new ArrayList<>();
+        for (int i=1;i<=25;i++) {
+
+            wordsList.add(new TestQuestions("a"+(i),i+" Lorem Ipsum is simply dummy ?","text of the printing ",
+                    " typesetting industry","standard dummy text","ever since the 1500s"));
+        }
+        return wordsList;
     }
 
     private Integer getRandIdxWord(Integer minimum, Integer maximum) {

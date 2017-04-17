@@ -37,6 +37,7 @@
     <link href="${contextPath}/plugin/bootstrap-3.3.4-dist/css/bootstrap-menu.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/js/valuation/valuation.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/fill-words.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/valuation/testing.js" type="text/javascript"></script>
     <script src="${contextPath}/js/common.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js?version=<%= new Date()%>" type="text/javascript"></script>
     <link href="${contextPath}/css/valuation.css" rel="stylesheet" type="text/css"/>
@@ -44,7 +45,7 @@
 </head>
 <body>
 
-<div  style="margin-top: 80px;margin-bottom: 70px">
+<div  class="mainwrapper top80px" style="margin-bottom: 70px">
     <div class="container panel panel-default" id="navbar">
         <div class="panel-body">
             <div id="navbarContainer"></div>
@@ -66,6 +67,7 @@
                         </div>
                         <div id="defContainer"></div>
                         <div id="fillWordsContainer"></div>
+                        <div id="testsContainer"></div>
 
                     </div>
                     <div style="float: left;width: 30%;border-left: 1px solid silver" id="loginForm"></div>

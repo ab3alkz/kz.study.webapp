@@ -686,6 +686,7 @@ body {
     margin-left: 30px;
     cursor: pointer;
 }
+
 .fa.fa-home {
     font-size: 25px;
 }
@@ -693,4 +694,45 @@ body {
 .myuser-Fio {
     font-size: 18px;
     color: #317eac;
+}
+
+.test-question, .test-answ {
+    padding: 20px;
+}
+
+.test-question {
+    background-color: #317eac;
+    color: #fff;
+    font-size: 16px;
+}
+
+.test-answ {
+    background-color: silver;
+    color: #000;
+    font-size: 16px;
+}
+
+.test-answ-true.test-answ {
+    background-color: limegreen;
+    color: #000;
+    font-size: 16px;
+}
+
+.answTemplPaging i {
+    cursor: pointer;
+    color: navy;
+    font-size: 20px;
+}
+
+.answTemplPaging .webix_disabled_view i {
+    cursor: pointer;
+    color: silver;
+}
+
+.top80px {
+    margin-top: 80px;
+}
+
+.top20px {
+    margin-top: 20px;
 }
