@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static kz.study.util.Util.isNullOrEmpty;
+
 /**
  * @author kussein-at
  * @since 16.04.2017.
@@ -50,34 +52,92 @@ public class Test {
     private static final String pass = "123456";
 
     public static void main(String[] args) throws SQLException {
+        String s = "Менің атым Аслан";
         Test test = new Test();
-        String s = "Балалармен";
         List<TestClass> list = test.getTestBd("SELECT * FROM all_ending");
         test.getTest(list, s);
     }
 
+    /**
+     * @param list;
+     * @param src;
+     * @desc жалгаулар;
+     */
+    private void getTest(List<TestClass> list, String src) throws SQLException {
+        List<String> pList = new ArrayList<>();
+        if (!isNullOrEmpty(src)) {
+            String[] strings = src.split(" ");
+            for (String string : strings) {
+                for (TestClass t : list) {
+//                    if (string.length() >= 4) {
+                    string = string.replace(t.getValue(), " " + t.getValue() + " ");
 
-    private void getTest(List<TestClass> list, String s) throws SQLException {
-        String[] strings = s.split(" ");
-        for (String string : strings) {
-            for (TestClass t : list) {
-                if (string.contains(t.getValue())) {
-                    String[] sD = string.split(t.getValue());
-                    if (sD.length < 2) {
-                        String a = Arrays.toString(string.split(t.getValue()));
-                        a = a.replace("[", "");
-                        a = a.replace("]", "");
-                        System.out.println(" " + a + " " + t.getValue() + " " + getTestBdC(t.getAdId()).getValue());
+                    if (string.contains(t.getValue())) {
+                        System.out.println(" " + string + " " + t.getValue() + " " + getTestBdC(t.getAdId()).getValue());
                     }
-//                    for (String newValue : string.split(t.getValue())) {
-////                        System.out.println(newValue);
+//                    String[] array = string.split(t.getValue());
+//                    System.out.println("array " + Arrays.toString(array));
+//                    for (String s : array) {
+//                        pList.add(s);
 //                    }
-//                    sD = string.replaceAll(t.getValue(), "");
+
+//                            while (s.equals(t.getValue())) {
+//                                System.out.println(" " + s + " " + t.getValue() + " " + getTestBdC(t.getAdId()).getValue());
 //
+////                                String[] sD = s.split(t.getValue());
+////
+////
+////                                System.out.println(" " + string + " " + t.getValue() + " " + getTestBdC(t.getAdId()).getValue());
+////                                if (sD.length < 2) {
+////                                    String a = Arrays.toString(string.split(t.getValue()));
+////                                    a = a.replace("[", "");
+////                                    a = a.replace("]", "");
+////                                    System.out.println(" " + a + " " + t.getValue() + " " + getTestBdC(t.getAdId()).getValue());
+////                                }
+////                    for (String newValue : string.split(t.getValue())) {
+//////                        System.out.println(newValue);
+////                    }
+////                    sD = string.replaceAll(t.getValue(), "");
+////
+//                            }
+
+
+//                    string = string.substring(string.length() - t.getValue().length());
+
+//                        if (string.contains(t.getValue())) {
+//
+//
+//                            String[] sD = string.split(t.getValue());
+//
+//
+//                            System.out.println(" " + string + " " + t.getValue() + " " + getTestBdC(t.getAdId()).getValue());
+//                            if (sD.length < 2) {
+//                                String a = Arrays.toString(string.split(t.getValue()));
+//                                a = a.replace("[", "");
+//                                a = a.replace("]", "");
+//                                System.out.println(" " + a + " " + t.getValue() + " " + getTestBdC(t.getAdId()).getValue());
+//                            }
+////                    for (String newValue : string.split(t.getValue())) {
+//////                        System.out.println(newValue);
+////                    }
+////                    sD = string.replaceAll(t.getValue(), "");
+////
+//                        }
                 }
             }
         }
+//        j(pList, list);
+
     }
+
+//    private void j(List<String> s, List<TestClass> list) {
+//
+//        for (TestClass s1 : list) {
+//            if (s.contains(s1.getValue())) {
+//                System.out.println(s);
+//            }
+//        }
+//    }
 
     private DEnding getTestBdC(int id) throws SQLException {
         Connection conn = null;
