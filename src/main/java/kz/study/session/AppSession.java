@@ -74,10 +74,12 @@ public class AppSession extends Utx {
     public List<TestQuestions> getRandom25Guestions() {
 
         List<TestQuestions> wordsList = new ArrayList<>();
-        for (int i=1;i<=25;i++) {
+        for (int i = 1; i <= 25; i++) {
 
-            wordsList.add(new TestQuestions("a"+(i),i+" Lorem Ipsum is simply dummy ?","text of the printing ",
-                    " typesetting industry","standard dummy text","ever since the 1500s"));
+            wordsList.add(
+                    new TestQuestions("a" + (i), i + " Lorem Ipsum is simply dummy ?", "text of the printing ",
+                            " typesetting industry", "standard dummy text", "ever since the 1500s")
+            );
         }
         return wordsList;
     }
@@ -114,8 +116,11 @@ public class AppSession extends Utx {
         obj.setgDate(stringToSqlDate(dateToString(new java.util.Date(), "dd.MM.yyyy HH.mm.ss"), "dd.MM.yyyy HH.mm.ss"));
         em.merge(obj);
 
-
-        GsonFillWordsResult gson = wrapToGsonFillWordsResultByJsonString(json);
+        switch (gameId) {
+            case "fillWords":
+                GsonFillWordsResult gson = wrapToGsonFillWordsResultByJsonString(json);
+                break;
+        }
         return getGsonResult(true, null);
     }
 }

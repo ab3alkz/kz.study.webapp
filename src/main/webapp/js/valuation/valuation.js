@@ -1,7 +1,7 @@
 $(document).ready(function () {
     load();
 });
-
+var activeGameId;
 function load() {
     form_init();
 }
@@ -251,6 +251,7 @@ function viewTestTypeListWin(gson) {
 
 function startTest(id, item) {
     $("#mainContainer").hide();
+    activeGameId = id;
     switch (id) {
         case "fillWords":
             createFillWordsContainer(id, item);
@@ -439,7 +440,6 @@ function registrationWin() {
     };
 }
 
-
 function viewSignInWin() {
     if ($$("registrationWin")) {
         $$("registrationWin").hide();
@@ -537,6 +537,7 @@ function viewSignInWinSubmit() {
     var password = $$("viewSignInWinForm").elements['password'].getValue();
     loginSubmit1(username, password);
 }
+
 function loginFormSubmit() {
     var username = $$("loginForm").elements['uname'].getValue();
     var password = $$("loginForm").elements['password'].getValue();
@@ -639,7 +640,6 @@ function registration() {
                     messageBox("Ошибка", gson.message);
                 }
             } else {
-
                 messageBox("Ошибка", gson);
             }
             console.log(gson)
@@ -650,12 +650,22 @@ function registration() {
 }
 
 function setGameResultInfo(obj) {
-
     $$("gameResultInfo").removeView("gameResultInfoW");
     $$("gameResultInfo").addView({
         id: "gameResultInfoW",
         template: "<h4>" + obj.uName + "</h4>" + getFillWordsResultByJson(JSON.parse(obj.info)),
         width: 360,
         height: 404
+    });
+}
+
+function setGameResult(result, json, callBack) {
+    get_ajax('/study/wr/app/setGameResult', 'GET', {
+        gameId: activeGameId,
+        uName: myuser,
+        result: result,
+        json: JSON.stringify(json)
+    }, callBack, function (url) {
+        messageBox("Ошибка", "Ошибка службы " + ' ' + url);
     });
 }
