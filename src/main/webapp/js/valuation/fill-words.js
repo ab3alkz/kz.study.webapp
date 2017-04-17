@@ -249,7 +249,10 @@ function fillWordsRequired(btnId) {
 
 function fillWordsResultWin(json, total) {
 
-    setGameResult('fillWords', total, json)
+    setGameResult(total, json, function (gson) {
+        $$("fillWordsRequireBtn").hide();
+        $$("fillWordsRestartBtn").show();
+    })
     if (!$$('fillWordsResultWin')) {
         webix.ui({
             view: "window",
@@ -298,19 +301,6 @@ function fillWordsResultWin(json, total) {
     };
 }
 
-function setGameResult(game, result, json) {
-    get_ajax('/study/wr/app/setGameResult', 'GET', {
-        gameId: game,
-        uName: myuser,
-        result: result,
-        json: JSON.stringify(json)
-    }, function (gson) {
-        $$("fillWordsRequireBtn").hide();
-        $$("fillWordsRestartBtn").show();
-    }, function (url) {
-        messageBox("Ошибка", "Ошибка службы " + ' ' + url);
-    });
-}
 
 function getFillWordsResultByJson(json) {
     var result = "";
