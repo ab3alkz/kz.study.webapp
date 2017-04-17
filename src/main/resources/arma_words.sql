@@ -1,0 +1,17 @@
+INSERT INTO arma.words (id, value_kz) VALUES ('05f8ba0e-c94f-42b4-80e3-b30cda8b4123', 'Сәлеметсізбе');
+INSERT INTO arma.words (id, value_kz) VALUES ('15210d64-9a72-4d6f-9ec1-8c78ad845059', 'Жаз');
+INSERT INTO arma.words (id, value_kz) VALUES ('2d5a8461-5565-49b5-88e8-43bfd1cdfa1e', 'Көктем');
+INSERT INTO arma.words (id, value_kz) VALUES ('495bddd5-764f-4b29-9836-ad11f8d28d39', 'Күз');
+INSERT INTO arma.words (id, value_kz) VALUES ('51e65471-8a3a-44e1-af7f-0bf75b9113c3', 'Әке');
+INSERT INTO arma.words (id, value_kz) VALUES ('600dfe39-aab7-4ab5-8810-ed33dc84b50c', 'Қыс');
+INSERT INTO arma.words (id, value_kz) VALUES ('74f013a5-f0e0-4637-9617-934452848a22', 'Қазақстан');
+INSERT INTO arma.words (id, value_kz) VALUES ('a633fa76-e8f7-469f-afa8-efaddb3ae21d', 'Балапан');
+INSERT INTO arma.words (id, value_kz) VALUES ('aa8a092b-97fc-41e8-8fc7-4800bf32d321', 'Мысық');
+INSERT INTO arma.words (id, value_kz) VALUES ('adasds54sadsdsddddddddddddddddddd', 'Жеті');
+INSERT INTO arma.words (id, value_kz) VALUES ('afe09951-ae5c-40ad-9ecc-44a411146698', 'Қазақ');
+INSERT INTO arma.words (id, value_kz) VALUES ('e9dc5b3a-dea7-42de-9b35-ee1798c96490', 'Әже');
+INSERT INTO arma.words (id, value_kz) VALUES ('f3c8c6eb-6164-476f-8933-6cd67dcf0762', 'Ата');
+INSERT INTO arma.words (id, value_kz) VALUES ('fc266d3a-35ee-47bc-9891-3d54e721fd60', 'Ана');
+INSERT INTO arma.words (id, value_kz) VALUES ('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq1', 'Сегіз');
+INSERT INTO arma.words (id, value_kz) VALUES ('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq2', 'Тоғыз');
+INSERT INTO arma.words (id, value_kz) VALUES ('qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq', 'Төрт');
