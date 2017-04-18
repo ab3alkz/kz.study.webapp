@@ -1,5 +1,6 @@
 var testData;
 var activeQuestionIdx = 0;
+var testFinish = false;
 
 function startTesting(item) {
     get_ajax('/study/wr/app/getRandom25Guestions?srcId=' + item.id + "&start=0&count=25", 'GET', null, function (gson) {
@@ -39,8 +40,9 @@ function setTemplAnsw(obj) {
         var resultCss = "";
         if (testData[activeQuestionIdx].answIdx == i) {
             resultCss = "test-answ-" + testData[activeQuestionIdx].result;
+        } else  if(testFinish && i==1) {
+            resultCss = "test-answ-not-find-true";
         }
-
         $$("answTempl").addView({
             autoheight: true,
             width: 900,
@@ -101,6 +103,7 @@ function setQuestionPaging() {
             },
             {},
             {
+                hiddem: testFinish,
                 height: 50,
                 id: "finishTestingBtn",
                 width: 155,
@@ -141,18 +144,18 @@ function myContins(arr, val) {
 }
 
 function finishTesting() {
-    $$('answTempl').disable();
+    testFinish = true;
+    $$('finishTestingBtn').disable();
     var resCount = 0;
     for (var i in testData) {
         if (testData[i].result) {
             resCount++;
         }
     }
-    console.log(resCount + " / " + testData.length)
 
     var round = Math.round;
     var total = round(100 / testData.length * resCount);
-    var json = {}
+    var json = {};
     json.data = testData;
     json.total = total;
     setGameResult(total, json,
