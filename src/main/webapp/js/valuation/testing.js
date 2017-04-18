@@ -56,7 +56,7 @@ function setTemplAnsw(obj) {
 
 function answerClick(answIdx) {
     var result = answIdx == 1;
-    if (!isNullOrEmpty(testData[activeQuestionIdx].answIdx)) {
+    if (!isNullOrEmpty(testData[activeQuestionIdx].answIdx) || testFinish) {
         return;
     }
     testData[activeQuestionIdx].answIdx = answIdx;
@@ -70,7 +70,8 @@ function setQuestionPaging() {
     $$("answTempl").addView({
         css: 'answTemplPaging',
         cols: [
-            {},
+            {
+                hidden: testFinish,},
             {},
             {
                 view: 'label',
@@ -103,7 +104,7 @@ function setQuestionPaging() {
             },
             {},
             {
-                hiddem: testFinish,
+                hidden: testFinish,
                 height: 50,
                 id: "finishTestingBtn",
                 width: 155,
@@ -115,6 +116,9 @@ function setQuestionPaging() {
 }
 
 function questionPagingClick(idx) {
+    if(isNullOrEmpty(idx)) {
+        idx = 0;
+    }
     if (idx < 0 || idx > testData.length - 1)
         return;
     activeQuestionIdx = idx;
@@ -163,4 +167,5 @@ function finishTesting() {
 
         }
     );
+    questionPagingClick(0);
 }
