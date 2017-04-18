@@ -61,7 +61,7 @@
                                 жүйесі</h1>
                             <h3 style="color: #222">Тіл біліміңді тексеру үшін сынақтан өт</h3>
                             <br>
-                            <button onclick="getTestTypeList()" class='btn btn-success'
+                            <button onclick="getTestTypeList(1)" class='btn btn-success'
                                     style="padding-left: 50px;padding-right: 50px">Сынақты бастау
                             </button>
                         </div>

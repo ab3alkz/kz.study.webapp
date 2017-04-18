@@ -13,7 +13,8 @@ import java.io.Serializable;
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "TestType.findAll", query = "SELECT g FROM TestType g"),
-        @NamedQuery(name = "TestType.findById", query = "SELECT g FROM TestType g WHERE g.id = :id")
+        @NamedQuery(name = "TestType.findById", query = "SELECT g FROM TestType g WHERE g.id = :id"),
+        @NamedQuery(name = "TestType.findByIsPublic", query = "SELECT g FROM TestType g WHERE g.isPublic = :isPublic")
 })
 public class TestType implements Serializable {
 
@@ -21,7 +22,7 @@ public class TestType implements Serializable {
 
     @Id
     @Column(name = "id")
-    private String id;
+    private Integer id;
     @Basic
     @Column(name = "name")
     private String name;
@@ -31,12 +32,15 @@ public class TestType implements Serializable {
     @Basic
     @Column(name = "Level")
     private Integer level;
+    @Basic
+    @Column(name = "IS_PUBLIC")
+    private Integer isPublic;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -51,7 +55,7 @@ public class TestType implements Serializable {
     public TestType() {
     }
 
-    public TestType(String id) {
+    public TestType(Integer id) {
         this.id = id;
     }
 
@@ -69,5 +73,13 @@ public class TestType implements Serializable {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Integer getIsPublic() {
+        return isPublic;
+    }
+
+    public void setIsPublic(Integer isPublic) {
+        this.isPublic = isPublic;
     }
 }

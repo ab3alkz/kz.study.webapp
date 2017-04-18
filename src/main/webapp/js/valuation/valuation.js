@@ -154,11 +154,13 @@ function createLoginForm() {
 
 }
 
-function getTestTypeList() {
+function getTestTypeList(isPublic_) {
     if (isNullOrEmpty(myuser)) {
         return viewSignInWin();
     }
-    get_ajax('/study/wr/app/getTestTypeList', 'GET', null, function (gson) {
+    get_ajax('/study/wr/app/getTestTypeList', 'GET', {
+        isPublic: isPublic_
+    }, function (gson) {
         if (gson)
             viewTestTypeListWin(gson);
     }, function (url) {

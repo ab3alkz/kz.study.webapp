@@ -60,14 +60,14 @@ public class AppResource {
     @GET
     @Produces("application/json")
     @Path("getRandom25Guestions")
-    public String getRandom25Guestions(@QueryParam("srcId") String srcId, @QueryParam("start") Integer start, @QueryParam("count") Integer count) {
+    public String getRandom25Guestions(@QueryParam("srcId") Integer srcId, @QueryParam("start") Integer start, @QueryParam("count") Integer count) {
         return objectToJson(appSession.getRandom25Guestions(srcId, start, count));
     }
 
     @GET
     @Produces("application/json")
     @Path("setGameResult")
-    public String setGameResult(@QueryParam("gameId") String gameId,
+    public String setGameResult(@QueryParam("gameId") Integer gameId,
                                 @QueryParam("uName") String uName,
                                 @QueryParam("json") String json,
                                 @QueryParam("result") Long result) {
@@ -77,8 +77,8 @@ public class AppResource {
     @GET
     @Produces("application/json")
     @Path("getTestTypeList")
-    public String getTestTypeList() {
-        return objectToJson(appSession.getTestTypeList());
+    public String getTestTypeList(@QueryParam("isPublic") Integer isPublic) {
+        return objectToJson(appSession.getTestTypeListByIsPublic(isPublic));
     }
 
     @GET

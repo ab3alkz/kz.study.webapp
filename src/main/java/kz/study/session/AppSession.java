@@ -6,7 +6,6 @@
 package kz.study.session;
 
 import kz.study.entity.*;
-import kz.study.gson.GsonFillWordsResult;
 import kz.study.gson.GsonResult;
 import kz.study.util.Utx;
 import org.slf4j.Logger;
@@ -21,9 +20,8 @@ import java.util.Random;
 
 import static kz.study.util.DateUtil.dateToString;
 import static kz.study.util.DateUtil.stringToSqlDate;
-import static kz.study.util.Util.createGuid;
 import static kz.study.util.Util.getGsonResult;
-import static kz.study.wrapper.Serialization.wrapToGsonFillWordsResultByJsonString;
+import static kz.study.util.Util.getSingleResultOrNull;
 import static kz.study.wrapper.Wrapper.wrapToGsonGameResultList;
 
 
@@ -71,8 +69,8 @@ public class AppSession extends Utx {
         return wordsList;*/
     }
 
-    public List<TestQuestions> getRandom25Guestions(String srcId, Integer start, Integer count) {
-        List<TestQuestions> list = getTestQuestionsList(srcId, 0, 100);
+    public List<TestQuestions> getRandom25Guestions(Integer srcId, Integer start, Integer count) {
+         List<TestQuestions> list = getTestQuestionsList(srcId, 0, 100);
 
         List<TestQuestions> result = new ArrayList<>();
         randList = new ArrayList<>();
@@ -83,12 +81,11 @@ public class AppSession extends Utx {
             result.add(list.get(randIdx));
         }
 
-        /*for (int i = 1; i <= 25; i++) {
+        /*for (int i = 1; i <= 55; i++) {
+            TestQuestions t = new TestQuestions(getSequenceNextVal(), i + " Lorem Ipsum is simply dummy ?", "text of the printing ",
+                    " typesetting industry", "standard dummy text", "ever since the 1500s", 2);
 
-            result.add(
-                    new TestQuestions("a" + (i), i + " Lorem Ipsum is simply dummy ?", "text of the printing ",
-                            " typesetting industry", "standard dummy text", "ever since the 1500s", "")
-            );
+            result.add(t);
         }*/
         return result;
     }
@@ -110,18 +107,33 @@ public class AppSession extends Utx {
         return em.createNamedQuery("TestType.findAll").getResultList();
     }
 
+    public List<Words> getTestTypeListByIsPublic(Integer isPublic) {
+        return em.createNamedQuery("TestType.findByIsPublic").setParameter("isPublic", isPublic).getResultList();
+    }
+
     public List<GameResult> getGameResultList() {
         return wrapToGsonGameResultList(em.createNamedQuery("GameResult.findAll").setFirstResult(0).setMaxResults(10).getResultList());
     }
 
-    public List<TestQuestions> getTestQuestionsList(String srcId, Integer start, Integer count) {
+    public List<TestQuestions> getTestQuestionsList(Integer srcId, Integer start, Integer count) {
         return em.createNamedQuery("TestQuestions.findBySrcId").setParameter("srcId", srcId).setFirstResult(start).setMaxResults(count).getResultList();
     }
 
-    public GsonResult setGameResult(String gameId, String uName, Long result, String json) {
+    public Integer getSequenceNextVal() {
+        ArmaSequense sequense = (ArmaSequense) getSingleResultOrNull(em.createNamedQuery("ArmaSequense.findVal"));
+        if (sequense == null) {
+            sequense = new ArmaSequense(1, 0);
+        }
+        sequense.setVal(sequense.getVal() + 1);
+        em.merge(sequense);
+
+        return sequense.getVal();
+    }
+
+    public GsonResult setGameResult(Integer gameId, String uName, Long result, String json) {
 
         GameResult obj = new GameResult();
-        obj.setId(createGuid());
+        obj.setId(getSequenceNextVal());
         obj.setGameId(new TestType(gameId));
         obj.setResult(result);
         obj.setuName(new Users(uName));
@@ -129,11 +141,11 @@ public class AppSession extends Utx {
         obj.setgDate(stringToSqlDate(dateToString(new java.util.Date(), "dd.MM.yyyy HH.mm.ss"), "dd.MM.yyyy HH.mm.ss"));
         em.merge(obj);
 
-        switch (gameId) {
-            case "fillWords":
-                GsonFillWordsResult gson = wrapToGsonFillWordsResultByJsonString(json);
-                break;
-        }
+//        switch (gameId) {
+//            case "fillWords":
+//                GsonFillWordsResult gson = wrapToGsonFillWordsResultByJsonString(json);
+//                break;
+//        }
         return getGsonResult(true, null);
     }
 }

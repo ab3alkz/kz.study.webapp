@@ -16,7 +16,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class TestQuestions {
     @Id
     @Column(name = "ID")
-    private String id;
+    private Integer id;
     @Column(name = "question")
     private String question;
     @Basic
@@ -33,17 +33,17 @@ public class TestQuestions {
     private String answ4;
     @Basic
     @Column(name = "SRC_ID")
-    private String srcId;
+    private Integer srcId;
 
     public TestQuestions() {
 
     }
 
-    public TestQuestions(String id) {
+    public TestQuestions(Integer id) {
         this.id = id;
     }
 
-    public TestQuestions(String id, String question, String answ1, String answ2, String answ3, String answ4, String srcId) {
+    public TestQuestions(Integer id, String question, String answ1, String answ2, String answ3, String answ4, Integer srcId) {
         this.id = id;
         this.question = question;
         this.answ1 = answ1;
@@ -53,11 +53,11 @@ public class TestQuestions {
         this.srcId = srcId;
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -101,11 +101,11 @@ public class TestQuestions {
         this.answ4 = answ4;
     }
 
-    public String getSrcId() {
+    public Integer getSrcId() {
         return srcId;
     }
 
-    public void setSrcId(String srcId) {
+    public void setSrcId(Integer srcId) {
         this.srcId = srcId;
     }
 }

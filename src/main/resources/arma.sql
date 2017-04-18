@@ -475,7 +475,7 @@ INSERT INTO `test_questions` (`ID`, `question`, `answ_1`, `answ_2`, `answ_3`, `a
 --
 
 CREATE TABLE `test_type` (
-  `id` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `id` INT COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
   `level` int(11) NOT NULL,
   `Type` varchar(255) COLLATE utf8_unicode_ci NOT NULL
