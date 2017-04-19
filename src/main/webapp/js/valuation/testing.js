@@ -40,7 +40,7 @@ function setTemplAnsw(obj) {
         var resultCss = "";
         if (testData[activeQuestionIdx].answIdx == i) {
             resultCss = "test-answ-" + testData[activeQuestionIdx].result;
-        } else  if(testFinish && i==1) {
+        } else if (testFinish && i == 1) {
             resultCss = "test-answ-not-find-true";
         }
         $$("answTempl").addView({
@@ -71,7 +71,8 @@ function setQuestionPaging() {
         css: 'answTemplPaging',
         cols: [
             {
-                hidden: testFinish,},
+                hidden: testFinish,
+            },
             {},
             {
                 view: 'label',
@@ -116,7 +117,7 @@ function setQuestionPaging() {
 }
 
 function questionPagingClick(idx) {
-    if(isNullOrEmpty(idx)) {
+    if (isNullOrEmpty(idx)) {
         idx = 0;
     }
     if (idx < 0 || idx > testData.length - 1)
@@ -168,4 +169,250 @@ function finishTesting() {
         }
     );
     questionPagingClick(0);
+}
+
+function testingAdmin(item) {
+
+
+    $('#gameResultContainerWrapper').hide();
+    $('#userInfo').hide();
+
+    $('.mainwrapper').removeClass(' top80px');
+    $('.mainwrapper').addClass(' top20px');
+    webix.ui({
+        id: "testsContainerAdmin",
+        container: "testsContainerAdmin",
+        rows: [
+            {
+                cols:[
+
+                    {
+                        view: "label",
+                        label: item.name
+                    },
+                    {
+                        height: 50,
+                        width: 155,
+                        css: "noBorder",
+                        template: "<button onclick='editQuestion({srcId:"+item.id+"})' style='width: 145px;'  class='btn btn-success'>жаңа сұрақ қосу</button>"
+                    }
+                ]
+            },
+            {
+                view: "datatable",
+                css: "appTable",
+                id: "testingAdminTable",
+                scroll: false,
+                header: false,
+                footer: false,
+                minHeight: 400,
+                autoheight: true,
+                url: "/study/wr/app/getTestingListById?srcId=" + item.id,
+                rowHeight: 45,
+                select: 'row',
+                columns: [
+                    {id: "index", header: "№пп", width: 60},
+                    {
+                        id: "question",
+                        fillspace: 1
+                    },
+                    {id: "editBtn", header: " ", width: 60},
+                    {id: "removBtn", header: " ", width: 60},
+                ],
+                pager: {
+                    container: "testsContainerAdminPaging",
+                    size: 10,
+                    group: 15
+                },
+                scheme: {
+                    $init: function (obj) {
+                        obj.editBtn = "<button style='width:40px;'  class='editQuestion btn btn-primary'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                        obj.removBtn = "<button style='width:40px;'  class='removeQuestion btn btn-danger'><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
+
+                    }
+                },
+                onClick: {
+                    editQuestion: function (e, item, cell) {
+                        setTimeout(function () {
+                            var obj = $$("testingAdminTable").getSelectedItem();
+                            editQuestion(obj);
+                        }, 100)
+                    },
+                    removeQuestion: function (e, item, cell) {
+                        setTimeout(function () {
+                            removeQuestion(item.row);
+                        }, 100)
+                    }
+                },
+                on: {
+
+                    "data->onStoreUpdated": function () {
+                        this.data.each(function (obj, i) {
+                            if (!obj) obj = {};
+                            if (!obj.index) obj.index = 0;
+                            obj.index = i + 1;
+                        })
+                    }
+                }
+            },
+            {
+                view: "template",
+                height: 50,
+                content: "testsContainerAdminPaging"
+            }
+        ]
+    })
+}
+
+function editQuestion(item) {
+
+    if (!$$('editQuestionWin')) {
+        webix.ui({
+            view: "window",
+            id: "editQuestionWin",
+            modal: true,
+            on: {
+                onHide: function () {
+                    window.onscroll = null;
+                }
+            },
+            position: "center",
+            width: 700,
+            head: {
+                cols: [
+                    {width: 10},
+                    {view: "label", id: "editQuestionLabel", label: "Сұрақты өзгерту"},
+                    {view: "label", id: "addQuestionLabel", label: "Жаңа сұрақ қосу"},
+                    {
+                        borderless: true,
+                        view: "toolbar",
+                        paddingY: 2,
+                        height: 40,
+                        cols: [
+                            {
+                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                click: function () {
+                                    this.getTopParentView().close();
+                                    window.onscroll = null;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            body: {
+                rows: [
+                    {
+                        id: "editQuestionWinForm",
+                        view: "form",
+                        width: 700,
+                        elementsConfig: {labelPosition: "left", labelAlign: "left", inputWidth: 660, labelWidth: 150},
+                        elements: [
+                            {
+                                view: "text",
+                                name: "id",
+                                required: true,
+                                hidden: true
+                            },
+                            {
+                                view: "text",
+                                name: "srcId",
+                                required: true,
+                                hidden: true
+                            },
+                            {
+                                view: "text",
+                                name: "question",
+                                label: "Сұрақ",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "answ1",
+                                label: "Дұрыс жауап",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "answ2",
+                                label: "Дұрыс емес жауап",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "answ3",
+                                label: "Дұрыс емес жауап",
+                                required: true
+                            },
+                            {
+                                view: "text",
+                                name: "answ4",
+                                label: "Дұрыс емес жауап",
+                                required: true
+                            }
+                        ]
+                    },
+                    {
+                        height: 20
+                    }, {
+                        cols: [
+                            {
+                                width: 20
+                            },
+                            {
+                                height: 50,
+                                width: 155,
+                                css: "noBorder",
+                                template: "<button onclick='saveQuestion()' style='width: 145px;'  class='btn btn-success'>Сақтау</button>"
+                            }
+                        ]
+                    },
+                    {
+                        height: 20
+                    }
+                ]
+            }
+        }).hide();
+    }
+    if (item) {
+        $$("editQuestionLabel").show();
+        $$("addQuestionLabel").hide();
+    } else {
+        $$("editQuestionLabel").hide();
+        $$("addQuestionLabel").show();
+    }
+    $$("editQuestionWinForm").parse(item);
+    $$('editQuestionWin').show(false, false);
+    var y = window.scrollY;
+    window.onscroll = function () {
+        window.scrollTo(0, y);
+    };
+}
+
+function saveQuestion() {
+    var form = $$("editQuestionWinForm");
+    var strJson = JSON.stringify(form.getValues(), null, 1);
+    get_ajax('/study/wr/app/saveQuestion', 'POST', strJson, function (gson) {
+            if (gson && gson.result) {
+                $$("testingAdminTable").parse(gson.message);
+            } else {
+                messageBox("Ошибка", gson.message);
+            }
+        }, function (url) {
+            messageBox("Ошибка", "Ошибка службы " + ' ' + url);
+        }
+    )
+    ;
+}
+
+function removeQuestion(id) {
+    get_ajax('/study/wr/app/removeQuestionById?id=' + id, 'GET', null, function (gson) {
+        if (gson && gson.result) {
+            $$("testingAdminTable").remove(id);
+        } else {
+            messageBox("Ошибка", gson.message);
+        }
+    }, function (url) {
+        messageBox("Ошибка", "Ошибка службы " + ' ' + url);
+    });
 }

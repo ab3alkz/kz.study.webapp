@@ -68,6 +68,8 @@
                         <div id="defContainer"></div>
                         <div id="fillWordsContainer"></div>
                         <div id="testsContainer"></div>
+                        <div id="testsContainerAdmin"></div>
+                        <div id="testsContainerAdminPaging"></div>
 
                     </div>
                     <div style="float: left;width: 30%;border-left: 1px solid silver" id="loginForm"></div>

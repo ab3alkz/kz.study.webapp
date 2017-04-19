@@ -6,7 +6,10 @@
 package kz.study.wrapper;
 
 import com.google.gson.Gson;
-import kz.study.gson.*;
+import kz.study.gson.GsonFillWordsResult;
+import kz.study.gson.GsonRegistration;
+import kz.study.gson.GsonTestQuestions;
+import kz.study.gson.GsonUserDetail;
 
 /**
  *
@@ -24,9 +27,15 @@ public class Serialization {
         Gson gson = new Gson();
         return gson.fromJson(json, GsonRegistration.class);
     }
+
     public static GsonFillWordsResult wrapToGsonFillWordsResultByJsonString(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, GsonFillWordsResult.class);
+    }
+
+    public static GsonTestQuestions wrapToGsonTestQuestionsByJsonString(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, GsonTestQuestions.class);
     }
 
 }

@@ -228,8 +228,8 @@ function viewTestTypeListWin(gson) {
                         scheme: {
                             $init: function (obj) {
                                 obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>Бастау</button>";
-                                if (obj.gameId == 'test') {
-                                    obj.editBtn = "<button style='width:40px;'  class='editTest btn btn-danger'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                if (obj.type == 'test') {
+                                    obj.editBtn = "<button style='width:40px;'  class='editTesting btn btn-danger'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
                                 }
                             }
                         },
@@ -238,6 +238,13 @@ function viewTestTypeListWin(gson) {
                                 setTimeout(function () {
                                     var obj = $$("viewTestTypeListTable").getSelectedItem();
                                     startTest(item.row, obj);
+                                    $$("viewTestTypeListWin").hide();
+                                }, 100)
+                            }, editTesting: function (e, item, cell) {
+                                setTimeout(function () {
+                                    var obj = $$("viewTestTypeListTable").getSelectedItem();
+                                    testingAdmin(obj);
+                                    $("#mainContainer").hide();
                                     $$("viewTestTypeListWin").hide();
                                 }, 100)
                             }
