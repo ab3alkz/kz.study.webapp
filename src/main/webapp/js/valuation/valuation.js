@@ -17,16 +17,15 @@ function form_init() {
             authSuccess();
         }
         gameResultContainerCreate();
-        // startTest("test1", {
-        //     id: "test1",
+        // startTest("test", {
+        //     id: "test",
         //     name: "Дұрыс жауабын тап"
         // });
     });
 }
 
-var refreshgameResultCounter;
 function gameResultContainerCreate() {
-    refreshgameResultCounter = 0;
+    var refreshgameResultCounter = 0;
     $('#gameResultContainerWrapper').show();
     webix.ui({
         container: 'gameResultContainerWrapper',
@@ -86,6 +85,7 @@ function gameResultContainerCreate() {
                 ]
             }, {
                 id: "gameResultInfo",
+                width: 360,
                 rows: []
             }
         ]
@@ -154,11 +154,13 @@ function createLoginForm() {
 
 }
 
-function getTestTypeList() {
+function getTestTypeList(isPublic_) {
     if (isNullOrEmpty(myuser)) {
         return viewSignInWin();
     }
-    get_ajax('/study/wr/app/getTestTypeList', 'GET', null, function (gson) {
+    get_ajax('/study/wr/app/getTestTypeList', 'GET', {
+        isPublic: isPublic_
+    }, function (gson) {
         if (gson)
             viewTestTypeListWin(gson);
     }, function (url) {
@@ -220,11 +222,15 @@ function viewTestTypeListWin(gson) {
                                 template: "<b style='font-size: 16px; color:#317eac'>#name#</b>",
                                 header: " ",
                                 fillspace: 1
-                            }
+                            },
+                            {id: "editBtn", header: " ", width: 60},
                         ],
                         scheme: {
                             $init: function (obj) {
                                 obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>Бастау</button>";
+                                if (obj.type == 'test') {
+                                    obj.editBtn = "<button style='width:40px;'  class='editTesting btn btn-danger'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                }
                             }
                         },
                         onClick: {
@@ -232,6 +238,13 @@ function viewTestTypeListWin(gson) {
                                 setTimeout(function () {
                                     var obj = $$("viewTestTypeListTable").getSelectedItem();
                                     startTest(item.row, obj);
+                                    $$("viewTestTypeListWin").hide();
+                                }, 100)
+                            }, editTesting: function (e, item, cell) {
+                                setTimeout(function () {
+                                    var obj = $$("viewTestTypeListTable").getSelectedItem();
+                                    testingAdmin(obj);
+                                    $("#mainContainer").hide();
                                     $$("viewTestTypeListWin").hide();
                                 }, 100)
                             }
@@ -252,11 +265,11 @@ function viewTestTypeListWin(gson) {
 function startTest(id, item) {
     $("#mainContainer").hide();
     activeGameId = id;
-    switch (id) {
+    switch (item.type) {
         case "fillWords":
             createFillWordsContainer(id, item);
             break;
-        case "test1":
+        case "test":
             createTestsContainer(id, item);
             break;
         default:
@@ -322,7 +335,7 @@ function createTestsContainer(id, item) {
 
     $('.mainwrapper').removeClass(' top80px');
     $('.mainwrapper').addClass(' top20px');
-    startTesting();
+    startTesting(item);
 }
 
 function registrationWin() {
@@ -650,6 +663,7 @@ function registration() {
 }
 
 function setGameResultInfo(obj) {
+    return;
     $$("gameResultInfo").removeView("gameResultInfoW");
     $$("gameResultInfo").addView({
         id: "gameResultInfoW",

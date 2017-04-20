@@ -4,18 +4,18 @@ package kz.study.gson;
  * Created by amanzhol-ak on 13.04.2017.
  */
 public class GsonGameResult {
-    private String id;
+    private Integer id;
     private String gameId;
     private String uName;
     private String info;
     private Long result;
     private String gDate;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -22,7 +22,7 @@ public class GameResult implements Serializable {
 
     @Id
     @Column(name = "id")
-    private String id;
+    private Integer id;
     @JoinColumn(name = "game_Id", referencedColumnName = "ID")
     private TestType gameId;
     @JoinColumn(name = "uName", referencedColumnName = "u_Name")
@@ -37,11 +37,11 @@ public class GameResult implements Serializable {
     public GameResult() {
     }
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

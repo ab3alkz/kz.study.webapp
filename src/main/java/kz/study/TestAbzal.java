@@ -24,9 +24,10 @@ public class TestAbzal {
 //        list.add("Көктем");
 //        list.add("Жаз");
 //        list.add("Күз");
-        for (String word: list) {
-            System.out.println(getSql(word));
-        }
+//        for (String word: list) {
+//            System.out.println(getSql(word));
+//        }
+        System.out.println(createGuid());
     }
 
     private static String getSql(String word) {

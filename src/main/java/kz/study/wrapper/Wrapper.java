@@ -171,7 +171,7 @@ public class Wrapper {
             }
             gson.setGameId(obj.getGameId().getName());
             gson.setgDate(dateToString(obj.getgDate()));
-            gson.setInfo(obj.getInfo());
+            //gson.setInfo(obj.getInfo());
             gson.setResult(obj.getResult());
             return gson;
         }

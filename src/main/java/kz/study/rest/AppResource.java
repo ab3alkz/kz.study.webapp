@@ -11,10 +11,7 @@ import kz.study.session.AppSession;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
 import java.math.BigDecimal;
@@ -59,15 +56,8 @@ public class AppResource {
 
     @GET
     @Produces("application/json")
-    @Path("getRandom25Guestions")
-    public String getRandom25Guestions() {
-        return objectToJson(appSession.getRandom25Guestions());
-    }
-
-    @GET
-    @Produces("application/json")
     @Path("setGameResult")
-    public String setGameResult(@QueryParam("gameId") String gameId,
+    public String setGameResult(@QueryParam("gameId") Integer gameId,
                                 @QueryParam("uName") String uName,
                                 @QueryParam("json") String json,
                                 @QueryParam("result") Long result) {
@@ -77,16 +67,44 @@ public class AppResource {
     @GET
     @Produces("application/json")
     @Path("getTestTypeList")
-    public String getTestTypeList() {
-        return objectToJson(appSession.getTestTypeList());
+    public String getTestTypeList(@QueryParam("isPublic") Integer isPublic) {
+        return objectToJson(appSession.getTestTypeListByIsPublic(isPublic));
     }
 
     @GET
     @Produces("application/json")
     @Path("getGameResultList")
     public String getGameResultList(@QueryParam("start") Integer start, @QueryParam("count") Integer count) {
-        return objectToJson(appSession.getGameResultList(start, count));
+        return objectToJson(appSession.getGameResultList());
     }
 
+
+    @GET
+    @Produces("application/json")
+    @Path("getRandom25Guestions")
+    public String getRandom25Guestions(@QueryParam("srcId") Integer srcId, @QueryParam("start") Integer start, @QueryParam("count") Integer count) {
+        return objectToJson(appSession.getRandom25Guestions(srcId, start, count));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("getTestingListById")
+    public String getTestingListById(@QueryParam("srcId") Integer srcId, @QueryParam("start") Integer start, @QueryParam("count") Integer count) {
+        return objectToJson(appSession.getTestingListById(srcId, start, count));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("removeQuestionById")
+    public String removeQuestionById(@QueryParam("id") Integer id) {
+        return objectToJson(appSession.removeQuestionById(id));
+    }
+
+    @POST
+    @Produces("application/json")
+    @Path("saveQuestion")
+    public String saveQuestion(String json) {
+        return objectToJson(appSession.saveQuestion(json));
+    }
 
 }

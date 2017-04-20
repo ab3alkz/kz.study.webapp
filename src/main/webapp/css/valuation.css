@@ -722,6 +722,10 @@ body {
     color: #fff;
 }
 
+.test-answ-not-find-true.test-answ {
+    background-color: yellow;
+}
+
 .answTemplPaging i {
     cursor: pointer;
     color: navy;
