@@ -1,8 +1,5 @@
 package kz.study.session;
 
-import kz.study.entity.AlphLinks;
-import kz.study.entity.VideoLessons;
-import kz.study.gson.GsonAllDic;
 import kz.study.gson.GsonCreateList;
 import kz.study.gson.GsonResult;
 import kz.study.util.Utx;
@@ -10,20 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static kz.study.util.Util.getGsonResult;
-import static kz.study.util.Util.getSingleResultOrNull;
 import static kz.study.util.Util.isNullOrEmpty;
-import static kz.study.wrapper.Wrapper.wrapToGsonAlphLinks;
-import static kz.study.wrapper.Wrapper.wrapToGsonVideoLessons;
 
 /**
  * @author beljerin
@@ -81,5 +71,16 @@ public class AnalizeSession extends Utx {
             LOGGER.error("error" + text, e);
         }
         return getGsonResult(Boolean.FALSE, null);
+    }
+
+    private GsonResult getMorphologyAnalize(String text) {
+        if (!isNullOrEmpty(text)) {
+            try {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 }

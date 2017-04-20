@@ -14,7 +14,7 @@
     <script src="${contextPath}/plugin/webix/codebase/sidebar.js" type="text/javascript"></script>
     <link href="${contextPath}/plugin/webix/codebase/sidebar.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/js/analize.js" type="text/javascript"></script>
-    <script src="${contextPath}/js/newutils.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/newutils.js?version=${initParam.buildTimeStamp}" type="text/javascript"></script>
     <link href="${contextPath}/css/app.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/plugin/bootstrap-notify/animate.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/plugin/bootstrap-notify/bootstrap-notify.min.js" type="text/javascript"></script>

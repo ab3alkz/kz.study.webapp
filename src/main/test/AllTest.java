@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static kz.study.jdbc.Jdbc.getTestBd;
+import static kz.study.util.Util.isNullOrEmpty;
 
 
 /**
@@ -22,31 +23,63 @@ public class AllTest {
     private static final String url = "jdbc:mysql://localhost:3306/arma";
     private static final String user = "pma";
     private static final String pass = "123456";
-
+private static String mainName = null;
     @Test
     public void getTest() throws SQLException {
-        String s = "Асланға";
+        String s = "Саматпен";
 
         List<String> list = getTestAllName();
         if (list != null) {
-            for (String names : list) {
-                names = names.toLowerCase();
-                s = s.toLowerCase();
-                if (s.contains(names)) {
-                    s = s.replace(names, "");
 
-                    for (GsonAllDic string : getAllEndings()) {
-                        if (s.equalsIgnoreCase(string.getValue())) {
-                            DEnding obj = getTestBdC((Integer) string.getAddDopValue());
-                            System.out.println("Тубири: " + names);
-                            System.out.println(string.getValue() + "    " + obj.getValue());
+            String[] sNew = s.split(" ");
+            for (String newS: sNew) {
+                for (String names : list) {
+                    names = names.toLowerCase();
+                    newS = newS.toLowerCase();
+                    if (newS.contains(names)) {
+
+                        String ending = newS.replace(names, "");
+                        newS = "";
+                        mainName = names;
+                        getEngingAnalyze(ending, 1);
+                    } else {
+                        if (!isNullOrEmpty(newS)) {
+                            getEngingAnalyze(newS, 2);
+                            break;
                         }
                     }
                 }
             }
+
+
         }
 
 
+    }
+
+    private void getEngingAnalyze(String ending, long type) throws SQLException {
+        if (type == 1) {
+            for (GsonAllDic string : getAllEndings()) {
+                if (ending.equalsIgnoreCase(string.getValue())) {
+                    DEnding obj = getTestBdC((Integer) string.getAddDopValue());
+                    System.out.println("Тубири: " + mainName);
+                    System.out.println(string.getValue() + string.getAddValue() + "    " + obj.getValue());
+                }
+            }
+        } else {
+            for (GsonAllDic string : getAllEndings()) {
+                if (ending.contains(string.getValue())) {
+
+                    DEnding obj = getTestBdC((Integer) string.getAddDopValue());
+
+
+
+                    System.out.println("Тубири: " + ending.replace(string.getValue(), ""));
+
+                    System.out.println(string.getValue() + "    " + obj.getValue());
+                }
+            }
+        }
     }
 
     /**

@@ -13,6 +13,7 @@ function form_init() {
                 cols: [
                     {},
                     {
+                        width: 500,
                         view: 'label',
                         id: 'mainAnalizeTitle',
                         css: 'mainAnalizeTitle'
@@ -83,18 +84,18 @@ function btnTypeRec(id) {
 }
 
 function setTitle() {
-    var title;
+    var title ="";
     switch (getLocalStorage("analize")) {
-        case 1:
+        case "1":
             title = "Семантикалық талдау";
             break;
-        case 2:
+        case "2":
             title = "Морфологиялық талдау";
             break;
-        case 3:
+        case "3":
             title = "Синтаксистық талдау";
             break;
-        case 4:
+        case "4":
             title = "Лексикалық талдау";
             break;
         default:
