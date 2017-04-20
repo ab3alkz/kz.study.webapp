@@ -9,6 +9,7 @@ public class GsonAllDic<E> {
     private E id;
     private String value;
     private String addValue;
+    private E addDopValue;
 
     public E getId() {
         return id;
@@ -32,5 +33,13 @@ public class GsonAllDic<E> {
 
     public void setAddValue(String addValue) {
         this.addValue = addValue;
+    }
+
+    public E getAddDopValue() {
+        return addDopValue;
+    }
+
+    public void setAddDopValue(E addDopValue) {
+        this.addDopValue = addDopValue;
     }
 }
