@@ -79,7 +79,7 @@ public class AppSession extends Utx {
 
         List<TestQuestions> result = new ArrayList<>();
         randList = new ArrayList<>();
-        Integer cnt = 25 > list.size() - 1 ? list.size() - 1 : 25;
+        Integer cnt = 20 > list.size() - 1 ? list.size() - 1 : 20;
         for (int i = 0; i < cnt; i++) {
             Integer randIdx = getRandIdxWord(0, list.size() - 1);
             randList.add(randIdx);
