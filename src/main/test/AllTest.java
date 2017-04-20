@@ -59,20 +59,19 @@ private static String mainName = null;
 
     private void getEngingAnalyze(String ending, long type) throws SQLException {
         if (type == 1) {
-            for (GsonAllDic string : getAllEndings()) {
+            for (GsonAllDic string : getTestBd()) {
                 if (ending.equalsIgnoreCase(string.getValue())) {
                     DEnding obj = getTestBdC((Integer) string.getAddDopValue());
+                    System.out.println("ads: " + string.getAddValue());
                     System.out.println("Тубири: " + mainName);
                     System.out.println(string.getValue() + string.getAddValue() + "    " + obj.getValue());
                 }
             }
         } else {
-            for (GsonAllDic string : getAllEndings()) {
+            for (GsonAllDic string : getTestBd()) {
                 if (ending.contains(string.getValue())) {
 
                     DEnding obj = getTestBdC((Integer) string.getAddDopValue());
-
-
 
                     System.out.println("Тубири: " + ending.replace(string.getValue(), ""));
 
@@ -85,10 +84,6 @@ private static String mainName = null;
     /**
      * @desc Все окончания
      */
-    private static List<GsonAllDic> getAllEndings() throws SQLException {
-        return getTestBd();
-    }
-
     @Nullable
     private static List<GsonAllDic> getTestBd() throws SQLException {
         List<GsonAllDic> list = new ArrayList<>();
@@ -103,7 +98,7 @@ private static String mainName = null;
             while (rs.next()) {
                 GsonAllDic gsonAllDic = new GsonAllDic();
                 gsonAllDic.setId(rs.getString("id"));
-                gsonAllDic.setAddValue(rs.getString("D_ENDING_ID"));
+                gsonAllDic.setAddValue(String.valueOf(rs.getInt("d_ending_id")));
                 gsonAllDic.setValue(rs.getString("value"));
                 gsonAllDic.setAddDopValue(rs.getInt("D_CASE_ID"));
                 list.add(gsonAllDic);
