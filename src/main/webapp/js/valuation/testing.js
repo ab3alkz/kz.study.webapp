@@ -374,7 +374,7 @@ function editQuestion(item) {
             }
         }).hide();
     }
-    if (item) {
+    if (item.id) {
         $$("editQuestionLabel").show();
         $$("addQuestionLabel").hide();
     } else {
@@ -391,10 +391,15 @@ function editQuestion(item) {
 
 function saveQuestion() {
     var form = $$("editQuestionWinForm");
+    if(!form.validate()) {
+        return;
+    }
     var strJson = JSON.stringify(form.getValues(), null, 1);
     get_ajax('/study/wr/app/saveQuestion', 'POST', strJson, function (gson) {
             if (gson && gson.result) {
                 $$("testingAdminTable").parse(gson.message);
+                $$("editQuestionWin").hide();
+                notifyMessage("Инфо", "Сұрақ сақталды", notifyType.success);
             } else {
                 messageBox("Ошибка", gson.message);
             }
