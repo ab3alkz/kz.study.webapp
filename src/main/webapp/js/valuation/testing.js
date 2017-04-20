@@ -184,7 +184,7 @@ function testingAdmin(item) {
         container: "testsContainerAdmin",
         rows: [
             {
-                cols:[
+                cols: [
 
                     {
                         view: "label",
@@ -194,7 +194,7 @@ function testingAdmin(item) {
                         height: 50,
                         width: 155,
                         css: "noBorder",
-                        template: "<button onclick='editQuestion({srcId:"+item.id+"})' style='width: 145px;'  class='btn btn-success'>жаңа сұрақ қосу</button>"
+                        template: "<button onclick='editQuestion({srcId:" + item.id + "})' style='width: 145px;'  class='btn btn-success'>жаңа сұрақ қосу</button>"
                     }
                 ]
             },
@@ -391,7 +391,7 @@ function editQuestion(item) {
 
 function saveQuestion() {
     var form = $$("editQuestionWinForm");
-    if(!form.validate()) {
+    if (!form.validate()) {
         return;
     }
     var strJson = JSON.stringify(form.getValues(), null, 1);
@@ -406,8 +406,7 @@ function saveQuestion() {
         }, function (url) {
             messageBox("Ошибка", "Ошибка службы " + ' ' + url);
         }
-    )
-    ;
+    );
 }
 
 function removeQuestion(id) {
