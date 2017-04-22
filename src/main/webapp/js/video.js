@@ -4,7 +4,29 @@ $(document).ready(function () {
         container: "mainContainer",
         autoheight: true,
         scroll: true,
-        cols: [
+        rows: [
+            {
+                cols: [
+                    {
+                        css: "noBorder",
+                        width: 190,
+                        height: 40,
+                        template: '<button type="button" onclick="crudMaket(\'btnCreateMaket\')" class="btn btn-primary">Петров сабақтары</button>'
+                    },
+                    {
+                        css: "noBorder",
+                        width: 190,
+                        height: 40,
+                        template: '<button type="button" onclick="crudMaket(\'btnCreateMaket\')" class="btn btn-primary">Ертегілер</button>'
+                    },
+                    {
+                        css: "noBorder",
+                        width: 190,
+                        height: 40,
+                        template: '<button type="button" onclick="crudMaket(\'btnCreateMaket\')" class="btn btn-primary">Мульт сериялдар</button>'
+                    }
+                ]
+            },
             {
                 id: "body",
                 rows: []

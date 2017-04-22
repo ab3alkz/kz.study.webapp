@@ -12,6 +12,7 @@
     <link href="${contextPath}/css/main.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/js/newutils.js" type="text/javascript"></script>
     <script src="${contextPath}/js/navbar.js" type="text/javascript"></script>
+    <script src="${contextPath}/plugin/jquery.i18n.properties.min.js" type="text/javascript"></script>
     <script>
         function logout() {
             $.post("${contextPath}/auth", function () {
@@ -32,11 +33,14 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href=${contextPath}><span class="glyphicon glyphicon-home"></span></a></li>
-                <li><a href="${contextPath}/pages/letter.jsp"><span class="glyphicon glyphicon-sort-by-alphabet">  Әліпби</span></a></li>
+                <li><a href="${contextPath}/pages/letter.jsp"><span class="glyphicon glyphicon-sort-by-alphabet">&nbsp;<span class="menuAplh"></span></span></a></li>
+                <li><a href="${contextPath}/pages/video.jsp"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;<span class="videLess"></span></a></li>
+                <li><a href="${contextPath}/pages/translate.jsp"><span class="translateMenu"></span></a></li>
+
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <span>Сабақтар</span><span class="caret"></span></a>
+                        <span class="lessonsMenu"></span><span class="caret"></span></a>
 
                     <ul class="dropdown-menu" role="menu" id="mapLists">
                         <li class="dropdown-submenu">
@@ -103,12 +107,12 @@
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <span>Талдаулар</span><span class="caret"></span></a>
+                        <span class="analizeMenu"></span><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a onclick="analizeType(1);"> Семантикалық талдау </a></li>
-                        <li><a onclick="analizeType(2);" href=""> Морфологиялық талдау </a></li>
-                        <li><a onclick="analizeType(3);"> Синтаксистық талдау </a></li>
-                        <li><a onclick="analizeType(4);"> Лексикалық талдау </a></li>
+                        <li><a onclick="analizeType(1);" class="analizeSemMenu"></a></li>
+                        <li><a onclick="analizeType(2);" href="" class="analizeMorMenu"></a></li>
+                        <li><a onclick="analizeType(3);" class="analizeSyntaxMenu"></a></li>
+                        <li><a onclick="analizeType(4);" class="analizeLexicMenu"></a></li>
                     </ul>
                 </li>
             </ul>
@@ -119,14 +123,15 @@
                             class="caret"></b>
                     </a>
                     <ul class="dropdown-menu pull-right" style="max-height: 407px;">
+                        <li dir="ltr" onclick="changeLangSubmit('ln')"><a href="#">Latynsha</a></li>
                         <li dir="ltr" onclick="changeLangSubmit('Kz')"><a href="#">Қазақша</a></li>
                         <li dir="ltr" onclick="changeLangSubmit('Ru')"><a href="#">Русский</a></li>
                     </ul>
                 </li>
                 <li class="dropdown light only-icon language-selector ">
                     <a class="dropdown-toggle btn " href="${contextPath}/valuation/index.jsp">
-                        <span class="glyphicon glyphicon-leaf"></span>
-                        Өз деңгейінді тексеру
+                        <span class="glyphicon glyphicon-leaf">&nbsp;</span>
+                        <span class="proverMenu"></span>
                     </a>
                 </li>
             </ul>
@@ -140,6 +145,55 @@
     function analizeType(id) {
         setLocalStorage("analize", id);
         window.location.href = "${contextPath}/pages/analize.jsp";
+    }
+</script>
+<script>
+    function changeLangSubmit(e) {
+        var language = e;
+        if (e == undefined)
+            language = 'Ru';
+        $('#langBlock').html(' ' + language + ' ');
+        localStorage.setItem("lang", language);
+        window.location.href = "";
+//        $.ajax({
+//            url: "/app/wr/app/changeLang",
+//            type: 'GET',
+//            data: {lang: language},
+//            success: function (gson) {
+//                if (gson) {
+//                    window.location.href = "/app/pages/redirect.jsp";
+//                }
+//            }
+//        });
+    }
+</script>
+<script type="text/javascript">
+    var l = localStorage.getItem("lang");
+    if (!l || l == 'ru_RU' || l == '') {
+        l = 'Ru'
+    }
+    jQuery.i18n.properties({
+        name: 'Messages',
+        path: '${contextPath}/bundle/',
+        mode: 'both',
+        language: l,
+        async: false,
+        callback: function () {
+            document.querySelector('.menuAplh').innerHTML = getResourceName('menu.alphabet');
+            document.querySelector('.videLess').innerHTML = getResourceName('menu.vide.less');
+            document.querySelector('.translateMenu').innerHTML = getResourceName('menu.translate');
+            document.querySelector('.lessonsMenu').innerHTML = getResourceName('menu.lessons');
+            document.querySelector('.proverMenu').innerHTML = getResourceName('menu.prover');
+            document.querySelector('.analizeMenu').innerHTML = getResourceName('menu.analize');
+            document.querySelector('.analizeSemMenu').innerHTML = getResourceName('menu.analize.sem');
+            document.querySelector('.analizeMorMenu').innerHTML = getResourceName('menu.analize.morph');
+            document.querySelector('.analizeSyntaxMenu').innerHTML = getResourceName('menu.analize.syntax');
+            document.querySelector('.analizeLexicMenu').innerHTML = getResourceName('menu.analize.lex');
+        }
+    });
+
+    function getResourceName(prop) {
+        return jQuery.i18n.prop(prop);
     }
 </script>
 </body>

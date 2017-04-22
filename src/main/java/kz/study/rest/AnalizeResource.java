@@ -50,4 +50,11 @@ public class AnalizeResource {
                              @QueryParam("text") final String text) {
         return objectToJson(analizeSession.getAnalize(id, text));
     }
+
+    @GET
+    @Produces("application/json")
+    @Path("getTranslate")
+    public String getTranslate(@QueryParam("text") final String text) {
+        return objectToJson(analizeSession.getTranslate( text));
+    }
 }

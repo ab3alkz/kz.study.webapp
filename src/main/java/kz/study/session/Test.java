@@ -1,7 +1,6 @@
 package kz.study.session;
 
 import kz.study.entity.DEnding;
-import kz.study.entity.DSuffix;
 
 import java.sql.*;
 import java.util.*;
@@ -44,16 +43,16 @@ public class Test {
         }
     }
 
-    private static final String driverName = "com.mysql.kz.study.jdbc.Jdbc.Driver";
-    private static final String url = "kz.study.jdbc.Jdbc:mysql://localhost:3306/arma";
+    private static final String driverName = "com.mysql.jdbc.Driver";
+    private static final String url = "jdbc:mysql://localhost:3306/arma";
     private static final String user = "pma";
     private static final String pass = "123456";
 
     public static void main(String[] args) throws SQLException {
-        String s = "Асланға";
+        String s = "асланмен әлихан доп ойнады";
 //        String s = "Сегодня холодный зимний зимний день день Иван";
         Test test = new Test();
-        List<TestClass> list = test.getTestBd("SELECT * FROM all_ending");
+        List<TestClass> list = test.getTestBd();
         test.getTest(list, s);
     }
 
@@ -164,7 +163,7 @@ public class Test {
         return null;
     }
 
-    private List<TestClass> getTestBd(String sql) throws SQLException {
+    private List<TestClass> getTestBd() throws SQLException {
         List<TestClass> list = new ArrayList<>();
         Connection conn = null;
         Statement stmt = null;
@@ -173,7 +172,7 @@ public class Test {
             Class.forName(driverName);
             conn = DriverManager.getConnection(url, user, pass);
             stmt = conn.createStatement();
-            rs = stmt.executeQuery(sql);
+            rs = stmt.executeQuery("SELECT * FROM all_ending");
             while (rs.next()) {
                 TestClass testClass = new TestClass();
                 testClass.setId(rs.getInt("id"));
