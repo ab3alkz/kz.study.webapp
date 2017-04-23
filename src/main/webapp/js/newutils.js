@@ -432,9 +432,6 @@ function validNumberValue(v, nullValue) {
     return nullValue;
 }
 
-
-
-
 function datepickerMask(input, mask, key) {
     try {
         var value = input.getValue();
@@ -515,4 +512,8 @@ function nvl(val1, val2) {
         return val2;
     else
         return val1;
+}
+
+function getResourceName(prop) {
+    return jQuery.i18n.prop(prop);
 }

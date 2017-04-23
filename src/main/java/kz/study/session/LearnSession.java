@@ -2,6 +2,7 @@ package kz.study.session;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
 import kz.study.entity.AlphLinks;
+import kz.study.entity.AudioLessons;
 import kz.study.entity.VideoLessons;
 import kz.study.gson.GsonAllDic;
 import kz.study.gson.GsonDatatableData;
@@ -60,6 +61,18 @@ public class LearnSession extends Utx {
                     em.createNamedQuery("VideoLessons.findById").setParameter("id", id));
             GsonAllDic gsonAllDic = wrapToGsonVideoLessons(videoLessons);
             return getGsonResult(Boolean.TRUE, gsonAllDic);
+        } catch (Exception e) {
+            LOGGER.error("error", e);
+        }
+        return null;
+    }
+
+    public GsonResult getAudioById(int id) {
+        try {
+            List<AudioLessons> audioLessons =
+                    em.createNamedQuery("AudioLessons.findByParamId").setParameter("paramId", id).getResultList();
+            List<GsonAllDic> list = wrapToGsonAudioLessonsList(audioLessons);
+            return getGsonResult(Boolean.TRUE, list);
         } catch (Exception e) {
             LOGGER.error("error", e);
         }

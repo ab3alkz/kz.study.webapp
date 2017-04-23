@@ -37,74 +37,16 @@
                 <li><a href="${contextPath}/pages/video.jsp"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;<span class="videLess"></span></a></li>
                 <li><a href="${contextPath}/pages/translate.jsp"><span class="translateMenu"></span></a></li>
 
-
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span class="lessonsMenu"></span><span class="caret"></span></a>
-
-                    <ul class="dropdown-menu" role="menu" id="mapLists">
-                        <li class="dropdown-submenu">
-                            <a tabindex="-1" href="#">А1 деңгейі</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a onclick="window.location.href='../pages/A1.jsp'" href="#">Сұрауға бола ма?</a>
-                                </li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=GBDFL_REP_DISAPPEAR'" href="#"
-                                       class="menuListsItemSSMissingPerson"></a></li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=REP_0703_RISK_DATE'" href="#"
-                                       class="menuListsItemSSRiskDatePerson"></a></li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=REP_0703_CLOSE_DATE'" href="#"
-                                       class="menuListsItemSSCloseDatePerson"></a></li>
-                                <li style="<%= request.isUserInRole("EMAKET_DEVELOPER")?"":"display:none;" %>"><a onclick="window.location.href='sslists.jsp?list=REP_GBDFL_17628'" href="#"
-                                                                                                                  class="menuListsItemGBDFL17628Person"></a></li>
-                            </ul>
-                            <a tabindex="-1" href="#">А2 деңгейі</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a onclick="window.location.href='../pages/A1.jsp'" href="#">Сұрауға бола ма?</a>
-                                </li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=GBDFL_REP_DISAPPEAR'" href="#"
-                                       class="menuListsItemSSMissingPerson"></a></li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=REP_0703_RISK_DATE'" href="#"
-                                       class="menuListsItemSSRiskDatePerson"></a></li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=REP_0703_CLOSE_DATE'" href="#"
-                                       class="menuListsItemSSCloseDatePerson"></a></li>
-                                <li style="<%= request.isUserInRole("EMAKET_DEVELOPER")?"":"display:none;" %>"><a onclick="window.location.href='sslists.jsp?list=REP_GBDFL_17628'" href="#"
-                                                                                                                  class="menuListsItemGBDFL17628Person"></a></li>
-                            </ul>
-                            <a tabindex="-1" href="#">B1 деңгейі</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a onclick="window.location.href='../pages/A1.jsp'" href="#">Сұрауға бола ма?</a>
-                                </li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=GBDFL_REP_DISAPPEAR'" href="#"
-                                       class="menuListsItemSSMissingPerson"></a></li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=REP_0703_RISK_DATE'" href="#"
-                                       class="menuListsItemSSRiskDatePerson"></a></li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=REP_0703_CLOSE_DATE'" href="#"
-                                       class="menuListsItemSSCloseDatePerson"></a></li>
-                                <li style="<%= request.isUserInRole("EMAKET_DEVELOPER")?"":"display:none;" %>"><a onclick="window.location.href='sslists.jsp?list=REP_GBDFL_17628'" href="#"
-                                                                                                                  class="menuListsItemGBDFL17628Person"></a></li>
-                            </ul>
-                            <a tabindex="-1" href="#">B2 деңгейі</a>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a onclick="window.location.href='../pages/A1.jsp'" href="#">Сұрауға бола ма?</a>
-                                </li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=GBDFL_REP_DISAPPEAR'" href="#"
-                                       class="menuListsItemSSMissingPerson"></a></li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=REP_0703_RISK_DATE'" href="#"
-                                       class="menuListsItemSSRiskDatePerson"></a></li>
-                                <li><a onclick="window.location.href='sslists.jsp?list=REP_0703_CLOSE_DATE'" href="#"
-                                       class="menuListsItemSSCloseDatePerson"></a></li>
-                                <li style="<%= request.isUserInRole("EMAKET_DEVELOPER")?"":"display:none;" %>"><a onclick="window.location.href='sslists.jsp?list=REP_GBDFL_17628'" href="#"
-                                                                                                                  class="menuListsItemGBDFL17628Person"></a></li>
-                            </ul>
-                        </li>
-
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="${contextPath}/pages/A1.jsp" class="classA1"></a></li>
+                        <li><a href="${contextPath}/pages/A1.jsp" class="classA2"></a></li>
+                        <li><a href="${contextPath}/pages/A1.jsp" class="classB1"></a></li>
+                        <li><a href="${contextPath}/pages/A1.jsp" class="classB2"></a></li>
                     </ul>
                 </li>
-
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span class="analizeMenu"></span><span class="caret"></span></a>
@@ -155,16 +97,6 @@
         $('#langBlock').html(' ' + language + ' ');
         localStorage.setItem("lang", language);
         window.location.href = "";
-//        $.ajax({
-//            url: "/app/wr/app/changeLang",
-//            type: 'GET',
-//            data: {lang: language},
-//            success: function (gson) {
-//                if (gson) {
-//                    window.location.href = "/app/pages/redirect.jsp";
-//                }
-//            }
-//        });
     }
 </script>
 <script type="text/javascript">
@@ -189,6 +121,10 @@
             document.querySelector('.analizeMorMenu').innerHTML = getResourceName('menu.analize.morph');
             document.querySelector('.analizeSyntaxMenu').innerHTML = getResourceName('menu.analize.syntax');
             document.querySelector('.analizeLexicMenu').innerHTML = getResourceName('menu.analize.lex');
+            document.querySelector('.classA1').innerHTML = getResourceName('a.one.urover');
+            document.querySelector('.classA2').innerHTML = getResourceName('a.two.urover');
+            document.querySelector('.classB1').innerHTML = getResourceName('b.one.urover');
+            document.querySelector('.classB2').innerHTML = getResourceName('b.two.urover');
         }
     });
 
