@@ -55,4 +55,11 @@ public class LearnResource {
     public String getVideoById(@QueryParam("id") final int id) {
         return objectToJson(learnSession.getVideoById(id));
     }
+
+    @GET
+    @Produces("application/json")
+    @Path("getAudioById")
+    public String getAudioById(@QueryParam("id") final int id) {
+        return objectToJson(learnSession.getAudioById(id));
+    }
 }

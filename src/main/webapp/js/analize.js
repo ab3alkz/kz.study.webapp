@@ -30,17 +30,7 @@ function form_init() {
                         labelAlign: "right",
                         id: 'analizeTxtArea',
                         required: true,
-                        height: 150,
-                        on: {
-                            onChange: function (newValue) {
-                                var v = "" + newValue;
-                                console.log(v.length)
-                            },
-                            onTimedKeyPress: function (newValue) {
-                                var v = "" + newValue;
-                                console.log(v.length)
-                            }
-                        }
+                        height: 150
                     }
                 ]
             },
@@ -54,14 +44,14 @@ function form_init() {
                         params: 1,
                         width: 190,
                         height: 40,
-                        template: '<button type="button" onclick="btnTypeRec(1)" class="btn btn-primary">Тексеру</button>'
+                        template: '<button type="button" onclick="btnTypeRec(1)" class="btn btn-primary">'+getResourceName('btn.lbl.check')+'</button>'
                     },
                     {
                         css: "noBorder",
                         id: "btnClearAnalize",
                         params: 2,
                         width: 180,
-                        template: '<button type="button" onclick="btnTypeRec(2)" class="btn btn-danger">Тазарту</button>'
+                        template: '<button type="button" onclick="btnTypeRec(2)" class="btn btn-danger">'+getResourceName('menu.clear.btn')+'</button>'
                     },
                     {}
                 ]
@@ -87,19 +77,16 @@ function setTitle() {
     var title ="";
     switch (getLocalStorage("analize")) {
         case "1":
-            title = "Семантикалық талдау";
+            title = getResourceName('menu.analize.sem');
             break;
         case "2":
-            title = "Морфологиялық талдау";
+            title = getResourceName('menu.analize.morph');
             break;
         case "3":
-            title = "Синтаксистық талдау";
+            title = getResourceName('menu.analize.syntax');
             break;
         case "4":
-            title = "Лексикалық талдау";
-            break;
-        default:
-            title = "Семантикалық талдау";
+            title = getResourceName('menu.analize.lex');
             break;
     }
     $$('mainAnalizeTitle').setValue(title);
@@ -111,13 +98,13 @@ function getAnalizeResult() {
     if (!isNullOrEmpty(text)) {
         get_ajax('/study/wr/anal/getAnalize', 'GET', {id: id, text: text}, function (gson) {
             if (gson && !gson.result) {
-                notifyMessage("қате", "Сіз мәтінді енгізбедініз", notifyType.danger)
+                notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
             } else {
                 openWindowToAnalize(gson.message);
             }
         });
     } else {
-        notifyMessage("қате", "Сіз мәтінді енгізбедініз", notifyType.danger)
+        notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
     }
 }
 
@@ -141,7 +128,7 @@ function openWindowToAnalize(json) {
             head: {
                 cols: [
                     {width: 10},
-                    {view: 'label', label: 'Текст статистикасы', css: 'windowLabel'},
+                    {view: 'label', label: getResourceName('main.txt.stat'), css: 'windowLabel'},
                     {
                         borderless: true,
                         view: "toolbar",
@@ -175,10 +162,10 @@ function openWindowToAnalize(json) {
                                 id: 'analizeTable',
                                 scroll: false,
                                 columns: [
-                                    {id: "mLength", header: "таңбалар саны", width: 200},
-                                    {id: "woutMLength", header: "Пробелсыз таңбалар саны", width: 200},
-                                    {id: "wordCount", header: "сөздердің саны", width: 200},
-                                    {id: "uniqueWordCount", header: "Бірегей сөздердің саны", fillspace: 1}
+                                    {id: "mLength", header: getResourceName("anal.s.count"), width: 200},
+                                    {id: "woutMLength", header: getResourceName("anal.s.space.count"), width: 200},
+                                    {id: "wordCount", header: getResourceName("anal.w.count"), width: 200},
+                                    {id: "uniqueWordCount", header: getResourceName("anal.w.id.count"), fillspace: 1}
                                 ]
                             },
                             {}
@@ -191,7 +178,7 @@ function openWindowToAnalize(json) {
                                 width: 850,
                                 view: 'label',
                                 css: 'wordStyle',
-                                label: 'Сөздер мен олардың аталған рет саны'
+                                label: getResourceName('anal.w.id.main.label')
                             },
                             {}
                         ]
@@ -206,8 +193,8 @@ function openWindowToAnalize(json) {
                                 id: 'analizeRepeatTable',
                                 scroll: true,
                                 columns: [
-                                    {id: "value", header: "сөздер", fillspace: 1},
-                                    {id: "addValue", header: "Саны", width: 200}
+                                    {id: "value", header: getResourceName("words"), fillspace: 1},
+                                    {id: "addValue", header: getResourceName("counts"), width: 200}
                                 ]
                             },
                             {}

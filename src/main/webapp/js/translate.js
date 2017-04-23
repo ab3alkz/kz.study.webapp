@@ -13,10 +13,10 @@ function form_init() {
                 cols: [
                     {},
                     {
-                        width: 500,
+                        width: 800,
                         view: 'label',
                         css: 'mainAnalizeTitle',
-                        label: "Қазақша-латынша аудармашы"
+                        label: getResourceName('menu.translate')
                     },
                     {}
                 ]
@@ -60,14 +60,14 @@ function form_init() {
                         params: 1,
                         width: 190,
                         height: 40,
-                        template: '<button type="button" onclick="btnTypeRec(1)" class="btn btn-primary">Аудару</button>'
+                        template: '<button type="button" onclick="btnTypeRec(1)" class="btn btn-primary">' + getResourceName('menu.translate.btn') + '</button>'
                     },
                     {
                         css: "noBorder",
                         id: "btnClearAnalize",
                         params: 2,
                         width: 180,
-                        template: '<button type="button" onclick="btnTypeRec(2)" class="btn btn-danger">Тазарту</button>'
+                        template: '<button type="button" onclick="btnTypeRec(2)" class="btn btn-danger">' + getResourceName('menu.clear.btn') + '</button>'
                     },
                     {}
                 ]
@@ -75,7 +75,7 @@ function form_init() {
         ]
     });
 
- }
+}
 
 function btnTypeRec(id) {
     switch (id) {
@@ -95,12 +95,12 @@ function getTranslateResult() {
     if (!isNullOrEmpty(text)) {
         get_ajax('/study/wr/anal/getTranslate', 'GET', {text: text}, function (gson) {
             if (gson && !gson.result) {
-                notifyMessage("қате", "Сіз мәтінді енгізбедініз", notifyType.danger)
+                notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
             } else {
                 $$('resultAre').setValue(gson.message);
             }
         });
     } else {
-        notifyMessage("қате", "Сіз мәтінді енгізбедініз", notifyType.danger)
+        notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
     }
 }

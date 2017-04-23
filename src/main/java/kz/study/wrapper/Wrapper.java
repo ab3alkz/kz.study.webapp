@@ -2,6 +2,7 @@ package kz.study.wrapper;
 
 import kz.study.entity.*;
 import kz.study.gson.*;
+import org.jetbrains.annotations.Contract;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +142,7 @@ public class Wrapper {
         return result;
     }
 
+    @Contract("null -> null")
     public static GsonAllDic wrapToGsonVideoLessons(VideoLessons obj) {
         if (obj != null) {
             GsonAllDic gson = new GsonAllDic();
@@ -151,6 +153,28 @@ public class Wrapper {
         }
         return null;
     }
+
+    @Contract("null -> null")
+    private static GsonAllDic wrapToGsonAudioLessons(AudioLessons obj) {
+        if (obj != null) {
+            GsonAllDic gson = new GsonAllDic();
+            gson.setId(obj.getId());
+            gson.setValue(obj.getValue());
+            gson.setAddDopValue(obj.getParamId());
+            return gson;
+        }
+        return null;
+    }
+
+    public static List<GsonAllDic> wrapToGsonAudioLessonsList(List<AudioLessons> list) {
+        List<GsonAllDic> result = new ArrayList<>();
+
+        for(AudioLessons s :list) {
+            result.add(wrapToGsonAudioLessons(s));
+        }
+        return result;
+    }
+
     public static List<GsonGameResult> wrapToGsonGameResultList(List<GameResult> list) {
         List<GsonGameResult> result = new ArrayList<>();
 
