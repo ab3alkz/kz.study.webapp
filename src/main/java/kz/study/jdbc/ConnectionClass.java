@@ -1,16 +1,13 @@
 package kz.study.jdbc;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
-import oracle.jdbc.pool.OracleDataSource;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-import java.sql.SQLException;
-import java.util.Hashtable;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+//import oracle.jdbc.pool.OracleDataSource;
 
 /**
  * @author a.kussein

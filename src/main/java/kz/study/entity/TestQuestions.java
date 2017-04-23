@@ -2,6 +2,7 @@ package kz.study.entity;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 
 /**
  * Created by amanzhol-ak on 17.04.2017.
@@ -13,7 +14,9 @@ import javax.xml.bind.annotation.XmlRootElement;
         @NamedQuery(name = "TestQuestions.findAll", query = "SELECT g FROM TestQuestions g "),
         @NamedQuery(name = "TestQuestions.findBySrcId", query = "SELECT g FROM TestQuestions g WHERE g.srcId = :srcId")
 })
-public class TestQuestions {
+public class TestQuestions implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "ID")
     private Integer id;

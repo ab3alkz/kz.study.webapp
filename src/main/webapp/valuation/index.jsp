@@ -38,6 +38,7 @@
     <script src="${contextPath}/js/valuation/valuation.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/fill-words.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/testing.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/valuation/intellectual-test.js" type="text/javascript"></script>
     <script src="${contextPath}/js/common.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js?version=<%= new Date()%>" type="text/javascript"></script>
     <link href="${contextPath}/css/valuation.css" rel="stylesheet" type="text/css"/>

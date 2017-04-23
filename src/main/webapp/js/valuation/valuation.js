@@ -1,7 +1,12 @@
 $(document).ready(function () {
     load();
 });
+
 var activeGameId;
+var activeGameType;
+var testData;
+var activeQuestionIdx = 0;
+var testFinish = false;
 function load() {
     form_init();
 }
@@ -192,6 +197,20 @@ function viewTestTypeListWin(gson) {
                         height: 40,
                         cols: [
                             {
+                                disabled: true,
+                                id: "editTestTypeBtn",
+                                view: "icon", icon: "fa fa-pencil-square-o", css: "buttonIcon",
+                                click: function () {
+                                    editAddTestTypeWin($$("viewTestTypeListTable").getSelectedItem());
+                                }
+                            },
+                            {
+                                view: "icon", icon: "fa fa-plus-square-o", css: "buttonIcon",
+                                click: function () {
+                                    editAddTestTypeWin(null);
+                                }
+                            },
+                            {
                                 view: "icon", icon: "fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
@@ -214,6 +233,7 @@ function viewTestTypeListWin(gson) {
                         scroll: false,
                         header: false,
                         footer: false,
+                        autoheight: true,
                         rowHeight: 45,
                         select: 'row',
                         columns: [
@@ -225,6 +245,11 @@ function viewTestTypeListWin(gson) {
                             },
                             {id: "editBtn", header: " ", width: 60},
                         ],
+                        on: {
+                            onAfterSelect: function () {
+                                $$("editTestTypeBtn").enable();
+                            }
+                        },
                         scheme: {
                             $init: function (obj) {
                                 obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>Бастау</button>";
@@ -249,6 +274,9 @@ function viewTestTypeListWin(gson) {
                                 }, 100)
                             }
                         }
+                    },
+                    {
+                        height: 20
                     }
                 ]
             }
@@ -265,12 +293,16 @@ function viewTestTypeListWin(gson) {
 function startTest(id, item) {
     $("#mainContainer").hide();
     activeGameId = id;
+    activeGameType = item.type;
     switch (item.type) {
         case "fillWords":
             createFillWordsContainer(id, item);
             break;
         case "test":
             createTestsContainer(id, item);
+            break;
+        case "intelectualTest":
+            createIntelectualTestContainer(id, item);
             break;
         default:
             createDefContainer(id, item);
@@ -336,6 +368,31 @@ function createTestsContainer(id, item) {
     $('.mainwrapper').removeClass(' top80px');
     $('.mainwrapper').addClass(' top20px');
     startTesting(item);
+}
+
+
+function createIntelectualTestContainer(id, item) {
+    webix.ui(
+        {
+            id: "testsContainer",
+            container: "testsContainer",
+            rows: [
+                {
+                    view: 'label',
+                    height: 60,
+                    autowidth: true,
+                    label: "<h3 style='margin: 0'>" + item.name + "</h3>"
+                }
+            ]
+        }
+    );
+
+    $('#gameResultContainerWrapper').hide();
+    $('#userInfo').hide();
+
+    $('.mainwrapper').removeClass(' top80px');
+    $('.mainwrapper').addClass(' top20px');
+    startIntelllectualTest(item);
 }
 
 function registrationWin() {
@@ -676,6 +733,7 @@ function setGameResultInfo(obj) {
 function setGameResult(result, json, callBack) {
     get_ajax('/study/wr/app/setGameResult', 'GET', {
         gameId: activeGameId,
+        type: activeGameType,
         uName: myuser,
         result: result,
         json: JSON.stringify(json)
@@ -683,3 +741,120 @@ function setGameResult(result, json, callBack) {
         messageBox("Ошибка", "Ошибка службы " + ' ' + url);
     });
 }
+
+function editAddTestTypeWin(obj) {
+    if (!$$('addTestTypeWin')) {
+        webix.ui({
+            view: "window",
+            id: "addTestTypeWin",
+            modal: true,
+            on: {
+                onHide: function () {
+                    window.onscroll = null;
+                }
+            },
+            position: "center",
+            head: {
+                cols: [
+                    {width: 10},
+                    {view: "label", label: "Жаңа сынақты енгізу"},
+                    {
+                        borderless: true,
+                        view: "toolbar",
+                        paddingY: 2,
+                        height: 40,
+                        cols: [
+                            {
+                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                click: function () {
+                                    this.getTopParentView().close();
+                                    window.onscroll = null;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            body: {
+                rows: [
+                    {
+                        view: "form",
+                        id: "addTestTypeWinForm",
+                        width: 500,
+                        elementsConfig: {
+                            labelPosition: "left",
+                            labelWidth: 100,
+                            width: 500
+                        },
+                        elements: [
+                            {
+                                label: "Сынақ түрі",
+                                view: "richselect",
+                                name: "type",
+                                required: true,
+                                suggest: {
+                                    css: "auto_width_popup",
+                                    body: {
+                                        template: "#name#",
+                                        url: "/study/wr/app/getDTestTypeList"
+                                    }
+                                }
+                            },
+                            {
+                                required: true,
+                                name: "name",
+                                label: "Сынақ атауы",
+                                view: "text"
+                            },
+                            {
+                                height: 20
+                            },
+                            {
+                                cols: [
+                                    {
+                                        width: 320
+                                    },
+                                    {
+                                        height: 50,
+                                        width: 155,
+                                        css: "noBorder",
+                                        template: "<button onclick='saveTestType()' style='width: 145px;'  class='btn btn-success'>Сақтау</button>"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+
+                ]
+            }
+        }).hide();
+    }
+    $$('addTestTypeWinForm').parse(obj);
+    $$('addTestTypeWin').show(false, false);
+    var y = window.scrollY;
+    window.onscroll = function () {
+        window.scrollTo(0, y);
+    };
+}
+
+function saveTestType() {
+    var form = $$("addTestTypeWinForm");
+    if (!form.validate()) {
+        return;
+    }
+    var strJson = JSON.stringify(form.getValues(), null, 1);
+    get_ajax('/study/wr/app/saveTestType', 'POST', strJson, function (gson) {
+            if (gson && gson.result) {
+                $$("viewTestTypeListTable").parse(gson.message);
+                $$("addTestTypeWin").hide();
+                notifyMessage("Инфо", "Жаңа сынақ қосылды", notifyType.success);
+            } else {
+                messageBox("Ошибка", gson.message);
+            }
+        }, function (url) {
+            messageBox("Ошибка", "Ошибка службы " + ' ' + url);
+        }
+    );
+}
+
+
