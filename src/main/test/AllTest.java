@@ -3,15 +3,11 @@ import kz.study.entity.DEnding;
 import kz.study.gson.GsonAllDic;
 import org.junit.Test;
 
-import kz.study.jdbc.Jdbc;
-
-import java.lang.invoke.SwitchPoint;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static kz.study.jdbc.Jdbc.getTestBd;
 import static kz.study.util.Util.isNullOrEmpty;
 
 
@@ -365,6 +361,53 @@ public class AllTest {
         }
 
         return newValue;
+    }
+
+
+    @Test
+    public void getReplaceSpecialChars() {
+        String str = "'Зат есім' ' деген \n не?";
+        str = str.replace(",", "")
+                .replace("-", "")
+                .replace(".", "")
+                .replace("?", "")
+                .replace("!", "")
+                .replace("<", "")
+                .replace(">", "")
+                .replace("'", "")
+                .replace("\"", "")
+                .replace("/", "")
+                .replace("+", "")
+                .replace("\n", "")
+                .replace("*", "")
+                .replace("`", "")
+                .replace("`", "")
+                .replace("                    ", " ")
+                .replace("                   ", " ")
+                .replace("                  ", " ")
+                .replace("                 ", " ")
+                .replace("                ", " ")
+                .replace("               ", " ")
+                .replace("              ", " ")
+                .replace("             ", " ")
+                .replace("            ", " ")
+                .replace("           ", " ")
+                .replace("          ", " ")
+                .replace("         ", " ")
+                .replace("        ", " ")
+                .replace("       ", " ")
+                .replace("      ", " ")
+                .replace("     ", " ")
+                .replace("    ", " ")
+                .replace("   ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ");
+
+        System.out.println(str);
     }
 }
 

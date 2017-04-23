@@ -177,4 +177,49 @@ public class Wrapper {
         }
         return null;
     }
+
+
+    public static GsonIntelectualQuestion wrapToGsonIntelectualQuestion(IntelectualQuestion obj) {
+        if (obj != null) {
+            GsonIntelectualQuestion gson = new GsonIntelectualQuestion();
+            gson.setQuestion(obj.getQuestion());
+            gson.setSrcId(obj.getSrcId());
+            gson.setId(obj.getId());
+            return gson;
+        }
+
+        return null;
+    }
+
+    public static List<GsonIntelectualQuestion> wrapToGsonIntelectualQuestionList(List<IntelectualQuestion> list) {
+        List<GsonIntelectualQuestion> gsonList = new ArrayList<>();
+        for (IntelectualQuestion o : list) {
+            gsonList.add(wrapToGsonIntelectualQuestion(o));
+        }
+        return gsonList;
+    }
+
+
+
+    public static GsonTestType wrapToGsonTestType(TestType obj) {
+        if (obj != null) {
+            GsonTestType gson = new GsonTestType();
+            gson.setLevel(obj.getLevel());
+            gson.setName(obj.getName());
+            gson.setIsPublic(obj.getIsPublic());
+            gson.setId(obj.getId());
+            gson.setType(obj.getType());
+            return gson;
+        }
+
+        return null;
+    }
+
+    public static List<GsonTestType> wrapToGsonTestTypeList(List<TestType> list) {
+        List<GsonTestType> gsonList = new ArrayList<>();
+        for (TestType o : list) {
+            gsonList.add(wrapToGsonTestType(o));
+        }
+        return gsonList;
+    }
 }

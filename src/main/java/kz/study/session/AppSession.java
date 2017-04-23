@@ -6,9 +6,7 @@
 package kz.study.session;
 
 import kz.study.entity.*;
-import kz.study.gson.GsonDatatableData;
-import kz.study.gson.GsonResult;
-import kz.study.gson.GsonTestQuestions;
+import kz.study.gson.*;
 import kz.study.util.Utx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +21,12 @@ import java.util.Random;
 
 import static kz.study.util.DateUtil.dateToString;
 import static kz.study.util.DateUtil.stringToSqlDate;
-import static kz.study.util.Util.getGsonResult;
-import static kz.study.util.Util.getSingleResultOrNull;
-import static kz.study.util.Util.isNullOrEmpty;
+import static kz.study.util.Util.*;
+import static kz.study.wrapper.Serialization.wrapToGsonIntelectualQuestionByJsonString;
 import static kz.study.wrapper.Serialization.wrapToGsonTestQuestionsByJsonString;
+import static kz.study.wrapper.Serialization.wrapToGsonTestTypeByJsonString;
 import static kz.study.wrapper.Wrapper.wrapToGsonGameResultList;
+import static kz.study.wrapper.Wrapper.wrapToGsonIntelectualQuestionList;
 
 
 /**
@@ -152,7 +151,7 @@ public class AppSession extends Utx {
         return sequense.getVal();
     }
 
-    public GsonResult setGameResult(Integer gameId, String uName, Long result, String json) {
+    public GsonResult setGameResult(Integer gameId, String type, String uName, Long result, String json) {
 
         GameResult obj = new GameResult();
         obj.setId(getSequenceNextVal());
@@ -163,11 +162,11 @@ public class AppSession extends Utx {
         obj.setgDate(stringToSqlDate(dateToString(new java.util.Date(), "dd.MM.yyyy HH.mm.ss"), "dd.MM.yyyy HH.mm.ss"));
         em.merge(obj);
 
-//        switch (gameId) {
-//            case "fillWords":
-//                GsonFillWordsResult gson = wrapToGsonFillWordsResultByJsonString(json);
-//                break;
-//        }
+        switch (type) {
+            case "intelectualTest":
+                GsonIntelectualQuestion gson = wrapToGsonIntelectualQuestionByJsonString(json);
+                return intelectualQuestionValidate(gson);
+        }
         return getGsonResult(true, null);
     }
 
@@ -199,5 +198,112 @@ public class AppSession extends Utx {
             e.printStackTrace();
             return getGsonResult(false, e.toString());
         }
+    }
+
+    public GsonResult saveTestType(String json) {
+        try {
+            GsonTestType gson = wrapToGsonTestTypeByJsonString(json);
+            TestType testType = new TestType();
+            testType.setId(getSequenceNextVal());
+            testType.setType(gson.getType());
+            testType.setIsPublic(1);
+            testType.setName(gson.getName());
+            testType.setLevel(0);
+            em.merge(testType);
+            return getGsonResult(true, testType);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getGsonResult(false, e.toString());
+        }
+    }
+
+    public List<GsonIntelectualQuestion> getIntellectualGuestions(Integer srcId, Integer start, Integer count) {
+        if (start == null) start = 0;
+        if (count == null) count = start + 20;
+        return wrapToGsonIntelectualQuestionList(
+                em.createNamedQuery("IntelectualQuestion.findBySrcId")
+                        .setParameter("srcId", srcId)
+                        .setFirstResult(start)
+                        .setMaxResults(count)
+                        .getResultList());
+    }
+
+    private GsonResult intelectualQuestionValidate(GsonIntelectualQuestion gson) {
+        for (GsonIntelectualQuestion obj : gson.getData()) {
+            String userAnsw = obj.getAnsw();
+            List<IntelectualQuestionAnswers> answersList = em.createNamedQuery("IntelectualQuestionAnswers.findByQuestionId")
+                    .setParameter("questionId", obj.getId())
+                    .getResultList();
+
+            for (IntelectualQuestionAnswers answer : answersList) {
+                String answerDB = answer.getAnswer();
+
+                userAnsw = userAnsw.trim();
+                answerDB = answerDB.trim();
+                userAnsw = getReplaceSpecialChars(userAnsw);
+                answerDB = getReplaceSpecialChars(answerDB);
+
+                if (isNullOrEmpty(answerDB)) {
+                    return getGsonResult(false, getGsonResult(false, "Деректер қорында жауап жазылмаған"));
+                }
+                if (isNullOrEmpty(userAnsw)) {
+                    return getGsonResult(false, getGsonResult(true, 0));
+                }
+                if (userAnsw.equals(answerDB)) {
+                    return getGsonResult(true, getGsonResult(true, 100));
+                }
+            }
+        }
+        return getGsonResult(false, null);
+    }
+
+    private String getReplaceSpecialChars(String str) {
+        if (isNullOrEmpty(str)) {
+            return "";
+        }
+        return str.replace("-", "")
+                .replace("..", ".")
+                .replace("???", "?")
+                .replace("??", "?")
+                .replace("!!!", "!")
+                .replace("!!", "!")
+                .replace("<", "")
+                .replace(">", "")
+                .replace("'", "")
+                .replace("\"", "")
+                .replace("/", "")
+                .replace("+", "")
+                .replace("\n", "")
+                .replace("*", "")
+                .replace("`", "")
+                .replace("`", "")
+                .replace("                    ", " ")
+                .replace("                   ", " ")
+                .replace("                  ", " ")
+                .replace("                 ", " ")
+                .replace("                ", " ")
+                .replace("               ", " ")
+                .replace("              ", " ")
+                .replace("             ", " ")
+                .replace("            ", " ")
+                .replace("           ", " ")
+                .replace("          ", " ")
+                .replace("         ", " ")
+                .replace("        ", " ")
+                .replace("       ", " ")
+                .replace("      ", " ")
+                .replace("     ", " ")
+                .replace("    ", " ")
+                .replace("   ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ")
+                .replace("  ", " ");
+    }
+
+    public List<DTestType> getDTestTypeList() {
+        return em.createNamedQuery("DTestType.findAll").getResultList();
     }
 }
