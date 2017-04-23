@@ -237,23 +237,29 @@ public class AppSession extends Utx {
 
             for (IntelectualQuestionAnswers answer : answersList) {
                 String answerDB = answer.getAnswer();
+                return isIntelectualQuestionValidate(userAnsw,answerDB);
 
-                userAnsw = userAnsw.trim();
-                answerDB = answerDB.trim();
-                userAnsw = getReplaceSpecialChars(userAnsw);
-                answerDB = getReplaceSpecialChars(answerDB);
-
-                if (isNullOrEmpty(answerDB)) {
-                    return getGsonResult(false, getGsonResult(false, "Деректер қорында жауап жазылмаған"));
-                }
-                if (isNullOrEmpty(userAnsw)) {
-                    return getGsonResult(false, getGsonResult(true, 0));
-                }
-                if (userAnsw.equals(answerDB)) {
-                    return getGsonResult(true, getGsonResult(true, 100));
-                }
             }
         }
+        return getGsonResult(false, null);
+    }
+
+    private GsonResult isIntelectualQuestionValidate(String userAnsw, String answerDB) {
+        userAnsw = userAnsw.trim();
+        answerDB = answerDB.trim();
+        userAnsw = getReplaceSpecialChars(userAnsw);
+        answerDB = getReplaceSpecialChars(answerDB);
+
+        if (isNullOrEmpty(answerDB)) {
+            return getGsonResult(false, getGsonResult(false, "Деректер қорында жауап жазылмаған"));
+        }
+        if (isNullOrEmpty(userAnsw)) {
+            return getGsonResult(false, getGsonResult(true, 0));
+        }
+        if (userAnsw.equals(answerDB)) {
+            return getGsonResult(true, getGsonResult(true, 100));
+        }
+
         return getGsonResult(false, null);
     }
 

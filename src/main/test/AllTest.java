@@ -1,6 +1,7 @@
 import com.sun.istack.internal.Nullable;
 import kz.study.entity.DEnding;
 import kz.study.gson.GsonAllDic;
+import kz.study.gson.GsonResult;
 import org.junit.Test;
 
 import java.sql.*;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static kz.study.util.Util.getGsonResult;
 import static kz.study.util.Util.isNullOrEmpty;
 
 
@@ -364,14 +366,21 @@ public class AllTest {
     }
 
 
-    @Test
-    public void getReplaceSpecialChars() {
-        String str = "'Зат есім' ' деген \n не?";
-        str = str.replace(",", "")
-                .replace("-", "")
-                .replace(".", "")
-                .replace("?", "")
-                .replace("!", "")
+    private String getReplaceSpecialChars(String str) {
+        return str.replace("-", "")
+                .replace("...", ".")
+                .replace("..", ".")
+                .replace(".   ", ".")
+                .replace(".  ", ".")
+                .replace(". ", ".")
+                .replace(",,", ",")
+                .replace(",   ", ",")
+                .replace(",  ", ",")
+                .replace(", ", ",")
+                .replace("???", "?")
+                .replace("??", "?")
+                .replace("!!!", "!")
+                .replace("!!", "!")
                 .replace("<", "")
                 .replace(">", "")
                 .replace("'", "")
@@ -407,8 +416,63 @@ public class AllTest {
                 .replace("  ", " ")
                 .replace("  ", " ");
 
-        System.out.println(str);
+    }
+
+
+    @Test
+    public void intelectualQuestionValidate() {
+        String userAnsw = "Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы.";
+        String dBAnswer = "Зат есім - заттың, құбылыстың атын білдіріп,  не? кім? деген сұраққа жауап беретін сөз табы.";
+        GsonResult gson = isIntelectualQuestionValidate(userAnsw, dBAnswer);
+
+        if (gson.getResult()) {
+            GsonResult gr = (GsonResult) gson.getMessage();
+            System.out.println(gr.getResult() + " " + gr.getMessage());
+        } else {
+            System.out.println(gson.getResult() + " " + gson.getMessage());
+        }
+    }
+
+    private GsonResult isIntelectualQuestionValidate(String userAnsw, String dBAnswer) {
+        userAnsw = getReplaceSpecialChars(userAnsw);
+        dBAnswer = getReplaceSpecialChars(dBAnswer);
+        userAnsw = userAnsw.trim();
+        dBAnswer = dBAnswer.trim();
+
+        if (isNullOrEmpty(dBAnswer)) {
+            return getGsonResult(false, getGsonResult(false, "Деректер қорында жауап жазылмаған"));
+        }
+        if (isNullOrEmpty(userAnsw)) {
+            return getGsonResult(false, getGsonResult(true, 0));
+        }
+        if (userAnsw.equals(dBAnswer)) {
+            return getGsonResult(true, getGsonResult(true, 100));
+        }
+
+        String[] dBAnswerSentenceArr = dBAnswer.split(".");
+        String[] uAnswerSentenceArr = userAnsw.split(".");
+        for (String dBAnswerSentence : dBAnswerSentenceArr) {
+            Integer containsSentences = 0;
+            if (stringContainsItemFromList(dBAnswerSentence.trim(),uAnswerSentenceArr)) {
+                containsSentences++;
+            }
+
+            return getGsonResult(true, getGsonResult(true, 100));
+        }
+
+        return getGsonResult(false, 0);
+    }
+
+    public static boolean stringContainsItemFromList(String inputStr, String[] items)
+    {
+        for(int i =0; i < items.length; i++)
+        {
+            if(inputStr.contains(items[i]))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
-
 
