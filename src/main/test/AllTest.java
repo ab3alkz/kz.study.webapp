@@ -422,11 +422,9 @@ public class AllTest {
         GsonResult gson = isIntelectualQuestionValidate(userAnsw, dBAnswer);
 
         if (gson.getResult()) {
-            GsonResult gr = (GsonResult) gson.getMessage();
-            System.out.println(gr.getResult() + " " + gr.getMessage());
-        } else {
-            System.out.println(gson.getResult() + " " + gson.getMessage());
+            gson = (GsonResult) gson.getMessage();
         }
+        System.out.println(gson.getResult() + " " + gson.getMessage());
     }
 
     private GsonResult isIntelectualQuestionValidate(String userAnsw, String dBAnswer) {
