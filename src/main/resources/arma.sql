@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 20 2017 г., 13:01
+-- Время создания: Апр 24 2017 г., 14:32
 -- Версия сервера: 10.1.21-MariaDB
 -- Версия PHP: 7.1.1
 
@@ -269,7 +269,7 @@ CREATE TABLE `arma_sequense` (
 --
 
 INSERT INTO `arma_sequense` (`id`, `val`) VALUES
-(1, 72);
+(1, 142);
 
 -- --------------------------------------------------------
 
@@ -403,6 +403,27 @@ INSERT INTO `d_suffix` (`ID`, `TYPE`, `PARENT_ID`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `d_test_type`
+--
+
+CREATE TABLE `d_test_type` (
+  `ID` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `ord` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `d_test_type`
+--
+
+INSERT INTO `d_test_type` (`ID`, `name`, `ord`) VALUES
+('fillWords', 'Создерді толықтыр', 1),
+('intelectualTest', 'Интеллектуалды сұрақ жауап', 3),
+('test', 'Сұрақ жауап', 2);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `game_result`
 --
 
@@ -433,7 +454,25 @@ INSERT INTO `game_result` (`id`, `game_Id`, `uName`, `result`, `info`, `d_date`)
 (67, '2', 'weblogic', 0, '{\"data\":[{\"id\":14,\"question\":\"11 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":2,\"result\":false},{\"id\":30,\"question\":\"27 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":49,\"question\":\"46 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":40,\"question\":\"37 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":7,\"question\":\"4 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":55,\"question\":\"52 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":28,\"question\":\"25 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":20,\"question\":\"17 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":5,\"question\":\"2 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":17,\"question\":\"14 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":8,\"question\":\"5 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":9,\"question\":\"6 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":37,\"question\":\"34 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":35,\"question\":\"32 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":58,\"question\":\"55 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":26,\"question\":\"23 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":32,\"question\":\"29 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":48,\"question\":\"45 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":34,\"question\":\"31 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":6,\"question\":\"3 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":52,\"question\":\"49 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":39,\"question\":\"36 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":15,\"question\":\"12 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":36,\"question\":\"33 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":38,\"question\":\"35 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2}],\"total\":0}', '2017-04-18 00:00:00'),
 (68, '2', 'weblogic', 4, '{\"data\":[{\"id\":53,\"question\":\"50 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":1,\"result\":true},{\"id\":49,\"question\":\"46 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":2,\"result\":false},{\"id\":17,\"question\":\"14 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":23,\"question\":\"20 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":4,\"question\":\"1 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":42,\"question\":\"39 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":28,\"question\":\"25 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":35,\"question\":\"32 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":39,\"question\":\"36 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":52,\"question\":\"49 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":34,\"question\":\"31 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":19,\"question\":\"16 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":38,\"question\":\"35 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":20,\"question\":\"17 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":33,\"question\":\"30 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":11,\"question\":\"8 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":22,\"question\":\"19 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":32,\"question\":\"29 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":14,\"question\":\"11 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":18,\"question\":\"15 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":6,\"question\":\"3 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":51,\"question\":\"48 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":30,\"question\":\"27 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":46,\"question\":\"43 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":7,\"question\":\"4 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":3,\"result\":false}],\"total\":4}', '2017-04-18 00:00:00'),
 (69, '2', 'weblogic', 16, '{\"data\":[{\"id\":40,\"question\":\"37 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":1,\"result\":true},{\"id\":22,\"question\":\"19 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":1,\"result\":true},{\"id\":57,\"question\":\"54 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":4,\"result\":false},{\"id\":29,\"question\":\"26 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":4,\"result\":false},{\"id\":23,\"question\":\"20 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":1,\"result\":true},{\"id\":25,\"question\":\"22 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2,\"answIdx\":1,\"result\":true},{\"id\":35,\"question\":\"32 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":24,\"question\":\"21 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":8,\"question\":\"5 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":19,\"question\":\"16 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":58,\"question\":\"55 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":37,\"question\":\"34 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":30,\"question\":\"27 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":51,\"question\":\"48 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":42,\"question\":\"39 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":11,\"question\":\"8 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":45,\"question\":\"42 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":21,\"question\":\"18 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":49,\"question\":\"46 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":34,\"question\":\"31 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":12,\"question\":\"9 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":4,\"question\":\"1 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":50,\"question\":\"47 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":47,\"question\":\"44 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":54,\"question\":\"51 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2}],\"total\":16}', '2017-04-18 00:00:00'),
-(70, '2', 'weblogic', 0, '{\"data\":[{\"id\":16,\"question\":\"13 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":9,\"question\":\"6 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":20,\"question\":\"17 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":46,\"question\":\"43 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":10,\"question\":\"7 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":6,\"question\":\"3 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":28,\"question\":\"25 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":34,\"question\":\"31 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":29,\"question\":\"26 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":45,\"question\":\"42 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":42,\"question\":\"39 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":44,\"question\":\"41 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":30,\"question\":\"27 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":39,\"question\":\"36 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":31,\"question\":\"28 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":54,\"question\":\"51 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":26,\"question\":\"23 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":7,\"question\":\"4 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":4,\"question\":\"1 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":18,\"question\":\"15 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":56,\"question\":\"53 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":32,\"question\":\"29 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":33,\"question\":\"30 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":51,\"question\":\"48 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":50,\"question\":\"47 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2}],\"total\":0}', '2017-04-18 00:00:00');
+(70, '2', 'weblogic', 0, '{\"data\":[{\"id\":16,\"question\":\"13 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":9,\"question\":\"6 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":20,\"question\":\"17 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":46,\"question\":\"43 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":10,\"question\":\"7 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":6,\"question\":\"3 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":28,\"question\":\"25 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":34,\"question\":\"31 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":29,\"question\":\"26 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":45,\"question\":\"42 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":42,\"question\":\"39 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":44,\"question\":\"41 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":30,\"question\":\"27 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":39,\"question\":\"36 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":31,\"question\":\"28 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":54,\"question\":\"51 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":26,\"question\":\"23 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":7,\"question\":\"4 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":4,\"question\":\"1 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":18,\"question\":\"15 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":56,\"question\":\"53 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":32,\"question\":\"29 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":33,\"question\":\"30 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":51,\"question\":\"48 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2},{\"id\":50,\"question\":\"47 Lorem Ipsum is simply dummy ?\",\"answ1\":\"text of the printing \",\"answ2\":\" typesetting industry\",\"answ3\":\"standard dummy text\",\"answ4\":\"ever since the 1500s\",\"srcId\":2}],\"total\":0}', '2017-04-18 00:00:00'),
+(81, '1', 'weblogic', 100, '{\"data\":[{\"left\":\"қ\",\"center\":\"а\",\"right\":\"зақ\",\"word\":\"қазақ\",\"id\":\"afe09951-ae5c-40ad-9ecc-44a411146698\",\"result\":true},{\"left\":\"се\",\"center\":\"г\",\"right\":\"із\",\"word\":\"сегіз\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq1\",\"result\":true},{\"center\":\"а\",\"right\":\"на\",\"word\":\"ана\",\"id\":\"fc266d3a-35ee-47bc-9891-3d54e721fd60\",\"result\":true},{\"center\":\"қ\",\"right\":\"ыс\",\"word\":\"қыс\",\"id\":\"600dfe39-aab7-4ab5-8810-ed33dc84b50c\",\"result\":true},{\"left\":\"тоғ\",\"center\":\"ы\",\"right\":\"з\",\"word\":\"тоғыз\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq2\",\"result\":true},{\"left\":\"ба\",\"center\":\"л\",\"right\":\"апан\",\"word\":\"балапан\",\"id\":\"a633fa76-e8f7-469f-afa8-efaddb3ae21d\",\"result\":true},{\"left\":\"к\",\"center\":\"ү\",\"right\":\"з\",\"word\":\"күз\",\"id\":\"495bddd5-764f-4b29-9836-ad11f8d28d39\",\"result\":true},{\"left\":\"сәлеметс\",\"center\":\"і\",\"right\":\"збе\",\"word\":\"сәлеметсізбе\",\"id\":\"05f8ba0e-c94f-42b4-80e3-b30cda8b4123\",\"result\":true},{\"left\":\"т\",\"center\":\"ө\",\"right\":\"рт\",\"word\":\"төрт\",\"id\":\"qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq\",\"result\":true},{\"left\":\"ж\",\"center\":\"а\",\"right\":\"з\",\"word\":\"жаз\",\"id\":\"15210d64-9a72-4d6f-9ec1-8c78ad845059\",\"result\":true}],\"total\":100}', '2017-04-23 00:00:00'),
+(82, '2', 'weblogic', 15, '{\"data\":[{\"id\":4,\"question\":\"Қазақ тілінде қанша әріп бар?\",\"answ1\":\"42\",\"answ2\":\"35\",\"answ3\":\"25\",\"answ4\":\"40\",\"srcId\":2,\"answIdx\":1,\"result\":true},{\"id\":7,\"question\":\"Мәтіннің түрін анықта: Мен екінші сыныпта оқимын. Сабағымды қызыға дайындаймын. Кітап оқығанды ұнатамын.\",\"answ1\":\"әңгімелеу\",\"answ2\":\"пайымдау\",\"answ3\":\"ешқайсысы емес\",\"answ4\":\"Сипаттау\",\"srcId\":2,\"answIdx\":4,\"result\":false},{\"id\":20,\"question\":\"Сұлу сөзіне мәндес сөздерді тап\",\"answ1\":\"ару, көркем\",\"answ2\":\"қатігез, долы\",\"answ3\":\"айдай, аппақ\",\"answ4\":\"Ибалы, сыпайы\",\"srcId\":2,\"answIdx\":1,\"result\":true},{\"id\":71,\"question\":\"Қазақ тіліне тән дыбыстарды белгіле\",\"answ1\":\" ә, і, ң, ғ, ү, ұ, қ, ө\",\"answ2\":\"і, ф, ч, м, и, б, ю, ұ \",\"answ3\":\"я, ю, ә, н ы, г, р, ж \",\"answ4\":\"с, м, р, о, ш, е, т, ю \",\"srcId\":2,\"answIdx\":1,\"result\":true},{\"id\":17,\"question\":\"Қосымшаның неше түрі бар?\",\"answ1\":\"2\",\"answ2\":\"3\",\"answ3\":\"4\",\"answ4\":\"5\",\"srcId\":2,\"answIdx\":3,\"result\":false},{\"id\":72,\"question\":\"У әрпі дауыссыз болатын сөзді тап:\",\"answ1\":\"уақыт \",\"answ2\":\"Қуат\",\"answ3\":\"жу\",\"answ4\":\"туған \",\"srcId\":2},{\"id\":22,\"question\":\"Қате жазылған сөзді тап\",\"answ1\":\"деннис\",\"answ2\":\"баскетбол\",\"answ3\":\"футбол\",\"answ4\":\"хоккей\",\"srcId\":2},{\"id\":1,\"question\":\"Қатаң дыбыстан басталған сөзді тап:\",\"answ1\":\"тарту\",\"answ2\":\"балық\",\"answ3\":\"мереке\",\"answ4\":\"лайық\",\"srcId\":2},{\"id\":10,\"question\":\"Нешінші? сұрағына жауап беретін сөзді тап\",\"answ1\":\"екінші\",\"answ2\":\"қырық\",\"answ3\":\"алтау\",\"answ4\":\"бес\",\"srcId\":2},{\"id\":12,\"question\":\"Заттың қимылын білдіретін сөзді тап\",\"answ1\":\"жүгіру\",\"answ2\":\"жайлау\",\"answ3\":\"теңіз\",\"answ4\":\"балалық\",\"srcId\":2},{\"id\":11,\"question\":\"Дыбыссыз әріптерді тап\",\"answ1\":\"ь, ъ\",\"answ2\":\"қ, й\",\"answ3\":\"ю, я\",\"answ4\":\"һ, т\",\"srcId\":2},{\"id\":16,\"question\":\"Жұрнақ жалғанған сөзді тап\",\"answ1\":\"жұмысшы\",\"answ2\":\"жұмысқа\",\"answ3\":\"жұмыспен\",\"answ4\":\"Жұмыста\",\"srcId\":2},{\"id\":13,\"question\":\"Мәндес сөздерді тап\",\"answ1\":\"Қария, шал\",\"answ2\":\"үйге кел\",\"answ3\":\"жап - жақсы\",\"answ4\":\"ақ - қара\",\"srcId\":2},{\"id\":21,\"question\":\"Қате жазылған сөзді тап\",\"answ1\":\"баскедбол\",\"answ2\":\"футбол\",\"answ3\":\"теннис\",\"answ4\":\"хоккей\",\"srcId\":2},{\"id\":18,\"question\":\"Қате жазылған сөзді тап\",\"answ1\":\"фудбол\",\"answ2\":\"баскетбол\",\"answ3\":\"теннис\",\"answ4\":\"хоккей\",\"srcId\":2},{\"id\":23,\"question\":\"Сұраулы сөйлемді тап:\",\"answ1\":\"Олар тату тұра ма\",\"answ2\":\"Әжем келді\",\"answ3\":\"Су ақты\",\"answ4\":\"Сабақтан кешікпе\",\"srcId\":2},{\"id\":19,\"question\":\"Зат есімнің сұрағын тап\",\"answ1\":\"кім? не?\",\"answ2\":\"Қанша? неше?\",\"answ3\":\"қандай? қай?\",\"answ4\":\"қайтті? не істеді?\",\"srcId\":2},{\"id\":9,\"question\":\"Лепті сөйлем қалай айтылады?\",\"answ1\":\"Көтеріңкі дауыспен\",\"answ2\":\"Жай дауыспен\",\"answ3\":\"Жауап алу мақсатымен\",\"answ4\":\"Бірыңғай дауыспен\",\"srcId\":2},{\"id\":14,\"question\":\"Түбір сөзді тап\",\"answ1\":\"Домбыра\",\"answ2\":\"сазсырнай\",\"answ3\":\"сызғыш\",\"answ4\":\"аққала\",\"srcId\":2},{\"id\":5,\"question\":\"Дұрыс жазылған сөзді тап:\",\"answ1\":\"аяз\",\"answ2\":\"тайақ\",\"answ3\":\"кіиім\",\"answ4\":\"қәзір\",\"srcId\":2}],\"total\":15}', '2017-04-23 00:00:00'),
+(83, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answersList\":[{\"id\":75,\"questionId\":74,\"answer\":\"Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды.\"}]}],\"total\":0}', '2017-04-23 00:00:00'),
+(84, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answersList\":[{\"id\":75,\"questionId\":74,\"answer\":\"Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды.\"}]}],\"total\":0}', '2017-04-23 00:00:00'),
+(85, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answersList\":[{\"id\":75,\"questionId\":74,\"answer\":\"Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды.\"}]}],\"total\":0}', '2017-04-23 00:00:00'),
+(86, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answersList\":[{\"id\":75,\"questionId\":74,\"answer\":\"Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды.\"}]}],\"total\":0}', '2017-04-23 00:00:00'),
+(87, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answersList\":[{\"id\":75,\"questionId\":74,\"answer\":\"Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды.\"}],\"answ\":\"hfhd h fgfhg hghgf d\"}]}', '2017-04-23 00:00:00'),
+(88, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"aDS FDF DFD FSDF S SD FSDF SDFSD   S S SD  S DFS DF SDF SD\"}]}', '2017-04-23 00:00:00'),
+(89, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"qwerty asdasf wersd f\"}]}', '2017-04-23 00:00:00'),
+(90, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"зат есім\"}]}', '2017-04-23 00:00:00'),
+(91, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды.\"}]}', '2017-04-23 00:00:00'),
+(92, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"\"}]}', '2017-04-23 00:00:00'),
+(93, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"function startIntelllectualTest(item) {\\n    get_ajax(\'/study/wr/app/getIntellectualGuestions?srcId=\' + item.id + \\\"&start=0&count=25\\\", \'GET\', null, function (gson) {\\n        testData = gson;\\n        createIntellectTempl();\\n    }, function (url) {\\n        messageBox(\\\"Ошибка\\\", \\\"Ошибка службы \\\" + \' \' + url);\\n    });\\n}\\n\\nfunction createIntellectTempl() {\\n    var obj = testData[activeQuestionIdx];\\n    $$(\\\"testsContainer\\\").removeView(\\\"answTempl\\\");\\n    $$(\\\"testsContainer\\\").addView({\\n        id: \\\"answTempl\\\",\\n        rows: [\\n            {\\n                autoheight: true,\\n                width: 900,\\n                template: \\\"<div class=\'test-question\'>\\\" + obj.question + \\\"</div>\\\"\\n            },\\n            {\\n                height: 15\\n            },\\n            {\\n               // readonly: testFinish,\\n                id: \\\"answTextarea\\\",\\n                view: \'textarea\',\\n                value: obj.answ,\\n                height: 200\\n            }\\n        ]\\n    });\\n\\n    setQuestionPaging();\\n}\\n\\n\\nfunction setQuestionPaging() {\\n    var max = testData.length;\\n    $$(\\\"answTempl\\\").addView({\\n        css: \'answTemplPaging\',\\n        rows: [\\n            {\\n                cols: [\\n                    {},\\n                    {\\n                        view: \'label\',\\n                        autowidth: true,\\n                        disabled: activeQuestionIdx <= 0,\\n                        label: \'<i onclick=\\\"intellectQPagingClick(\' + activeQuestionIdx + \',\' + 0 + \')\\\" class=\\\"fa fa-fast-backward\\\" aria-hidden=\\\"true\\\"></i>\'\\n                    },\\n                    {\\n                        view: \'label\',\\n                        autowidth: true,\\n                        disabled: activeQuestionIdx <= 0,\\n                        label: \'<i onclick=\\\"intellectQPagingClick(\' + activeQuestionIdx + \',\' + (activeQuestionIdx - 1) + \')\\\" class=\\\"fa fa-backward\\\" aria-hidden=\\\"true\\\"></i>\'\\n                    },\\n                    {\\n                        view: \'label\',\\n                        width: 100,\\n                        label: \\\"<h4 style=\'text-align: center\'>\\\" + (activeQuestionIdx + 1) + \\\" / \\\" + max + \\\"</h4>\\\"\\n                    },\\n                    {\\n                        view: \'label\',\\n                        autowidth: true,\\n                        disabled: activeQuestionIdx >= max - 1,\\n                        label: \'<i onclick=\\\"intellectQPagingClick(\' + activeQuestionIdx + \',\' + (activeQuestionIdx + 1) + \')\\\" class=\\\"fa fa-forward\\\" aria-hidden=\\\"true\\\"></i>\'\\n                    },\\n                    {\\n                        view: \'label\',\\n                        autowidth: true,\\n                        disabled: activeQuestionIdx >= max - 1,\\n                        label: \'<i onclick=\\\"intellectQPagingClick(\' + activeQuestionIdx + \',\' + (max - 1) + \')\\\" class=\\\"fa fa-fast-forward\\\" aria-hidden=\\\"true\\\"></i>\'\\n                    },\\n                    {}\\n                ]\\n            }, {\\n               // hidden: testFinish,\\n                cols: [\\n                    {},\\n                    {\\n                        hidden: testFinish,\\n                        height: 50,\\n                        id: \\\"finishTestingBtn\\\",\\n                        width: 155,\\n                        css: \\\"noBorder\\\",\\n                        template: \\\"<button id=\'fillWordsRequireBtn\' style=\'width: 145px;\' onclick=\\\\\\\"finishIntellectTesting()\\\\\\\" class=\'btn btn-success\'>Аяқтау</button>\\\",\\n                    }\\n                ]\\n            }\\n        ]\\n\\n    });\\n}\\n\\nfunction intellectQPagingClick(idx, nextIdx) {\\n    getAnswTextareaVal(idx)\\n\\n    if (isNullOrEmpty(nextIdx)) {\\n        nextIdx = 0;\\n    }\\n    if (nextIdx < 0 || nextIdx > testData.length - 1)\\n        return;\\n    activeQuestionIdx = nextIdx;\\n    createIntellectTempl();\\n}\\n\\nfunction getAnswTextareaVal(idx) {\\n    if (idx != null) {\\n        testData[idx].answ = $$(\\\"answTextarea\\\").getValue();\\n    }\\n}\\n\\nfunction finishIntellectTesting() {\\n    getAnswTextareaVal(activeQuestionIdx);\\n    testFinish = true;\\n    //$$(\'finishTestingBtn\').disable();\\n\\n    var json = {};\\n    json.data = testData;\\n    console.log(json)\\n    setGameResult(0, json,\\n        function () {\\n\\n        }\\n    );\\n    intellectQPagingClick(0);\\n}\\n\"}]}', '2017-04-23 00:00:00'),
+(94, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды.\"}]}', '2017-04-23 00:00:00'),
+(95, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды.\"}]}', '2017-04-23 00:00:00'),
+(96, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"Зат есім - заттың, құбылыстың атын білдіріп, кім?? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды...\"}]}', '2017-04-23 00:00:00'),
+(97, '73', 'weblogic', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"  заттың, құбылыстың атын білдіріп, кім?? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды...\"}]}', '2017-04-23 00:00:00'),
+(142, '73', 'admin', 0, '{\"data\":[{\"id\":74,\"question\":\"зат есім деген не?\",\"srcId\":73,\"answ\":\"зат есім деген кім не\"}]}', '2017-04-23 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -474,6 +513,67 @@ CREATE TABLE `groups` (
 INSERT INTO `groups` (`G_NAME`, `G_DESCRIPTION`) VALUES
 ('admin_role', 'root - право'),
 ('game_role', 'кухня');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `intelectual_question`
+--
+
+CREATE TABLE `intelectual_question` (
+  `ID` int(11) NOT NULL,
+  `QUESTION` varchar(500) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `SRC_ID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `intelectual_question`
+--
+
+INSERT INTO `intelectual_question` (`ID`, `QUESTION`, `SRC_ID`) VALUES
+(74, 'зат есім деген не?', 73);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `intelectual_question_answers`
+--
+
+CREATE TABLE `intelectual_question_answers` (
+  `ID` int(11) NOT NULL,
+  `QUESTION_ID` int(11) NOT NULL,
+  `ANSWER` varchar(3000) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `intelectual_question_answers`
+--
+
+INSERT INTO `intelectual_question_answers` (`ID`, `QUESTION_ID`, `ANSWER`) VALUES
+(75, 74, 'Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды.');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `lesson_audi`
+--
+
+CREATE TABLE `lesson_audi` (
+  `id` int(11) NOT NULL,
+  `value` varchar(222) COLLATE utf8_unicode_ci NOT NULL,
+  `paramId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Дамп данных таблицы `lesson_audi`
+--
+
+INSERT INTO `lesson_audi` (`id`, `value`, `paramId`) VALUES
+(1, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/319072158&amp;', 1),
+(2, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/319076065&amp;', 1),
+(3, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/319079188&amp;', 1),
+(4, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/319079725&amp;', 1),
+(5, 'https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/319085384&amp;', 2);
 
 -- --------------------------------------------------------
 
@@ -1735,7 +1835,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (1248, 'ДАНО'),
 (1249, 'ШАКАРБОЙ'),
 (1250, 'АНГАРБЕК'),
-(1251, 'АААА'),
 (1252, 'БАРЧИНОЙ'),
 (1253, 'ДИТРИЙ'),
 (1254, 'ФАРОГАТ'),
@@ -2765,7 +2864,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (2282, 'КАМИЖАН'),
 (2283, 'МАПИРА'),
 (2284, 'НЫСАНГАЛИ'),
-(2285, 'АСЛАМ'),
 (2286, 'ДЖАБИР'),
 (2287, 'АБУТАЛИБ'),
 (2288, 'ШИНАРБЕК'),
@@ -3457,10 +3555,10 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (2974, 'МУКЕШ КУМАР'),
 (2975, 'АЗИЗДЖАН'),
 (2976, 'МЕЙІРЛАН'),
-(2977, 'СЕВДИЁР');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(2977, 'СЕВДИЁР'),
 (2978, 'ПРАМОД'),
-(2979, 'ИЛЬКИН'),
+(2979, 'ИЛЬКИН');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (2980, 'ДОСТОНЖОН'),
 (2981, 'СЕЛЬВИНА'),
 (2982, 'ХАЙОТБЕК'),
@@ -3594,7 +3692,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (3110, 'ДІНМҮХАМЕД'),
 (3111, 'АЗИАДА'),
 (3112, 'АРУЗАТ'),
-(3113, 'АААААААА'),
 (3114, 'ЭЛЬЗАНА'),
 (3115, 'АЗИЗДЖОН'),
 (3116, 'БАЙҚОЗЫ'),
@@ -5820,7 +5917,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (5341, 'ФЕРУЗА'),
 (5342, 'АРУЖАН'),
 (5343, 'АҚБІЛЕК'),
-(5344, 'ӘЛИ'),
 (5345, 'АБДУЛАЛИ'),
 (5346, 'АЛИХАН'),
 (5347, 'ЕЛИЗАВЕТА'),
@@ -6406,12 +6502,12 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (5929, 'ЖИДЕКУЛ'),
 (5930, 'ЖОРАШ'),
 (5931, 'ЗЕЙНЕН'),
-(5932, 'ЗЕКИШ');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(5932, 'ЗЕКИШ'),
 (5933, 'КҮЛПАШ'),
 (5934, 'КАЛДИГУЛ'),
 (5935, 'КАМИШ'),
-(5936, 'КАНЧАЙ'),
+(5936, 'КАНЧАЙ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (5937, 'КЕНЖЕГАРА'),
 (5938, 'КИРИКБАЙ'),
 (5939, 'КОШЕРБАЙ'),
@@ -9337,12 +9433,12 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (8867, 'ШАЙЫМ'),
 (8868, 'ЗИЯТДИН'),
 (8869, 'КӘРІМ'),
-(8870, 'ХАНЯФИ');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(8870, 'ХАНЯФИ'),
 (8871, 'НАПИСАТ'),
 (8872, 'АЙБИ'),
 (8873, 'ПРИМ'),
-(8874, 'НҰРИЛА'),
+(8874, 'НҰРИЛА');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (8875, 'ДОМНИКА'),
 (8876, 'ЗЕЙНЕРАП'),
 (8877, 'САХЫП'),
@@ -12149,12 +12245,12 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (11683, 'ЭЛБИРА'),
 (11684, 'ГЮЗЕЛИЯ'),
 (11685, 'ХИЗАТБЕК'),
-(11686, 'ДИЛНОЗ');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(11686, 'ДИЛНОЗ'),
 (11687, 'ДОБРОМИР'),
 (11688, 'ЛУТФИЛЛО'),
 (11689, 'ГАЛИБЖОН'),
-(11690, 'ҒАЛИЖАН'),
+(11690, 'ҒАЛИЖАН');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (11691, 'ЖАЙНАРГУЛ'),
 (11692, 'АКПЕЙЛ'),
 (11693, 'ЛУТПУЛЛАМ'),
@@ -14923,12 +15019,12 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (14466, 'ЕРСАН'),
 (14467, 'АПРИЗА'),
 (14468, 'ШЫМЫРХАН'),
-(14469, 'ЖАСУР');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(14469, 'ЖАСУР'),
 (14470, 'АБЫЛКАЙР'),
 (14471, 'ПІРМАҒАНБЕТ'),
 (14472, 'ГУЛЬШАЙ'),
-(14473, 'БАКТАЛА'),
+(14473, 'БАКТАЛА');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (14474, 'ЕШНИЯЗ'),
 (14475, 'АЛИХАЙДАР'),
 (14476, 'АСЫЛЫ'),
@@ -17681,12 +17777,12 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (17236, 'САТЫМБЕК'),
 (17237, 'ТУЙМЕКУЛЬ'),
 (17238, 'УМЫТКЕН'),
-(17239, 'ЭЛЛЕОНОРА');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(17239, 'ЭЛЛЕОНОРА'),
 (17240, 'ЯКУЛЬ'),
 (17241, 'ӨТЕУЛІ'),
 (17242, 'МАКАМ'),
-(17243, 'БИБСАРА'),
+(17243, 'БИБСАРА');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (17244, 'ДӘУЛЕТ'),
 (17245, 'ГУЛЬБУБИ'),
 (17246, 'ДИЛШАТ'),
@@ -20420,12 +20516,12 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (19980, 'АБДУЛВАХОБ'),
 (19981, 'САМУЭЛЬ'),
 (19982, 'ДӘУІРЖАН'),
-(19983, 'РАВШОН');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(19983, 'РАВШОН'),
 (19984, 'НӘЙЛЯ'),
 (19985, 'ТИРКАШ'),
 (19986, 'ФАРОХАТ'),
-(19987, 'НАУРЫЗАЙ'),
+(19987, 'НАУРЫЗАЙ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (19988, 'ГОЛИБЖОН'),
 (19989, 'АҚҚАЙЫҢ'),
 (19990, 'ЗАЙЛОБИДИН'),
@@ -23199,12 +23295,12 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (22763, 'БАХЕТ'),
 (22764, 'ГУЛЗИХАН'),
 (22765, 'АҚКӨРКЕМ'),
-(22766, 'АКСАУЛЕШ');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(22766, 'АКСАУЛЕШ'),
 (22767, 'ЖЕТКИН'),
 (22768, 'ШАЙИМ'),
 (22769, 'НҮРИЛЛА'),
-(22770, 'ФЕРДУС'),
+(22770, 'ФЕРДУС');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (22771, 'МЕНДИХАНЫМ'),
 (22772, 'АЙГАБЫЛ'),
 (22773, 'РИМКЕШ'),
@@ -25977,12 +26073,12 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (25553, 'АТАТОЛИЙ'),
 (25554, 'КУСПАНГАЛИ'),
 (25555, 'НАМЕТУЛЛА'),
-(25556, 'РАХАТБУБИ');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(25556, 'РАХАТБУБИ'),
 (25557, 'ЖЕНИСХАН'),
 (25558, 'АЛГАДАЙ'),
 (25559, 'НУРДЫХАН'),
-(25560, 'ХЫДЫРБАЙ'),
+(25560, 'ХЫДЫРБАЙ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (25561, 'МАРГАРИТТА'),
 (25562, 'БЕЙСЕМБЫ'),
 (25563, 'МЕНЖИЯН'),
@@ -26173,7 +26269,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (25748, 'ХИДАЯТ'),
 (25749, 'ЖАНПЕЙС'),
 (25750, 'АЛИМАТ'),
-(25751, 'ИХАН'),
 (25752, 'ДОСМҰХАНБЕТ'),
 (25753, 'ДУМАНБЕК'),
 (25754, 'ИЗБАСТЫ'),
@@ -28732,13 +28827,13 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (28310, 'ЮСУБЖАН'),
 (28311, 'ХАНАТХАН'),
 (28312, 'РЫСТЫГУЛЬ'),
-(28313, 'САИПЖАН');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(28313, 'САИПЖАН'),
 (28314, 'САҒЫНЖАН'),
 (28315, 'РЫСБУВИ'),
 (28316, 'ФАРАНАС'),
 (28317, 'ЭЛЬНАРА'),
-(28318, 'ГУХАРБАНУМ'),
+(28318, 'ГУХАРБАНУМ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (28319, 'МЫРЗАКЕЛЬДЫ'),
 (28320, 'ШАХСЕНЕМ'),
 (28321, 'АКЗАУРЕШ'),
@@ -31510,13 +31605,13 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (31093, 'ИНКАРЖАН'),
 (31094, 'МАЗЛУМ'),
 (31095, 'АКСАНИМ'),
-(31096, 'АМІРХАН');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(31096, 'АМІРХАН'),
 (31097, 'КАДРБЕК'),
 (31098, 'МҰҚАНБЕТ'),
 (31099, 'МАГУПУРА'),
 (31100, 'ГУЛИСА'),
-(31101, 'ШАМҰРАТ'),
+(31101, 'ШАМҰРАТ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (31102, 'АФГАН'),
 (31103, 'БИБИЗУХРА'),
 (31104, 'КВАЙДУЛЛА'),
@@ -32008,7 +32103,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (31590, 'МУХИМЖАН'),
 (31591, 'ЖАДИЛ'),
 (31592, 'АҚҚАЛАМ'),
-(31593, 'ААА'),
 (31594, 'АЙДАРЛЫ'),
 (31595, 'АРКАР'),
 (31596, 'ГУЛБОСТАН'),
@@ -33307,7 +33401,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (32892, 'АБДУЛМУМИН'),
 (32893, 'АЙЕКЕН'),
 (32894, 'АМИЛЯ'),
-(32895, 'АСЛИ'),
 (32896, 'АХРАМ'),
 (32897, 'АШИРКУЛЬ'),
 (32898, 'БАЗАРХАН'),
@@ -34269,15 +34362,15 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (33856, 'КАЖГАЛИ'),
 (33857, 'ПЕРЕН'),
 (33858, 'АБИЛЬГАЗЫ'),
-(33859, 'ИСАН');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(33859, 'ИСАН'),
 (33860, 'БАЙБОСЫН'),
 (33861, 'ОНАЛАЙ'),
 (33862, 'ХАБЕН'),
 (33863, 'ФЛОРИЯ'),
 (33864, 'ЫДЫРЫШ'),
 (33865, 'АЙЫМҚАН'),
-(33866, 'БАЛАҚЫЗ'),
+(33866, 'БАЛАҚЫЗ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (33867, 'КУЛЬБАДАМ'),
 (33868, 'КУНСАГИЛА'),
 (33869, 'ТЕБЕРИК'),
@@ -36597,7 +36690,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (36187, 'ГУЛЬЖАВХАР'),
 (36188, 'ТАЛИНА'),
 (36189, 'ХАБИЛЬ'),
-(36190, 'АДЫ'),
 (36191, 'ҒАЗИЗА'),
 (36192, 'АБЗАЛИ'),
 (36193, 'АЗИЛЯ'),
@@ -37027,8 +37119,7 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (36619, 'ПАМБУК'),
 (36620, 'СЫНАБЕК'),
 (36621, 'КАЙНУЛДА'),
-(36622, 'ЭМИЛЬЖАН');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(36622, 'ЭМИЛЬЖАН'),
 (36623, 'ФАНИЛ'),
 (36624, 'УЛАРА'),
 (36625, 'ПИН'),
@@ -37036,7 +37127,8 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (36627, 'ИСАТ'),
 (36628, 'УЛУКМАН'),
 (36629, 'МАДАНИЯТ'),
-(36630, 'ЗУЛКАМАЛ'),
+(36630, 'ЗУЛКАМАЛ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (36631, 'АЗИЗАТ'),
 (36632, 'АКЗАТ'),
 (36633, 'АЙТКУМАР'),
@@ -39783,15 +39875,15 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (39377, 'МНИР'),
 (39378, 'САВИРА'),
 (39379, 'ТИЛЕП'),
-(39380, 'ЖОЛГАСБАЙ');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(39380, 'ЖОЛГАСБАЙ'),
 (39381, 'МЕНДЫГАЛИЙ'),
 (39382, 'АБДИГАПАР'),
 (39383, 'ХАЙДАРКУЛ'),
 (39384, 'ШЫРЫНБЕК'),
 (39385, 'ДАРИБАЛА'),
 (39386, 'ОТЖАН'),
-(39387, 'АНОТОЛИЙ'),
+(39387, 'АНОТОЛИЙ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (39388, 'БИБИГАИША'),
 (39389, 'ЖҰМАЙ'),
 (39390, 'ОГУЛХАН'),
@@ -42013,7 +42105,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (41613, 'ЗАГИДА'),
 (41614, 'АБДУМУТАЛИП'),
 (41615, 'АЙЫМТОРЫ'),
-(41616, 'АСИЛ'),
 (41617, 'БАЙСЫН'),
 (41618, 'БИБИЖАР'),
 (41619, 'ОКИЗА'),
@@ -42542,8 +42633,7 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (42142, 'РАБИЗА'),
 (42143, 'АВДУН'),
 (42144, 'ЖУБАТ'),
-(42145, 'РУСТЕНБЕК');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(42145, 'РУСТЕНБЕК'),
 (42146, 'ШАГУАН'),
 (42147, 'МУКАНГАЛИ'),
 (42148, 'БАБИШ'),
@@ -42551,7 +42641,8 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (42150, 'ГАБДУЛХАК'),
 (42151, 'КАЗИМЕРАС'),
 (42152, 'ЕВЛАЛИЯ'),
-(42153, 'ҚАЛЫМ'),
+(42153, 'ҚАЛЫМ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (42154, 'ЭДИТ'),
 (42155, 'МАЗКЕН'),
 (42156, 'МУСАЛИЯ'),
@@ -45307,8 +45398,7 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (44910, 'МУКАТ'),
 (44911, 'ТЕҢГЕ'),
 (44912, 'СЕЙЛБЕК'),
-(44913, 'НҰРМАШ');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(44913, 'НҰРМАШ'),
 (44914, 'УКТАЙ'),
 (44915, 'АБИМОЛДА'),
 (44916, 'БАЛКУЛ'),
@@ -45316,7 +45406,8 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (44918, 'БЕРТГОЛЬД'),
 (44919, 'САТАШ'),
 (44920, 'УМАРБАЙ'),
-(44921, 'ФАРАМУЗ'),
+(44921, 'ФАРАМУЗ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (44922, 'АЛТАН'),
 (44923, 'БАЛДИРГАН'),
 (44924, 'КАЙШЫКЕН'),
@@ -46406,7 +46497,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (46019, 'ОРАЗБУБИ'),
 (46020, 'ГАБИДА'),
 (46021, 'МАКАРИЙ'),
-(46022, 'МЕН'),
 (46023, 'КАЛИЛУЛЛА'),
 (46024, 'ЛАЗИМ'),
 (46025, 'ЯРУЛЛА'),
@@ -48100,8 +48190,7 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (47718, 'ЕШМУХАМБЕТ'),
 (47719, 'АХЛИЯ'),
 (47720, 'ГРИГОР'),
-(47721, 'ЖАСКЕН');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(47721, 'ЖАСКЕН'),
 (47722, 'ЖУМАШКАН'),
 (47723, 'ЛАИЛА'),
 (47724, 'БАУДИ'),
@@ -48110,7 +48199,8 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (47727, 'НАЗИКАТ'),
 (47728, 'СУЛЬБИЯ'),
 (47729, 'ТУЙМАГУЛ'),
-(47730, 'ЧИМЯНГУЛЬ'),
+(47730, 'ЧИМЯНГУЛЬ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (47731, 'ЖУАС'),
 (47732, 'ӘЛТАЙ'),
 (47733, 'ТАЛИПЖАН'),
@@ -50862,8 +50952,7 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (50484, 'САКЫБАЙ'),
 (50485, 'САРДИ'),
 (50486, 'ТУРДАН'),
-(50487, 'УЛЖАРКИН');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(50487, 'УЛЖАРКИН'),
 (50488, 'УНЛАСЫН'),
 (50489, 'ТУРЛЫКОЖА'),
 (50490, 'МАСКУДА'),
@@ -50872,7 +50961,8 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (50493, 'АТАМ'),
 (50494, 'ХАЛИДЯ'),
 (50495, 'ЖАНДИЛЛА'),
-(50496, 'ТАКИР'),
+(50496, 'ТАКИР');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (50497, 'СУЛТАНКУЛЬ'),
 (50498, 'АККАЙМАК'),
 (50499, 'ТИШТУГАН'),
@@ -53457,7 +53547,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (53084, 'БЕЙБАРЫС'),
 (53085, 'ИЛЬКНУР'),
 (53086, 'ЕРСЫЛАН'),
-(53087, 'ААААА'),
 (53088, 'САЛЕДАТ'),
 (53089, 'БАХДӘУЛЕТ'),
 (53090, 'БУНИЯД'),
@@ -53612,8 +53701,7 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (53239, 'АСАЛЯ'),
 (53240, 'СҮЙРІК'),
 (53241, 'АЙСЕЗИМ'),
-(53242, 'ЖАРМҰХАН');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(53242, 'ЖАРМҰХАН'),
 (53243, 'НҰРАЙДЫН'),
 (53244, 'КОМРОНБЕК'),
 (53245, 'АЙНАМГӨЗ'),
@@ -53623,7 +53711,8 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (53249, 'БӘХИТЖАН'),
 (53250, 'ЭМИРШАХ'),
 (53251, 'ЯСИНА'),
-(53252, 'НҰРЛЫМ'),
+(53252, 'НҰРЛЫМ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (53253, 'СҰЛТАНСЕРІ'),
 (53254, 'РУГАЙЯ'),
 (53255, 'БАҚТІЛЕУ'),
@@ -56386,8 +56475,7 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (56040, 'ЛЭЙЛЭ'),
 (56041, 'ПАТИГҮЛ'),
 (56042, 'ВАСИЛЬЕВНА'),
-(56043, 'КУРАЛАЙСУЛУ');
-INSERT INTO `p_person` (`id`, `value`) VALUES
+(56043, 'КУРАЛАЙСУЛУ'),
 (56044, 'АБДИОХАП'),
 (56045, 'ГУЛЬЖУЗУМ'),
 (56046, 'ИЛЯСБАЙ'),
@@ -56397,7 +56485,8 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (56050, 'БИБИРОБИЯ'),
 (56051, 'БОСТАНГУЛ'),
 (56052, 'МОВСАР'),
-(56053, 'БАТЫРКУЛЬ'),
+(56053, 'БАТЫРКУЛЬ');
+INSERT INTO `p_person` (`id`, `value`) VALUES
 (56054, 'ЖЕКЕБАТЫР'),
 (56055, 'НИГЯР'),
 (56056, 'АБЛИХАТ'),
@@ -57904,7 +57993,6 @@ INSERT INTO `p_person` (`id`, `value`) VALUES
 (57564, 'ХАПИЗА'),
 (57565, 'НУРПАШ'),
 (57566, 'КУЛЬПАТ'),
-(57567, 'ХАН'),
 (57568, 'АБАТ'),
 (57569, 'БАКТЫГЕРЕЙ'),
 (57570, 'БУБИГАЙША'),
@@ -58431,7 +58519,47 @@ INSERT INTO `test_questions` (`ID`, `question`, `answ_1`, `answ_2`, `answ_3`, `a
 (18, 'Қате жазылған сөзді тап', 'фудбол', 'баскетбол', 'теннис', 'хоккей', 2),
 (20, 'Сұлу сөзіне мәндес сөздерді тап', 'ару, көркем', 'қатігез, долы', 'айдай, аппақ', 'Ибалы, сыпайы', 2),
 (21, 'Қате жазылған сөзді тап', 'баскедбол', 'футбол', 'теннис', 'хоккей', 2),
-(22, 'Қате жазылған сөзді тап', 'деннис', 'баскетбол', 'футбол', 'хоккей', 2);
+(22, 'Қате жазылған сөзді тап', 'деннис', 'баскетбол', 'футбол', 'хоккей', 2),
+(101, 'Найдите правильный перевод: «Аптека»', 'дәріхана', 'емхана', 'асхана', 'мейрамхана', 98),
+(102, 'Выберите форму приветствия', 'Сәлеметсіз бе', 'Сұрауға бола ма', 'Көп рақмет', 'Кешіріңіз', 98),
+(103, 'Выберите верное окончание: Атырау қаласы...', '-нда', '-та', '-да', '-нде', 98),
+(104, 'Выберите форму прощания', 'Сау болыңыз', 'Аман-есенсіз бе', 'Қай жақта', 'Қай жерде', 98),
+(105, 'Найдите эквивалент вопроса «Можно спросить?»', 'Сұрауға бола ма?', 'Кіруге бола ма?', 'Шығуға бола ма?', 'Айтуға бола ма?', 98),
+(106, 'Подберите к слову «аялдама» правильное окончание.', '- да', '- де', ' - та', '- те', 98),
+(107, 'Ответьте на вопрос: «Кіруге бола ма?»', 'Иә, кіріңіз.', 'Қайырлы таң.', 'Жоқ, білмеймін.', 'Жақсы, сау болыңыз.', 98),
+(108, 'Выберите верное окончание: «Әуежай көшенің аяғы...»', '- нда', '- нде', '- да', ' - та', 98),
+(109, 'Вставьте нужную букву: «б...рыш»', 'ұ', 'ы', ' у', 'а', 98),
+(110, 'Дополните предложение «Аялдаманың жанында банкомат ...»', 'бар', 'келесі', 'тура', 'мүмкін', 98),
+(111, 'Выберите перевод, который считаете верным: «Кешіріңіз, мен білмеймін»', 'Извините, я не знаю.', 'Извините, вы не скажете...', 'Извините, я не приду.', 'Извините, можно спросить?', 98),
+(112, 'Выберите неверный ответ на вопрос: «Саябақ қай жерде?»', '«Ажар» мейрамханасында', 'қаланың орталығында', 'Абай даңғылында', 'театрдың жанында', 98),
+(113, 'Допишите предложение: «Кешіріңіз гимназия ... ...?»', 'қай жерде?', 'қашан?', 'қалай?', 'қандай?', 98),
+(114, ' Подберите выражение к мини диалогу: А: ... ... ... В: Әрине, алыңыз.', 'Алуға бола ма?', 'Тыңдауға бола ма?', 'Телефон соғуға бола ма?', 'Сұрауға бола ма?', 98),
+(115, 'Выберите правильный вариант: «Дәріханаға қалай ... ... болады?»', ' баруға', 'тыңдауға', 'көруге', 'айтуға', 98),
+(116, 'Выберите лишнее в логической цепочке:', 'асхана', 'аурухана', ' емхана', 'дәріхана', 98),
+(117, ' Выберите слово с ошибкой:', 'корме', 'сөйлесу', 'көру', 'көше', 98),
+(118, 'Выберите лишнее в логической цепочке:', 'досында', 'артында', 'алдында', 'қасында', 98),
+(119, 'Допишите предложение: «Музыка ... ... бола ма?»', 'тыңдауға', 'отыруға', 'шығуға', 'баруға', 98),
+(120, 'Найдите эквивалент словосочетания: «Добрый вечер!»', 'Қайырлы кеш!', 'Қайырлы түн!', 'Қайырлы таң!', 'Қайырлы күн!', 98),
+(122, 'Найдите правильный перевод: «далеко»', 'алыс', 'жақын', 'үлкен', 'кіші', 121),
+(123, 'Выберите форму выражения. Если дела идут хорошо, мы говорим:', 'Жақсы, өте жақсы', 'Жаман, мәз емес', 'Айтарлықтай жаңалық жоқ', 'Бәрі бұрынғыша', 121),
+(124, 'Выберите верное окончание: Сауда үйі... келе жатырмын.', '-нен', '-ден', '-нан', ' -дан', 121),
+(125, 'Ответьте на вопрос «Не жаңалық бар?»', 'Айтарлықтай жаңалық жоқ', 'Жаман емес', 'Рақмет, жақсы', 'Сен түк өзгермепсің', 121),
+(126, 'Найдите эквивалент вопроса «Как настроение?»', 'Көңіл-күйің қалай?', 'Жұмысың қалай?', 'Машинаң қалай?', 'Денсаулығың қалай?', 121),
+(127, 'Подберите к слову необходимое окончание: «жұмыс... - с работы»', '- тан', ' - тен', '- дан', '- ден', 121),
+(128, 'Ответьте на вопрос: «Қайдан келе жатырсың?»', ' Үйден.', 'Шипажайға.', 'Банкте.', 'Емханада.', 121),
+(129, 'Выберите верное окончание: «Мен ертең келе...', ' - мін', ' - сің', '- мын', ' - сың', 121),
+(130, 'Вставьте нужную букву: «жа...дай»', ' ғ', 'г', 'қ', 'к', 121),
+(131, 'Дополните предложение «Мен кітап ... ...»', 'оқып отырмын', 'келе жатырмын', 'көріп отырмын', 'бара жатырмын', 121),
+(132, 'Выберите перевод, который считаете верным: «Кеше қайда болдың?»', 'Где вчера был?', 'Куда ты идешь?', 'Как настроение?', 'Куда завтра пойдешь?', 121),
+(133, 'Выберите неверный ответ на вопрос: «Үйде кім бар?»', 'Үйім, жұмысым бар.', 'Ұлым және қызым бар.', ' Үйде мамам бар.', 'Атам мен әжем бар.', 121),
+(134, 'Допишите предложение: «Апа, ... бара жатырсыз?»', 'қайда?', 'қашан?', 'қалай?', 'қандай?', 121),
+(135, 'Подберите выражение к мини диалогу: А: ... ... ... В: Емханада жұмыс істеймін', 'Қазір қайда жұмыс істейсің?', 'Кіруге бола ма?', 'Қайдан келе жатырсың?', 'Қайда бара жатырсың?', 121),
+(136, 'Выберите соответствующее слово: «Келесі аптада ... ... шығамын»', 'демалысқа', 'стадионда', 'аялдамада', 'орталыққа', 121),
+(137, 'Выберите лишнее в логической цепочке:', 'көре жатыр', 'бара жатыр', 'келе жатыр', 'әкеле жатыр', 121),
+(138, 'Выберите слово с ошибкой:', ' асықу', 'жабу', 'ашу', 'кездесу', 121),
+(139, 'Выберите лишнее в логической цепочке:', 'азық-түлік', 'музыка', 'кино', 'театр', 121),
+(140, 'Допишите предложение: «Маржан ... ... сөйлесіп жатыр.»', 'телефонмен', 'телефоннан', 'телефонның', 'телефонға', 121),
+(141, 'Найдите эквивалент словосочетания: «Доброго пути!»', 'Жолың болсын!', 'Көңіліңе рақмет!', 'Кездескенше!', 'Көріскенше!', 121);
 
 -- --------------------------------------------------------
 
@@ -58453,7 +58581,10 @@ CREATE TABLE `test_type` (
 
 INSERT INTO `test_type` (`id`, `name`, `level`, `Type`, `IS_PUBLIC`) VALUES
 (1, 'Сөздерді толықтыр', 0, 'fillWords', 1),
-(2, 'қазақ тілі пәнінен тест сұрақтары', 0, 'test', 1);
+(2, 'қазақ тілі пәнінен тест сұрақтары', 0, 'test', 0),
+(73, 'Интеллектуалды сұрақ жауап', 0, 'intelectualTest', 1),
+(98, 'Сұрауға бола ма?', 0, 'test', 1),
+(121, 'Қайда бара жатырсың?', 0, 'test', 1);
 
 -- --------------------------------------------------------
 
@@ -58511,7 +58642,7 @@ INSERT INTO `user_detail` (`U_NAME`, `FIRSTNAME`, `LASTNAME`, `MIDDLENAME`, `EMA
 CREATE TABLE `video_lessons` (
   `id` int(11) NOT NULL,
   `value` varchar(222) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `description` varchar(22) COLLATE utf8_unicode_ci DEFAULT NULL
+  `description` varchar(222) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -58519,6 +58650,7 @@ CREATE TABLE `video_lessons` (
 --
 
 INSERT INTO `video_lessons` (`id`, `value`, `description`) VALUES
+(0, 'https://www.youtube.com/watch?v=wPrBzIq3iPs', 'Урок 1.1 Видеоролик и диалог'),
 (1, 'https://www.youtube.com/embed/pw8qgxpwoZI?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 1'),
 (2, 'https://www.youtube.com/embed/02Vqc-Ku2q8?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТiлашарENTER серия 2'),
 (3, 'https://www.youtube.com/embed/I9lPIyjIrgU?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 3'),
@@ -58530,7 +58662,9 @@ INSERT INTO `video_lessons` (`id`, `value`, `description`) VALUES
 (9, 'https://www.youtube.com/embed/ee9u9_bkpgQ?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 9'),
 (10, 'https://www.youtube.com/embed/jst_eZV0_UM?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 10'),
 (11, 'https://www.youtube.com/embed/SpWngzR_3Ak?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 11'),
-(12, 'https://www.youtube.com/embed/N9v8cS-ODBo?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 12');
+(12, 'https://www.youtube.com/embed/N9v8cS-ODBo?list=PLRnwb2a4Ecp5tizeCb_34Xg35RigC6zBO', 'ТілашарENTER серия 12'),
+(13, 'https://www.youtube.com/embed/wPrBzIq3iPs', 'Урок 1.1 Видеоролик и диалог'),
+(14, 'https://www.youtube.com/embed/_WqknRR2lzk', 'Урок 2.1 Видеоролик и диалог');
 
 -- --------------------------------------------------------
 
@@ -58619,16 +58753,46 @@ ALTER TABLE `d_suffix`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Индексы таблицы `d_test_type`
+--
+ALTER TABLE `d_test_type`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Индексы таблицы `groups`
 --
 ALTER TABLE `groups`
   ADD PRIMARY KEY (`G_NAME`);
 
 --
+-- Индексы таблицы `intelectual_question`
+--
+ALTER TABLE `intelectual_question`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Индексы таблицы `intelectual_question_answers`
+--
+ALTER TABLE `intelectual_question_answers`
+  ADD PRIMARY KEY (`ID`);
+
+--
+-- Индексы таблицы `lesson_audi`
+--
+ALTER TABLE `lesson_audi`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `p_person`
 --
 ALTER TABLE `p_person`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `test_type`
+--
+ALTER TABLE `test_type`
+  ADD KEY `test_type_d_test_type_ID_fk` (`Type`);
 
 --
 -- Индексы таблицы `users`
@@ -58694,10 +58858,25 @@ ALTER TABLE `d_ending`
 ALTER TABLE `d_suffix`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT для таблицы `lesson_audi`
+--
+ALTER TABLE `lesson_audi`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
 -- AUTO_INCREMENT для таблицы `p_person`
 --
 ALTER TABLE `p_person`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58052;
+--
+-- Ограничения внешнего ключа сохраненных таблиц
+--
+
+--
+-- Ограничения внешнего ключа таблицы `test_type`
+--
+ALTER TABLE `test_type`
+  ADD CONSTRAINT `test_type_d_test_type_ID_fk` FOREIGN KEY (`Type`) REFERENCES `d_test_type` (`ID`);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
