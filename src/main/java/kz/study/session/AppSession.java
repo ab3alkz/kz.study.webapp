@@ -244,45 +244,57 @@ public class AppSession extends Utx {
         return getGsonResult(false, null);
     }
 
-    private GsonResult isIntelectualQuestionValidate(String userAnsw, String answerDB) {
-        userAnsw = userAnsw.trim();
-        answerDB = answerDB.trim();
+    private GsonResult isIntelectualQuestionValidate(String userAnsw, String dBAnswer) {
         userAnsw = getReplaceSpecialChars(userAnsw);
-        answerDB = getReplaceSpecialChars(answerDB);
+        dBAnswer = getReplaceSpecialChars(dBAnswer);
+        userAnsw = userAnsw.trim();
+        dBAnswer = dBAnswer.trim();
 
-        if (isNullOrEmpty(answerDB)) {
+        if (isNullOrEmpty(dBAnswer)) {
             return getGsonResult(false, getGsonResult(false, "Деректер қорында жауап жазылмаған"));
         }
         if (isNullOrEmpty(userAnsw)) {
             return getGsonResult(false, getGsonResult(true, 0));
         }
-        if (userAnsw.equals(answerDB)) {
+        if (userAnsw.equals(dBAnswer)) {
             return getGsonResult(true, getGsonResult(true, 100));
         }
 
-        return getGsonResult(false, null);
+        String[] dBAnswerSentenceArr = dBAnswer.split("\\.");
+        String[] uAnswerSentenceArr = userAnsw.split("\\.");
+        Integer containsSentences = 0;
+        for (String dBAnswerSentence : dBAnswerSentenceArr) {
+            if (stringContainsItemFromList(dBAnswerSentence.trim(), uAnswerSentenceArr)) {
+                containsSentences++;
+            }
+        }
+        String[] dBAnswerWordsArr = dBAnswer.split(" ");
+        String[] uAnswerWordsArr = userAnsw.split(" ");
+
+
+        Integer containsWords = 0;
+        for (String dBAnswerWord : dBAnswerWordsArr) {
+            if (stringContainsItemFromList(dBAnswerWord.trim(), uAnswerWordsArr)) {
+                containsWords++;
+            }
+        }
+
+        return getGsonResult(false,
+                "Совпадение предложений <" + containsSentences+">  из "+dBAnswerSentenceArr.length+  " & "+uAnswerSentenceArr.length+
+                " Совпадение слов <" + containsWords+"> из "+dBAnswerWordsArr.length+" & "+uAnswerWordsArr.length);
+    }
+
+    public static boolean stringContainsItemFromList(String inputStr, String[] items) {
+        for (int i = 0; i < items.length; i++) {
+            if (inputStr.trim().contains(items[i].trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private String getReplaceSpecialChars(String str) {
-        if (isNullOrEmpty(str)) {
-            return "";
-        }
-        return str.replace("-", "")
-                .replace("..", ".")
-                .replace("???", "?")
-                .replace("??", "?")
-                .replace("!!!", "!")
-                .replace("!!", "!")
-                .replace("<", "")
-                .replace(">", "")
-                .replace("'", "")
-                .replace("\"", "")
-                .replace("/", "")
-                .replace("+", "")
-                .replace("\n", "")
-                .replace("*", "")
-                .replace("`", "")
-                .replace("`", "")
+        return str
                 .replace("                    ", " ")
                 .replace("                   ", " ")
                 .replace("                  ", " ")
@@ -306,8 +318,29 @@ public class AppSession extends Utx {
                 .replace("  ", " ")
                 .replace("  ", " ")
                 .replace("  ", " ")
-                .replace("  ", " ");
+                .replace("  ", " ")
+                .replace("-", "")
+                .replace("...", ".")
+                .replace("..", ".")
+                .replace(",,", ",")
+                .replace(", ", ",")
+                .replace("???", "?")
+                .replace("??", "?")
+                .replace("!!!", "!")
+                .replace("!!", "!")
+                .replace("<", "")
+                .replace(">", "")
+                .replace("'", "")
+                .replace("\"", "")
+                .replace("/", "")
+                .replace("+", "")
+                .replace("\n", "")
+                .replace("*", "")
+                .replace("`", "")
+                .replace("`", "");
+
     }
+
 
     public List<DTestType> getDTestTypeList() {
         return em.createNamedQuery("DTestType.findAll").getResultList();

@@ -367,30 +367,7 @@ public class AllTest {
 
 
     private String getReplaceSpecialChars(String str) {
-        return str.replace("-", "")
-                .replace("...", ".")
-                .replace("..", ".")
-                .replace(".   ", ".")
-                .replace(".  ", ".")
-                .replace(". ", ".")
-                .replace(",,", ",")
-                .replace(",   ", ",")
-                .replace(",  ", ",")
-                .replace(", ", ",")
-                .replace("???", "?")
-                .replace("??", "?")
-                .replace("!!!", "!")
-                .replace("!!", "!")
-                .replace("<", "")
-                .replace(">", "")
-                .replace("'", "")
-                .replace("\"", "")
-                .replace("/", "")
-                .replace("+", "")
-                .replace("\n", "")
-                .replace("*", "")
-                .replace("`", "")
-                .replace("`", "")
+        return str
                 .replace("                    ", " ")
                 .replace("                   ", " ")
                 .replace("                  ", " ")
@@ -414,15 +391,34 @@ public class AllTest {
                 .replace("  ", " ")
                 .replace("  ", " ")
                 .replace("  ", " ")
-                .replace("  ", " ");
+                .replace("  ", " ")
+                .replace("-", "")
+                .replace("...", ".")
+                .replace("..", ".")
+                .replace(",,", ",")
+                .replace(", ", ",")
+                .replace("???", "?")
+                .replace("??", "?")
+                .replace("!!!", "!")
+                .replace("!!", "!")
+                .replace("<", "")
+                .replace(">", "")
+                .replace("'", "")
+                .replace("\"", "")
+                .replace("/", "")
+                .replace("+", "")
+                .replace("\n", "")
+                .replace("*", "")
+                .replace("`", "")
+                .replace("`", "").toLowerCase();
 
     }
 
 
     @Test
     public void intelectualQuestionValidate() {
-        String userAnsw = "Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы.";
-        String dBAnswer = "Зат есім - заттың, құбылыстың атын білдіріп,  не? кім? деген сұраққа жауап беретін сөз табы.";
+        String dBAnswer = "Зат есім - заттың, құбылыстың атын білдіріп, кім? не? деген сұраққа жауап беретін сөз табы. Күнделікті өмірде кездесетін, әдеттегі жай нәрселерді ғана емес, табиғат пен қоғамдық өмірдегі ұшырасатын әр алуан құбылыстар мен уақиғаларды, ұғымдар мен түсініктерді де қамтиды..";
+        String userAnsw = "заттың, құбылыстың атын білдіріп, не? кім? деген сұраққа жауап беретін сөз табы.";
         GsonResult gson = isIntelectualQuestionValidate(userAnsw, dBAnswer);
 
         if (gson.getResult()) {
@@ -449,26 +445,34 @@ public class AllTest {
             return getGsonResult(true, getGsonResult(true, 100));
         }
 
-        String[] dBAnswerSentenceArr = dBAnswer.split(".");
-        String[] uAnswerSentenceArr = userAnsw.split(".");
+        String[] dBAnswerSentenceArr = dBAnswer.split("\\.");
+        String[] uAnswerSentenceArr = userAnsw.split("\\.");
+        Integer containsSentences = 0;
         for (String dBAnswerSentence : dBAnswerSentenceArr) {
-            Integer containsSentences = 0;
-            if (stringContainsItemFromList(dBAnswerSentence.trim(),uAnswerSentenceArr)) {
+            if (stringContainsItemFromList(dBAnswerSentence.trim(), uAnswerSentenceArr)) {
                 containsSentences++;
             }
+        }
+        String[] dBAnswerWordsArr = dBAnswer.split(" ");
+        String[] uAnswerWordsArr = userAnsw.split(" ");
 
-            return getGsonResult(true, getGsonResult(true, 100));
+
+        Integer containsWords = 0;
+        for (String dBAnswerWord : dBAnswerWordsArr) {
+            if (stringContainsItemFromList(dBAnswerWord.trim(), uAnswerWordsArr)) {
+                containsWords++;
+            }
         }
 
-        return getGsonResult(false, 0);
+
+        return getGsonResult(false,
+                "\nСовпадение предложений <" + containsSentences + ">  из " + dBAnswerSentenceArr.length + " & " + uAnswerSentenceArr.length +
+                        "\nСовпадение слов <" + containsWords + "> из " + dBAnswerWordsArr.length + " & " + uAnswerWordsArr.length);
     }
 
-    public static boolean stringContainsItemFromList(String inputStr, String[] items)
-    {
-        for(int i =0; i < items.length; i++)
-        {
-            if(inputStr.contains(items[i]))
-            {
+    public static boolean stringContainsItemFromList(String inputStr, String[] items) {
+        for (int i = 0; i < items.length; i++) {
+            if (inputStr.trim().contains(items[i].trim())) {
                 return true;
             }
         }
