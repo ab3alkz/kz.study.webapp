@@ -116,7 +116,7 @@ public class Wrapper {
 
     public static List<GsonAllDic> wrapToGsonAlphLinksList(List<AlphLinks> list) {
         List<GsonAllDic> result = new ArrayList<>();
-        for(AlphLinks s :list) {
+        for (AlphLinks s : list) {
             result.add(wrapToGsonAlphLinks(s));
         }
         return result;
@@ -136,7 +136,7 @@ public class Wrapper {
     public static List<GsonAllDic> wrapToGsonVideoLessonsList(List<VideoLessons> list) {
         List<GsonAllDic> result = new ArrayList<>();
 
-        for(VideoLessons s :list) {
+        for (VideoLessons s : list) {
             result.add(wrapToGsonVideoLessons(s));
         }
         return result;
@@ -178,7 +178,7 @@ public class Wrapper {
     public static List<GsonGameResult> wrapToGsonGameResultList(List<GameResult> list) {
         List<GsonGameResult> result = new ArrayList<>();
 
-        for(GameResult s :list) {
+        for (GameResult s : list) {
             result.add(wrapToGsonGameResult(s));
         }
         return result;
@@ -190,8 +190,8 @@ public class Wrapper {
             gson.setId(obj.getId());
             UserDetail uDet = obj.getuName().getUserDetail();
             gson.setuName("");
-            if(uDet!=null ) {
-                gson.setuName(uDet.getLastname()+" "+uDet.getFirstname());
+            if (uDet != null) {
+                gson.setuName(uDet.getLastname() + " " + uDet.getFirstname());
             }
             gson.setGameId(obj.getGameId().getName());
             gson.setgDate(dateToString(obj.getgDate()));

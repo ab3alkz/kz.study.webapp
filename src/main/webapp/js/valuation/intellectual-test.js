@@ -22,7 +22,7 @@ function createIntellectTempl() {
                 height: 15
             },
             {
-               // readonly: testFinish,
+                // readonly: testFinish,
                 id: "answTextarea",
                 view: 'textarea',
                 value: obj.answ,
@@ -75,7 +75,7 @@ function setIntellectQuestionPaging() {
                     {}
                 ]
             }, {
-               // hidden: testFinish,
+                // hidden: testFinish,
                 cols: [
                     {},
                     {
@@ -121,10 +121,11 @@ function finishIntellectTesting() {
     setGameResult(0, json,
         function (gson) {
             if(gson.result) {
-                notifyMessage(gson.message.result,gson.message.message)
+
+                messageBox("Жауап", gson.message.message);
             } else {
 
-                notifyMessage(gson.result,gson.message)
+                messageBox("Жауап", gson.message);
             }
         }
     );

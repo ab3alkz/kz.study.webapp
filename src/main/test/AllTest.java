@@ -464,8 +464,12 @@ public class AllTest {
 
 
         return getGsonResult(false,
-                "\nСовпадение предложений <" + containsSentences + ">  из " + dBAnswerSentenceArr.length + " & " + uAnswerSentenceArr.length +
-                        "\nСовпадение слов <" + containsWords + "> из " + dBAnswerWordsArr.length + " & " + uAnswerWordsArr.length);
+                "Совпадение предложений <" + containsSentences + ">  из " + dBAnswerSentenceArr.length + " & " + uAnswerSentenceArr.length +
+                        getNewLine()+ "Совпадение слов <" + containsWords + "> из " + dBAnswerWordsArr.length + " & " + uAnswerWordsArr.length);
+    }
+
+    private String getNewLine() {
+        return "\n";
     }
 
     public static boolean stringContainsItemFromList(String inputStr, String[] items) {

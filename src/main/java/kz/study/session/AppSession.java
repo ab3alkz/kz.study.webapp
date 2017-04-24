@@ -281,7 +281,11 @@ public class AppSession extends Utx {
 
         return getGsonResult(false,
                 "Совпадение предложений <" + containsSentences+">  из "+dBAnswerSentenceArr.length+  " & "+uAnswerSentenceArr.length+
-                " Совпадение слов <" + containsWords+"> из "+dBAnswerWordsArr.length+" & "+uAnswerWordsArr.length);
+                        getNewLine()+ " Совпадение слов <" + containsWords+"> из "+dBAnswerWordsArr.length+" & "+uAnswerWordsArr.length);
+    }
+
+    private String getNewLine() {
+        return "<br />";
     }
 
     public static boolean stringContainsItemFromList(String inputStr, String[] items) {
