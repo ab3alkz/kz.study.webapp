@@ -25,7 +25,7 @@ function addVideoViewById() {
             getVideoLessonId(14, id);
             break;
         case "3":
-            getVideoLessonId(14, id);
+            getVideoLessonId(15, id);
             break;
         case "4":
             getVideoLessonId(14, id);
@@ -78,25 +78,16 @@ function addVideo(value, resId) {
             },
             {
                 cols: [
-                    {},
                     {
                         height: 500,
                         width: 700,
                         template: '<iframe width="700" height="500" src="' + value + '" frameborder="0" allowfullscreen></iframe>'
                     },
-                    {}
-                ]
-            },
-            {height: 30},
-            {
-                cols: [
-                    {},
                     {
                         view: 'template',
                         autoheight: true,
                         template: getResourceName('video.aone.one.lesson' + resId)
-                    },
-                    {}
+                    }
                 ]
             },
             {height: 30}
@@ -148,12 +139,12 @@ function getAudioLessonId(id) {
             return;
         }
         for (var i in gson.message) {
-            addAudi(gson.message[i].value, i);
+            addAudi(gson.message[i].value, i, id);
         }
     });
 }
 
-function addAudi(value, i) {
+function addAudi(value, i, id) {
     $$("mainlayot").addView({
         id: "content",
         rows: [
@@ -162,32 +153,29 @@ function addAudi(value, i) {
                     {},
                     {
                         view: 'label',
-                        label: getResourceName('audio.lesson.one.title' + i)
+                        label: getResourceName('audio.lesson.one.title' + id + i)
                     },
                     {}
                 ]
             },
             {
                 cols: [
-                    {},
                     {
                         height: 150,
                         width: 250,
                         template: '<iframe width="250" height="150" scrolling="no" frameborder="no" src="' + value + 'liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false"></iframe>'
                     },
-                    {}
-                ]
-            },
-            {height: 30},
-            {
-                cols: [
-                    {},
                     {
                         view: 'template',
                         autoheight: true,
-                        template: getResourceName('audio.lesson.one.vorzal.text' + i)
+                        template: getResourceName('audio.lesson.one.vorzal.text' + id + i)
                     },
-                    {}
+                    {
+                        data: {title: "Image One", src: "../images/comix/" + id + "_" + i + ".jpg"},
+                        template: function (obj) {
+                            return '<img src="' + obj.src + '" width="300px" height="150"/>' + getResourceName('audio.aone.link'+ id + i)
+                        }
+                    }
                 ]
             }
         ]
@@ -200,34 +188,34 @@ function addGrammarViewById() {
     var id = getLocalStorage("lesson_1");
     switch (id) {
         case "1":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
         case "2":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
         case "3":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
         case "4":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
         case "5":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
         case "6":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
         case "7":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
         case "8":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
         case "9":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
         case "10":
-            viewId = cons;
+            viewId = getGrammarBanById(id);
             break;
     }
     $$("mainlayot").addView({
