@@ -119,18 +119,18 @@ function createLoginForm() {
                         rows: [
                             {
                                 view: "label",
-                                label: "<h3 style='margin: 0;padding: 0'>Тегін тіркелу</h3>",
+                                label: "<h3 style='margin: 0;padding: 0'>" + getResourceName("valuation.registration") + "</h3>",
                                 height: 80
                             },
                             {
                                 view: "text",
                                 name: "uname",
-                                label: "Логин"
+                                label: getResourceName("valuation.login")
                             },
                             {
                                 view: "text",
                                 name: "password",
-                                label: "Құпия сөз",
+                                label: getResourceName("valuation.password"),
                                 type: "password"
                             }, {
                                 height: 20
@@ -140,13 +140,13 @@ function createLoginForm() {
                                         height: 50,
                                         width: 155,
                                         css: "noBorder",
-                                        template: "<button onclick='loginFormSubmit();' style='width: 145px;' class='btn btn-success'>Кіру</button>"
+                                        template: "<button onclick='loginFormSubmit();' style='width: 145px;' class='btn btn-success'>" + getResourceName("valuation.kiru") + "</button>"
                                     },
                                     {
                                         height: 50,
                                         width: 155,
                                         css: "noBorder",
-                                        template: "<button onclick='registrationWin()' style='width: 145px;'  class='btn btn-primary'>Тіркелу</button>"
+                                        template: "<button onclick='registrationWin()' style='width: 145px;'  class='btn btn-primary'>" + getResourceName("valuation.registration") + "</button>"
                                     }
                                 ]
                             }
@@ -411,7 +411,7 @@ function registrationWin() {
             head: {
                 cols: [
                     {width: 10},
-                    {view: "label", label: "Тіркелу"},
+                    {view: "label", label: getResourceName("valuation.registration")},
                     {
                         borderless: true,
                         view: "toolbar",
@@ -439,7 +439,7 @@ function registrationWin() {
                             {
                                 view: "text",
                                 name: "uName",
-                                label: "Логин",
+                                label: getResourceName("valuation.login"),
                                 required: true
                             },
                             {
@@ -463,14 +463,14 @@ function registrationWin() {
                             {
                                 view: "text",
                                 name: "password",
-                                label: "Құпия сөз",
+                                label: getResourceName("valuation.password"),
                                 type: "password",
                                 required: true
                             },
                             {
                                 view: "text",
                                 name: "passwordс",
-                                label: "Құпия сөз",
+                                label: getResourceName("valuation.password"),
                                 type: "password",
                                 required: true
                             }
@@ -487,12 +487,12 @@ function registrationWin() {
                                 height: 50,
                                 width: 155,
                                 css: "noBorder",
-                                template: "<button onclick='registration()' style='width: 145px;'  class='btn btn-success'>Тіркелу</button>"
+                                template: "<button onclick='registration()' style='width: 145px;'  class='btn btn-success'>" + getResourceName("valuation.registration") + "</button>"
                             }, {
                                 height: 50,
                                 width: 155,
                                 css: "noBorder",
-                                template: "<button onclick='viewSignInWin()'  style='width: 145px;' class='btn btn-primary'>Мен тіркелгенмін</button>"
+                                template: "<button onclick='viewSignInWin()'  style='width: 145px;' class='btn btn-primary'>"+getResourceName("valuation.iamregistr")+"</button>"
                             }
                         ]
                     },
@@ -528,7 +528,7 @@ function viewSignInWin() {
             head: {
                 cols: [
                     {width: 10},
-                    {view: "label", label: "Кіру"},
+                    {view: "label", label: getResourceName("valuation.kiru")},
                     {
                         borderless: true,
                         view: "toolbar",
@@ -556,13 +556,13 @@ function viewSignInWin() {
                             {
                                 view: "text",
                                 name: "uname",
-                                label: "Логин",
+                                label: getResourceName("valuation.login"),
                                 required: true
                             },
                             {
                                 view: "text",
                                 name: "password",
-                                label: "Құпия сөз",
+                                label: getResourceName("valuation.password"),
                                 type: "password",
                                 required: true
                             }
@@ -579,12 +579,12 @@ function viewSignInWin() {
                                 height: 50,
                                 width: 155,
                                 css: "noBorder",
-                                template: "<button onclick='viewSignInWinSubmit()' style='width: 145px;'  class='btn btn-primary'>Кіру</button>"
+                                template: "<button onclick='viewSignInWinSubmit()' style='width: 145px;'  class='btn btn-primary'>" + getResourceName("valuation.kiru") + "</button>"
                             }, {
                                 height: 50,
                                 width: 155,
                                 css: "noBorder",
-                                template: "<button onclick='registrationWin()'  style='width: 145px;' class='btn btn-success'>Тіркелу</button>"
+                                template: "<button onclick='registrationWin()'  style='width: 145px;' class='btn btn-success'>" + getResourceName("valuation.registration") + "</button>"
                             }
                         ]
                     },

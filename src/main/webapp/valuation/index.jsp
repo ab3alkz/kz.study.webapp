@@ -42,27 +42,39 @@
     <script src="${contextPath}/js/common.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js?version=<%= new Date()%>" type="text/javascript"></script>
     <link href="${contextPath}/css/valuation.css" rel="stylesheet" type="text/css"/>
+    <script src="${contextPath}/plugin/jquery.i18n.properties.min.js" type="text/javascript"></script>
+
 
 </head>
 <body>
 
-<div  class="mainwrapper top80px" style="margin-bottom: 70px">
+<div class="mainwrapper top80px" style="margin-bottom: 70px">
+
+    <div class="container" style="background: transparent">
+        <ul class="change-lang">
+            <li><a onclick="changeLangSubmit('Kz')" href="#">Қазақ</a></li>
+            <li><span>/</span></li>
+            <li><a onclick="changeLangSubmit('ln')"  href="#">Latyn</a></li>
+        </ul>
+    </div>
     <div class="container panel panel-default" id="navbar">
         <div class="panel-body">
             <div id="navbarContainer"></div>
         </div>
     </div>
-    <div class="container panel panel-default"  style="margin-top: 20px" >
+    <div class="container panel panel-default" style="margin-top: 20px">
         <div class="panel-body">
             <div>
                 <div>
                     <div style="float: left;width: 70%">
                         <div id="mainContainer">
-                            <h1 style="padding-bottom:20px ; border-bottom: 1px solid silver">Қазақ тілі білімін бағалау
+                            <h1 class="page-title" style="padding-bottom:20px ; border-bottom: 1px solid silver">Қазақ
+                                тілі білімін бағалау
                                 жүйесі</h1>
-                            <h3 style="color: #222">Тіл біліміңді тексеру үшін сынақтан өт</h3>
+                            <h3 style="color: #222" class="til-bilimingdi-tekseru-ueshin">Тіл біліміңді тексеру үшін
+                                сынақтан өт</h3>
                             <br>
-                            <button onclick="getTestTypeList(1)" class='btn btn-success'
+                            <button onclick="getTestTypeList(1)" class='btn btn-success start-test'
                                     style="padding-left: 50px;padding-right: 50px">Сынақты бастау
                             </button>
                         </div>
@@ -89,3 +101,35 @@
 </div>
 </body>
 </html>
+<script>
+    function changeLangSubmit(e) {
+        var language = e;
+        if (e == undefined)
+            language = 'Ru';
+        $('#langBlock').html(' ' + language + ' ');
+        localStorage.setItem("lang", language);
+        window.location.href = "";
+    }
+</script>
+<script type="text/javascript">
+    var l = localStorage.getItem("lang");
+    if (!l || l == 'ru_RU' || l == '') {
+        l = 'Ru'
+    }
+    jQuery.i18n.properties({
+        name: 'Messages',
+        path: '${contextPath}/bundle/',
+        mode: 'both',
+        language: l,
+        async: false,
+        callback: function () {
+            document.querySelector('.page-title').innerHTML = getResourceName('valuation.title');
+            document.querySelector('.til-bilimingdi-tekseru-ueshin').innerHTML = getResourceName('valuation.tilbilimingditekseruueshin');
+            document.querySelector('.start-test').innerHTML = getResourceName('valuation.starttest');
+        }
+    });
+
+    function getResourceName(prop) {
+        return jQuery.i18n.prop(prop);
+    }
+</script>
