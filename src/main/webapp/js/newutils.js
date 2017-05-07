@@ -9,7 +9,6 @@ $.ajaxSetup({
     }
 });
 
-
 webix.Date.startOnMonday = true;// что бы первый день недели был понедельник
 
 var notifyType = {

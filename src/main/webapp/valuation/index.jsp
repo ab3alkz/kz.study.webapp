@@ -42,10 +42,9 @@
     <script src="${contextPath}/js/common.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js?version=<%= new Date()%>" type="text/javascript"></script>
     <link href="${contextPath}/css/valuation.css" rel="stylesheet" type="text/css"/>
-
 </head>
 <body>
-
+<div id="loginMark"/>
 <div  class="mainwrapper top80px" style="margin-bottom: 70px">
     <div class="container panel panel-default" id="navbar">
         <div class="panel-body">

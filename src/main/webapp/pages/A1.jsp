@@ -1,3 +1,6 @@
+<%@ page import="kz.study.entity.UserDetail" %>
+<%@ page import="kz.study.entity.Users" %>
+<%@ page import="java.util.Date" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -13,55 +16,56 @@
     <link href="${contextPath}/plugin/webix/codebase/webix.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/plugin/webix/codebase/sidebar.js" type="text/javascript"></script>
     <link href="${contextPath}/plugin/webix/codebase/sidebar.css" rel="stylesheet" type="text/css"/>
-    <script src="${contextPath}/js/a1.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/a1.js?version=${initParam.buildTimeStamp}" type="text/javascript"></script>
     <script src="${contextPath}/js/modules/a1_1.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js" type="text/javascript"></script>
     <link href="${contextPath}/css/app.css" rel="stylesheet" type="text/css"/>
+    <link href="${contextPath}/css/a_lesson.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/plugin/bootstrap-notify/animate.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/plugin/bootstrap-notify/bootstrap-notify.min.js" type="text/javascript"></script>
     <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
     <style>
-        .mainAnalizeTitle {
-            font-family: Cuprum, sans-serif;
-            font-size: 40px;
-            color: navy;
-        }
 
-        .windowLabel {
-            font-family: Cuprum, sans-serif;
-            font-size: 20px;
-            color: navy;
-        }
-
-        .wordStyle {
-            font-family: Cuprum, sans-serif;
-            font-size: 20px;
-            color: navy;
-        }
-
-        .repeatWC {
-            font-family: Cuprum, sans-serif;
-            font-size: 16px;
-            color: #08802f;
-        }
-
-        .noBorder .webix_template {
-            padding: 0 !important;
-            border: none;
-        }
-
-        .noBorder button {
-            /*border-radius: 0;*/
-            width: 180px;
-        }
-        .btnWidth {
-            width: 220px!important;
-        }
     </style>
+    <script type="text/javascript">
+        <%
+        Users user = (Users) request.getSession().getAttribute("user");
+        String uName =   "";
+        String fio = "";
+        if(user!=null) {
+            uName=user.getuName();
+            if(user.getUserDetail()!=null) {
+                UserDetail ud = user.getUserDetail();
+            fio = ud.getLastname()+" "+ud.getFirstname();
+            }
+        }
+        %>
+        var myuser = '<%=uName%>';
+        if (isNullOrEmpty(myuser)) {
+            $("#modalWindow").css({display: "none"});
+            console.log(456)
+        } else {
+            $('#authorWindow').show();
+        }
+    </script>
 </head>
 <body style="background: url('../images/ltsBg.jpg')">
 <div id="menu">
     <%@include file='/incloudes/menu.jsp' %>
+</div>
+<div id="authorWindow">
+    <div id="modalWindow" class="container">
+        <div class="login-container">
+            <div id="output"></div>
+            <div class="form-box">
+                <form action="" method="">
+                    <input name="user" type="text" placeholder="username">
+                    <input type="password" placeholder="password">
+                    <button class="btn btn-info btn-block login" type="submit">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 <div style="width: 80%; margin: 0 auto">
     <div class="panel panel-default">
@@ -70,7 +74,8 @@
             <button type="button" class="btn btn-success btnWidth classA1_2" onclick="addViewLocal(2)"></button>
             <button type="button" class="btn btn-success btnWidth classA1_3" onclick="addViewLocal(3)"></button>
             <button type="button" class="btn btn-success btnWidth classA1_4" onclick="addViewLocal(4)"></button>
-            <button type="button" class="btn btn-success btnWidth classA1_5" onclick="addViewLocal(5)"></button><br><br>
+            <button type="button" class="btn btn-success btnWidth classA1_5" onclick="addViewLocal(5)"></button>
+            <br><br>
             <button type="button" class="btn btn-primary btnWidth classA1_6" onclick="addViewLocal(6)"></button>
             <button type="button" class="btn btn-primary btnWidth classA1_7" onclick="addViewLocal(7)"></button>
             <button type="button" class="btn btn-primary btnWidth classA1_8" onclick="addViewLocal(8)"></button>
@@ -125,8 +130,47 @@
 <script>
     function addViewLocal(id) {
         setLocalStorage("lesson_1", id);
-        $('#btnBlog').css("visibility","visible")
+        $('#btnBlog').css("visibility", "visible")
     }
+</script>
+
+<script>
+    $(function () {
+        var textfield = $("input[name=user]");
+        $('button[type="submit"]').click(function (e) {
+            e.preventDefault();
+
+            if (textfield.val() != "") {
+                //$("body").scrollTo("#output");
+                $("#output").addClass("alert alert-success animated fadeInUp").html("Welcome back " + "<span style='text-transform:uppercase'>" + textfield.val() + "</span>");
+                $("#output").removeClass(' alert-danger');
+                $("input").css({
+                    "height": "0",
+                    "padding": "0",
+                    "margin": "0",
+                    "opacity": "0"
+                });
+                //change button text
+                $('button[type="submit"]').html("continue")
+                    .removeClass("btn-info")
+                    .addClass("btn-default").click(function () {
+                    $("input").css({
+                        "height": "auto",
+                        "padding": "10px",
+                        "opacity": "1"
+                    }).val("");
+                });
+                $('#modalWindow').css('display', 'none');
+            } else {
+                //remove success mesage replaced with error message
+                $("#output").removeClass(' alert alert-success');
+                $("#output").addClass("alert alert-danger animated fadeInUp").html("sorry enter a username ");
+            }
+            //console.log(textfield.val());
+
+        });
+    });
+
 </script>
 </body>
 </html>
