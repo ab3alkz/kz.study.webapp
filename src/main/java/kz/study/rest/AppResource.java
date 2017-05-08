@@ -6,7 +6,7 @@
 package kz.study.rest;
 
 
-import kz.study.entity.TestType;
+import kz.study.entity.TestQuestions;
 import kz.study.session.AppSession;
 import kz.study.util.GsonGenerator;
 
@@ -65,14 +65,14 @@ public class AppResource {
                                 @QueryParam("uName") String uName,
                                 @QueryParam("json") String json,
                                 @QueryParam("result") Long result) {
-        return objectToJson(appSession.setGameResult(gameId,type, uName, result, json));
+        return objectToJson(appSession.setGameResult(gameId, type, uName, result, json));
     }
 
     @GET
     @Produces("application/json")
     @Path("getTestTypeList")
-    public String getTestTypeList(@QueryParam("isPublic") Integer isPublic) {
-        return objectToJson(appSession.getTestTypeListByIsPublic(isPublic));
+    public String getTestTypeList(@QueryParam("isPublic") Integer isPublic, @QueryParam("lang") String lang) {
+        return objectToJson(appSession.getTestTypeListByIsPublic(isPublic, lang));
     }
 
     @GET
@@ -85,8 +85,11 @@ public class AppResource {
     @GET
     @Produces("application/json")
     @Path("getRandom25Guestions")
-    public String getRandom25Guestions(@QueryParam("srcId") Integer srcId, @QueryParam("start") Integer start, @QueryParam("count") Integer count) {
-        return objectToJson(appSession.getRandom25Guestions(srcId, start, count));
+    public String getRandom25Guestions(@QueryParam("srcId") Integer srcId,
+                                       @QueryParam("start") Integer start,
+                                       @QueryParam("count") Integer count,
+                                       @QueryParam("lang") String lang) {
+        return objectToJson(appSession.getRandom25Guestions(srcId, start, count, lang));
     }
 
     @GET
@@ -130,14 +133,14 @@ public class AppResource {
     @Produces("application/json")
     @Path("getGsonClass")
     public String getGsonClass() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, NoSuchMethodException {
-        TestType obj = new TestType();
+        TestQuestions obj = new TestQuestions();
         return GsonGenerator.generateGsonClasses(obj);
     }
 
     @GET
     @Produces("application/json")
     @Path("getDTestTypeList")
-    public String getDTestTypeList()  {
+    public String getDTestTypeList() {
         return objectToJson(appSession.getDTestTypeList());
     }
 }

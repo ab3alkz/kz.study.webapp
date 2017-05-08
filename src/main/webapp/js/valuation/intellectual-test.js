@@ -9,35 +9,104 @@ function startIntelllectualTest(item) {
 
 function createIntellectTempl() {
     var obj = testData[activeQuestionIdx];
-    $$("testsContainer").removeView("answTempl");
-    $$("testsContainer").addView({
-        id: "answTempl",
-        rows: [
-            {
-                autoheight: true,
-                width: 900,
-                template: "<div class='test-question'>" + obj.question + "</div>"
-            },
-            {
-                height: 15
-            },
-            {
-                // readonly: testFinish,
-                id: "answTextarea",
-                view: 'textarea',
-                value: obj.answ,
-                height: 200
-            }
-        ]
-    });
+    if (!$$("answTempl")) {
+        $$("testsContainer").addView({
+            id: "answTempl",
+            rows: [
+                {
+                    id: "iTestGuestionWrap",
+                    cols: [],
+                    height: 70
+                }, {
+                    height: 2
+                },
+                {
 
+                    cols: [
+                        {
+                            width: 750,
+                            rows: [
+
+                                {
+                                    height: 15
+                                },
+                                {
+                                    // readonly: testFinish,
+                                    id: "answTextarea",
+                                    view: 'textarea',
+                                    name: "answ",
+                                    height: 140
+                                },
+                                {
+                                    height: 5
+                                },
+                                {
+                                    view: "label",
+                                    id: "trueanswer",
+                                    label: "<b>" + getResourceName("valuation.trueanswer") + ":</b>"
+                                },
+                                {
+                                    readonly: true,
+                                    id: "dbAnswTextarea",
+                                    view: 'textarea',
+                                    name: "dbAnsw",
+                                    height: 140
+                                }
+                            ]
+                        }, {
+                            width: 10
+                        },
+                        {
+                            autowidth: true,
+                            autoheight: true,
+                            width: 390,
+                            minheight: 300,
+                            id: "iQuestionResultWrap",
+                            rows: [{height: 20}]
+                        }
+                    ]
+                }
+            ]
+        });
+    }
+
+    $$("answTextarea").setValue(nvl(obj.answ, ""));
+    if (obj.dbAnsw) {
+        $$("dbAnswTextarea").show();
+        $$("trueanswer").show();
+        $$("dbAnswTextarea").setValue(obj.dbAnsw);
+    } else {
+        $$("dbAnswTextarea").hide();
+        $$("trueanswer").hide();
+    }
+
+    $$("iQuestionResultWrap").removeView("iQuestionResult");
+    if (obj.result && obj.result.message) {
+        $$("iQuestionResultWrap").addView({
+            width: 900,
+            autoheight: true,
+            id: "iQuestionResult",
+            template: obj.result.message
+        });
+
+    }
+
+    $$("iTestGuestionWrap").removeView("iTestGuestion");
+    $$("iTestGuestionWrap").addView({
+        id: "iTestGuestion",
+        minheight: 300,
+        autoheight: true,
+        template: "<div class='test-question'>" + obj.question + "</div>"
+    });
     setIntellectQuestionPaging();
 }
 
 
 function setIntellectQuestionPaging() {
     var max = testData.length;
+    $$("answTempl").removeView("answTemplPaging");
     $$("answTempl").addView({
+        id: "answTemplPaging",
         css: 'answTemplPaging',
         rows: [
             {
@@ -72,19 +141,20 @@ function setIntellectQuestionPaging() {
                         disabled: activeQuestionIdx >= max - 1,
                         label: '<i onclick="intellectQPagingClick(' + activeQuestionIdx + ',' + (max - 1) + ')" class="fa fa-fast-forward" aria-hidden="true"></i>'
                     },
+                    {},
                     {}
                 ]
             }, {
                 // hidden: testFinish,
                 cols: [
-                    {},
                     {
                         height: 50,
                         id: "finishTestingBtn",
                         width: 155,
                         css: "noBorder",
                         template: "<button id='fillWordsRequireBtn' style='width: 145px;' onclick=\"finishIntellectTesting()\" class='btn btn-success'>Аяқтау</button>",
-                    }
+                    },
+                    {}
                 ]
             }
         ]
@@ -93,7 +163,9 @@ function setIntellectQuestionPaging() {
 }
 
 function intellectQPagingClick(idx, nextIdx) {
-    getAnswTextareaVal(idx)
+    if (idx != null) {
+        getAnswTextareaVal(idx)
+    }
 
     if (isNullOrEmpty(nextIdx)) {
         nextIdx = 0;
@@ -105,7 +177,7 @@ function intellectQPagingClick(idx, nextIdx) {
 }
 
 function getAnswTextareaVal(idx) {
-    if (idx != null) {
+    if (idx != null && !isNullOrEmpty($$("answTextarea").getValue())) {
         testData[idx].answ = $$("answTextarea").getValue();
     }
 }
@@ -117,15 +189,17 @@ function finishIntellectTesting() {
 
     var json = {};
     json.data = testData;
-    console.log(json)
+    console.log(json);
     setGameResult(0, json,
         function (gson) {
-            if(gson.result) {
-
-                messageBox("Жауап", gson.message.message);
+            if (gson.result) {
+                testData = gson.message.data;
+                console.log(gson.message.data);
+                intellectQPagingClick(null, activeQuestionIdx)
+                // messageBox(getResourceName("valuation.answer"), gson.message.message);
             } else {
 
-                messageBox("Жауап", gson.message);
+                messageBox(getResourceName("valuation.answer"), gson.message);
             }
         }
     );

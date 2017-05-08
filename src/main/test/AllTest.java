@@ -446,18 +446,20 @@ public class AllTest {
         String[] dBAnswerSentenceArr = dBAnswer.split("\\.");
         String[] uAnswerSentenceArr = userAnsw.split("\\.");
         Integer containsSentences = 0;
+
         for (String dBAnswerSentence : dBAnswerSentenceArr) {
-            if (stringContainsItemFromList(dBAnswerSentence.trim(), uAnswerSentenceArr)) {
+            if (stringContainsItemFromList(dBAnswerSentence, uAnswerSentenceArr)) {
                 containsSentences++;
             }
         }
+
         String[] dBAnswerWordsArr = dBAnswer.split(" ");
         String[] uAnswerWordsArr = userAnsw.split(" ");
 
 
         Integer containsWords = 0;
         for (String dBAnswerWord : dBAnswerWordsArr) {
-            if (stringContainsItemFromList(dBAnswerWord.trim(), uAnswerWordsArr)) {
+            if (stringContainsItemFromList(dBAnswerWord, uAnswerWordsArr)) {
                 containsWords++;
             }
         }

@@ -1,7 +1,5 @@
-
-
 function startTesting(item) {
-    get_ajax('/study/wr/app/getRandom25Guestions?srcId=' + item.id + "&start=0&count=25", 'GET', null, function (gson) {
+    get_ajax('/study/wr/app/getRandom25Guestions?srcId=' + item.id + "&start=0&count=25&lang=" + lang, 'GET', null, function (gson) {
 
         testData = gson;
         createAnswTempl();
@@ -108,7 +106,7 @@ function setQuestionPaging() {
                 id: "finishTestingBtn",
                 width: 155,
                 css: "noBorder",
-                template: "<button id='fillWordsRequireBtn' style='width: 145px;' onclick=\"finishTesting()\" class='btn btn-success'>Аяқтау</button>",
+                template: "<button id='fillWordsRequireBtn' style='width: 145px;' onclick=\"finishTesting()\" class='btn btn-success'>"+getResourceName("valuation.finish")+"</button>",
             }
         ]
     });

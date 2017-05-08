@@ -89,13 +89,9 @@ public class AnalizeSession extends Utx {
         if (!isNullOrEmpty(text)) {
             try {
                 text = text.toLowerCase();
-                char[] myCharArray = text.toCharArray();
                 List<String> list = new ArrayList<>();
-                StringBuilder latynTest = new StringBuilder();
-                for (char c : myCharArray) {
-                    latynTest.append(getTestStringLatyn(c));
-                }
-                list.add(latynTest.toString());
+
+                list.add(getTranslateString(text));
                 return getGsonResult(Boolean.TRUE, list);
 
             } catch (Exception e) {
@@ -105,8 +101,16 @@ public class AnalizeSession extends Utx {
         }
         return getGsonResult(Boolean.FALSE, null);
     }
+    public static String getTranslateString(String text) {
+        char[] myCharArray = text.toCharArray();
+        StringBuilder latynTest = new StringBuilder();
+        for (char c : myCharArray) {
+            latynTest.append(getTestStringLatyn(c));
+        }
+        return  latynTest.toString();
+    }
 
-    private String getTestStringLatyn(char text) {
+    public static String getTestStringLatyn(char text) {
 
         String newValue = String.valueOf(text);
 

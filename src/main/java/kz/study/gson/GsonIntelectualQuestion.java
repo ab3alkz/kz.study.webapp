@@ -9,6 +9,8 @@ public class GsonIntelectualQuestion  {
     private int id;
     private String question;
     private String answ;
+    private String dbAnsw;
+    private GsonResult result;
     private Integer srcId;
     private List<GsonIntelectualQuestion> data;
 
@@ -50,5 +52,22 @@ public class GsonIntelectualQuestion  {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getDbAnsw() {
+        return dbAnsw;
+    }
+
+    public void setDbAnsw(String dbAnsw) {
+        this.dbAnsw = dbAnsw;
+    }
+
+
+    public GsonResult getResult() {
+        return result;
+    }
+
+    public void setResult(GsonResult result) {
+        this.result = result;
     }
 }

@@ -753,7 +753,7 @@ ul.change-lang {
     display: block;
     float: right;
     margin-right: 0;
-    top: 20px;
+    margin-bottom: 5px;
 }
 
 ul.change-lang li {
