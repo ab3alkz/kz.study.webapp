@@ -748,3 +748,22 @@ body {
 .top20px {
     margin-top: 20px;
 }
+
+ul.change-lang {
+    display: block;
+    float: right;
+    margin-right: 0;
+    top: 20px;
+}
+
+ul.change-lang li {
+    float: right;
+}
+
+ul.change-lang li a {
+    margin: 2px 2px 0 2px ;
+}
+
+ul.change-lang li a {
+    margin: 2px 5px  0;
+}
