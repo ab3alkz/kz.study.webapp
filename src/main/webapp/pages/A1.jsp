@@ -24,48 +24,10 @@
     <link href="${contextPath}/plugin/bootstrap-notify/animate.css" rel="stylesheet" type="text/css"/>
     <script src="${contextPath}/plugin/bootstrap-notify/bootstrap-notify.min.js" type="text/javascript"></script>
     <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
-    <style>
-
-    </style>
-    <script type="text/javascript">
-        <%
-        Users user = (Users) request.getSession().getAttribute("user");
-        String uName =   "";
-        String fio = "";
-        if(user!=null) {
-            uName=user.getuName();
-            if(user.getUserDetail()!=null) {
-                UserDetail ud = user.getUserDetail();
-            fio = ud.getLastname()+" "+ud.getFirstname();
-            }
-        }
-        %>
-        var myuser = '<%=uName%>';
-        if (isNullOrEmpty(myuser)) {
-            $("#modalWindow").css({display: "none"});
-            console.log(456)
-        } else {
-            $('#authorWindow').show();
-        }
-    </script>
 </head>
 <body style="background: url('../images/ltsBg.jpg')">
 <div id="menu">
     <%@include file='/incloudes/menu.jsp' %>
-</div>
-<div id="authorWindow">
-    <div id="modalWindow" class="container">
-        <div class="login-container">
-            <div id="output"></div>
-            <div class="form-box">
-                <form action="" method="">
-                    <input name="user" type="text" placeholder="username">
-                    <input type="password" placeholder="password">
-                    <button class="btn btn-info btn-block login" type="submit">Login</button>
-                </form>
-            </div>
-        </div>
-    </div>
 </div>
 <div style="width: 80%; margin: 0 auto">
     <div class="panel panel-default">

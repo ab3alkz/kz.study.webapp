@@ -1,3 +1,54 @@
+Version 4.3 (April 2017)
+================
+
+### Major features
+
+- BulletChart integration
+- DoubleList and FormInput widgets
+- compatibility with ReactJS
+
+[Full list of changes and fixes](http://docs.webix.com/desktop__whats_new_4_3.html)
+
+
+Version 4.2 (February 2017)
+================
+
+### Major features
+
+- VueJs integration
+- ability to upload Folders
+- export to CSV for all widgets
+
+[Full list of changes and fixes](http://docs.webix.com/desktop__whats_new_4_2.html)
+
+
+Version 4.1 (November 2016)
+================
+
+### Major features
+
+- Gage widget
+- RichText widget
+- Exra modes for charts
+
+[Full list of changes and fixes](http://docs.webix.com/desktop__whats_new_4_1.html)
+
+
+Version 4.0 (September 2016)
+================
+
+### Major features
+
+- ARIA compatibility
+- Keyboard navigation for all widgets
+- High-contrast theme
+- DateRange control
+- FlexLayout control
+- Google Map control
+
+[Full list of changes and fixes](http://docs.webix.com/desktop__whats_new_4_0.html)
+
+
 Version 3.4 (July 2016)
 ================
 
