@@ -74,13 +74,13 @@ function setQuestionPaging() {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx <= 0,
-                label: '<i onclick="questionPagingClick(' + 0 + ')" class="fa fa-fast-backward" aria-hidden="true"></i>'
+                label: '<i onclick="questionPagingClick(' + 0 + ')" class=" fa fa-fast-backward" aria-hidden="true"></i>'
             },
             {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx <= 0,
-                label: '<i onclick="questionPagingClick(' + (activeQuestionIdx - 1) + ')" class="fa fa-backward" aria-hidden="true"></i>'
+                label: '<i onclick="questionPagingClick(' + (activeQuestionIdx - 1) + ')" class=" fa fa-backward" aria-hidden="true"></i>'
             },
             {
                 view: 'label',
@@ -91,13 +91,13 @@ function setQuestionPaging() {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx >= max - 1,
-                label: '<i onclick="questionPagingClick(' + (activeQuestionIdx + 1) + ')" class="fa fa-forward" aria-hidden="true"></i>'
+                label: '<i onclick="questionPagingClick(' + (activeQuestionIdx + 1) + ')" class=" fa fa-forward" aria-hidden="true"></i>'
             },
             {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx >= max - 1,
-                label: '<i onclick="questionPagingClick(' + (max - 1) + ')" class="fa fa-fast-forward" aria-hidden="true"></i>'
+                label: '<i onclick="questionPagingClick(' + (max - 1) + ')" class=" fa fa-fast-forward" aria-hidden="true"></i>'
             },
             {},
             {
@@ -222,8 +222,8 @@ function testingAdmin(item) {
                 },
                 scheme: {
                     $init: function (obj) {
-                        obj.editBtn = "<button style='width:40px;'  class='editQuestion btn btn-primary'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
-                        obj.removBtn = "<button style='width:40px;'  class='removeQuestion btn btn-danger'><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
+                        obj.editBtn = "<button style='width:40px;'  class='editQuestion btn btn-primary'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                        obj.removBtn = "<button style='width:40px;'  class='removeQuestion btn btn-danger'><i class=\" fa fa-trash\" aria-hidden=\"true\"></i></button>";
 
                     }
                 },
@@ -286,7 +286,7 @@ function editQuestion(item) {
                         height: 40,
                         cols: [
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: " fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;

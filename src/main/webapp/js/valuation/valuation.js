@@ -200,19 +200,19 @@ function viewTestTypeListWin(gson) {
                             {
                                 disabled: true,
                                 id: "editTestTypeBtn",
-                                view: "icon", icon: "fa fa-pencil-square-o", css: "buttonIcon",
+                                view: "icon", icon: " fa fa-pencil-square-o", css: "buttonIcon",
                                 click: function () {
                                     editAddTestTypeWin($$("viewTestTypeListTable").getSelectedItem());
                                 }
                             },
                             {
-                                view: "icon", icon: "fa fa-plus-square-o", css: "buttonIcon",
+                                view: "icon", icon: " fa fa-plus-square-o", css: "buttonIcon",
                                 click: function () {
                                     editAddTestTypeWin(null);
                                 }
                             },
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: "  fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;
@@ -255,7 +255,7 @@ function viewTestTypeListWin(gson) {
                             $init: function (obj) {
                                 obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>" + getResourceName("valuation.start") + "</button>";
                                 if (obj.type == 'test') {
-                                    obj.editBtn = "<button style='width:40px;'  class='editTesting btn btn-danger'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                    obj.editBtn = "<button style='width:40px;'  class='editTesting btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
                                 }
                             }
                         },
@@ -420,7 +420,7 @@ function registrationWin() {
                         height: 40,
                         cols: [
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: "   fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;
@@ -537,7 +537,7 @@ function viewSignInWin() {
                         height: 40,
                         cols: [
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: "  fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;
@@ -669,7 +669,7 @@ function authSuccess() {
         cols: [
             {
                 view: "label",
-                label: "<a href='' class='fa fa-home'></a>",
+                label: "<a href='' class=' fa fa-home'></a>",
                 width: 60
             },
             {},
@@ -681,7 +681,7 @@ function authSuccess() {
             },
             {
                 view: "label",
-                label: "<span onclick='logout1()' class='fa fa-sign-out'></span>",
+                label: "<span onclick='logout1()' class=' fa fa-sign-out'></span>",
                 width: 60
             }
         ]
@@ -766,7 +766,7 @@ function editAddTestTypeWin(obj) {
                         height: 40,
                         cols: [
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: "  fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;

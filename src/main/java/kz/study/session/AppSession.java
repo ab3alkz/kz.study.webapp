@@ -289,8 +289,8 @@ public class AppSession extends Utx {
         }
 
         return getGsonResult(false,
-                "<p>предложений " + dBAnswerSentenceArr.length + " совпадений <" + containsSentences + ">   из " + uAnswerSentenceArr.length +
-                        getNewLine() + "слов  " + dBAnswerWordsArr.length + " совпадений <" + containsWords + "> из " + uAnswerWordsArr.length+"</p>");
+                "предложений " + dBAnswerSentenceArr.length + " совпадений <" + containsSentences + ">   из " + uAnswerSentenceArr.length +
+                        getNewLine() + "слов  " + dBAnswerWordsArr.length + " совпадений <" + containsWords + "> из " + uAnswerWordsArr.length);
     }
 
     private String getNewLine() {

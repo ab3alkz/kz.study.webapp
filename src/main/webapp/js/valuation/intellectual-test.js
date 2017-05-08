@@ -86,7 +86,7 @@ function createIntellectTempl() {
             width: 900,
             autoheight: true,
             id: "iQuestionResult",
-            template: obj.result.message
+            template: "<h5>"+obj.result.message+"</h5>"
         });
 
     }
@@ -116,13 +116,13 @@ function setIntellectQuestionPaging() {
                         view: 'label',
                         autowidth: true,
                         disabled: activeQuestionIdx <= 0,
-                        label: '<i onclick="intellectQPagingClick(' + activeQuestionIdx + ',' + 0 + ')" class="fa fa-fast-backward" aria-hidden="true"></i>'
+                        label: '<i onclick="intellectQPagingClick(' + activeQuestionIdx + ',' + 0 + ')" class=" fa fa-fast-backward" aria-hidden="true"></i>'
                     },
                     {
                         view: 'label',
                         autowidth: true,
                         disabled: activeQuestionIdx <= 0,
-                        label: '<i onclick="intellectQPagingClick(' + activeQuestionIdx + ',' + (activeQuestionIdx - 1) + ')" class="fa fa-backward" aria-hidden="true"></i>'
+                        label: '<i onclick="intellectQPagingClick(' + activeQuestionIdx + ',' + (activeQuestionIdx - 1) + ')" class=" fa fa-backward" aria-hidden="true"></i>'
                     },
                     {
                         view: 'label',
@@ -133,13 +133,13 @@ function setIntellectQuestionPaging() {
                         view: 'label',
                         autowidth: true,
                         disabled: activeQuestionIdx >= max - 1,
-                        label: '<i onclick="intellectQPagingClick(' + activeQuestionIdx + ',' + (activeQuestionIdx + 1) + ')" class="fa fa-forward" aria-hidden="true"></i>'
+                        label: '<i onclick="intellectQPagingClick(' + activeQuestionIdx + ',' + (activeQuestionIdx + 1) + ')" class=" fa fa-forward" aria-hidden="true"></i>'
                     },
                     {
                         view: 'label',
                         autowidth: true,
                         disabled: activeQuestionIdx >= max - 1,
-                        label: '<i onclick="intellectQPagingClick(' + activeQuestionIdx + ',' + (max - 1) + ')" class="fa fa-fast-forward" aria-hidden="true"></i>'
+                        label: '<i onclick="intellectQPagingClick(' + activeQuestionIdx + ',' + (max - 1) + ')" class=" fa fa-fast-forward" aria-hidden="true"></i>'
                     },
                     {},
                     {}
