@@ -661,7 +661,7 @@ body {
     border: none;
 }
 
-.webix_icon.fa-fa.fa-times {
+.webix_icon.fa-times {
     color: red !important;
 }
 
@@ -753,7 +753,7 @@ ul.change-lang {
     display: block;
     float: right;
     margin-right: 0;
-    top: 20px;
+    margin-bottom: 5px;
 }
 
 ul.change-lang li {

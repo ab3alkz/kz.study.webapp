@@ -164,7 +164,8 @@ function getTestTypeList(isPublic_) {
         return viewSignInWin();
     }
     get_ajax('/study/wr/app/getTestTypeList', 'GET', {
-        isPublic: isPublic_
+        isPublic: isPublic_,
+        lang: lang
     }, function (gson) {
         if (gson)
             viewTestTypeListWin(gson);
@@ -189,7 +190,7 @@ function viewTestTypeListWin(gson) {
             head: {
                 cols: [
                     {width: 10},
-                    {view: "label", label: "Сынақты таңдаңыз"},
+                    {view: "label", label: getResourceName("valuation.changetest")},
                     {
                         borderless: true,
                         view: "toolbar",
@@ -199,19 +200,19 @@ function viewTestTypeListWin(gson) {
                             {
                                 disabled: true,
                                 id: "editTestTypeBtn",
-                                view: "icon", icon: "fa fa-pencil-square-o", css: "buttonIcon",
+                                view: "icon", icon: " fa fa-pencil-square-o", css: "buttonIcon",
                                 click: function () {
                                     editAddTestTypeWin($$("viewTestTypeListTable").getSelectedItem());
                                 }
                             },
                             {
-                                view: "icon", icon: "fa fa-plus-square-o", css: "buttonIcon",
+                                view: "icon", icon: " fa fa-plus-square-o", css: "buttonIcon",
                                 click: function () {
                                     editAddTestTypeWin(null);
                                 }
                             },
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: "  fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;
@@ -243,7 +244,7 @@ function viewTestTypeListWin(gson) {
                                 header: " ",
                                 fillspace: 1
                             },
-                            {id: "editBtn", header: " ", width: 60},
+                            {id: "editBtn", header: " ", width: 60}
                         ],
                         on: {
                             onAfterSelect: function () {
@@ -252,9 +253,9 @@ function viewTestTypeListWin(gson) {
                         },
                         scheme: {
                             $init: function (obj) {
-                                obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>Бастау</button>";
+                                obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>" + getResourceName("valuation.start") + "</button>";
                                 if (obj.type == 'test') {
-                                    obj.editBtn = "<button style='width:40px;'  class='editTesting btn btn-danger'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                    obj.editBtn = "<button style='width:40px;'  class='editTesting btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
                                 }
                             }
                         },
@@ -419,7 +420,7 @@ function registrationWin() {
                         height: 40,
                         cols: [
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: "   fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;
@@ -492,7 +493,7 @@ function registrationWin() {
                                 height: 50,
                                 width: 155,
                                 css: "noBorder",
-                                template: "<button onclick='viewSignInWin()'  style='width: 145px;' class='btn btn-primary'>"+getResourceName("valuation.iamregistr")+"</button>"
+                                template: "<button onclick='viewSignInWin()'  style='width: 145px;' class='btn btn-primary'>" + getResourceName("valuation.iwasregistr") + "</button>"
                             }
                         ]
                     },
@@ -536,7 +537,7 @@ function viewSignInWin() {
                         height: 40,
                         cols: [
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: "  fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;
@@ -668,7 +669,7 @@ function authSuccess() {
         cols: [
             {
                 view: "label",
-                label: "<a href='' class='fa fa-home'></a>",
+                label: "<a href='' class=' fa fa-home'></a>",
                 width: 60
             },
             {},
@@ -680,7 +681,7 @@ function authSuccess() {
             },
             {
                 view: "label",
-                label: "<span onclick='logout1()' class='fa fa-sign-out'></span>",
+                label: "<span onclick='logout1()' class=' fa fa-sign-out'></span>",
                 width: 60
             }
         ]
@@ -757,7 +758,7 @@ function editAddTestTypeWin(obj) {
             head: {
                 cols: [
                     {width: 10},
-                    {view: "label", label: "Жаңа сынақты енгізу"},
+                    {view: "label", label: getResourceName("valuation.addnewtest")},
                     {
                         borderless: true,
                         view: "toolbar",
@@ -765,7 +766,7 @@ function editAddTestTypeWin(obj) {
                         height: 40,
                         cols: [
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: "  fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;
@@ -788,7 +789,7 @@ function editAddTestTypeWin(obj) {
                         },
                         elements: [
                             {
-                                label: "Сынақ түрі",
+                                label: getResourceName("valuation.testtype"),
                                 view: "richselect",
                                 name: "type",
                                 required: true,
@@ -803,7 +804,7 @@ function editAddTestTypeWin(obj) {
                             {
                                 required: true,
                                 name: "name",
-                                label: "Сынақ атауы",
+                                label: getResourceName("valuation.testname"),
                                 view: "text"
                             },
                             {
@@ -818,7 +819,7 @@ function editAddTestTypeWin(obj) {
                                         height: 50,
                                         width: 155,
                                         css: "noBorder",
-                                        template: "<button onclick='saveTestType()' style='width: 145px;'  class='btn btn-success'>Сақтау</button>"
+                                        template: "<button onclick='saveTestType()' style='width: 145px;'  class='btn btn-success'>" + getResourceName("valuation.save") + "</button>"
                                     }
                                 ]
                             }

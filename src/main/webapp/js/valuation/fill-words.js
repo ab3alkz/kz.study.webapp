@@ -271,7 +271,7 @@ function fillWordsResultWin(json, total) {
                         height: 40,
                         cols: [
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: " fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;

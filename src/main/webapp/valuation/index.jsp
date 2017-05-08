@@ -1,5 +1,5 @@
-<%@ page import="kz.study.entity.UserDetail" %>
-<%@ page import="kz.study.entity.Users" %>
+<%@ page import="kz.study.gson.GsonUserDetail" %>
+<%@ page import="kz.study.gson.GsonUsers" %>
 <%@ page import="java.util.Date" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -11,13 +11,13 @@
     <title>Казак тілі білімін бағалау жүйесі</title>
     <script type="text/javascript">
         <%
-        Users user = (Users) request.getSession().getAttribute("user");
+        GsonUsers user = (GsonUsers) request.getSession().getAttribute("user");
         String uName =   "";
         String fio = "";
         if(user!=null) {
             uName=user.getuName();
             if(user.getUserDetail()!=null) {
-                UserDetail ud = user.getUserDetail();
+                GsonUserDetail ud = user.getUserDetail();
             fio = ud.getLastname()+" "+ud.getFirstname();
             }
         }
@@ -57,8 +57,6 @@
             <li><a onclick="changeLangSubmit('ln')"  href="#">Latyn</a></li>
         </ul>
     </div>
-<div id="loginMark"/>
-<div  class="mainwrapper top80px" style="margin-bottom: 70px">
     <div class="container panel panel-default" id="navbar">
         <div class="panel-body">
             <div id="navbarContainer"></div>
@@ -82,7 +80,6 @@
                         </div>
                         <div id="defContainer"></div>
                         <div id="fillWordsContainer"></div>
-                        <div id="testsContainer"></div>
                         <div id="testsContainerAdmin"></div>
                         <div id="testsContainerAdminPaging"></div>
 
@@ -91,7 +88,9 @@
 
                     <div style="float: left;width: 30%;border-left: 1px solid silver;padding: 10px" id="userInfo"></div>
                     <div class="clearfix"></div>
+                    <div id="testsContainer"></div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -107,22 +106,22 @@
     function changeLangSubmit(e) {
         var language = e;
         if (e == undefined)
-            language = 'Ru';
+            language = 'kz';
         $('#langBlock').html(' ' + language + ' ');
         localStorage.setItem("lang", language);
         window.location.href = "";
     }
 </script>
 <script type="text/javascript">
-    var l = localStorage.getItem("lang");
-    if (!l || l == 'ru_RU' || l == '') {
-        l = 'Ru'
+    var lang = localStorage.getItem("lang");
+    if (!lang || lang == 'ru_RU' || lang == 'ru'|| lang == 'Ru' || lang == '') {
+        lang = 'kz'
     }
     jQuery.i18n.properties({
         name: 'Messages',
         path: '${contextPath}/bundle/',
         mode: 'both',
-        language: l,
+        language: lang,
         async: false,
         callback: function () {
             document.querySelector('.page-title').innerHTML = getResourceName('valuation.title');

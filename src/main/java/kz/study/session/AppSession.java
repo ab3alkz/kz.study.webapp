@@ -22,11 +22,8 @@ import java.util.Random;
 import static kz.study.util.DateUtil.dateToString;
 import static kz.study.util.DateUtil.stringToSqlDate;
 import static kz.study.util.Util.*;
-import static kz.study.wrapper.Serialization.wrapToGsonIntelectualQuestionByJsonString;
-import static kz.study.wrapper.Serialization.wrapToGsonTestQuestionsByJsonString;
-import static kz.study.wrapper.Serialization.wrapToGsonTestTypeByJsonString;
-import static kz.study.wrapper.Wrapper.wrapToGsonGameResultList;
-import static kz.study.wrapper.Wrapper.wrapToGsonIntelectualQuestionList;
+import static kz.study.wrapper.Serialization.*;
+import static kz.study.wrapper.Wrapper.*;
 
 
 /**
@@ -73,16 +70,16 @@ public class AppSession extends Utx {
         return wordsList;*/
     }
 
-    public List<TestQuestions> getRandom25Guestions(Integer srcId, Integer start, Integer count) {
+    public List<GsonTestQuestions> getRandom25Guestions(Integer srcId, Integer start, Integer count, String lang) {
         List<TestQuestions> list = getTestQuestionsList(srcId, 0, 100);
 
-        List<TestQuestions> result = new ArrayList<>();
+        List<GsonTestQuestions> result = new ArrayList<>();
         randList = new ArrayList<>();
         Integer cnt = 20 > list.size() - 1 ? list.size() - 1 : 20;
         for (int i = 0; i < cnt; i++) {
             Integer randIdx = getRandIdxWord(0, list.size() - 1);
             randList.add(randIdx);
-            result.add(list.get(randIdx));
+            result.add(wrapToGsonTestQuestions(list.get(randIdx), lang));
         }
 
         /*for (int i = 1; i <= 55; i++) {
@@ -121,8 +118,8 @@ public class AppSession extends Utx {
         return em.createNamedQuery("TestType.findAll").getResultList();
     }
 
-    public List<Words> getTestTypeListByIsPublic(Integer isPublic) {
-        return em.createNamedQuery("TestType.findByIsPublic").setParameter("isPublic", isPublic).getResultList();
+    public List<TestType> getTestTypeListByIsPublic(Integer isPublic, String lang) {
+        return wrapToGsonTestTypeList(em.createNamedQuery("TestType.findByIsPublic").setParameter("isPublic", isPublic).getResultList(), lang);
     }
 
     public List<GameResult> getGameResultList() {
@@ -229,22 +226,34 @@ public class AppSession extends Utx {
     }
 
     private GsonResult intelectualQuestionValidate(GsonIntelectualQuestion gson) {
-        for (GsonIntelectualQuestion obj : gson.getData()) {
-            String userAnsw = obj.getAnsw();
-            List<IntelectualQuestionAnswers> answersList = em.createNamedQuery("IntelectualQuestionAnswers.findByQuestionId")
-                    .setParameter("questionId", obj.getId())
-                    .getResultList();
+        try {
+            for (GsonIntelectualQuestion obj : gson.getData()) {
+                String userAnsw = obj.getAnsw();
+                IntelectualQuestionAnswers answerDB = (IntelectualQuestionAnswers)
+                        getSingleResultOrNull(em.createNamedQuery("IntelectualQuestionAnswers.findByQuestionId")
+                                .setParameter("questionId", obj.getId()));
+                if (answerDB == null || isNullOrEmpty(answerDB.getAnswer())) {
+                    obj.setDbAnsw("деректер қорында жауап берілмеген");
+                } else {
 
-            for (IntelectualQuestionAnswers answer : answersList) {
-                String answerDB = answer.getAnswer();
-                return isIntelectualQuestionValidate(userAnsw,answerDB);
+                    obj.setDbAnsw(answerDB.getAnswer());
+                    if(isNullOrEmpty(userAnsw)) {
+                        obj.setResult(getGsonResult(false,"Сіз жауап бермедіңіз"));
+                    }else {
+                        obj.setResult(isIntelectualQuestionValidate(userAnsw, answerDB.getAnswer()));
+                    }
+                }
 
             }
+            return getGsonResult(true, gson);
+
+        } catch (Exception e) {
+
+            return getGsonResult(false, e.toString());
         }
-        return getGsonResult(false, null);
     }
 
-    private GsonResult isIntelectualQuestionValidate(String userAnsw, String dBAnswer) {
+    private GsonResult isIntelectualQuestionValidate(String userAnsw, String dBAnswer) throws Exception {
         userAnsw = getReplaceSpecialChars(userAnsw);
         dBAnswer = getReplaceSpecialChars(dBAnswer);
         userAnsw = userAnsw.trim();
@@ -264,7 +273,7 @@ public class AppSession extends Utx {
         String[] uAnswerSentenceArr = userAnsw.split("\\.");
         Integer containsSentences = 0;
         for (String dBAnswerSentence : dBAnswerSentenceArr) {
-            if (stringContainsItemFromList(dBAnswerSentence.trim(), uAnswerSentenceArr)) {
+            if (stringContainsItemFromList(dBAnswerSentence, uAnswerSentenceArr)) {
                 containsSentences++;
             }
         }
@@ -274,14 +283,14 @@ public class AppSession extends Utx {
 
         Integer containsWords = 0;
         for (String dBAnswerWord : dBAnswerWordsArr) {
-            if (stringContainsItemFromList(dBAnswerWord.trim(), uAnswerWordsArr)) {
+            if (stringContainsItemFromList(dBAnswerWord, uAnswerWordsArr)) {
                 containsWords++;
             }
         }
 
         return getGsonResult(false,
-                "Совпадение предложений <" + containsSentences+">  из "+dBAnswerSentenceArr.length+  " & "+uAnswerSentenceArr.length+
-                        getNewLine()+ " Совпадение слов <" + containsWords+"> из "+dBAnswerWordsArr.length+" & "+uAnswerWordsArr.length);
+                "предложений " + dBAnswerSentenceArr.length + " совпадений <" + containsSentences + ">   из " + uAnswerSentenceArr.length +
+                        getNewLine() + "слов  " + dBAnswerWordsArr.length + " совпадений <" + containsWords + "> из " + uAnswerWordsArr.length);
     }
 
     private String getNewLine() {
@@ -290,7 +299,7 @@ public class AppSession extends Utx {
 
     public static boolean stringContainsItemFromList(String inputStr, String[] items) {
         for (int i = 0; i < items.length; i++) {
-            if (inputStr.trim().contains(items[i].trim())) {
+            if (inputStr.trim().toLowerCase().contains(items[i].trim().toLowerCase())) {
                 return true;
             }
         }

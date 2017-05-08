@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
+import static kz.study.session.AnalizeSession.getTranslateString;
 import static kz.study.util.DateUtil.dateToString;
 import static kz.study.util.Util.getInscriptionByLang;
 import static kz.study.util.Util.isNullOrEmpty;
@@ -340,11 +341,15 @@ public class Wrapper {
         return gsonList;
     }
 
-    public static GsonTestType wrapToGsonTestType(TestType obj) {
+    public static GsonTestType wrapToGsonTestType(TestType obj, String lang) {
         if (obj != null) {
             GsonTestType gson = new GsonTestType();
             gson.setLevel(obj.getLevel());
-            gson.setName(obj.getName());
+            if (lang != null && lang.equals("ln")) {
+                gson.setName(getTranslateString(obj.getName()));
+            } else {
+                gson.setName(obj.getName());
+            }
             gson.setIsPublic(obj.getIsPublic());
             gson.setId(obj.getId());
             gson.setType(obj.getType());
@@ -354,11 +359,44 @@ public class Wrapper {
         return null;
     }
 
-    public static List<GsonTestType> wrapToGsonTestTypeList(List<TestType> list) {
+    public static List<GsonTestType> wrapToGsonTestTypeList(List<TestType> list, String lang) {
         List<GsonTestType> gsonList = new ArrayList<>();
         for (TestType o : list) {
-            gsonList.add(wrapToGsonTestType(o));
+            gsonList.add(wrapToGsonTestType(o, lang));
         }
         return gsonList;
     }
+
+    public static GsonTestQuestions wrapToGsonTestQuestions(TestQuestions obj, String lang) {
+        if (obj != null) {
+            GsonTestQuestions gson = new GsonTestQuestions();
+            if (lang != null && lang.equals("ln")) {
+                gson.setQuestion(getTranslateString(obj.getQuestion()));
+                gson.setAnsw1(getTranslateString(obj.getAnsw1()));
+                gson.setAnsw2(getTranslateString(obj.getAnsw2()));
+                gson.setAnsw3(getTranslateString(obj.getAnsw3()));
+                gson.setAnsw4(getTranslateString(obj.getAnsw4()));
+            } else {
+                gson.setQuestion(obj.getQuestion());
+                gson.setAnsw1(obj.getAnsw1());
+                gson.setAnsw2(obj.getAnsw2());
+                gson.setAnsw3(obj.getAnsw3());
+                gson.setAnsw4(obj.getAnsw4());
+            }
+            gson.setSrcId(obj.getSrcId());
+            gson.setId(obj.getId().toString());
+            return gson;
+        }
+
+        return null;
+    }
+
+    public static List<GsonTestQuestions> wrapToGsonTestQuestionsList(List<TestQuestions> list, String lang) {
+        List<GsonTestQuestions> gsonList = new ArrayList<>();
+        for (TestQuestions o : list) {
+            gsonList.add(wrapToGsonTestQuestions(o, lang));
+        }
+        return gsonList;
+    }
+
 }

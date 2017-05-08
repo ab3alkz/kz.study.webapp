@@ -1,7 +1,5 @@
-
-
 function startTesting(item) {
-    get_ajax('/study/wr/app/getRandom25Guestions?srcId=' + item.id + "&start=0&count=25", 'GET', null, function (gson) {
+    get_ajax('/study/wr/app/getRandom25Guestions?srcId=' + item.id + "&start=0&count=25&lang=" + lang, 'GET', null, function (gson) {
 
         testData = gson;
         createAnswTempl();
@@ -76,13 +74,13 @@ function setQuestionPaging() {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx <= 0,
-                label: '<i onclick="questionPagingClick(' + 0 + ')" class="fa fa-fast-backward" aria-hidden="true"></i>'
+                label: '<i onclick="questionPagingClick(' + 0 + ')" class=" fa fa-fast-backward" aria-hidden="true"></i>'
             },
             {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx <= 0,
-                label: '<i onclick="questionPagingClick(' + (activeQuestionIdx - 1) + ')" class="fa fa-backward" aria-hidden="true"></i>'
+                label: '<i onclick="questionPagingClick(' + (activeQuestionIdx - 1) + ')" class=" fa fa-backward" aria-hidden="true"></i>'
             },
             {
                 view: 'label',
@@ -93,13 +91,13 @@ function setQuestionPaging() {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx >= max - 1,
-                label: '<i onclick="questionPagingClick(' + (activeQuestionIdx + 1) + ')" class="fa fa-forward" aria-hidden="true"></i>'
+                label: '<i onclick="questionPagingClick(' + (activeQuestionIdx + 1) + ')" class=" fa fa-forward" aria-hidden="true"></i>'
             },
             {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx >= max - 1,
-                label: '<i onclick="questionPagingClick(' + (max - 1) + ')" class="fa fa-fast-forward" aria-hidden="true"></i>'
+                label: '<i onclick="questionPagingClick(' + (max - 1) + ')" class=" fa fa-fast-forward" aria-hidden="true"></i>'
             },
             {},
             {
@@ -108,7 +106,7 @@ function setQuestionPaging() {
                 id: "finishTestingBtn",
                 width: 155,
                 css: "noBorder",
-                template: "<button id='fillWordsRequireBtn' style='width: 145px;' onclick=\"finishTesting()\" class='btn btn-success'>Аяқтау</button>",
+                template: "<button id='fillWordsRequireBtn' style='width: 145px;' onclick=\"finishTesting()\" class='btn btn-success'>"+getResourceName("valuation.finish")+"</button>",
             }
         ]
     });
@@ -224,8 +222,8 @@ function testingAdmin(item) {
                 },
                 scheme: {
                     $init: function (obj) {
-                        obj.editBtn = "<button style='width:40px;'  class='editQuestion btn btn-primary'><i class=\"fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
-                        obj.removBtn = "<button style='width:40px;'  class='removeQuestion btn btn-danger'><i class=\"fa fa-trash\" aria-hidden=\"true\"></i></button>";
+                        obj.editBtn = "<button style='width:40px;'  class='editQuestion btn btn-primary'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                        obj.removBtn = "<button style='width:40px;'  class='removeQuestion btn btn-danger'><i class=\" fa fa-trash\" aria-hidden=\"true\"></i></button>";
 
                     }
                 },
@@ -288,7 +286,7 @@ function editQuestion(item) {
                         height: 40,
                         cols: [
                             {
-                                view: "icon", icon: "fa fa-times", css: "buttonIcon",
+                                view: "icon", icon: " fa fa-times", css: "buttonIcon",
                                 click: function () {
                                     this.getTopParentView().close();
                                     window.onscroll = null;
