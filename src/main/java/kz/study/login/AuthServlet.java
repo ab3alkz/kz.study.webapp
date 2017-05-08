@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package kz.study.login;
 
-import kz.study.entity.Users;
+import kz.study.gson.GsonUsers;
 import kz.study.session.UserSession;
+import org.apache.commons.codec.digest.Crypt;
 import org.apache.log4j.Logger;
 
 import javax.ejb.EJB;
-import javax.ejb.Stateless;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,20 +16,21 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import static kz.study.util.Util.*;
+import static kz.study.wrapper.Wrapper.wrapToGsonUsers;
+import static org.eclipse.persistence.eis.EISConnectionSpec.USER;
+
 
 /**
- * @author a.kussein
+ * @author Bekzhan
  */
-@Stateless
 @WebServlet(name = "AuthServlet", urlPatterns = {"/auth"})
 public class AuthServlet extends HttpServlet {
 
-    @EJB
-    private
-    UserSession userSession;
-
-    public static final String USER = "user";
     private static final Logger logger = Logger.getLogger(AuthServlet.class);
+
+    private
+    @EJB
+    UserSession userSession;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -51,30 +47,26 @@ public class AuthServlet extends HttpServlet {
                 String j_password = request.getParameter("j_password");
 
                 if (isNullOrEmpty(j_username) || isNullOrEmpty(j_password)) {
-                    out.print(getResultGsonString(false, "Не все параметры заполнены"));
+                    out.print(getResultGsonString(Boolean.FALSE, "Не все параметры заполнены"));
                 }
 
                 if (request.getUserPrincipal() != null) {
                     request.logout();
                 }
 
-                Users user = userSession.getUser(j_username);
+                request.login(j_username, getMd5Apache(j_password));
+
+                GsonUsers user = wrapToGsonUsers(userSession.getUser(j_username));
 
                 if (user != null) {
-                    if (!user.getuPassword().equals(getMd5Apache(j_password)))  {
-                        out.print(getResultGsonString(false, "Неправильно ввели пароль"));
-                        return;
-                    }
-                    HttpSession session = request.getSession(true);
+                    HttpSession session = request.getSession(Boolean.TRUE);
                     session.setAttribute(USER, user);
-                    out.print(getResultGsonString(true, null));
-                } else {
-                    out.print(getResultGsonString(false, "Пользователь " + j_username + " не найден"));
+                    out.print(getResultGsonString(Boolean.TRUE, j_username));
                 }
 
             } catch (Exception e) {
                 logger.error("error", e);
-                out.print(getResultGsonString(false, "Ошибка авторизации"));
+                out.print(getResultGsonString(Boolean.FALSE, "Ошибка авторизации"));
             }
         }
     }
@@ -83,7 +75,7 @@ public class AuthServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            HttpSession session = request.getSession(true);
+            HttpSession session = request.getSession(Boolean.TRUE);
             session.removeAttribute(USER);
             request.logout();
             request.getSession().invalidate();
@@ -92,9 +84,4 @@ public class AuthServlet extends HttpServlet {
             logger.error("error", e);
         }
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }

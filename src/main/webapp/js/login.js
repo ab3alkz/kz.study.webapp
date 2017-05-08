@@ -31,13 +31,10 @@ function loginSubmit(username, password) {
             if (gson) {
                 if (gson.result) {
                     window.location.href = "/study/pages/index.jsp";
-                } else {
-                    alertError(gson.message);
                 }
             }
         },
         error: function () {
-            alertError('Ошибка', 'Ошибка сервера');
         }
     });
 }

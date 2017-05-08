@@ -223,8 +223,6 @@ public class Wrapper {
         return gsonList;
     }
 
-
-
     public static GsonTestType wrapToGsonTestType(TestType obj) {
         if (obj != null) {
             GsonTestType gson = new GsonTestType();

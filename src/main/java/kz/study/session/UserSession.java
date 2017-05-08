@@ -13,6 +13,7 @@ import javax.persistence.Query;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import static kz.study.util.Util.*;
 import static kz.study.wrapper.Serialization.wrapToGsonRegistrationByJsonString;
@@ -41,7 +42,11 @@ public class UserSession {
 
     public Users getUser(String uName) {
         try {
-            return (Users) getSingleResultOrNull(em.createNamedQuery("Users.findByUName").setParameter("uName", uName));
+            Users users = (Users) getSingleResultOrNull(em.createNamedQuery("Users.findByUName").setParameter("uName", uName));
+
+            System.out.println(users.getuPassword());
+
+            return users;
         } catch (Exception e) {
             e.printStackTrace();
         }

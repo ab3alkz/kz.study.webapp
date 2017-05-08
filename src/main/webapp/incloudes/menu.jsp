@@ -45,6 +45,7 @@
                         <li><a href="${contextPath}/pages/A1.jsp" class="classA2"></a></li>
                         <li><a href="${contextPath}/pages/A1.jsp" class="classB1"></a></li>
                         <li><a href="${contextPath}/pages/A1.jsp" class="classB2"></a></li>
+                        <li><a href="${contextPath}/pages/A1.jsp" class="classC1"></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -125,6 +126,7 @@
             document.querySelector('.classA2').innerHTML = getResourceName('a.two.urover');
             document.querySelector('.classB1').innerHTML = getResourceName('b.one.urover');
             document.querySelector('.classB2').innerHTML = getResourceName('b.two.urover');
+            document.querySelector('.classC1').innerHTML = getResourceName('c.one.urover');
         }
     });
 

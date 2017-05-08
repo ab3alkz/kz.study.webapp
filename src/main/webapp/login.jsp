@@ -60,15 +60,6 @@
                     </div>
                     <br>
                     <a data-toggle="collapse" href="#" data-target="#demo">Показать/скрыть пользователей</a>
-
-                    <div id="demo" class="collapse">
-                        <ul>
-                            <li><a onclick="loginSubmit('admin','weblogic1')" href="#">admin</a></li>
-
-                          <%--  <li><a onclick="loginSubmit('kitchen','123456')" href="#">kitchen</a></li>--%>
-
-                        </ul>
-                    </div>
                 </div>
             </div>
         </div>
