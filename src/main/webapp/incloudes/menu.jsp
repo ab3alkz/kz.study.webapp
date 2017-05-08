@@ -58,7 +58,10 @@
                         <li><a onclick="analizeType(4);" class="analizeLexicMenu"></a></li>
                     </ul>
                 </li>
+
+                <li><a href="${contextPath}/pages/adminstrate.jsp"><span>Администрирование</span></a></li>
             </ul>
+
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown light only-icon language-selector ">
                     <a class="dropdown-toggle btn " data-toggle="dropdown" href="#">

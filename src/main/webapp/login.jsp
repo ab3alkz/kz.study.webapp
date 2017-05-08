@@ -59,7 +59,6 @@
                         </button>
                     </div>
                     <br>
-                    <a data-toggle="collapse" href="#" data-target="#demo">Показать/скрыть пользователей</a>
                 </div>
             </div>
         </div>
