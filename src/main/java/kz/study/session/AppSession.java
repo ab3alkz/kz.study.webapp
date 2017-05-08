@@ -273,7 +273,7 @@ public class AppSession extends Utx {
         String[] uAnswerSentenceArr = userAnsw.split("\\.");
         Integer containsSentences = 0;
         for (String dBAnswerSentence : dBAnswerSentenceArr) {
-            if (stringContainsItemFromList(dBAnswerSentence.trim(), uAnswerSentenceArr)) {
+            if (stringContainsItemFromList(dBAnswerSentence, uAnswerSentenceArr)) {
                 containsSentences++;
             }
         }
@@ -283,14 +283,14 @@ public class AppSession extends Utx {
 
         Integer containsWords = 0;
         for (String dBAnswerWord : dBAnswerWordsArr) {
-            if (stringContainsItemFromList(dBAnswerWord.trim(), uAnswerWordsArr)) {
+            if (stringContainsItemFromList(dBAnswerWord, uAnswerWordsArr)) {
                 containsWords++;
             }
         }
 
         return getGsonResult(false,
-                "Совпадение предложений <" + containsSentences + ">  из " + dBAnswerSentenceArr.length + " & " + uAnswerSentenceArr.length +
-                        getNewLine() + " Совпадение слов <" + containsWords + "> из " + dBAnswerWordsArr.length + " & " + uAnswerWordsArr.length);
+                "<p>предложений " + dBAnswerSentenceArr.length + " совпадений <" + containsSentences + ">   из " + uAnswerSentenceArr.length +
+                        getNewLine() + "слов  " + dBAnswerWordsArr.length + " совпадений <" + containsWords + "> из " + uAnswerWordsArr.length+"</p>");
     }
 
     private String getNewLine() {
@@ -299,7 +299,7 @@ public class AppSession extends Utx {
 
     public static boolean stringContainsItemFromList(String inputStr, String[] items) {
         for (int i = 0; i < items.length; i++) {
-            if (inputStr.trim().contains(items[i].trim())) {
+            if (inputStr.trim().toLowerCase().contains(items[i].trim().toLowerCase())) {
                 return true;
             }
         }
