@@ -28,11 +28,13 @@
             height: 200px;
             margin: 0 auto;
         }
-        .cropBtn{
+
+        .cropBtn {
             margin: 10px auto 0 auto;
             width: 250px;
         }
-        .cropit-image-input{
+
+        .cropit-image-input {
             float: left;
             margin-right: 15px;
             width: 113px;
@@ -66,7 +68,8 @@
                 <button data-action="rotate-right" title="Перевернуть (R)" class="rotate-cw">
                     <span class="fa fa-rotate-right"></span>
                 </button>
-                <button style="margin-left: 30px" data-action="rotate-right" title="Сохранить" id="cropBtn" class="export">
+                <button style="margin-left: 30px" data-action="rotate-right" title="Сохранить" id="cropBtn"
+                        class="export">
                     <span class="fa fa-check"></span>
                 </button>
             </div>
@@ -74,19 +77,19 @@
     </div>
 </div>
 <script>
-    $(function() {
+    $(function () {
         $('.image-editor').cropit({
             imageState: {}
         });
 
-        $('.rotate-cw').click(function() {
+        $('.rotate-cw').click(function () {
             $('.image-editor').cropit('rotateCW');
         });
-        $('.rotate-ccw').click(function() {
+        $('.rotate-ccw').click(function () {
             $('.image-editor').cropit('rotateCCW');
         });
 
-        $('.export').click(function() {
+        $('.export').click(function () {
             var imageData = $('.image-editor').cropit('export');
             isLocate(imageData);
         });
@@ -95,14 +98,34 @@
 <script>
     function isLocate(e) {
         $$('cropBtn').disable();
-        get_ajax('/xdoc/ws/profile/uploadUserAva', 'GET', {data: e}, function (gson) {
-            $$('uploadUserPhoto').hide();
-            $$('avaRows').removeView('ava');
-            window.onscroll = null;
-            getProfile();
-            $$('cropBtn').enable();
-            notifyMessage('info', 'Редактирование! ', 'Профиль пользователя загружен');
-        });
+        var itemId = $$('lessonId').getValue();
+        get_ajax('/study/wr/admin/addImgToAudioLessonByPart', 'POST',
+            {
+                audioLink: $$('audioLink').getValue(),
+                audioLessonId: $$('lessonId').getValue(),
+                img: e
+            },
+            function (gson) {
+                $$('uploadUserPhoto').hide();
+                $$('avaRows').removeView('ava');
+                window.onscroll = null;
+                getProfile(itemId);
+                $$('cropBtn').enable();
+                notifyMessage('info', 'Редактирование! ', 'Профиль пользователя загружен');
+            });
+    }
+
+    function getProfile(itemId) {
+        get_ajax('/study/wr/admin/getImageById', 'GET', {id: itemId},
+            function (gson) {
+                var ava;
+                if (gson.ava != null) {
+                    ava = gson.ava;
+                } else {
+                    ava = '/study/plugin/img/ava4.png'
+                }
+                addProfilePhotoBlock(ava);
+            });
     }
 </script>
 </body>

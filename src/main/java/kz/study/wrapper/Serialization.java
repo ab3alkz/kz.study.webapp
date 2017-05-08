@@ -19,7 +19,6 @@ public class Serialization {
         return gson.fromJson(json, GsonUserDetail.class);
     }
 
-
     public static GsonRegistration wrapToGsonRegistrationByJsonString(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, GsonRegistration.class);
@@ -39,9 +38,9 @@ public class Serialization {
         Gson gson = new Gson();
         return gson.fromJson(json, GsonIntelectualQuestion.class);
     }
+
     public static GsonTestType wrapToGsonTestTypeByJsonString(String json) {
         Gson gson = new Gson();
         return gson.fromJson(json, GsonTestType.class);
     }
-
 }

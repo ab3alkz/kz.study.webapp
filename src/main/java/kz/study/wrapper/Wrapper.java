@@ -4,10 +4,14 @@ import kz.study.entity.*;
 import kz.study.gson.*;
 import org.jetbrains.annotations.Contract;
 
+import javax.ws.rs.core.MultivaluedMap;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 import static kz.study.util.DateUtil.dateToString;
+import static kz.study.util.Util.getInscriptionByLang;
+import static kz.study.util.Util.isNullOrEmpty;
 
 
 /**
@@ -169,7 +173,7 @@ public class Wrapper {
     public static List<GsonAllDic> wrapToGsonAudioLessonsList(List<AudioLessons> list) {
         List<GsonAllDic> result = new ArrayList<>();
 
-        for(AudioLessons s :list) {
+        for (AudioLessons s : list) {
             result.add(wrapToGsonAudioLessons(s));
         }
         return result;
@@ -203,6 +207,29 @@ public class Wrapper {
     }
 
 
+    public static GsonAdminValue wrapToGsonAdminValue(MultivaluedMap<String, String> formParams) {
+        if (formParams != null) {
+            GsonAdminValue gson = new GsonAdminValue();
+            if (!isNullOrEmpty(formParams.getFirst("paramId"))) {
+                gson.setParamId(formParams.getFirst("paramId"));
+            }
+            gson.setNameRus(formParams.getFirst("nameRus"));
+            gson.setNameKaz(formParams.getFirst("nameKaz"));
+            gson.setNameLan(formParams.getFirst("nameLan"));
+            gson.setLink(formParams.getFirst("link"));
+            gson.setDescRus(formParams.getFirst("descRus"));
+            gson.setDescKaz(formParams.getFirst("descKaz"));
+            gson.setDescLan(formParams.getFirst("descLan"));
+            gson.setAudioLessonId(formParams.getFirst("audioLessonId"));
+            gson.setImg(formParams.getFirst("img"));
+            gson.setAudioLink(formParams.getFirst("audioLink"));
+
+            return gson;
+        }
+
+        return null;
+    }
+
     public static GsonIntelectualQuestion wrapToGsonIntelectualQuestion(IntelectualQuestion obj) {
         if (obj != null) {
             GsonIntelectualQuestion gson = new GsonIntelectualQuestion();
@@ -219,6 +246,96 @@ public class Wrapper {
         List<GsonIntelectualQuestion> gsonList = new ArrayList<>();
         for (IntelectualQuestion o : list) {
             gsonList.add(wrapToGsonIntelectualQuestion(o));
+        }
+        return gsonList;
+    }
+
+    public static GsonTreeDictionary wrapToGsonTreeDictionary(DLesson obj) {
+        GsonTreeDictionary gson = new GsonTreeDictionary();
+        gson.setId(obj.getId());
+        gson.setNameRus(obj.getNameRus());
+        gson.setNameKaz(obj.getNameKaz());
+        gson.setNameLan(obj.getNameLan());
+        if (obj.getdUroven() != null) {
+            gson.setParentId(obj.getdUroven().getId().toString());
+        }
+        return gson;
+    }
+
+    public static List<GsonTreeDictionary> wrapToGsonDLessonList(List<DLesson> list) {
+        List<GsonTreeDictionary> gsonList = new ArrayList<>();
+        for (DLesson o : list) {
+            gsonList.add(wrapToGsonTreeDictionary(o));
+        }
+        return gsonList;
+    }
+
+    private static GsonAllDic wrapToGsonGsonAllDic(DLesson obj) {
+        GsonAllDic gson = new GsonAllDic();
+        gson.setId(obj.getId());
+        gson.setValue(getInscriptionByLang(obj.getNameRus(), obj.getNameKaz(), obj.getNameLan()));
+        return gson;
+    }
+
+    public static List<GsonAllDic> wrapToGsonAllDicList(List<DLesson> list) {
+        List<GsonAllDic> gsonList = new ArrayList<>();
+        for (DLesson o : list) {
+            gsonList.add(wrapToGsonGsonAllDic(o));
+        }
+        return gsonList;
+    }
+
+    private static GsonAdminValue wrapToDVideoLessonDic(DVideoLesson obj) {
+        GsonAdminValue gson = new GsonAdminValue();
+        gson.setId(obj.getId());
+        gson.setValue(getInscriptionByLang(obj.getNameRus(), obj.getNameKaz(), obj.getNameLan()));
+        gson.setDescValue(getInscriptionByLang(obj.getDescRus(), obj.getDescKaz(), obj.getDescLan()));
+        gson.setLink(obj.getLink());
+        return gson;
+    }
+
+    public static List<GsonAdminValue> wrapToDVideoLessonList(List<DVideoLesson> list) {
+        List<GsonAdminValue> gsonList = new ArrayList<>();
+        for (DVideoLesson o : list) {
+            gsonList.add(wrapToDVideoLessonDic(o));
+        }
+        return gsonList;
+    }
+
+    private static GsonAdminValue wrapToDAudioLessonDic(DAudioLesson obj) {
+        GsonAdminValue gson = new GsonAdminValue();
+        gson.setId(obj.getId());
+        gson.setValue(getInscriptionByLang(obj.getNameRus(), obj.getNameKaz(), obj.getNameLan()));
+        gson.setDescValue(getInscriptionByLang(obj.getDescRus(), obj.getDescKaz(), obj.getDescLan()));
+        gson.setLink(obj.getLink());
+        if (obj.getdAudioLessonImg() != null) {
+            gson.setAudioLink(obj.getdAudioLessonImg().getLink());
+            gson.setImg(new String(obj.getdAudioLessonImg().getImg(), StandardCharsets.UTF_8));
+        }
+        return gson;
+    }
+
+    public static List<GsonAdminValue> wrapToDAudioLessonList(List<DAudioLesson> list) {
+        List<GsonAdminValue> gsonList = new ArrayList<>();
+        for (DAudioLesson o : list) {
+            gsonList.add(wrapToDAudioLessonDic(o));
+        }
+        return gsonList;
+    }
+
+    public static GsonTreeDictionary wrapToGsonTreeDictionary(DUroven obj) {
+        GsonTreeDictionary gson = new GsonTreeDictionary();
+        gson.setId(obj.getId().toString());
+        gson.setNameRus(obj.getNameRus());
+        gson.setNameKaz(obj.getNameKaz());
+        gson.setNameLan(obj.getNameLan());
+        return gson;
+    }
+
+    public static List<GsonTreeDictionary> wrapToGsonDUrovenList(List<DUroven> list) {
+        List<GsonTreeDictionary> gsonList = new ArrayList<>();
+        for (DUroven o : list) {
+            gsonList.add(wrapToGsonTreeDictionary(o));
         }
         return gsonList;
     }

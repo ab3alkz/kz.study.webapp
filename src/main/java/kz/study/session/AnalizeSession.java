@@ -106,7 +106,7 @@ public class AnalizeSession extends Utx {
         return getGsonResult(Boolean.FALSE, null);
     }
 
-    private String getTestStringLatyn(char text) {
+    public static String getTestStringLatyn(char text) {
 
         String newValue = String.valueOf(text);
 

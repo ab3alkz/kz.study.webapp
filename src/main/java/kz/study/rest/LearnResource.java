@@ -62,4 +62,25 @@ public class LearnResource {
     public String getAudioById(@QueryParam("id") final int id) {
         return objectToJson(learnSession.getAudioById(id));
     }
+
+    @GET
+    @Produces("application/json")
+    @Path("getLessonValue")
+    public String getLessonValue(@QueryParam("part") final String part) {
+        return objectToJson(learnSession.getLessonValue(part));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("getVideoFormById")
+    public String getVideoFormById(@QueryParam("param") final String param) {
+        return objectToJson(learnSession.getVideoFormById(param));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("getAudioFormById")
+    public String getAudioFormById(@QueryParam("param") final String param) {
+        return objectToJson(learnSession.getAudioFormById(param));
+    }
 }
