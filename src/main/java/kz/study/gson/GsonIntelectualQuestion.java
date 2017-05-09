@@ -6,7 +6,7 @@ import java.util.List;
  * Created by amanzhol-ak on 23.04.2017.
  */
 public class GsonIntelectualQuestion  {
-    private int id;
+    private String id;
     private String question;
     private String answ;
     private String dbAnsw;
@@ -46,11 +46,11 @@ public class GsonIntelectualQuestion  {
         this.srcId = srcId;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

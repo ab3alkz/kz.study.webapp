@@ -3,13 +3,12 @@ package kz.study.entity;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Created by amanzhol-ak on 23.04.2017.
  */
 @Entity
-@Table(name = "intelectual_question")
+@Table(name = "Intelectual_question")
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "IntelectualQuestion.findAll", query = "SELECT g FROM IntelectualQuestion g "),
@@ -21,7 +20,7 @@ public class IntelectualQuestion implements Serializable {
 
     @Id
     @Column(name = "ID")
-    private int id;
+    private Integer id;
     @Basic
     @Column(name = "QUESTION")
     private String question;
@@ -29,15 +28,14 @@ public class IntelectualQuestion implements Serializable {
     @Column(name = "SRC_ID")
     private Integer srcId;
 
-    @JoinColumn(name = "QUESTION_ID", referencedColumnName = "ID")
-    @OneToMany
-    private List<IntelectualQuestionAnswers> answersList;
+    @Column(name = "ANSWER")
+    private String answer;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -57,18 +55,18 @@ public class IntelectualQuestion implements Serializable {
         this.srcId = srcId;
     }
 
-    public IntelectualQuestion(int id) {
+    public IntelectualQuestion(Integer id) {
         this.id = id;
     }
 
     public IntelectualQuestion() {
     }
 
-    public List<IntelectualQuestionAnswers> getAnswersList() {
-        return answersList;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setAnswersList(List<IntelectualQuestionAnswers> answersList) {
-        this.answersList = answersList;
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }

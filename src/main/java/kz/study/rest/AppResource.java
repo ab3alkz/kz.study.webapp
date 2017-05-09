@@ -126,7 +126,7 @@ public class AppResource {
     @Produces("application/json")
     @Path("getIntellectualGuestions")
     public String getIntellectualGuestions(@QueryParam("srcId") Integer srcId, @QueryParam("start") Integer start, @QueryParam("count") Integer count) {
-        return objectToJson(appSession.getIntellectualGuestions(srcId, start, count));
+        return objectToJson(appSession.getIntellectualGuestionsList(srcId, start, count));
     }
 
     @GET
@@ -143,4 +143,29 @@ public class AppResource {
     public String getDTestTypeList() {
         return objectToJson(appSession.getDTestTypeList());
     }
+
+
+    @GET
+    @Produces("application/json")
+    @Path("getIntellectTestingListById")
+    public String getIntellectTestingListById(@QueryParam("srcId") Integer srcId, @QueryParam("start") Integer start, @QueryParam("count") Integer count) {
+        return objectToJson(appSession.getIntellectTestingListById(srcId, start, count));
+    }
+
+
+    @POST
+    @Produces("application/json")
+    @Path("saveIntellectQuestion")
+    public String saveIntellectQuestion(String json) {
+        return objectToJson(appSession.saveIntellectQuestion(json));
+    }
+
+
+    @GET
+    @Produces("application/json")
+    @Path("removeIntellectualQuestionById")
+    public String removeIntellectualQuestionById(@QueryParam("id") Integer id) {
+        return objectToJson(appSession.removeIntellectualQuestionById(id));
+    }
+
 }

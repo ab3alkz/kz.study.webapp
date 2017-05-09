@@ -256,6 +256,8 @@ function viewTestTypeListWin(gson) {
                                 obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>" + getResourceName("valuation.start") + "</button>";
                                 if (obj.type == 'test') {
                                     obj.editBtn = "<button style='width:40px;'  class='editTesting btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                } else if (obj.type == 'intelectualTest') {
+                                    obj.editBtn = "<button style='width:40px;'  class='editIntelectualTest btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
                                 }
                             }
                         },
@@ -266,10 +268,19 @@ function viewTestTypeListWin(gson) {
                                     startTest(item.row, obj);
                                     $$("viewTestTypeListWin").hide();
                                 }, 100)
-                            }, editTesting: function (e, item, cell) {
+                            },
+                            editTesting: function (e, item, cell) {
                                 setTimeout(function () {
                                     var obj = $$("viewTestTypeListTable").getSelectedItem();
                                     testingAdmin(obj);
+                                    $("#mainContainer").hide();
+                                    $$("viewTestTypeListWin").hide();
+                                }, 100)
+                            },
+                            editIntelectualTest: function (e, item, cell) {
+                                setTimeout(function () {
+                                    var obj = $$("viewTestTypeListTable").getSelectedItem();
+                                    intelectualTestAdmin(obj);
                                     $("#mainContainer").hide();
                                     $$("viewTestTypeListWin").hide();
                                 }, 100)
