@@ -1,12 +1,9 @@
 package kz.study.session;
 
 import com.mysql.jdbc.exceptions.jdbc4.MySQLSyntaxErrorException;
-import kz.study.entity.AlphLinks;
-import kz.study.entity.AudioLessons;
-import kz.study.entity.VideoLessons;
-import kz.study.gson.GsonAllDic;
-import kz.study.gson.GsonDatatableData;
-import kz.study.gson.GsonResult;
+import kz.study.entity.*;
+import kz.study.gson.*;
+import kz.study.lang.Lang;
 import kz.study.util.Utx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,15 +30,64 @@ import static kz.study.wrapper.Wrapper.*;
 @Stateless
 public class LearnSession extends Utx {
 
-
     private static final Logger LOGGER = LoggerFactory.getLogger(LearnSession.class);
+    private static final int PER_DEF_START = 0;
+    private static final int PER_DEF_COUNT = 10;
+    public static Lang language = Lang.valueOf("Ru");
 
     @PersistenceContext(unitName = "study")
     private EntityManager em;
 
+    public GsonResult getLessonValue(String part) {
+        String id = null;
+        switch (part) {
+            case "A1":
+                id = "1";
+                break;
+            case "A2":
+                id = "2";
+                break;
+            case "B1":
+                id = "3";
+                break;
+            case "B2":
+                id = "4";
+                break;
+            case "C1":
+                id = "5";
+                break;
+        }
+        List<GsonAllDic> l =
+                wrapToGsonAllDicList(em.createNamedQuery("DLesson.findByDUrovenId").setParameter("id", new DUroven(id)).getResultList());
+        return getGsonResult(Boolean.TRUE, l);
+    }
 
-    private static final int PER_DEF_START = 0;
-    private static final int PER_DEF_COUNT = 10;
+    public GsonResult getVideoFormById(String param) {
+        try {
+            List<GsonAdminValue> videoLessons =
+                    wrapToDVideoLessonList(em.createNamedQuery("DVideoLesson.findByDUrovenId")
+                            .setParameter("id", new DLesson(param)).getResultList());
+
+            return getGsonResult(Boolean.TRUE, videoLessons);
+        } catch (Exception e) {
+            LOGGER.error("error", e);
+        }
+        return null;
+    }
+
+    public GsonResult getAudioFormById(String id) {
+        try {
+            List<GsonAdminValue> list =
+                    wrapToDAudioLessonList(em.createNamedQuery("DAudioLesson.findByDUrovenId")
+                            .setParameter("id", new DLesson(id)).getResultList());
+            return getGsonResult(Boolean.TRUE, list);
+        } catch (Exception e) {
+            LOGGER.error("error", e);
+        }
+        return null;
+    }
+
+    /*------------------------------------------------------------------------------*/
 
     public GsonResult getAllLeters(final int id) {
         try {

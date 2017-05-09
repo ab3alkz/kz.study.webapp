@@ -3,6 +3,7 @@ package kz.study.util;
 import com.google.gson.Gson;
 import kz.study.gson.GsonResult;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.jetbrains.annotations.NotNull;
 
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
@@ -10,6 +11,9 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static kz.study.session.AnalizeSession.getTestStringLatyn;
+import static kz.study.session.LearnSession.language;
 
 public class Util {
 
@@ -121,6 +125,36 @@ public class Util {
         final String[] units = new String[]{"байт", "КБ", "МБ", "ГБ", "ТБ"};
         int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
         return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+    }
+
+    /**
+     * @param ruName;
+     * @param kzName;
+     * @return string;
+     * @desc Возвращает данные по локализации
+     */
+    public static String getInscriptionByLang(String ruName, String kzName, String lnName) {
+        switch (language) {
+            case Kz:
+                return kzName;
+            case Ru:
+                return ruName;
+            case Ln:
+                return lnName;
+        }
+        return null;
+    }
+
+    @NotNull
+    private static String getLatynValue(String text) {
+        StringBuilder latynTest = new StringBuilder();
+        if (!isNullOrEmpty(text)) {
+            char[] myCharArray = text.toCharArray();
+            for (char c : myCharArray) {
+                latynTest.append(getTestStringLatyn(c));
+            }
+        }
+        return latynTest.toString();
     }
 
     /**
