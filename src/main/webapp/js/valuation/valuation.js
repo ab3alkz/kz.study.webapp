@@ -870,3 +870,47 @@ function saveTestType() {
 }
 
 
+
+
+function showAppProgress() {
+    if (!$$("mainprogress"))
+        createMainProgress();
+
+    $$("mainprogress").show();
+    $$("mainprogress").showProgress({
+        position: 0,
+        delay: 30000,
+        type: "icon",
+        icon: "refresh"
+    });
+}
+
+
+
+function hideAppProgress() {
+    if ($$("mainprogress")) {
+        $$("mainprogress").hideProgress();
+        $$("mainprogress").hide();
+    }
+}
+
+function createMainProgress() {
+    var cont_h = $(window).height();
+    var mainprogress = webix.ui({
+        id: "mainprogress",
+        css: "mainprogress",
+        autowidth: true,
+        autoheight: true,
+        hidden: true,
+        container: "mainprogress",
+        rows: [
+            {
+                height: cont_h
+            }
+        ]
+    });
+    webix.event(window, "resize", function () {
+        mainprogress.adjust();
+    });
+    webix.extend($$("mainprogress"), webix.ProgressBar);
+}

@@ -303,7 +303,10 @@ public class AppSession extends Utx {
             }
         }
 
-        float result = 100 / allEq * trueIdxCnt;
+        float result = 0;
+        if (allEq > 0) {
+            result = 100 / allEq * trueIdxCnt;
+        }
         String resultStr = "";
         if (result > 80) {
             resultStr = "<h1 style='color:green;'>Дұрыс</h1>";
@@ -312,11 +315,11 @@ public class AppSession extends Utx {
         }
         return "Совпадение слов " + containsWords + " из " + userWordsArr.length + " (" + dbWordsArr.length + ")"
                 + getNewLine()
-                + " allEq=" + allEq
-                + " true=" + trueIdxCnt
-                + " false=" + (allEq - trueIdxCnt)
+                + " allEq =" + allEq
+                + " true =" + trueIdxCnt
+                + " false =" + (allEq - trueIdxCnt)
                 + getNewLine()
-                + " result=" + result
+                + " result =" + result
                 + getNewLine()
                 + resultStr;
 

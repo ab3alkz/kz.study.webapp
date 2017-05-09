@@ -767,3 +767,7 @@ ul.change-lang li a {
 ul.change-lang li a {
     margin: 2px 5px  0;
 }
+#mainprogress .webix_view {
+    background: rgb(255, 255, 255);
+    background: rgba(255, 255, 255, 0.3);
+}
