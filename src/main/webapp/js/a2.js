@@ -47,15 +47,17 @@ function getLessonValue() {
 }
 
 function addVideoViewByID() {
+    $$("mainlayot").removeView('videocontent');
+    $$("mainlayot").removeView('grammarContent');
+    $$("mainlayot").removeView('audioContent');
     get_ajax('/study/wr/lrn/getVideoFormById', 'GET', {param: getLocalStorage("btnParam")}, function (gson) {
         if (!gson || !gson.result) {
             notifyMessage('Ошибка! ', gson.message, notifyType.danger);
             return;
         }
-        $$("mainlayot").removeView('content');
         gson.message.forEach(function (e) {
             $$("mainlayot").addView({
-                id: "content",
+                id: "videocontent",
                 css: 'boxLetter',
                 rows: [
                     {
@@ -63,6 +65,7 @@ function addVideoViewByID() {
                             {},
                             {
                                 view: 'label',
+                                css: 'mainAnalizeTitle',
                                 label: e.value
                             },
                             {}
@@ -90,15 +93,17 @@ function addVideoViewByID() {
 }
 
 function addAudioViewByID() {
+    $$("mainlayot").removeView('videocontent');
+    $$("mainlayot").removeView('grammarContent');
+    $$("mainlayot").removeView('audioContent');
     get_ajax('/study/wr/lrn/getAudioFormById', 'GET', {param: getLocalStorage("btnParam")}, function (gson) {
         if (!gson || !gson.result) {
             notifyMessage('Ошибка! ', gson.message, notifyType.danger);
             return;
         }
-        $$("mainlayot").removeView('content');
         gson.message.forEach(function (e) {
             $$("mainlayot").addView({
-                id: "content",
+                id: "audioContent",
                 css: 'boxLetter',
                 rows: [
                     {
@@ -106,6 +111,7 @@ function addAudioViewByID() {
                             {},
                             {
                                 view: 'label',
+                                css: 'mainAnalizeTitle',
                                 label: e.value
                             },
                             {}
@@ -135,6 +141,48 @@ function addAudioViewByID() {
                             }
                         ]
                     }
+                ]
+            });
+        })
+    });
+}
+
+function addGrammarViewByID() {
+    $$("mainlayot").removeView('videocontent');
+    $$("mainlayot").removeView('grammarContent');
+    $$("mainlayot").removeView('audioContent');
+    get_ajax('/study/wr/lrn/getGrammarFormById', 'GET', {param: getLocalStorage("btnParam")}, function (gson) {
+        if (!gson || !gson.result) {
+            notifyMessage('Ошибка! ', gson.message, notifyType.danger);
+            return;
+        }
+        gson.message.forEach(function (e) {
+            $$("mainlayot").addView({
+                id: "grammarContent",
+                css: 'boxLetter',
+                rows: [
+                    {
+                        height: 60,
+                        cols: [
+                            {},
+                            {
+                                view: 'label',
+                                css: 'mainAnalizeTitle',
+                                template: e.value
+                            },
+                            {}
+                        ]
+                    },
+                    {height: 10},
+                    {
+                        cols: [
+                            {
+                                view: 'label',
+                                template: e.descValue
+                            }
+                        ]
+                    },
+                    {height: 80},
                 ]
             });
         })

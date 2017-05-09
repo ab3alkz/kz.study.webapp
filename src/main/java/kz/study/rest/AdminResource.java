@@ -62,6 +62,14 @@ public class AdminResource {
     }
 
     @POST
+    @Produces("application/json")
+    @Path("addGrammarLessonByPart")
+    public String addGrammarLessonByPart(MultivaluedMap<String, String> formParams) {
+        GsonAdminValue gson = wrapToGsonAdminValue(formParams);
+        return objectToJson(adminSession.addGrammarLessonByPart(gson));
+    }
+
+    @POST
     @Path("addImgToAudioLessonByPart")
     @Produces("image/jpeg")
     public Response uploadUserAva(MultivaluedMap<String, String> formParams) {
@@ -76,5 +84,20 @@ public class AdminResource {
     @Path("getImageById")
     public String getImageById(@QueryParam("id") String id) {
         return objectToJson(adminSession.getImageById(id));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("editAdmin")
+    public String editAdmin(@QueryParam("param") String param) {
+        return objectToJson(adminSession.editAdmin(param));
+    }
+
+    @POST
+    @Produces("application/json")
+    @Path("addDataAntOrSynonym")
+    public String addDataAntOrSynonym(MultivaluedMap<String, String> formParams) {
+        GsonAdminValue gson = wrapToGsonAdminValue(formParams);
+        return objectToJson(adminSession.addDataAntOrSynonym(gson));
     }
 }

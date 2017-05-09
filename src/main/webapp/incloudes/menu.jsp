@@ -41,11 +41,11 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span class="lessonsMenu"></span><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="${contextPath}/pages/A1.jsp" class="classA1"></a></li>
+                        <li><a onclick="setLocalStorage('part', 'A1')" href="${contextPath}/pages/A2.jsp" class="classA1"></a></li>
                         <li><a onclick="setLocalStorage('part', 'A2')" href="${contextPath}/pages/A2.jsp" class="classA2"></a></li>
-                        <li><a href="${contextPath}/pages/A1.jsp" class="classB1"></a></li>
-                        <li><a href="${contextPath}/pages/A1.jsp" class="classB2"></a></li>
-                        <li><a href="${contextPath}/pages/A1.jsp" class="classC1"></a></li>
+                        <li><a onclick="setLocalStorage('part', 'B1')" href="${contextPath}/pages/A2.jsp" class="classB1"></a></li>
+                        <li><a onclick="setLocalStorage('part', 'B2')" href="${contextPath}/pages/A2.jsp" class="classB2"></a></li>
+                        <li><a onclick="setLocalStorage('part', 'C1')" href="${contextPath}/pages/A2.jsp" class="classC1"></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">

@@ -83,4 +83,11 @@ public class LearnResource {
     public String getAudioFormById(@QueryParam("param") final String param) {
         return objectToJson(learnSession.getAudioFormById(param));
     }
+
+    @GET
+    @Produces("application/json")
+    @Path("getGrammarFormById")
+    public String getGrammarFormById(@QueryParam("param") final String param) {
+        return objectToJson(learnSession.getGrammarFormById(param));
+    }
 }

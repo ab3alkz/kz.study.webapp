@@ -32,7 +32,7 @@
     <div class="panel panel-default">
         <div id="btnBlog" style="visibility: hidden; margin: 0 auto">
             <button type="button" class="btn btn-info btnWidth videoBtn" onclick="addVideoViewByID()"></button>
-            <button type="button" class="btn btn-warning btnWidth grammarBtn" onclick="addGrammarViewById()"></button>
+            <button type="button" class="btn btn-warning btnWidth grammarBtn" onclick="addGrammarViewByID()"></button>
             <button type="button" class="btn btnWidth classA1_10 audioBtn" onclick="addAudioViewByID()"></button>
         </div>
         <div class="panel-body">
