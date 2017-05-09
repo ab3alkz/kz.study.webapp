@@ -173,21 +173,20 @@ function addDataAntOrSynonym(param) {
 }
 
 function editOrDropFunction(paramId) {
-    $$('addSomeThink').removeView('editContent');
+    remove();
+    var k = 0;
     if (!isNullOrEmpty(paramId)) {
         get_ajax('/study/wr/admin/editAdmin', 'GET', {param: paramId}, function (gson) {
             if (gson && !gson.result) {
                 notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
             } else {
-                $$('addSomeThink').removeView('editContent');
-                $$('addSomeThink').removeView('btnView');
-                $$('addSomeThink').removeView('videoMain');
-                $$('addSomeThink').removeView('lessonView');
-                $$('addSomeThink').removeView('audioMain');
+                for (var i = 0; i <= gson.message.length; i++) {
+                    $$('addSomeThink').removeView('editContent' + i);
+                }
                 gson.message.forEach(function (e) {
                     $$('addSomeThink').addView(
                         {
-                            id: 'editContent',
+                            id: 'editContent' + k,
                             rows: [
                                 {
                                     view: 'label',
@@ -220,6 +219,7 @@ function editOrDropFunction(paramId) {
                             ]
                         }
                     );
+                    k++;
                 });
             }
         });
