@@ -444,7 +444,9 @@ function saveIntellectQuestion() {
         return;
     }
     var strJson = JSON.stringify(form.getValues(), null, 1);
+    showAppProgress();
     get_ajax('/study/wr/app/saveIntellectQuestion', 'POST', strJson, function (gson) {
+            hideAppProgress();
             if (gson && gson.result) {
                 $$("iTestingAdminTable").parse(gson.message);
                 $$("editIQuestionWin").hide();
@@ -453,6 +455,7 @@ function saveIntellectQuestion() {
                 messageBox("Ошибка", gson.message);
             }
         }, function (url) {
+            hideAppProgress();
             messageBox("Ошибка", "Ошибка службы " + ' ' + url);
         }
     );

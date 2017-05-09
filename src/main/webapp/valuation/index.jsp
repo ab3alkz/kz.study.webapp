@@ -100,6 +100,9 @@
         </div>
     </div>
 </div>
+<div style="position: fixed;bottom: 0; width: 100%;z-index: 9999999">
+    <div id="mainprogress"></div>
+</div>
 </body>
 </html>
 <script>
