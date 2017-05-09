@@ -13,7 +13,6 @@ import javax.persistence.Query;
 import javax.ws.rs.core.MultivaluedMap;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static kz.study.util.Util.*;
 import static kz.study.wrapper.Serialization.wrapToGsonRegistrationByJsonString;
@@ -138,4 +137,6 @@ public class UserSession {
             return getGsonResult(false, e.toString());
         }
     }
+
+
 }

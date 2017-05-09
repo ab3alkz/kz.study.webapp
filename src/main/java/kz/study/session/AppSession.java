@@ -214,7 +214,7 @@ public class AppSession extends Utx {
         }
     }
 
-    public List<GsonIntelectualQuestion> getIntellectualGuestions(Integer srcId, Integer start, Integer count) {
+    public List<GsonIntelectualQuestion> getIntellectualGuestionsList(Integer srcId, Integer start, Integer count) {
         if (start == null) start = 0;
         if (count == null) count = start + 20;
         return wrapToGsonIntelectualQuestionList(
@@ -229,18 +229,17 @@ public class AppSession extends Utx {
         try {
             for (GsonIntelectualQuestion obj : gson.getData()) {
                 String userAnsw = obj.getAnsw();
-                IntelectualQuestionAnswers answerDB = (IntelectualQuestionAnswers)
-                        getSingleResultOrNull(em.createNamedQuery("IntelectualQuestionAnswers.findByQuestionId")
-                                .setParameter("questionId", obj.getId()));
-                if (answerDB == null || isNullOrEmpty(answerDB.getAnswer())) {
+                String answerDB = obj.getDbAnsw();
+
+                if (isNullOrEmpty(answerDB)) {
                     obj.setDbAnsw("деректер қорында жауап берілмеген");
                 } else {
 
-                    obj.setDbAnsw(answerDB.getAnswer());
-                    if(isNullOrEmpty(userAnsw)) {
-                        obj.setResult(getGsonResult(false,"Сіз жауап бермедіңіз"));
-                    }else {
-                        obj.setResult(isIntelectualQuestionValidate(userAnsw, answerDB.getAnswer()));
+                    obj.setDbAnsw(answerDB);
+                    if (isNullOrEmpty(userAnsw)) {
+                        obj.setResult(getGsonResult(false, "Сіз жауап бермедіңіз"));
+                    } else {
+                        obj.setResult(isIntelectualQuestionValidate(userAnsw, answerDB));
                     }
                 }
 
@@ -254,63 +253,179 @@ public class AppSession extends Utx {
     }
 
     private GsonResult isIntelectualQuestionValidate(String userAnsw, String dBAnswer) throws Exception {
+
         userAnsw = getReplaceSpecialChars(userAnsw);
         dBAnswer = getReplaceSpecialChars(dBAnswer);
-        userAnsw = userAnsw.trim();
-        dBAnswer = dBAnswer.trim();
 
         if (isNullOrEmpty(dBAnswer)) {
-            return getGsonResult(false, getGsonResult(false, "Деректер қорында жауап жазылмаған"));
+            return getGsonResult(false, "Деректер қорында жауап жазылмаған");
         }
         if (isNullOrEmpty(userAnsw)) {
-            return getGsonResult(false, getGsonResult(true, 0));
+            return getGsonResult(false, 0);
         }
         if (userAnsw.equals(dBAnswer)) {
-            return getGsonResult(true, getGsonResult(true, 100));
+            return getGsonResult(true, 100);
         }
 
-        String[] dBAnswerSentenceArr = dBAnswer.split("\\.");
-        String[] uAnswerSentenceArr = userAnsw.split("\\.");
-        Integer containsSentences = 0;
-        for (String dBAnswerSentence : dBAnswerSentenceArr) {
-            if (stringContainsItemFromList(dBAnswerSentence, uAnswerSentenceArr)) {
-                containsSentences++;
-            }
-        }
-        String[] dBAnswerWordsArr = dBAnswer.split(" ");
-        String[] uAnswerWordsArr = userAnsw.split(" ");
+        String userFirstFormSentence = getFirstFormString(userAnsw);
+        String dbFirstFormSentence = getFirstFormString(dBAnswer);
 
+
+        String vs = validateStrings(userFirstFormSentence, dbFirstFormSentence);
+        //return getGsonResult(true, vs);
+        return getGsonResult(true, userFirstFormSentence + getNewLine() + getNewLine() + dbFirstFormSentence + getNewLine() + vs);
+    }
+
+
+    private String validateStrings(String userFirstFormSentence, String dbFirstFormSentence) {
+        String[] userWordsArr = userFirstFormSentence.toLowerCase().split(" ");
+        String[] dbWordsArr = dbFirstFormSentence.toLowerCase().split(" ");
 
         Integer containsWords = 0;
-        for (String dBAnswerWord : dBAnswerWordsArr) {
-            if (stringContainsItemFromList(dBAnswerWord, uAnswerWordsArr)) {
+        for (String dBAnswerWord : dbWordsArr) {
+            if (stringContainsItemFromList(dBAnswerWord, userWordsArr)) {
                 containsWords++;
             }
         }
 
-        return getGsonResult(false,
-                "предложений " + dBAnswerSentenceArr.length + " совпадений <" + containsSentences + ">   из " + uAnswerSentenceArr.length +
-                        getNewLine() + "слов  " + dBAnswerWordsArr.length + " совпадений <" + containsWords + "> из " + uAnswerWordsArr.length);
+        Integer allEq = 0;
+        Integer trueIdxCnt = 0;
+        Integer lastDBIdx = -1;
+
+        for (String word : userWordsArr) {
+            Integer dbWordIdx = getIndexInArray(dbWordsArr, word);
+            if (dbWordIdx > 0) {
+                allEq++;
+                if (dbWordIdx > lastDBIdx) {
+                    lastDBIdx = dbWordIdx;
+                    trueIdxCnt++;
+                }
+            }
+        }
+
+        float result = 100 / allEq * trueIdxCnt;
+        String resultStr = "";
+        if (result > 80) {
+            resultStr = "<h1 style='color:green;'>Дұрыс</h1>";
+        } else {
+            resultStr = "<h1 style='color:red;'>Дұрыс емес</h1>";
+        }
+        return "Совпадение слов " + containsWords + " из " + userWordsArr.length + " (" + dbWordsArr.length + ")"
+                + getNewLine()
+                + " allEq=" + allEq
+                + " true=" + trueIdxCnt
+                + " false=" + (allEq - trueIdxCnt)
+                + getNewLine()
+                + " result=" + result
+                + getNewLine()
+                + resultStr;
+
     }
 
-    private String getNewLine() {
-        return "<br />";
+    private Integer getIndexInArray(String[] arr, String word) {
+        int index = -1;
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals(word)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 
-    public static boolean stringContainsItemFromList(String inputStr, String[] items) {
+    public boolean stringContainsItemFromList(String inputStr, String[] items) {
         for (int i = 0; i < items.length; i++) {
-            if (inputStr.trim().toLowerCase().contains(items[i].trim().toLowerCase())) {
+            if (isStringEqualsString(inputStr, items[i])) {
                 return true;
             }
         }
         return false;
     }
 
+    private String getFirstFormString(String str) {
+        StringBuilder sb = new StringBuilder();
+        String[] arr = str.split(" ");
+        for (String word : arr) {
+            if (sb.length() > 0) {
+                sb.append(" ");
+            }
+            sb.append(getWordByRemoveEnding(word));
+        }
+        return sb.toString();
+    }
+
+    private String getNewLine() {
+        return "<br />";
+    }
+
+
+    private List<String> allEndingList = null;
+
+    private String getWordByRemoveEnding(String str) {
+        if (isNullOrEmpty(str) || str.contains(" ")) {
+            return str;
+        }
+
+        if (allEndingList == null) {
+            allEndingList = getFullEndingList();
+        }
+
+        String str2 = removeEdingByEndingList(allEndingList, str);
+        if (!str.equals(str2)) {
+            str = str2;
+        }
+
+        return str;
+    }
+
+    private String removeEdingByEndingList(List<String> list, String str) {
+        if (list != null) {
+            for (String ending : list) {
+                if (isStringContainsEnding(str, ending)) {
+                    String str2 = str.toLowerCase().replace(ending.toLowerCase(), "");
+                    if (str2.length() > 2) {
+                        return str2;
+                    }
+                    return str;
+                }
+            }
+        }
+        return str;
+    }
+
+    private static boolean isStringContainsEnding(String lStr, String rStr) {
+        if (isNullOrEmpty(lStr) || isNullOrEmpty(rStr)) {
+            return false;
+        }
+        lStr = lStr + ".";
+        rStr = rStr + ".";
+        return lStr.trim().toLowerCase().contains(rStr.trim().toLowerCase());
+    }
+
+    private static boolean isStringEqualsString(String lStr, String rStr) {
+        if (isNullOrEmpty(lStr) || isNullOrEmpty(rStr)) {
+            return false;
+        }
+        return lStr.trim().toLowerCase().equals(rStr.trim().toLowerCase());
+    }
+
     private String getReplaceSpecialChars(String str) {
         return str
-                .replace("                    ", " ")
-                .replace("                   ", " ")
-                .replace("                  ", " ")
+                .replace("\n", " ")
+                .replace("-", " ")
+                .replace(".", " ")
+                .replace(",", " ")
+                .replace("?", " ")
+                .replace("!", " ")
+                .replace("<", " ")
+                .replace(">", " ")
+                .replace("'", " ")
+                .replace("\"", " ")
+                .replace("/", " ")
+                .replace("+", " ")
+                .replace("\n", " ")
+                .replace("*", " ")
+                .replace("`", " ")
                 .replace("                 ", " ")
                 .replace("                ", " ")
                 .replace("               ", " ")
@@ -332,30 +447,71 @@ public class AppSession extends Utx {
                 .replace("  ", " ")
                 .replace("  ", " ")
                 .replace("  ", " ")
-                .replace("-", "")
-                .replace("...", ".")
-                .replace("..", ".")
-                .replace(",,", ",")
-                .replace(", ", ",")
-                .replace("???", "?")
-                .replace("??", "?")
-                .replace("!!!", "!")
-                .replace("!!", "!")
-                .replace("<", "")
-                .replace(">", "")
-                .replace("'", "")
-                .replace("\"", "")
-                .replace("/", "")
-                .replace("+", "")
-                .replace("\n", "")
-                .replace("*", "")
-                .replace("`", "")
-                .replace("`", "");
+                .trim();
 
     }
 
 
     public List<DTestType> getDTestTypeList() {
         return em.createNamedQuery("DTestType.findAll").getResultList();
+    }
+
+
+    public List<String> getFullEndingList() {
+        return em.createNativeQuery(" SELECT e.value  FROM (\n" +
+                "         SELECT e.value, length(e.value) l FROM All_Ending e\n" +
+                "         UNION\n" +
+                "         SELECT e.value, length(e.value) l FROM D_Case_Ending e\n" +
+                "         UNION\n" +
+                "         SELECT e.value, length(e.value) + 10 l FROM Other_Ending e\n" +
+                "         UNION\n" +
+                "         SELECT e.value, length(e.value) l FROM All_Suffixes e\n" +
+                "       ) e\n" +
+                "  ORDER BY l DESC ").getResultList();
+    }
+
+
+    public GsonDatatableData getIntellectTestingListById(Integer srcId, Integer start, Integer count) {
+        if (start == null) start = 0;
+        if (count == null) count = start + 10;
+        GsonDatatableData data = new GsonDatatableData();
+        data.setData(getIntellectualGuestionsList(srcId, start, count));
+        data.setPos(start);
+        data.setTotal_count(getIntellectualQuestionsCount(srcId).intValue());
+        return data;
+    }
+
+
+    public Long getIntellectualQuestionsCount(Integer srcId) {
+        return (Long) getSingleResultOrNull(em.createQuery("SELECT count(g) FROM IntelectualQuestion g WHERE g.srcId = :srcId").setParameter("srcId", srcId));
+    }
+
+
+    public GsonResult saveIntellectQuestion(String json) {
+        try {
+            GsonIntelectualQuestion gson = wrapToGsonIntelectualQuestionByJsonString(json);
+            IntelectualQuestion questions = new IntelectualQuestion();
+            questions.setQuestion(gson.getQuestion());
+            questions.setSrcId(gson.getSrcId());
+            questions.setAnswer(gson.getDbAnsw());
+
+            if (isNullOrEmpty(gson.getId())) {
+                questions.setId(getSequenceNextVal());
+                gson.setId(questions.getId().toString());
+            } else {
+                questions.setId(Integer.parseInt(gson.getId()));
+            }
+            em.merge(questions);
+            return getGsonResult(true, gson);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getGsonResult(false, e.toString());
+        }
+    }
+
+    public GsonResult removeIntellectualQuestionById(Integer id) {
+        Query q = em.createQuery("delete  FROM IntelectualQuestion g WHERE g.id = :id").setParameter("id", id);
+        q.executeUpdate();
+        return getGsonResult(true, null);
     }
 }

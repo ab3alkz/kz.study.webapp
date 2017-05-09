@@ -239,7 +239,9 @@ public class Wrapper {
             GsonIntelectualQuestion gson = new GsonIntelectualQuestion();
             gson.setQuestion(obj.getQuestion());
             gson.setSrcId(obj.getSrcId());
-            gson.setId(obj.getId());
+            gson.setId(obj.getId().toString());
+            gson.setDbAnsw(obj.getAnswer());
+
             return gson;
         }
 

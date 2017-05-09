@@ -71,10 +71,10 @@ function createIntellectTempl() {
     }
 
     $$("answTextarea").setValue(nvl(obj.answ, ""));
-    if (obj.dbAnsw) {
+    if (testFinish) {
         $$("dbAnswTextarea").show();
         $$("trueanswer").show();
-        $$("dbAnswTextarea").setValue(obj.dbAnsw);
+        $$("dbAnswTextarea").setValue(nvl(obj.dbAnsw, ""));
     } else {
         $$("dbAnswTextarea").hide();
         $$("trueanswer").hide();
@@ -86,7 +86,7 @@ function createIntellectTempl() {
             width: 900,
             autoheight: true,
             id: "iQuestionResult",
-            template: "<h5>"+obj.result.message+"</h5>"
+            template: "<h5>" + obj.result.message + "</h5>"
         });
 
     }
@@ -189,13 +189,12 @@ function finishIntellectTesting() {
 
     var json = {};
     json.data = testData;
-    console.log(json);
     setGameResult(0, json,
         function (gson) {
             if (gson.result) {
                 testData = gson.message.data;
                 console.log(gson.message.data);
-                intellectQPagingClick(null, activeQuestionIdx)
+                createIntellectTempl()
                 // messageBox(getResourceName("valuation.answer"), gson.message.message);
             } else {
 
@@ -204,4 +203,270 @@ function finishIntellectTesting() {
         }
     );
     intellectQPagingClick(0);
+}
+
+function intelectualTestAdmin(item) {
+
+
+    $('#gameResultContainerWrapper').hide();
+    $('#userInfo').hide();
+
+    $('.mainwrapper').removeClass(' top80px');
+    $('.mainwrapper').addClass(' top20px');
+    webix.ui({
+        id: "testsContainerAdmin",
+        container: "testsContainerAdmin",
+        rows: [
+            {
+                cols: [
+
+                    {
+                        view: "label",
+                        label: item.name
+                    },
+                    {
+                        height: 50,
+                        width: 155,
+                        css: "noBorder",
+                        template: "<button onclick='editIntellectualQuestion({srcId:" + item.id + "})' style='width: 145px;'  class='btn btn-success'>жаңа сұрақ қосу</button>"
+                    }
+                ]
+            },
+            {
+                view: "datatable",
+                css: "appTable",
+                id: "iTestingAdminTable",
+                scroll: false,
+                header: false,
+                footer: false,
+                minHeight: 400,
+                autoheight: true,
+                url: "/study/wr/app/getIntellectTestingListById?srcId=" + item.id,
+                rowHeight: 45,
+                select: 'row',
+                columns: [
+                    {id: "index", header: "№пп", width: 60},
+                    {
+                        id: "question",
+                        fillspace: 1
+                    },
+                    {id: "editBtn", header: " ", width: 60},
+                    {id: "removBtn", header: " ", width: 60},
+                ],
+                pager: {
+                    container: "testsContainerAdminPaging",
+                    size: 10,
+                    group: 15
+                },
+                scheme: {
+                    $init: function (obj) {
+                        obj.editBtn = "<button style='width:40px;'  class='editITestQuestion btn btn-primary'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                        obj.removBtn = "<button style='width:40px;'  class='removeITestQuestion btn btn-danger'><i class=\" fa fa-trash\" aria-hidden=\"true\"></i></button>";
+
+                    }
+                },
+                onClick: {
+                    editITestQuestion: function (e, item, cell) {
+                        setTimeout(function () {
+                            var obj = $$("iTestingAdminTable").getSelectedItem();
+                            editIntellectualQuestion(obj);
+                        }, 100)
+                    },
+                    removeITestQuestion: function (e, item, cell) {
+                        setTimeout(function () {
+                            removeIntellectualQuestion(item.row);
+                        }, 100)
+                    }
+                },
+                on: {
+
+                    "data->onStoreUpdated": function () {
+                        this.data.each(function (obj, i) {
+                            if (!obj) obj = {};
+                            if (!obj.index) obj.index = 0;
+                            obj.index = i + 1;
+                        })
+                    }
+                }
+            },
+            {
+                view: "template",
+                height: 50,
+                content: "testsContainerAdminPaging"
+            }
+        ]
+    })
+}
+
+
+function editIntellectualQuestion(item) {
+
+    if (!$$('editIQuestionWin')) {
+        webix.ui({
+            view: "window",
+            id: "editIQuestionWin",
+            modal: true,
+            on: {
+                onHide: function () {
+                    window.onscroll = null;
+                }
+            },
+            position: "center",
+            width: 700,
+            head: {
+                cols: [
+                    {width: 10},
+                    {view: "label", id: "editIQuestionLabel", label: "Сұрақты өзгерту"},
+                    {view: "label", id: "addIQuestionLabel", label: "Жаңа сұрақ қосу"},
+                    {
+                        borderless: true,
+                        view: "toolbar",
+                        paddingY: 2,
+                        height: 40,
+                        cols: [
+                            {
+                                view: "icon", icon: " fa fa-times", css: "buttonIcon",
+                                click: function () {
+                                    this.getTopParentView().close();
+                                    window.onscroll = null;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            body: {
+                rows: [
+                    {
+                        view: "tabbar",
+                        viewResultDocCount: 0,
+                        on: {
+                            onChange: function (newV, oldV) {
+
+                            }
+                        },
+                        id: "editIQuestionTabbar", value: 'main', multiview: true,
+                        options: [
+                            {value: "Басты", id: 'main', width: 130}
+                        ]
+                    }, {height: 10},
+                    {
+                        width: 800,
+                        cells: [
+                            {
+                                width: 130,
+                                id: 'main',
+                                rows: [{
+                                    id: "editIQuestionWinForm",
+                                    view: "form",
+                                    width: 700,
+                                    elementsConfig: {
+                                        labelPosition: "left",
+                                        labelAlign: "left",
+                                        inputWidth: 660,
+                                        labelWidth: 100
+                                    },
+                                    elements: [
+                                        {
+                                            view: "text",
+                                            name: "id",
+                                            required: true,
+                                            hidden: true
+                                        },
+                                        {
+                                            view: "text",
+                                            name: "srcId",
+                                            required: true,
+                                            hidden: true
+                                        },
+                                        {
+                                            view: "text",
+                                            name: "question",
+                                            label: "Сұрақ",
+                                            required: true
+                                        },
+                                        {
+                                            view: "label",
+                                            id: "trueanswer",
+                                            label: "<b>" + getResourceName("valuation.answer") + ":</b>"
+                                        },
+                                        {
+                                            id: "answTextarea",
+                                            view: 'textarea',
+                                            name: "dbAnsw",
+                                            height: 140
+                                        }
+                                    ]
+                                }]
+                            }
+                        ]
+                    },
+                    {
+                        height: 20
+                    }, {
+                        cols: [
+                            {
+                                width: 20
+                            },
+                            {
+                                height: 50,
+                                width: 155,
+                                css: "noBorder",
+                                template: "<button onclick='saveIntellectQuestion()' style='width: 145px;'  class='btn btn-success'>Сақтау</button>"
+                            }
+                        ]
+                    },
+                    {
+                        height: 20
+                    }
+                ]
+            }
+        }).hide();
+    }
+    if (item.id) {
+        $$("editIQuestionLabel").show();
+        $$("addIQuestionLabel").hide();
+    } else {
+        $$("editIQuestionLabel").hide();
+        $$("addIQuestionLabel").show();
+    }
+    $$("editIQuestionWinForm").parse(item);
+    $$('editIQuestionWin').show(false, false);
+    var y = window.scrollY;
+    window.onscroll = function () {
+        window.scrollTo(0, y);
+    };
+}
+
+function saveIntellectQuestion() {
+    var form = $$("editIQuestionWinForm");
+    if (!form.validate()) {
+        return;
+    }
+    var strJson = JSON.stringify(form.getValues(), null, 1);
+    get_ajax('/study/wr/app/saveIntellectQuestion', 'POST', strJson, function (gson) {
+            if (gson && gson.result) {
+                $$("iTestingAdminTable").parse(gson.message);
+                $$("editIQuestionWin").hide();
+                notifyMessage("Инфо", "Сұрақ сақталды", notifyType.success);
+            } else {
+                messageBox("Ошибка", gson.message);
+            }
+        }, function (url) {
+            messageBox("Ошибка", "Ошибка службы " + ' ' + url);
+        }
+    );
+}
+
+
+function removeIntellectualQuestion(id) {
+    get_ajax('/study/wr/app/removeIntellectualQuestionById?id=' + id, 'GET', null, function (gson) {
+        if (gson && gson.result) {
+            $$("iTestingAdminTable").remove(id);
+        } else {
+            messageBox("Ошибка", gson.message);
+        }
+    }, function (url) {
+        messageBox("Ошибка", "Ошибка службы " + ' ' + url);
+    });
 }
