@@ -11,4 +11,11 @@
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties/>
     </persistence-unit>
+    <persistence-unit name="armaSecond" transaction-type="JTA">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <jta-data-source>jdbc/armaSecond</jta-data-source>
+        <class>kz.study.entity.DAntonym</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties/>
+    </persistence-unit>
 </persistence>

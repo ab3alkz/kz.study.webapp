@@ -87,6 +87,18 @@ public class LearnSession extends Utx {
         return null;
     }
 
+    public GsonResult getGrammarFormById(String id) {
+        try {
+            List<GsonAdminValue> list =
+                    wrapToDGrammarLessonList(em.createNamedQuery("DGrammarLesson.findByDUrovenId")
+                            .setParameter("id", new DLesson(id)).getResultList());
+            return getGsonResult(Boolean.TRUE, list);
+        } catch (Exception e) {
+            LOGGER.error("error", e);
+        }
+        return null;
+    }
+
     /*------------------------------------------------------------------------------*/
 
     public GsonResult getAllLeters(final int id) {

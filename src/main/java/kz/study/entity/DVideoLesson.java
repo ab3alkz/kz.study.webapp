@@ -44,6 +44,10 @@ public class DVideoLesson implements Serializable {
     public DVideoLesson() {
     }
 
+    public DVideoLesson(String id) {
+        this.id = id;
+    }
+
     public DVideoLesson(String id, String nameRus, String nameKaz, String nameLan, String link, String descRus, String descKaz, String descLan, DLesson dLesson) {
         this.id = id;
         this.nameRus = nameRus;

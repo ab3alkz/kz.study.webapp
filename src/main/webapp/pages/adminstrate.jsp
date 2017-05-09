@@ -22,6 +22,8 @@
     <script src="${contextPath}/plugin/bootstrap-notify/bootstrap-notify.min.js" type="text/javascript"></script>
     <link href="https://fonts.googleapis.com/css?family=Cuprum" rel="stylesheet">
     <script src="${contextPath}/plugin/croper/jquery.cropit.js"></script>
+    <script src="${contextPath}/plugin/editor/ckeditor.js"></script>
+    <script src="${contextPath}/plugin/editor/sample.js"></script>
     <style>
         .cropit-preview {
             width: 200px;
@@ -49,6 +51,15 @@
     <div class="panel-body">
         <div>
             <div id="mainContainer"></div>
+            <div style="display: none;">
+                <div id="descRus"></div>
+            </div>
+            <div style="display: none;" id="text456">
+                <div id="descKaz"></div>
+            </div>
+            <div style="display: none;">
+                <div id="descLan"></div>
+            </div>
         </div>
     </div>
 </div>

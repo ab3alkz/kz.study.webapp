@@ -214,6 +214,9 @@ public class Wrapper {
             if (!isNullOrEmpty(formParams.getFirst("paramId"))) {
                 gson.setParamId(formParams.getFirst("paramId"));
             }
+            if (!isNullOrEmpty(formParams.getFirst("id"))) {
+                gson.setId(formParams.getFirst("id"));
+            }
             gson.setNameRus(formParams.getFirst("nameRus"));
             gson.setNameKaz(formParams.getFirst("nameKaz"));
             gson.setNameLan(formParams.getFirst("nameLan"));
@@ -282,9 +285,7 @@ public class Wrapper {
 
     public static List<GsonAllDic> wrapToGsonAllDicList(List<DLesson> list) {
         List<GsonAllDic> gsonList = new ArrayList<>();
-        for (DLesson o : list) {
-            gsonList.add(wrapToGsonGsonAllDic(o));
-        }
+        list.forEach(s -> gsonList.add(wrapToGsonGsonAllDic(s)));
         return gsonList;
     }
 
@@ -299,9 +300,28 @@ public class Wrapper {
 
     public static List<GsonAdminValue> wrapToDVideoLessonList(List<DVideoLesson> list) {
         List<GsonAdminValue> gsonList = new ArrayList<>();
-        for (DVideoLesson o : list) {
-            gsonList.add(wrapToDVideoLessonDic(o));
-        }
+        list.forEach(s -> gsonList.add(wrapToDVideoLessonDic(s)));
+        return gsonList;
+    }
+
+    private static GsonAdminValue wrapToDVideoLessonEditDic(DVideoLesson obj) {
+        GsonAdminValue gson = new GsonAdminValue();
+        gson.setId(obj.getId());
+        gson.setNameRus(obj.getNameRus());
+        gson.setNameKaz(obj.getNameKaz());
+        gson.setNameLan(obj.getNameLan());
+        gson.setLink(obj.getLink());
+        gson.setDescRus(obj.getDescRus());
+        gson.setDescKaz(obj.getDescKaz());
+        gson.setDescLan(obj.getDescLan());
+        gson.setParamId(obj.getdLesson().getId());
+
+        return gson;
+    }
+
+    public static List<GsonAdminValue> wrapToDVideoLessonEditList(List<DVideoLesson> list) {
+        List<GsonAdminValue> gsonList = new ArrayList<>();
+        list.forEach(s -> gsonList.add(wrapToDVideoLessonEditDic(s)));
         return gsonList;
     }
 
@@ -318,11 +338,66 @@ public class Wrapper {
         return gson;
     }
 
+    public static List<GsonAdminValue> wrapToDAudioLessonEditList(List<DAudioLesson> list) {
+        List<GsonAdminValue> gsonList = new ArrayList<>();
+        list.forEach(s -> gsonList.add(wrapToDAudioEditLessonDic(s)));
+        return gsonList;
+    }
+
+    private static GsonAdminValue wrapToDAudioEditLessonDic(DAudioLesson obj) {
+        GsonAdminValue gson = new GsonAdminValue();
+        gson.setId(obj.getId());
+        gson.setNameRus(obj.getNameRus());
+        gson.setNameKaz(obj.getNameKaz());
+        gson.setNameLan(obj.getNameLan());
+        gson.setDescRus(obj.getDescRus());
+        gson.setDescKaz(obj.getDescKaz());
+        gson.setDescLan(obj.getDescLan());
+        gson.setParamId(obj.getdLesson().getId());
+        gson.setLink(obj.getLink());
+        if (obj.getdAudioLessonImg() != null) {
+            gson.setAudioLink(obj.getdAudioLessonImg().getLink());
+            gson.setImg(new String(obj.getdAudioLessonImg().getImg(), StandardCharsets.UTF_8));
+        }
+        return gson;
+    }
+
     public static List<GsonAdminValue> wrapToDAudioLessonList(List<DAudioLesson> list) {
         List<GsonAdminValue> gsonList = new ArrayList<>();
-        for (DAudioLesson o : list) {
-            gsonList.add(wrapToDAudioLessonDic(o));
-        }
+        list.forEach(s -> gsonList.add(wrapToDAudioLessonDic(s)));
+        return gsonList;
+    }
+
+    private static GsonAdminValue wrapToDGrammarLessonDic(DGrammarLesson obj) {
+        GsonAdminValue gson = new GsonAdminValue();
+        gson.setId(obj.getId());
+        gson.setValue(getInscriptionByLang(obj.getNameRus(), obj.getNameKaz(), obj.getNameLan()));
+        gson.setDescValue(getInscriptionByLang(obj.getDescRus(), obj.getDescKaz(), obj.getDescLan()));
+        return gson;
+    }
+
+    public static List<GsonAdminValue> wrapToDGrammarLessonList(List<DGrammarLesson> list) {
+        List<GsonAdminValue> gsonList = new ArrayList<>();
+        list.forEach(s -> gsonList.add(wrapToDGrammarLessonDic(s)));
+        return gsonList;
+    }
+
+    private static GsonAdminValue wrapToDGrammarLessonEditDic(DGrammarLesson obj) {
+        GsonAdminValue gson = new GsonAdminValue();
+        gson.setId(obj.getId());
+        gson.setNameRus(obj.getNameRus());
+        gson.setNameKaz(obj.getNameKaz());
+        gson.setNameLan(obj.getNameLan());
+        gson.setDescRus(obj.getDescRus());
+        gson.setDescKaz(obj.getDescKaz());
+        gson.setDescLan(obj.getDescLan());
+        gson.setParamId(obj.getdLessonId().getId());
+        return gson;
+    }
+
+    public static List<GsonAdminValue> wrapToDGrammarLessonEditList(List<DGrammarLesson> list) {
+        List<GsonAdminValue> gsonList = new ArrayList<>();
+        list.forEach(s -> gsonList.add(wrapToDGrammarLessonEditDic(s)));
         return gsonList;
     }
 
