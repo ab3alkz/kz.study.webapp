@@ -108,9 +108,8 @@ public class UserSession {
     }
 
 
-    public GsonResult registration(MultivaluedMap<String, String> formParams) {
+    public GsonResult registration(String json) {
         try {
-            String json = formParams.getFirst("json");
             GsonRegistration gson = wrapToGsonRegistrationByJsonString(json);
             if (!gson.getPassword().equals(gson.getPasswordс())) {
                 return getGsonResult(false, "Құпия сөздер сәйкес келмейді");

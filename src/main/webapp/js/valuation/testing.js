@@ -106,7 +106,7 @@ function setQuestionPaging() {
                 id: "finishTestingBtn",
                 width: 155,
                 css: "noBorder",
-                template: "<button id='fillWordsRequireBtn' style='width: 145px;' onclick=\"finishTesting()\" class='btn btn-success'>"+getResourceName("valuation.finish")+"</button>",
+                template: "<button id='fillWordsRequireBtn' style='width: 145px;' onclick=\"finishTesting()\" class='btn btn-success'>" + getResourceName("valuation.finish") + "</button>",
             }
         ]
     });
@@ -277,8 +277,8 @@ function editQuestion(item) {
             head: {
                 cols: [
                     {width: 10},
-                    {view: "label", id: "editQuestionLabel", label: "Сұрақты өзгерту"},
-                    {view: "label", id: "addQuestionLabel", label: "Жаңа сұрақ қосу"},
+                    {view: "label", id: "editQuestionLabel", label: getResourceName("valuation.editquestion")},
+                    {view: "label", id: "addQuestionLabel", label: getResourceName("valuation.addquestion")},
                     {
                         borderless: true,
                         view: "toolbar",

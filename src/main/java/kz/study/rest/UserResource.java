@@ -41,11 +41,11 @@ public class UserResource {
     @EJB
     UserSession userSession;
 
-
+/*
     @POST
     @Produces("application/json")
     @Path("registration")
     public String registration(MultivaluedMap<String, String> formParams) {
         return objectToJson(userSession.registration(formParams));
-    }
+    }*/
 }

@@ -316,8 +316,8 @@ function editIntellectualQuestion(item) {
             head: {
                 cols: [
                     {width: 10},
-                    {view: "label", id: "editIQuestionLabel", label: "Сұрақты өзгерту"},
-                    {view: "label", id: "addIQuestionLabel", label: "Жаңа сұрақ қосу"},
+                    {view: "label", id: "editIQuestionLabel", label: getResourceName("valuation.editquestion")},
+                    {view: "label", id: "addIQuestionLabel", label: getResourceName("valuation.addquestion")},
                     {
                         borderless: true,
                         view: "toolbar",

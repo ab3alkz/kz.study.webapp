@@ -35,6 +35,7 @@
     <script src="${contextPath}/plugin/bootstrap-3.3.4-dist/js/bootstrap.min.js" type="text/javascript"></script>
     <link href="${contextPath}/plugin/bootswatch-gh-pages/cerulean/bootstrap.min.css" rel="stylesheet" type="text/css"/>
     <link href="${contextPath}/plugin/bootstrap-3.3.4-dist/css/bootstrap-menu.css" rel="stylesheet" type="text/css"/>
+    <script src="${contextPath}/js/registration.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/valuation.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/fill-words.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/testing.js" type="text/javascript"></script>
