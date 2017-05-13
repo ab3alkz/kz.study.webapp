@@ -35,10 +35,10 @@ function createIntellectTempl() {
                                     id: "answTextarea",
                                     view: 'textarea',
                                     name: "answ",
-                                    height: 140
+                                    height: 100
                                 },
                                 {
-                                    height: 5
+                                    height: 10
                                 },
                                 {
                                     view: "label",
@@ -50,7 +50,7 @@ function createIntellectTempl() {
                                     id: "dbAnswTextarea",
                                     view: 'textarea',
                                     name: "dbAnsw",
-                                    height: 140
+                                    height: 100
                                 }
                             ]
                         }, {
@@ -86,7 +86,7 @@ function createIntellectTempl() {
             width: 900,
             autoheight: true,
             id: "iQuestionResult",
-            template: "<h5>" + obj.result.message + "</h5>"
+            template: "<h5 style='line-height: 16px'>" + obj.result.message + "</h5>"
         });
 
     }
@@ -177,7 +177,7 @@ function intellectQPagingClick(idx, nextIdx) {
 }
 
 function getAnswTextareaVal(idx) {
-    if (idx != null && !isNullOrEmpty($$("answTextarea").getValue())) {
+    if (idx != null && $$("answTextarea")) {
         testData[idx].answ = $$("answTextarea").getValue();
     }
 }

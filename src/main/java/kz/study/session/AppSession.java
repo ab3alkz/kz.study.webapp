@@ -261,10 +261,10 @@ public class AppSession extends Utx {
             return getGsonResult(false, "Деректер қорында жауап жазылмаған");
         }
         if (isNullOrEmpty(userAnsw)) {
-            return getGsonResult(false, 0);
+            return getGsonResult(false, "0% <h1 style='color:red;'>Дұрыс емес</h1>");
         }
         if (userAnsw.equals(dBAnswer)) {
-            return getGsonResult(true, 100);
+            return getGsonResult(true, "100% <h1 style='color:green;'>Дұрыс</h1>");
         }
 
         String userFirstFormSentence = getFirstFormString(userAnsw);
@@ -313,14 +313,13 @@ public class AppSession extends Utx {
         } else {
             resultStr = "<h1 style='color:red;'>Дұрыс емес</h1>";
         }
-        return "Совпадение слов " + containsWords + " из " + userWordsArr.length + " (" + dbWordsArr.length + ")"
+        return getNewLine() + "Cөздер саны " + containsWords + ", деректер қорында " + userWordsArr.length + ", сәйкес " + dbWordsArr.length
                 + getNewLine()
-                + " allEq =" + allEq
-                + " true =" + trueIdxCnt
-                + " false =" + (allEq - trueIdxCnt)
+                + " allEquals = " + allEq
+                + ", order true = " + trueIdxCnt
+                + " false = " + (allEq - trueIdxCnt)
                 + getNewLine()
-                + " result =" + result
-                + getNewLine()
+                + " result = " + result +"%"
                 + resultStr;
 
     }
