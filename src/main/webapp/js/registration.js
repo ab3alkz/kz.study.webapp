@@ -99,7 +99,7 @@ function registrationWin() {
                                 height: 50,
                                 width: 155,
                                 css: "noBorder",
-                                template: "<button onclick='viewSignInWin()'  style='width: 145px;' class='btn btn-primary'>" + getResourceName("registration.iwasregistr") + "</button>"
+                                template: "<button onclick='createLoginWindow()'  style='width: 145px;' class='btn btn-primary'>" + getResourceName("registration.iwasregistr") + "</button>"
                             }
                         ]
                     }

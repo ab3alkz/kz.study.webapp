@@ -38,6 +38,7 @@
     <script src="${contextPath}/js/registration.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/valuation.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/fill-words.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/valuation/determine-level.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/testing.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/intellectual-test.js" type="text/javascript"></script>
     <script src="${contextPath}/js/common.js" type="text/javascript"></script>
@@ -77,6 +78,9 @@
                             <br>
                             <button onclick="getTestTypeList(1)" class='btn btn-success start-test'
                                     style="padding-left: 50px;padding-right: 50px">Сынақты бастау
+                            </button>
+                            <button onclick="determineLevel()" class='btn btn-success denggejdi-anyqtau'
+                                    style="padding-left: 50px;padding-right: 50px">Деңгейді анықтау
                             </button>
                         </div>
                         <div id="defContainer"></div>
@@ -131,6 +135,7 @@
             document.querySelector('.page-title').innerHTML = getResourceName('valuation.title');
             document.querySelector('.til-bilimingdi-tekseru-ueshin').innerHTML = getResourceName('valuation.tilbilimingditekseruueshin');
             document.querySelector('.start-test').innerHTML = getResourceName('valuation.starttest');
+            document.querySelector('.denggejdi-anyqtau').innerHTML = getResourceName('valuation.denggejdianyqtau');
         }
     });
 

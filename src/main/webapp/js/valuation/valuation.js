@@ -304,6 +304,7 @@ function viewTestTypeListWin(gson) {
 
 function startTest(id, item) {
     $("#mainContainer").hide();
+    $('#gameResultContainerWrapper').hide();
     activeGameId = id;
     activeGameType = item.type;
     switch (item.type) {
@@ -355,6 +356,7 @@ function createFillWordsContainer(id, item) {
             ]
         }
     );
+
     startFillWords();
 }
 
@@ -374,7 +376,6 @@ function createTestsContainer(id, item) {
         }
     );
 
-    $('#gameResultContainerWrapper').hide();
     $('#userInfo').hide();
 
     $('.mainwrapper').removeClass(' top80px');
@@ -399,7 +400,7 @@ function createIntelectualTestContainer(id, item) {
         }
     );
 
-    $('#gameResultContainerWrapper').hide();
+
     $('#userInfo').hide();
 
     $('.mainwrapper').removeClass(' top80px');
