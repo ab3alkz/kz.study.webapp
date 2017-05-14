@@ -71,11 +71,14 @@ public class AppSession extends Utx {
     }
 
     public List<GsonTestQuestions> getRandom25Guestions(Integer srcId, Integer start, Integer count, String lang) {
-        List<TestQuestions> list = getTestQuestionsList(srcId, 0, 100);
+        if (start == null) {
+            start = 0;
+        }
+        List<TestQuestions> list = getTestQuestionsList(srcId, start, 100);
 
         List<GsonTestQuestions> result = new ArrayList<>();
         randList = new ArrayList<>();
-        Integer cnt = 20 > list.size() - 1 ? list.size() - 1 : 20;
+        Integer cnt = count > list.size() - 1 ? list.size() - 1 : count;
         for (int i = 0; i < cnt; i++) {
             Integer randIdx = getRandIdxWord(0, list.size() - 1);
             randList.add(randIdx);
@@ -114,7 +117,7 @@ public class AppSession extends Utx {
         return r.nextInt((maximum - minimum) + 1) + minimum;
     }
 
-    public List<Words> getTestTypeList() {
+    public List<TestType> getTestTypeList() {
         return em.createNamedQuery("TestType.findAll").getResultList();
     }
 
@@ -159,10 +162,12 @@ public class AppSession extends Utx {
         obj.setgDate(stringToSqlDate(dateToString(new java.util.Date(), "dd.MM.yyyy HH.mm.ss"), "dd.MM.yyyy HH.mm.ss"));
         em.merge(obj);
 
-        switch (type) {
-            case "intelectualTest":
-                GsonIntelectualQuestion gson = wrapToGsonIntelectualQuestionByJsonString(json);
-                return intelectualQuestionValidate(gson);
+        if (type != null) {
+            switch (type) {
+                case "intelectualTest":
+                    GsonIntelectualQuestion gson = wrapToGsonIntelectualQuestionByJsonString(json);
+                    return intelectualQuestionValidate(gson);
+            }
         }
         return getGsonResult(true, null);
     }
@@ -205,9 +210,27 @@ public class AppSession extends Utx {
             testType.setType(gson.getType());
             testType.setIsPublic(1);
             testType.setName(gson.getName());
+            testType.setParent(gson.getParent());
             testType.setLevel(0);
             em.merge(testType);
-            return getGsonResult(true, testType);
+            return getGsonResult(true, getTestTypeListByIsPublic(1, gson.getLang()));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getGsonResult(false, e.toString());
+        }
+    }
+
+    public GsonResult saveLevel(String json) {
+        try {
+            GsonTestType gson = wrapToGsonTestTypeByJsonString(json);
+            TestType testType = new TestType();
+            testType.setId(getSequenceNextVal());
+            testType.setType(gson.getType());
+            testType.setIsPublic(1);
+            testType.setName(gson.getName());
+            testType.setLevel(0);
+            em.merge(testType);
+            return getGsonResult(true, getTestTypeListByIsPublic(1, gson.getLang()));
         } catch (Exception e) {
             e.printStackTrace();
             return getGsonResult(false, e.toString());
@@ -319,7 +342,7 @@ public class AppSession extends Utx {
                 + ", order true = " + trueIdxCnt
                 + " false = " + (allEq - trueIdxCnt)
                 + getNewLine()
-                + " result = " + result +"%"
+                + " result = " + result + "%"
                 + resultStr;
 
     }
@@ -515,5 +538,23 @@ public class AppSession extends Utx {
         Query q = em.createQuery("delete  FROM IntelectualQuestion g WHERE g.id = :id").setParameter("id", id);
         q.executeUpdate();
         return getGsonResult(true, null);
+    }
+
+    public List<TestType> getUrovenList() {
+        return em.createQuery("select g  FROM TestType g WHERE g.parent is null ").getResultList();
+
+    }
+
+    public List<GsonTestQuestions> getRandom25determineGuestions(Integer start, Integer count, String lang) {
+        List<Integer> srcIdList = em.createQuery("SELECT distinct t.srcId  FROM TestQuestions t ").getResultList();
+        Integer srcCnt = srcIdList.size();
+        Integer max = count / srcCnt;
+        List<GsonTestQuestions> list = new ArrayList<>();
+        for (Integer srcId : srcIdList) {
+            List<GsonTestQuestions> qList = getRandom25Guestions(srcId, start, max, lang);
+            list.addAll(qList);
+        }
+
+        return list;
     }
 }

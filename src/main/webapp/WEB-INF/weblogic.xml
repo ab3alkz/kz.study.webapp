@@ -8,5 +8,9 @@
     <role-name>admin_role</role-name>
     <principal-name>admin_role</principal-name>
   </security-role-assignment>
+  <security-role-assignment>
+    <role-name>game_role</role-name>
+    <principal-name>game_role</principal-name>
+  </security-role-assignment>
   <context-root>/study</context-root>
 </weblogic-web-app>

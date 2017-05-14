@@ -428,6 +428,7 @@ public class Wrapper {
                 gson.setName(obj.getName());
             }
             gson.setIsPublic(obj.getIsPublic());
+            gson.setParent(obj.getParent());
             gson.setId(obj.getId());
             gson.setType(obj.getType());
             return gson;

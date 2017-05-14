@@ -91,6 +91,15 @@ public class AppResource {
                                        @QueryParam("lang") String lang) {
         return objectToJson(appSession.getRandom25Guestions(srcId, start, count, lang));
     }
+    @GET
+    @Produces("application/json")
+    @Path("getRandom25determineGuestions")
+    public String getRandom25determineGuestions(
+                                       @QueryParam("start") Integer start,
+                                       @QueryParam("count") Integer count,
+                                       @QueryParam("lang") String lang) {
+        return objectToJson(appSession.getRandom25determineGuestions( start, count, lang));
+    }
 
     @GET
     @Produces("application/json")
@@ -119,6 +128,14 @@ public class AppResource {
     @Path("saveTestType")
     public String saveTestType(String json) {
         return objectToJson(appSession.saveTestType(json));
+    }
+
+
+    @POST
+    @Produces("application/json")
+    @Path("saveLevel")
+    public String saveLevel(String json) {
+        return objectToJson(appSession.saveLevel(json));
     }
 
 
@@ -166,6 +183,13 @@ public class AppResource {
     @Path("removeIntellectualQuestionById")
     public String removeIntellectualQuestionById(@QueryParam("id") Integer id) {
         return objectToJson(appSession.removeIntellectualQuestionById(id));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("getUrovenList")
+    public String getUrovenList() {
+        return objectToJson(appSession.getUrovenList());
     }
 
 }

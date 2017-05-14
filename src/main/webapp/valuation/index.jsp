@@ -24,7 +24,8 @@
         %>
         var myuser = '<%=uName%>';
         var myuserFio = '<%=fio%>';
-        console.log(myuser)
+        var isAdmin = (myuser == "weblogic" )
+        console.log(myuser,isAdmin)
     </script>
     <script src="${contextPath}/plugin/jquery/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script src="${contextPath}/js/locale.js" type="text/javascript"></script>
@@ -55,7 +56,7 @@
         <ul class="change-lang">
             <li><a onclick="changeLangSubmit('Kz')" href="#">Қазақ</a></li>
             <li><span>/</span></li>
-            <li><a onclick="changeLangSubmit('ln')"  href="#">Latyn</a></li>
+            <li><a onclick="changeLangSubmit('ln')" href="#">Latyn</a></li>
         </ul>
     </div>
     <div class="container panel panel-default" id="navbar">
@@ -79,7 +80,7 @@
                                     style="padding-left: 50px;padding-right: 50px">Сынақты бастау
                             </button>
                             <button onclick="determineLevel()" class='btn btn-success denggejdi-anyqtau'
-                                    style="padding-left: 50px;padding-right: 50px">Деңгейді анықтау
+                                    style=" padding-left: 50px;padding-right: 50px">Деңгейді анықтау
                             </button>
                         </div>
                         <div id="defContainer"></div>
@@ -121,7 +122,7 @@
 </script>
 <script type="text/javascript">
     var lang = localStorage.getItem("lang");
-    if (!lang || lang == 'ru_RU' || lang == 'ru'|| lang == 'Ru' || lang == '') {
+    if (!lang || lang == 'ru_RU' || lang == 'ru' || lang == 'Ru' || lang == '') {
         lang = 'kz'
     }
     jQuery.i18n.properties({

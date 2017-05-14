@@ -200,15 +200,20 @@ function viewTestTypeListWin(gson) {
                             {
                                 disabled: true,
                                 id: "editTestTypeBtn",
+                                hidden: !isAdmin,
                                 view: "icon", icon: " fa fa-pencil-square-o", css: "buttonIcon",
                                 click: function () {
-                                    editAddTestTypeWin($$("viewTestTypeListTable").getSelectedItem());
+                                    editTreeElement($$("viewTestTypeListTable").getSelectedItem());
                                 }
                             },
                             {
-                                view: "icon", icon: " fa fa-plus-square-o", css: "buttonIcon",
+                                view: "icon",
+                                hidden: !isAdmin,
+                                icon: " fa fa-plus-square-o",
+                                css: "buttonIcon",
+                                tooltip: "Жаңа деңгей қосу",
                                 click: function () {
-                                    editAddTestTypeWin(null);
+                                    editLevelWin(null);
                                 }
                             },
                             {
@@ -228,23 +233,25 @@ function viewTestTypeListWin(gson) {
                         height: 20
                     },
                     {
-                        view: "datatable",
+                        view: "treetable",
                         css: "appTable",
                         id: "viewTestTypeListTable",
-                        scroll: false,
+                        scroll: 'y',
                         header: false,
                         footer: false,
-                        autoheight: true,
+                        height: 500,
                         rowHeight: 45,
                         select: 'row',
                         columns: [
+
                             {id: "startBtn", header: " ", width: 120},
                             {
-                                template: "<b style='font-size: 16px; color:#317eac'>#name#</b>",
+
+                                template: "{common.treetable()} <b style='font-size: 16px; color:#317eac'>#name#</b>",
                                 header: " ",
                                 fillspace: 1
                             },
-                            {id: "editBtn", header: " ", width: 60}
+                            {id: "editBtn", header: " ", width: 60, hidden: !isAdmin}
                         ],
                         on: {
                             onAfterSelect: function () {
@@ -253,11 +260,16 @@ function viewTestTypeListWin(gson) {
                         },
                         scheme: {
                             $init: function (obj) {
-                                obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>" + getResourceName("valuation.start") + "</button>";
-                                if (obj.type == 'test') {
-                                    obj.editBtn = "<button style='width:40px;'  class='editTesting btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
-                                } else if (obj.type == 'intelectualTest') {
-                                    obj.editBtn = "<button style='width:40px;'  class='editIntelectualTest btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                if (obj.parent) {
+                                    obj.startBtn = "<button style='width:100px;'  class='startTest btn btn-primary'>" + getResourceName("valuation.start") + "</button>";
+
+                                    if (obj.type == 'test') {
+                                        obj.editBtn = "<button style='width:40px;'  title='Сынақ тапсырмаларын өңдеу'  class='editTesting btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                    } else if (obj.type == 'intelectualTest') {
+                                        obj.editBtn = "<button style='width:40px;' title='Сынақ тапсырмаларын өңдеу'   class='editIntelectualTest btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                    }
+                                } else {
+                                    obj.editBtn = "<button style='width:40px;'  title='Жаңа сынақ түрын қосу'  class='addTesting btn btn-primary'><i class=\" fa fa-plus\" aria-hidden=\"true\"></i></button>";
                                 }
                             }
                         },
@@ -267,6 +279,11 @@ function viewTestTypeListWin(gson) {
                                     var obj = $$("viewTestTypeListTable").getSelectedItem();
                                     startTest(item.row, obj);
                                     $$("viewTestTypeListWin").hide();
+                                }, 100)
+                            },
+                            addTesting: function (e, item, cell) {
+                                setTimeout(function () {
+                                    editAddTestTypeWin({parent: item.row});
                                 }, 100)
                             },
                             editTesting: function (e, item, cell) {
@@ -294,7 +311,8 @@ function viewTestTypeListWin(gson) {
             }
         }).hide();
     }
-    $$("viewTestTypeListTable").parse(gson);
+    loadTreeData("viewTestTypeListTable", getTreeData(gson, 'id', 'parent'));
+    console.log(getTreeData(gson, 'id', 'parent'))
     $$('viewTestTypeListWin').show(false, false);
     var y = window.scrollY;
     window.onscroll = function () {
@@ -617,6 +635,100 @@ function setGameResult(result, json, callBack) {
     });
 }
 
+function editLevelWin(obj) {
+    if (!$$('editLevelWin')) {
+        webix.ui({
+            view: "window",
+            id: "editLevelWin",
+            modal: true,
+            on: {
+                onHide: function () {
+                    window.onscroll = null;
+                }
+            },
+            position: "center",
+            head: {
+                cols: [
+                    {width: 10},
+                    {view: "label", id: "valuationaddnewlevel", label: getResourceName("valuation.addnewlevel")},
+                    {view: "label", id: "valuationeditlevel", label: getResourceName("valuation.editlevel")},
+                    {
+                        borderless: true,
+                        view: "toolbar",
+                        paddingY: 2,
+                        height: 40,
+                        cols: [
+                            {
+                                view: "icon", icon: "  fa fa-times", css: "buttonIcon",
+                                click: function () {
+                                    this.getTopParentView().close();
+                                    window.onscroll = null;
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            body: {
+                rows: [
+                    {
+                        view: "form",
+                        id: "editLevelWinForm",
+                        width: 500,
+                        elementsConfig: {
+                            labelPosition: "left",
+                            labelWidth: 140,
+                            width: 500
+                        },
+                        elements: [
+                            {
+                                required: true,
+                                name: "name",
+                                label: getResourceName("valuation.levelname"),
+                                view: "text"
+                            },
+                            {
+                                hidden: true,
+                                name: "lang",
+                                view: "text"
+                            },
+                            {
+                                height: 20
+                            },
+                            {
+                                cols: [
+                                    {
+                                        width: 320
+                                    },
+                                    {
+                                        height: 50,
+                                        width: 155,
+                                        css: "noBorder",
+                                        template: "<button onclick='saveLevel()' style='width: 145px;'  class='btn btn-success'>" + getResourceName("valuation.save") + "</button>"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+
+                ]
+            }
+        }).hide();
+    }
+    if (obj) {
+        $$("valuationaddnewlevel").hide();
+        $$("valuationeditlevel").show();
+    } else {
+        $$("valuationaddnewlevel").show();
+        $$("valuationeditlevel").hide();
+    }
+    $$('editLevelWinForm').parse(obj);
+    $$('editLevelWin').show(false, false);
+    var y = window.scrollY;
+    window.onscroll = function () {
+        window.scrollTo(0, y);
+    };
+}
 function editAddTestTypeWin(obj) {
     if (!$$('addTestTypeWin')) {
         webix.ui({
@@ -632,7 +744,8 @@ function editAddTestTypeWin(obj) {
             head: {
                 cols: [
                     {width: 10},
-                    {view: "label", label: getResourceName("valuation.addnewtest")},
+                    {view: "label", id: "valuationaddnewtest", label: getResourceName("valuation.addnewtest")},
+                    {view: "label", id: "valuationedittest", label: getResourceName("valuation.edittest")},
                     {
                         borderless: true,
                         view: "toolbar",
@@ -658,10 +771,23 @@ function editAddTestTypeWin(obj) {
                         width: 500,
                         elementsConfig: {
                             labelPosition: "left",
-                            labelWidth: 100,
+                            labelWidth: 140,
                             width: 500
                         },
                         elements: [
+                            {
+                                label: getResourceName("valuation.uroven"),
+                                view: "richselect",
+                                name: "parent",
+                                required: true,
+                                suggest: {
+                                    css: "auto_width_popup",
+                                    body: {
+                                        template: "#name#",
+                                        url: "/study/wr/app/getUrovenList"
+                                    }
+                                }
+                            },
                             {
                                 label: getResourceName("valuation.testtype"),
                                 view: "richselect",
@@ -679,6 +805,12 @@ function editAddTestTypeWin(obj) {
                                 required: true,
                                 name: "name",
                                 label: getResourceName("valuation.testname"),
+                                view: "text"
+                            },
+                            {
+                                hidden: true,
+                                name: "lang",
+                                value: lang,
                                 view: "text"
                             },
                             {
@@ -704,6 +836,13 @@ function editAddTestTypeWin(obj) {
             }
         }).hide();
     }
+    if (obj && obj.id) {
+        $$("valuationaddnewtest").hide();
+        $$("valuationedittest").show();
+    } else {
+        $$("valuationaddnewtest").show();
+        $$("valuationedittest").hide();
+    }
     $$('addTestTypeWinForm').parse(obj);
     $$('addTestTypeWin').show(false, false);
     var y = window.scrollY;
@@ -720,7 +859,8 @@ function saveTestType() {
     var strJson = JSON.stringify(form.getValues(), null, 1);
     get_ajax('/study/wr/app/saveTestType', 'POST', strJson, function (gson) {
             if (gson && gson.result) {
-                $$("viewTestTypeListTable").parse(gson.message);
+
+                loadTreeData("viewTestTypeListTable", getTreeData(gson.message, 'id', 'parent'));
                 $$("addTestTypeWin").hide();
                 notifyMessage("Инфо", "Жаңа сынақ қосылды", notifyType.success);
             } else {
@@ -732,7 +872,25 @@ function saveTestType() {
     );
 }
 
-
+function saveLevel() {
+    var form = $$("editLevelWinForm");
+    if (!form.validate()) {
+        return;
+    }
+    var strJson = JSON.stringify(form.getValues(), null, 1);
+    get_ajax('/study/wr/app/saveLevel', 'POST', strJson, function (gson) {
+            if (gson && gson.result) {
+                loadTreeData("viewTestTypeListTable", getTreeData(gson.message, 'id', 'parent'));
+                $$("editLevelWin").hide();
+                notifyMessage("Инфо", "Жаңа деңгей қосылды", notifyType.success);
+            } else {
+                messageBox("Ошибка", gson.message);
+            }
+        }, function (url) {
+            messageBox("Ошибка", "Ошибка службы " + ' ' + url);
+        }
+    );
+}
 
 
 function showAppProgress() {
@@ -747,7 +905,6 @@ function showAppProgress() {
         icon: "refresh"
     });
 }
-
 
 
 function hideAppProgress() {
@@ -776,4 +933,12 @@ function createMainProgress() {
         mainprogress.adjust();
     });
     webix.extend($$("mainprogress"), webix.ProgressBar);
+}
+
+function editTreeElement(item) {
+    if (item.parent) {
+        editAddTestTypeWin(item);
+    } else {
+        editLevelWin(item)
+    }
 }

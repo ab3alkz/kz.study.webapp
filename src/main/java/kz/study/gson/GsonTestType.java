@@ -7,7 +7,9 @@ public class GsonTestType {
     private Integer id;
     private String name;
     private String type;
+    private String lang;
     private Integer level;
+    private Integer parent;
     private Integer isPublic;
 
     public Integer getLevel() {
@@ -42,6 +44,14 @@ public class GsonTestType {
         this.id = id;
     }
 
+    public Integer getParent() {
+        return parent;
+    }
+
+    public void setParent(Integer parent) {
+        this.parent = parent;
+    }
+
     public String getType() {
         return type;
     }
@@ -50,4 +60,11 @@ public class GsonTestType {
         this.type = type;
     }
 
+    public String getLang() {
+        return lang;
+    }
+
+    public void setLang(String lang) {
+        this.lang = lang;
+    }
 }

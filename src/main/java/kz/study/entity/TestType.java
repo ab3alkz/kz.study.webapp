@@ -33,6 +33,9 @@ public class TestType implements Serializable {
     @Column(name = "Level")
     private Integer level;
     @Basic
+    @Column(name = "parent")
+    private Integer parent;
+    @Basic
     @Column(name = "IS_PUBLIC")
     private Integer isPublic;
 
@@ -53,6 +56,14 @@ public class TestType implements Serializable {
     }
 
     public TestType() {
+    }
+
+    public Integer getParent() {
+        return parent;
+    }
+
+    public void setParent(Integer parent) {
+        this.parent = parent;
     }
 
     public TestType(Integer id) {
