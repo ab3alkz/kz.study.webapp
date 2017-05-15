@@ -33,6 +33,10 @@ public class Serialization {
         Gson gson = new Gson();
         return gson.fromJson(json, GsonTestQuestions.class);
     }
+    public static GsonAudiTest wrapToGsonAudiTestByJsonString(String json) {
+        Gson gson = new Gson();
+        return gson.fromJson(json, GsonAudiTest.class);
+    }
 
     public static GsonIntelectualQuestion wrapToGsonIntelectualQuestionByJsonString(String json) {
         Gson gson = new Gson();

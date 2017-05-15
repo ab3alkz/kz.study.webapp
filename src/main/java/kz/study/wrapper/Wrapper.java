@@ -461,6 +461,7 @@ public class Wrapper {
                 gson.setAnsw3(obj.getAnsw3());
                 gson.setAnsw4(obj.getAnsw4());
             }
+            gson.setLink(obj.getLink());
             gson.setSrcId(obj.getSrcId());
             gson.setId(obj.getId().toString());
             return gson;

@@ -267,6 +267,8 @@ function viewTestTypeListWin(gson) {
                                         obj.editBtn = "<button style='width:40px;'  title='Сынақ тапсырмаларын өңдеу'  class='editTesting btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
                                     } else if (obj.type == 'intelectualTest') {
                                         obj.editBtn = "<button style='width:40px;' title='Сынақ тапсырмаларын өңдеу'   class='editIntelectualTest btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                    }else if (obj.type == 'audi') {
+                                        obj.editBtn = "<button style='width:40px;' title='Сынақ тапсырмаларын өңдеу'   class='editAudiTest btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
                                     }
                                 } else {
                                     obj.editBtn = "<button style='width:40px;'  title='Жаңа сынақ түрын қосу'  class='addTesting btn btn-primary'><i class=\" fa fa-plus\" aria-hidden=\"true\"></i></button>";
@@ -290,6 +292,14 @@ function viewTestTypeListWin(gson) {
                                 setTimeout(function () {
                                     var obj = $$("viewTestTypeListTable").getSelectedItem();
                                     testingAdmin(obj);
+                                    $("#mainContainer").hide();
+                                    $$("viewTestTypeListWin").hide();
+                                }, 100)
+                            },
+                            editAudiTest: function (e, item, cell) {
+                                setTimeout(function () {
+                                    var obj = $$("viewTestTypeListTable").getSelectedItem();
+                                    audiAdmin(obj);
                                     $("#mainContainer").hide();
                                     $$("viewTestTypeListWin").hide();
                                 }, 100)
@@ -331,6 +341,9 @@ function startTest(id, item) {
             break;
         case "test":
             createTestsContainer(id, item);
+            break;
+        case "audi":
+            createAudioContainer(id, item);
             break;
         case "intelectualTest":
             createIntelectualTestContainer(id, item);
@@ -399,6 +412,26 @@ function createTestsContainer(id, item) {
     $('.mainwrapper').removeClass(' top80px');
     $('.mainwrapper').addClass(' top20px');
     startTesting(item);
+}
+function createAudioContainer(id, item) {
+    webix.ui(
+        {
+            id: "audioContainer",
+            container: "fillWordsContainer",
+            rows: [
+                {
+                    view: 'label',
+                    height: 60,
+                    autowidth: true,
+                    label: "<h2>" + item.name + "</h2>"
+                }, {
+                    height: 50
+                }
+            ]
+        }
+    );
+
+    startAudi();
 }
 
 

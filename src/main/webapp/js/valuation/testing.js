@@ -13,14 +13,19 @@ function createAnswTempl() {
     $$("testsContainer").removeView("answTempl");
     $$("testsContainer").addView({
         id: "answTempl",
-        rows: [
+        cols: [
             {
-                autoheight: true,
-                width: 900,
-                template: "<div class='test-question'>" + obj.question + "</div>"
-            },
-            {
-                height: 15
+                id: "answTemplRow",
+                rows: [
+                    {
+                        autoheight: true,
+                        width: 900,
+                        template: "<div class='test-question'>" + obj.question + "</div>"
+                    },
+                    {
+                        height: 15
+                    }
+                ]
             }
         ]
     });
@@ -39,13 +44,24 @@ function setTemplAnsw(obj) {
         } else if (testFinish && i == 1) {
             resultCss = "test-answ-not-find-true";
         }
-        $$("answTempl").addView({
+        $$("answTemplRow").addView({
             autoheight: true,
             width: 900,
             template: "<div onclick='answerClick(" + i + ")' class='test-answ test-answ" + i + " " + resultCss + "'>" + obj['answ' + i] + "</div>"
         });
-        $$("answTempl").addView({
+        $$("answTemplRow").addView({
             height: 12
+        });
+
+    }
+    if (testFinish && obj.link) {
+        $$("answTempl").removeView("answTemplLink");
+        $$("answTempl").addView({
+            id: "answTemplLink",
+            view: "label",
+            autoheight: true,
+            width: 260,
+            label: "<div style='padding: 0 0 0 30px'><a target='_blank' href='" + obj.link + "'><i title='" + getResourceName("valuation.linktomaterial") + "' style='font-size: 100px' class=\"fa fa-external-link\" aria-hidden=\"true\"></i></a></div>"
         });
     }
 }
@@ -63,7 +79,7 @@ function answerClick(answIdx) {
 
 function setQuestionPaging() {
     var max = testData.length;
-    $$("answTempl").addView({
+    $$("answTemplRow").addView({
         css: 'answTemplPaging',
         cols: [
             {
@@ -345,6 +361,11 @@ function editQuestion(item) {
                                 name: "answ4",
                                 label: "Дұрыс емес жауап",
                                 required: true
+                            },
+                            {
+                                view: "text",
+                                name: "link",
+                                label: "Материалға сілтеме"
                             }
                         ]
                     },

@@ -98,6 +98,16 @@ public class AppSession extends Utx {
         if (start == null) start = 0;
         if (count == null) count = start + 10;
         GsonDatatableData data = new GsonDatatableData();
+        data.setData(getTestAudiListBySrcId(srcId, start, count));
+        data.setPos(start);
+        data.setTotal_count(getTestAudiCountBySrcId(srcId).intValue());
+        return data;
+    }
+
+    public GsonDatatableData getAudiTestingListBySrcId(Integer srcId, Integer start, Integer count) {
+        if (start == null) start = 0;
+        if (count == null) count = start + 10;
+        GsonDatatableData data = new GsonDatatableData();
         data.setData(getTestQuestionsList(srcId, start, count));
         data.setPos(start);
         data.setTotal_count(getTestQuestionsCount(srcId).intValue());
@@ -133,11 +143,22 @@ public class AppSession extends Utx {
         if (start == null) start = 0;
         if (count == null) count = start + 12;
 
-        return em.createNamedQuery("TestQuestions.findBySrcId").setParameter("srcId", srcId).setFirstResult(start).setMaxResults(count).getResultList();
+        return em.createNamedQuery("AudiTest.findBySrcId").setParameter("srcId", srcId).setFirstResult(start).setMaxResults(count).getResultList();
     }
 
     public Long getTestQuestionsCount(Integer srcId) {
         return (Long) getSingleResultOrNull(em.createQuery("SELECT count(g) FROM TestQuestions g WHERE g.srcId = :srcId").setParameter("srcId", srcId));
+    }
+
+    public List<TestQuestions> getTestAudiListBySrcId(Integer srcId, Integer start, Integer count) {
+        if (start == null) start = 0;
+        if (count == null) count = start + 12;
+
+        return em.createNamedQuery("AudiTest.findBySrcId").setParameter("srcId", srcId).setFirstResult(start).setMaxResults(count).getResultList();
+    }
+
+    public Long getTestAudiCountBySrcId(Integer srcId) {
+        return (Long) getSingleResultOrNull(em.createQuery("SELECT count(g) FROM AudiTest g WHERE g.srcId = :srcId").setParameter("srcId", srcId));
     }
 
     public Integer getSequenceNextVal() {
@@ -187,6 +208,7 @@ public class AppSession extends Utx {
             questions.setAnsw3(gson.getAnsw3());
             questions.setAnsw4(gson.getAnsw4());
             questions.setQuestion(gson.getQuestion());
+            questions.setLink(gson.getLink());
             questions.setSrcId(gson.getSrcId());
 
             if (isNullOrEmpty(gson.getId())) {
@@ -200,6 +222,35 @@ public class AppSession extends Utx {
             e.printStackTrace();
             return getGsonResult(false, e.toString());
         }
+    }
+
+
+    public GsonResult saveAudiQuestion(String json) {
+        try {
+            GsonAudiTest gson = wrapToGsonAudiTestByJsonString(json);
+            AudiTest questions = new AudiTest();
+            questions.setText(gson.getText());
+            questions.setFrame(gson.getFrame());
+            questions.setSrcId(gson.getSrcId());
+
+            if (isNullOrEmpty(gson.getId())) {
+                questions.setId(getSequenceNextVal());
+            } else {
+                questions.setId(Integer.parseInt(gson.getId()));
+            }
+            em.merge(questions);
+            return getGsonResult(true, questions);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getGsonResult(false, e.toString());
+        }
+    }
+
+
+    public GsonResult removeAudiQuestionById(Integer id) {
+        Query q = em.createQuery("delete  FROM AudiTest g WHERE g.id = :id").setParameter("id", id);
+        q.executeUpdate();
+        return getGsonResult(true, null);
     }
 
     public GsonResult saveTestType(String json) {
@@ -349,7 +400,7 @@ public class AppSession extends Utx {
 
     private Integer getIndexInArray(String[] arr, String word) {
         int index = -1;
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 1; i <= arr.length; i++) {
             if (arr[i].equals(word)) {
                 index = i;
                 break;
@@ -556,5 +607,23 @@ public class AppSession extends Utx {
         }
 
         return list;
+    }
+
+
+    public List<AudiTest> getRandom10AudiList(Integer srcId) {
+        List<AudiTest> list = em.createNamedQuery("AudiTest.findBySrcId").setParameter("srcId", srcId).setFirstResult(0).setMaxResults(100).getResultList();
+        if (list.size() <= 10) {
+            return list;
+        }
+
+        List<AudiTest> result = new ArrayList<>();
+        randList = new ArrayList<>();
+        Integer cnt = 10 > list.size() - 1 ? list.size() - 1 : 10;
+        for (int i = 1; i <= cnt; i++) {
+            Integer randIdx = getRandIdxWord(0, list.size() - 1);
+            randList.add(randIdx);
+            result.add(list.get(randIdx));
+        }
+        return result;
     }
 }

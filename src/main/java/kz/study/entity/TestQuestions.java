@@ -35,6 +35,9 @@ public class TestQuestions implements Serializable {
     @Column(name = "answ_4")
     private String answ4;
     @Basic
+    @Column(name = "link")
+    private String link;
+    @Basic
     @Column(name = "SRC_ID")
     private Integer srcId;
 
@@ -46,13 +49,14 @@ public class TestQuestions implements Serializable {
         this.id = id;
     }
 
-    public TestQuestions(Integer id, String question, String answ1, String answ2, String answ3, String answ4, Integer srcId) {
+    public TestQuestions(Integer id, String question, String answ1, String answ2, String answ3, String answ4,String link, Integer srcId) {
         this.id = id;
         this.question = question;
         this.answ1 = answ1;
         this.answ2 = answ2;
         this.answ3 = answ3;
         this.answ4 = answ4;
+        this.link = link;
         this.srcId = srcId;
     }
 
@@ -106,6 +110,14 @@ public class TestQuestions implements Serializable {
 
     public Integer getSrcId() {
         return srcId;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public void setSrcId(Integer srcId) {

@@ -110,6 +110,13 @@ public class AppResource {
 
     @GET
     @Produces("application/json")
+    @Path("getAudiTestingListBySrcId")
+    public String getAudiTestingListBySrcId(@QueryParam("srcId") Integer srcId, @QueryParam("start") Integer start, @QueryParam("count") Integer count) {
+        return objectToJson(appSession.getAudiTestingListBySrcId(srcId, start, count));
+    }
+
+    @GET
+    @Produces("application/json")
     @Path("removeQuestionById")
     public String removeQuestionById(@QueryParam("id") Integer id) {
         return objectToJson(appSession.removeQuestionById(id));
@@ -120,6 +127,22 @@ public class AppResource {
     @Path("saveQuestion")
     public String saveQuestion(String json) {
         return objectToJson(appSession.saveQuestion(json));
+    }
+
+
+    @GET
+    @Produces("application/json")
+    @Path("removeAudiQuestionById")
+    public String removeAudiQuestionById(@QueryParam("id") Integer id) {
+        return objectToJson(appSession.removeAudiQuestionById(id));
+    }
+
+
+    @POST
+    @Produces("application/json")
+    @Path("saveAudiQuestion")
+    public String saveAudiQuestion(String json) {
+        return objectToJson(appSession.saveAudiQuestion(json));
     }
 
 
@@ -190,6 +213,14 @@ public class AppResource {
     @Path("getUrovenList")
     public String getUrovenList() {
         return objectToJson(appSession.getUrovenList());
+    }
+
+
+    @GET
+    @Produces("application/json")
+    @Path("getRandom10AudiList")
+    public String getRandom10AudiList(@QueryParam("srcId")  Integer srcId) {
+        return objectToJson(appSession.getRandom10AudiList(srcId));
     }
 
 }

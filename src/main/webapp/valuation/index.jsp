@@ -40,6 +40,7 @@
     <script src="${contextPath}/js/valuation/fill-words.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/determine-level.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/testing.js" type="text/javascript"></script>
+    <script src="${contextPath}/js/valuation/audi.js" type="text/javascript"></script>
     <script src="${contextPath}/js/valuation/intellectual-test.js" type="text/javascript"></script>
     <script src="${contextPath}/js/common.js" type="text/javascript"></script>
     <script src="${contextPath}/js/newutils.js?version=<%= new Date()%>" type="text/javascript"></script>
@@ -93,12 +94,13 @@
 
                     <div style="float: left;width: 30%;border-left: 1px solid silver;padding: 10px" id="userInfo"></div>
                     <div class="clearfix"></div>
-                    <div id="testsContainer"></div>
                 </div>
 
+                <div id="testsContainer"></div>
             </div>
         </div>
     </div>
+
     <div class="container panel panel-default" style="margin-top: 10px" id="gameResultContainerWrapper">
         <div class="panel-body">
             <div id="gameResultContainer"></div>

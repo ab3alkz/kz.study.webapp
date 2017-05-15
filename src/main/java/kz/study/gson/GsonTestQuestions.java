@@ -11,6 +11,7 @@ public class GsonTestQuestions {
     private String answ2;
     private String answ3;
     private String answ4;
+    private String link;
     private Integer srcId;
 
     public String getId() {
@@ -59,6 +60,14 @@ public class GsonTestQuestions {
 
     public void setAnsw4(String answ4) {
         this.answ4 = answ4;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public Integer getSrcId() {
