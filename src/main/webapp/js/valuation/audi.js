@@ -1,4 +1,8 @@
 function startAudi() {
+    $('#userInfo').hide();
+
+    $('.mainwrapper').removeClass(' top80px');
+    $('.mainwrapper').addClass(' top20px');
     get_ajax('/study/wr/app/getRandom10AudiList', 'GET', {srcId: activeGameId}, function (gson) {
         testData = gson;
         createAudi(gson);
@@ -32,9 +36,20 @@ function createAudi() {
                         height: 210,
                         template: "<iframe width='300' height='200' src='" + data.frame + "'liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false'></iframe>"
                     }, {
-                        view: "label",
-                        width: 200,
-                        label: resultLabel
+
+                    }, {
+                        rows: [
+                            {},
+                            {
+                                view: "label",
+                                width: 200,
+                                height: 80,
+                                label: resultLabel
+                            },
+                            {}
+                        ]
+                    }, {
+
                     }
                 ]
             },
@@ -135,7 +150,6 @@ function finishAudi() {
     var resCount = 0;
     console.log(testData)
     for (var i in testData) {
-        console.log(testData[i].answ.trim().toLowerCase(), testData[i].text.trim().toLowerCase())
         if (!isNullOrEmpty(testData[i].answ) && !isNullOrEmpty(testData[i].text) &&
             testData[i].answ.trim().toLowerCase() == testData[i].text.trim().toLowerCase()) {
             resCount++;
@@ -152,7 +166,7 @@ function finishAudi() {
 
         }
     );
-    audiQuestionPagingClick(null,0);
+    audiQuestionPagingClick(null, 0);
 }
 
 function audiQuestionPagingClick(idx, nextIdx) {
