@@ -322,32 +322,39 @@ public class AppSession extends Utx {
 
         } catch (Exception e) {
 
+            e.printStackTrace();
             return getGsonResult(false, e.toString());
         }
     }
 
-    private GsonResult isIntelectualQuestionValidate(String userAnsw, String dBAnswer) throws Exception {
+    private GsonResult isIntelectualQuestionValidate(String userAnsw, String dBAnswer) {
+        try {
 
-        userAnsw = getReplaceSpecialChars(userAnsw);
-        dBAnswer = getReplaceSpecialChars(dBAnswer);
+            userAnsw = getReplaceSpecialChars(userAnsw);
+            dBAnswer = getReplaceSpecialChars(dBAnswer);
 
-        if (isNullOrEmpty(dBAnswer)) {
-            return getGsonResult(false, "Деректер қорында жауап жазылмаған");
+            if (isNullOrEmpty(dBAnswer)) {
+                return getGsonResult(false, "Деректер қорында жауап жазылмаған");
+            }
+            if (isNullOrEmpty(userAnsw)) {
+                return getGsonResult(false, "0% <h1 style='color:red;'>Дұрыс емес</h1>");
+            }
+            if (userAnsw.equals(dBAnswer)) {
+                return getGsonResult(true, "100% <h1 style='color:green;'>Дұрыс</h1>");
+            }
+
+            String userFirstFormSentence = getFirstFormString(userAnsw);
+            String dbFirstFormSentence = getFirstFormString(dBAnswer);
+
+
+            String vs = validateStrings(userFirstFormSentence, dbFirstFormSentence);
+            //return getGsonResult(true, vs);
+            return getGsonResult(true, userFirstFormSentence + getNewLine() + getNewLine() + dbFirstFormSentence + getNewLine() + vs);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getGsonResult(false, e.getMessage());
         }
-        if (isNullOrEmpty(userAnsw)) {
-            return getGsonResult(false, "0% <h1 style='color:red;'>Дұрыс емес</h1>");
-        }
-        if (userAnsw.equals(dBAnswer)) {
-            return getGsonResult(true, "100% <h1 style='color:green;'>Дұрыс</h1>");
-        }
-
-        String userFirstFormSentence = getFirstFormString(userAnsw);
-        String dbFirstFormSentence = getFirstFormString(dBAnswer);
-
-
-        String vs = validateStrings(userFirstFormSentence, dbFirstFormSentence);
-        //return getGsonResult(true, vs);
-        return getGsonResult(true, userFirstFormSentence + getNewLine() + getNewLine() + dbFirstFormSentence + getNewLine() + vs);
     }
 
 
@@ -400,7 +407,7 @@ public class AppSession extends Utx {
 
     private Integer getIndexInArray(String[] arr, String word) {
         int index = -1;
-        for (int i = 1; i <= arr.length; i++) {
+        for (int i = 0; i < arr.length; i++) {
             if (arr[i].equals(word)) {
                 index = i;
                 break;
@@ -485,7 +492,7 @@ public class AppSession extends Utx {
         return lStr.trim().toLowerCase().equals(rStr.trim().toLowerCase());
     }
 
-    private String getReplaceSpecialChars(String str) {
+    private String getReplaceSpecialChars(String str) throws Exception {
         return str
                 .replace("\n", " ")
                 .replace("-", " ")

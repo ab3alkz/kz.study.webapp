@@ -26,9 +26,12 @@ function createIntellectTempl() {
                         {
                             width: 750,
                             rows: [
-
                                 {
                                     height: 15
+                                },
+                                {
+                                    view: "label",
+                                    label: "<b>" + getResourceName("valuation.youanswer") + ":</b>"
                                 },
                                 {
                                     // readonly: testFinish,
