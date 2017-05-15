@@ -13,7 +13,8 @@ var foldersTreeMenu = [
     {id: "EDITGRAMMAR", icon: "floppy-o", value: "Изменить грамматику к уровням"},
     {id: "EDITAUDIO", icon: " fa fa-file-audio-o", value: "Изменить аудио к уровням"},
     {id: "ANTO", icon: " fa fa-bullhorn", value: "Антонимы"},
-    {id: "SYN", icon: " fa fa-free-code-camp", value: "Синонимы"}
+    {id: "SYN", icon: " fa fa-free-code-camp", value: "Синонимы"},
+    {id: "GAMEW", icon: " fa fa-gamepad", value: "Игра слов"}
 ];
 
 function form_init() {
@@ -86,6 +87,9 @@ function getApps(id) {
             break;
         case "SYN":
             addSynOrAnto(2);
+            break;
+        case "GAMEW":
+            addLessonType(9);
             break;
     }
 }
@@ -287,16 +291,23 @@ function addInfoByParam(partNum, btnId) {
         case 4:
             addViewAudioToLesson(btnId);
             break;
+        case 9:
+            addViewGameWToLesson(btnId);
+            break;
     }
 }
 
-function addViewLessonToLesson(lessonId) {
+function removeALLView() {
     $$('addSomeThink').removeView('btnView');
     $$('addSomeThink').removeView('videoMain');
     $$('addSomeThink').removeView('lessonView');
     $$('addSomeThink').removeView('audioMain');
     $$('addSomeThink').removeView('grammarView');
     $$('addSomeThink').removeView('editContent');
+}
+
+function addViewLessonToLesson(lessonId) {
+    removeALLView();
     $$('addSomeThink').addView(
         {
             id: 'lessonView',
@@ -377,12 +388,7 @@ function addDataToLesson(paramId) {
 }
 
 function addViewVideoToLesson(lessonId) {
-    $$('addSomeThink').removeView('btnView');
-    $$('addSomeThink').removeView('videoMain');
-    $$('addSomeThink').removeView('lessonView');
-    $$('addSomeThink').removeView('audioMain');
-    $$('addSomeThink').removeView('grammarView');
-    $$('addSomeThink').removeView('editContent');
+    removeALLView();
     $$('addSomeThink').addView(
         {
             id: 'videoMain',
@@ -581,13 +587,7 @@ function addDataToVideo(paramId) {
 }
 
 function addViewGrammarToLesson(lessonId) {
-    $$('addSomeThink').removeView('btnView');
-    $$('addSomeThink').removeView('videoMain');
-    $$('addSomeThink').removeView('lessonView');
-    $$('addSomeThink').removeView('audioMain');
-    $$('addSomeThink').removeView('grammarMain');
-    $$('addSomeThink').removeView('grammarView');
-    $$('addSomeThink').removeView('editContent');
+    removeALLView();
     $$('addSomeThink').addView(
         {
             id: 'grammarMain',
@@ -754,12 +754,7 @@ function addDataToGrammar(paramId) {
 }
 
 function addViewAudioToLesson(lessonId) {
-    $$('addSomeThink').removeView('btnView');
-    $$('addSomeThink').removeView('videoMain');
-    $$('addSomeThink').removeView('lessonView');
-    $$('addSomeThink').removeView('audioMain');
-    $$('addSomeThink').removeView('grammarView');
-    $$('addSomeThink').removeView('editContent');
+    removeALLView();
     $$('addSomeThink').addView(
         {
             id: 'audioMain',
@@ -1046,4 +1041,48 @@ function addProfilePhotoBlock(ava) {
             ]
         }
     )
+}
+
+function addViewGameWToLesson(lessonId) {
+    removeALLView();
+    $$('addSomeThink').addView(
+        {
+            id: 'lessonView',
+            width: 800,
+            view: 'form',
+            elementsConfig: {
+                labelPosition: "top"
+            },
+            rows: [
+                {
+                    view: 'label',
+                    label: 'Добавить игру к уровням'
+                },
+                {
+                    view: "template",
+                    height: 300,
+                    name: 'descKaz',
+                    id: 'descKaz',
+                    template: '<div id="descKaz"></div>'
+                },
+                {
+                    cols: [
+                        {
+                            css: "noBorder",
+                            width: 190,
+                            height: 40,
+                            template: '<button type="button" onclick="addDataToLesson(' + lessonId + ')" class="btn btn-success">Сохранить</button>'
+                        },
+                        {
+                            css: "noBorder",
+                            width: 190,
+                            height: 40,
+                            template: '<button type="button" onclick="clearFormByid(\'videoView\')" class="btn btn-danger">Очистить</button>'
+                        }
+                    ]
+                }
+            ]
+        }
+    );
+    initSample2();
 }

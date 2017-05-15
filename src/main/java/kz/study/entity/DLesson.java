@@ -38,6 +38,8 @@ public class DLesson implements Serializable {
     private DAudioLesson dAudioLesson;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "dLessonId")
     private DGrammarLesson dGrammarLesson;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "dLesson")
+    private DGamesW dGamesW;
 
     public DLesson() {
     }
