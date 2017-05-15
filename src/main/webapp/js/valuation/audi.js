@@ -8,19 +8,61 @@ function startAudi() {
 }
 
 function createAudi() {
+    var data = testData[activeQuestionIdx];
+    var resultLabel = "";
+    if (testFinish) {
+        resultLabel = "<h3 style='color:";
+        if (data.result) {
+            resultLabel += "green' >Дұрыс";
+        } else {
+            resultLabel += "red' >Дұрыc емес ";
+        }
+        resultLabel += "<\h3>";
+    }
     $$("audioContainer").removeView("audioQuestion");
     $$("audioContainer").addView({
         id: "audioQuestion",
         rows: [
             {
-                id: "editAudiQuestionWinFrame",
-                width: 310,
-                height: 210,
-                template: "<iframe width='300' height='200' src='" + testData[activeQuestionIdx].frame + "'liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false'></iframe>"
+                width: 700,
+                cols: [
+                    {
+                        id: "editAudiQuestionWinFrame",
+                        width: 310,
+                        height: 210,
+                        template: "<iframe width='300' height='200' src='" + data.frame + "'liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false'></iframe>"
+                    }, {
+                        view: "label",
+                        width: 200,
+                        label: resultLabel
+                    }
+                ]
+            },
+            {
+                height: 10
+            },
+            {
+                view: "label",
+                label: getResourceName("valuation.tyngdalghanmaetindiengizingiz")
             },
             {
                 id: "audiAnswTextarea",
                 view: 'textarea',
+                value: data.answ,
+                height: 70
+            },
+            {
+                height: 10
+            },
+            {
+                hidden: !testFinish,
+                view: "label",
+                label: getResourceName("valuation.trueanswer")
+            },
+            {
+                hidden: !testFinish,
+                view: 'textarea',
+                value: testData[activeQuestionIdx].text,
                 height: 70
             },
             {
@@ -46,13 +88,13 @@ function setAudiQuestionPaging() {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx <= 0,
-                label: '<i onclick="audiQuestionPagingClick(' + 0 + ')" class=" fa fa-fast-backward" aria-hidden="true"></i>'
+                label: '<i onclick="audiQuestionPagingClick(' + activeQuestionIdx + ',' + 0 + ')" class=" fa fa-fast-backward" aria-hidden="true"></i>'
             },
             {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx <= 0,
-                label: '<i onclick="audiQuestionPagingClick(' + (activeQuestionIdx - 1) + ')" class=" fa fa-backward" aria-hidden="true"></i>'
+                label: '<i onclick="audiQuestionPagingClick(' + activeQuestionIdx + ',' + (activeQuestionIdx - 1) + ')" class=" fa fa-backward" aria-hidden="true"></i>'
             },
             {
                 view: 'label',
@@ -63,13 +105,13 @@ function setAudiQuestionPaging() {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx >= max - 1,
-                label: '<i onclick="audiQuestionPagingClick(' + (activeQuestionIdx + 1) + ')" class=" fa fa-forward" aria-hidden="true"></i>'
+                label: '<i onclick="audiQuestionPagingClick(' + activeQuestionIdx + ',' + (activeQuestionIdx + 1) + ')" class=" fa fa-forward" aria-hidden="true"></i>'
             },
             {
                 view: 'label',
                 autowidth: true,
                 disabled: activeQuestionIdx >= max - 1,
-                label: '<i onclick="audiQuestionPagingClick(' + (max - 1) + ')" class=" fa fa-fast-forward" aria-hidden="true"></i>'
+                label: '<i onclick="audiQuestionPagingClick(' + activeQuestionIdx + ',' + (max - 1) + ')" class=" fa fa-fast-forward" aria-hidden="true"></i>'
             },
             {},
             {
@@ -86,12 +128,16 @@ function setAudiQuestionPaging() {
 
 
 function finishAudi() {
+
+    getAudiAnswTextareaVal(activeQuestionIdx);
     testFinish = true;
     $$('finishAudiBtn').disable();
-    return;
     var resCount = 0;
+    console.log(testData)
     for (var i in testData) {
-        if (testData[i].result) {
+        console.log(testData[i].answ.trim().toLowerCase(), testData[i].text.trim().toLowerCase())
+        if (!isNullOrEmpty(testData[i].answ) && !isNullOrEmpty(testData[i].text) &&
+            testData[i].answ.trim().toLowerCase() == testData[i].text.trim().toLowerCase()) {
             resCount++;
         }
     }
@@ -102,23 +148,33 @@ function finishAudi() {
     json.data = testData;
     json.total = total;
     setGameResult(total, json,
-        function () {
+        function (gson) {
 
         }
     );
-    audiQuestionPagingClick(0);
+    audiQuestionPagingClick(null,0);
 }
 
-function audiQuestionPagingClick(idx) {
-    if (isNullOrEmpty(idx)) {
-        idx = 0;
+function audiQuestionPagingClick(idx, nextIdx) {
+
+    if (idx != null) {
+        getAudiAnswTextareaVal(idx)
     }
-    if (idx < 0 || idx > testData.length - 1)
+    if (isNullOrEmpty(nextIdx)) {
+        nextIdx = 0;
+    }
+    if (nextIdx < 0 || nextIdx > testData.length - 1)
         return;
-    activeQuestionIdx = idx;
+    activeQuestionIdx = nextIdx;
     createAudi();
 }
 
+
+function getAudiAnswTextareaVal(idx) {
+    if (idx != null && $$("audiAnswTextarea")) {
+        testData[idx].answ = $$("audiAnswTextarea").getValue();
+    }
+}
 
 function audiAdmin(item) {
 
