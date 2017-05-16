@@ -98,9 +98,9 @@ public class AppSession extends Utx {
         if (start == null) start = 0;
         if (count == null) count = start + 10;
         GsonDatatableData data = new GsonDatatableData();
-        data.setData(getTestAudiListBySrcId(srcId, start, count));
+        data.setData(getTestQuestionsList(srcId, start, count));
         data.setPos(start);
-        data.setTotal_count(getTestAudiCountBySrcId(srcId).intValue());
+        data.setTotal_count(getTestQuestionsCount(srcId).intValue());
         return data;
     }
 
@@ -108,9 +108,9 @@ public class AppSession extends Utx {
         if (start == null) start = 0;
         if (count == null) count = start + 10;
         GsonDatatableData data = new GsonDatatableData();
-        data.setData(getTestQuestionsList(srcId, start, count));
+        data.setData(getTestAudiListBySrcId(srcId, start, count));
         data.setPos(start);
-        data.setTotal_count(getTestQuestionsCount(srcId).intValue());
+        data.setTotal_count(getTestAudiCountBySrcId(srcId).intValue());
         return data;
     }
 
