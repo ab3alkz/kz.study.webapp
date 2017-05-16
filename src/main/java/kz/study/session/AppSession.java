@@ -143,7 +143,7 @@ public class AppSession extends Utx {
         if (start == null) start = 0;
         if (count == null) count = start + 12;
 
-        return em.createNamedQuery("AudiTest.findBySrcId").setParameter("srcId", srcId).setFirstResult(start).setMaxResults(count).getResultList();
+        return em.createNamedQuery("TestQuestions.findBySrcId").setParameter("srcId", srcId).setFirstResult(start).setMaxResults(count).getResultList();
     }
 
     public Long getTestQuestionsCount(Integer srcId) {

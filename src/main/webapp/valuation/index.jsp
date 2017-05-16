@@ -81,7 +81,10 @@
                                     style="padding-left: 50px;padding-right: 50px">Сынақты бастау
                             </button>
                             <button onclick="determineLevel()" class='btn btn-success denggejdi-anyqtau'
-                                    style=" padding-left: 50px;padding-right: 50px">Деңгейді анықтау
+                                    style="display: none; padding-left: 50px;padding-right: 50px">Деңгейді анықтау
+                            </button>
+                            <button onclick="window.location.href='http://localhost:7001/study'" class='btn btn-success denggejdi-anyqtau'
+                                    style=" padding-left: 50px;padding-right: 50px">Оқыту материалдары
                             </button>
                         </div>
                         <div id="defContainer"></div>

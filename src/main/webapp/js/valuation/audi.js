@@ -21,7 +21,7 @@ function createAudi() {
         } else {
             resultLabel += "red' >Дұрыc емес ";
         }
-        resultLabel += "<\h3>";
+        resultLabel += "</h3>";
     }
     $$("audioContainer").removeView("audioQuestion");
     $$("audioContainer").addView({
