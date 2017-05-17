@@ -52,8 +52,17 @@ function form_init() {
             }
         ]
     });
+}
 
+function adViewAddView() {
+    $$("addSomeThink").addView({
+        id: 'addMainVIew',
+        rows: []
+    });
+}
 
+function reViewRemove() {
+    $$('addSomeThink').removeView('addMainVIew');
 }
 
 function getApps(id) {
@@ -94,19 +103,10 @@ function getApps(id) {
     }
 }
 
-function remove() {
-    $$('addSomeThink').removeView('btnView');
-    $$('addSomeThink').removeView('videoMain');
-    $$('addSomeThink').removeView('lessonView');
-    $$('addSomeThink').removeView('audioMain');
-    $$('addSomeThink').removeView('grammarView');
-    $$('addSomeThink').removeView('editContent');
-    $$('addSomeThink').removeView('antView');
-}
-
 function addSynOrAnto(param) {
-    remove();
-    $$('addSomeThink').addView(
+    reViewRemove();
+    adViewAddView();
+    $$('addMainVIew').addView(
         {
             id: 'antView',
             width: 800,
@@ -177,20 +177,17 @@ function addDataAntOrSynonym(param) {
 }
 
 function editOrDropFunction(paramId) {
-    remove();
-    var k = 0;
+    reViewRemove();
+    adViewAddView();
     if (!isNullOrEmpty(paramId)) {
         get_ajax('/study/wr/admin/editAdmin', 'GET', {param: paramId}, function (gson) {
             if (gson && !gson.result) {
                 notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
             } else {
-                for (var i = 0; i <= gson.message.length; i++) {
-                    $$('addSomeThink').removeView('editContent' + i);
-                }
                 gson.message.forEach(function (e) {
-                    $$('addSomeThink').addView(
+                    $$('addMainVIew').addView(
                         {
-                            id: 'editContent' + k,
+                            id: 'editContent',
                             rows: [
                                 {
                                     view: 'label',
@@ -210,7 +207,7 @@ function editOrDropFunction(paramId) {
                                                     CKEDITOR.instances.descLan.setData(e.descLan);
                                                     break;
                                                 case 3:
-                                                    addViewGrammarToLesson(e.paramId)
+                                                    addViewGrammarToLesson(e.paramId);
                                                     $$('grammarView').parse(e);
                                                     CKEDITOR.instances.descRus.setData(e.descRus);
                                                     CKEDITOR.instances.descKaz.setData(e.descKaz);
@@ -223,7 +220,6 @@ function editOrDropFunction(paramId) {
                             ]
                         }
                     );
-                    k++;
                 });
             }
         });
@@ -233,12 +229,9 @@ function editOrDropFunction(paramId) {
 }
 
 function addLessonType(paramId) {
-    $$('addSomeThink').removeView('btnView');
-    $$('addSomeThink').removeView('videoMain');
-    $$('addSomeThink').removeView('lessonView');
-    $$('addSomeThink').removeView('audioMain');
-    $$('addSomeThink').removeView('editContent');
-    $$('addSomeThink').addView(
+    reViewRemove();
+    adViewAddView();
+    $$('addMainVIew').addView(
         {
             id: 'btnView',
             cols: [
@@ -297,18 +290,10 @@ function addInfoByParam(partNum, btnId) {
     }
 }
 
-function removeALLView() {
-    $$('addSomeThink').removeView('btnView');
-    $$('addSomeThink').removeView('videoMain');
-    $$('addSomeThink').removeView('lessonView');
-    $$('addSomeThink').removeView('audioMain');
-    $$('addSomeThink').removeView('grammarView');
-    $$('addSomeThink').removeView('editContent');
-}
-
 function addViewLessonToLesson(lessonId) {
-    removeALLView();
-    $$('addSomeThink').addView(
+    reViewRemove();
+    adViewAddView();
+    $$('addMainVIew').addView(
         {
             id: 'lessonView',
             width: 800,
@@ -388,8 +373,9 @@ function addDataToLesson(paramId) {
 }
 
 function addViewVideoToLesson(lessonId) {
-    removeALLView();
-    $$('addSomeThink').addView(
+    reViewRemove();
+    adViewAddView();
+    $$('addMainVIew').addView(
         {
             id: 'videoMain',
             rows: [
@@ -587,8 +573,9 @@ function addDataToVideo(paramId) {
 }
 
 function addViewGrammarToLesson(lessonId) {
-    removeALLView();
-    $$('addSomeThink').addView(
+    reViewRemove();
+    adViewAddView();
+    $$('addMainVIew').addView(
         {
             id: 'grammarMain',
             rows: [
@@ -754,8 +741,9 @@ function addDataToGrammar(paramId) {
 }
 
 function addViewAudioToLesson(lessonId) {
-    removeALLView();
-    $$('addSomeThink').addView(
+    reViewRemove();
+    adViewAddView();
+    $$('addMainVIew').addView(
         {
             id: 'audioMain',
             rows: [
@@ -1044,45 +1032,99 @@ function addProfilePhotoBlock(ava) {
 }
 
 function addViewGameWToLesson(lessonId) {
-    removeALLView();
-    $$('addSomeThink').addView(
+    reViewRemove();
+    adViewAddView();
+    $$('addMainVIew').addView(
         {
-            id: 'lessonView',
-            width: 800,
-            view: 'form',
-            elementsConfig: {
-                labelPosition: "top"
-            },
+            id: 'gameView',
             rows: [
                 {
                     view: 'label',
-                    label: 'Добавить игру к уровням'
-                },
-                {
-                    view: "template",
-                    height: 300,
-                    name: 'descKaz',
-                    id: 'descKaz',
-                    template: '<div id="descKaz"></div>'
+                    label: 'Добавить аудио к уроку'
                 },
                 {
                     cols: [
                         {
-                            css: "noBorder",
-                            width: 190,
-                            height: 40,
-                            template: '<button type="button" onclick="addDataToLesson(' + lessonId + ')" class="btn btn-success">Сохранить</button>'
+                            view: "richselect",
+                            label: 'Выберите уровень',
+                            labelPosition: "top",
+                            id: "dUroven",
+                            inputHeight: 37,
+                            height: 70,
+                            suggest: {
+                                body: {template: "#nameRus#"}
+                            },
+                            on: {
+                                onChange: function (newV) {
+                                    if (!isNullOrEmpty(newV)) {
+                                        $$('parentId').enable();
+                                        loadData(2, newV);
+                                    }
+                                }
+                            }
                         },
                         {
-                            css: "noBorder",
-                            width: 190,
-                            height: 40,
-                            template: '<button type="button" onclick="clearFormByid(\'videoView\')" class="btn btn-danger">Очистить</button>'
+                            view: "richselect",
+                            label: 'Выберите родительский элемент',
+                            labelPosition: "top",
+                            name: "parentId",
+                            id: "parentId",
+                            disabled: true,
+                            inputHeight: 37,
+                            height: 70,
+                            suggest: {
+                                body: {template: "#nameRus#"}
+                            },
+                            on: {
+                                onChange: function (newV, oldV) {
+                                    $$('gameForm').enable();
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'gameForm',
+                    width: 800,
+                    disabled: true,
+                    view: 'form',
+                    elementsConfig: {
+                        labelPosition: "top"
+                    },
+                    rows: [
+                        {view: 'label', label: "Упражнения на русском"},
+                        {
+                            view: "template",
+                            height: 300,
+                            name: 'descRus',
+                            id: 'descRus',
+                            template: '<div id="descRus"></div>'
+                        },
+                        {
+                            cols: [
+                                {
+                                    css: "noBorder",
+                                    width: 190,
+                                    height: 40,
+                                    template: '<button type="button" onclick="addDataToAudio(' + lessonId + ')" class="btn btn-success">Сохранить</button>'
+                                },
+                                {
+                                    css: "noBorder",
+                                    width: 190,
+                                    height: 40,
+                                    template: '<button type="button" onclick="clearFormByid(\'videoView\')" class="btn btn-danger">Очистить</button>'
+                                }
+                            ]
+                        },
+                        {
+                            id: 'avaRows',
+                            cols: []
                         }
                     ]
                 }
             ]
         }
     );
-    initSample2();
+    loadData(1);
+    initSample();
 }

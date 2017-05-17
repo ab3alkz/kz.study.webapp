@@ -33,7 +33,6 @@ public class LearnSession extends Utx {
     private static final Logger LOGGER = LoggerFactory.getLogger(LearnSession.class);
     private static final int PER_DEF_START = 0;
     private static final int PER_DEF_COUNT = 10;
-    public static Lang language = Lang.valueOf("Ru");
 
     @PersistenceContext(unitName = "study")
     private EntityManager em;

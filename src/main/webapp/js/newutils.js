@@ -661,3 +661,22 @@ function registration() {
         });
     }
 }
+
+function changeLangSubmit(e) {
+    var language = e;
+    if (e == undefined)
+        language = 'Ru';
+    $('#langBlock').html(' ' + language + ' ');
+    localStorage.setItem("lang", language);
+
+    $.ajax({
+        url: "/study/wr/app/changeLang",
+        type: 'GET',
+        data: {lang: language},
+        success: function (gson) {
+            if (gson) {
+                location.href = "";
+            }
+        }
+    });
+}

@@ -1,10 +1,11 @@
 package kz.study.gson;
 
-public class GsonUsers {
+public class GsonUsers<E> {
     private String uName;    
     private String uPassword;
     private String uDescription;
     private GsonUserDetail userDetail;
+    private E role;
 
     public String getuName() {
         return uName;
@@ -36,5 +37,13 @@ public class GsonUsers {
 
     public void setUserDetail(GsonUserDetail userDetail) {
         this.userDetail = userDetail;
+    }
+
+    public E getRole() {
+        return role;
+    }
+
+    public void setRole(E role) {
+        this.role = role;
     }
 }

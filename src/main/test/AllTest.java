@@ -25,40 +25,40 @@ public class AllTest {
     private static final String pass = "123456";
     private static List<String> mainName = new ArrayList<>();
 
-    @Test
-    public void getTest() throws SQLException {
-        List<String> textList = new ArrayList<>();
-        String newS = "асланмен әлихан доп ойнады ";
-        textList.addAll(Arrays.asList(newS.toLowerCase().split(" ")));
-
-
-        List<String> allNameList = getTestAllName();
-        if (allNameList != null) {
-
-//            String[] sNew = s.split(" ");
-            for (String s : getUniqueName(allNameList, textList)) {
-//                if (newS.contains(allName)) {
-//                    String ending = newS.replace(allName, "");
-//                    newS = "";
-//                    mainName = names;
-//                    getEngingAnalyze(ending, 1);
-//                } else {
+//    @Test
+//    public void getTest() throws SQLException {
+//        List<String> textList = new ArrayList<>();
+//        String newS = "асланмен әлихан доп ойнады ";
+//        textList.addAll(Arrays.asList(newS.toLowerCase().split(" ")));
 //
+//
+//        List<String> allNameList = getTestAllName();
+//        if (allNameList != null) {
+//
+////            String[] sNew = s.split(" ");
+//            for (String s : getUniqueName(allNameList, textList)) {
+////                if (newS.contains(allName)) {
+////                    String ending = newS.replace(allName, "");
+////                    newS = "";
+////                    mainName = names;
+////                    getEngingAnalyze(ending, 1);
+////                } else {
+////
+////                }
+//                if (!isNullOrEmpty(s)) {
+//                    getEngingAnalyze(s, 1);
+//                    break;
 //                }
-                if (!isNullOrEmpty(s)) {
-                    getEngingAnalyze(s, 1);
-                    break;
-                }
-            }
-//            for (String allName : allNameList) {
-////                for (String newS : sNew) {
-//
-//
 //            }
-//            }
-        }
-
-    }
+////            for (String allName : allNameList) {
+//////                for (String newS : sNew) {
+////
+////
+////            }
+////            }
+//        }
+//
+//    }
 
     private List<String> getUniqueName(List<String> allNameLis, List<String> textList) {
         List<String> uniqueName = new ArrayList<>();
@@ -198,31 +198,31 @@ public class AllTest {
         return null;
     }
 
-    @Nullable
-    private List<String> getTestAllName() throws SQLException {
-        List<String> list = new ArrayList<>();
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
-        try {
-            Class.forName(driverName);
-            conn = DriverManager.getConnection(url, user, pass);
-            stmt = conn.createStatement();
-            String sql = "SELECT * FROM p_person";
-            rs = stmt.executeQuery(sql);
-            while (rs.next()) {
-                list.add(rs.getString("value").toLowerCase());
-            }
-            return list;
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            rs.close();
-            stmt.close();
-            conn.close();
-        }
-        return null;
-    }
+//    @Nullable
+//    private List<String> getTestAllName() throws SQLException {
+//        List<String> list = new ArrayList<>();
+//        Connection conn = null;
+//        Statement stmt = null;
+//        ResultSet rs = null;
+//        try {
+//            Class.forName(driverName);
+//            conn = DriverManager.getConnection(url, user, pass);
+//            stmt = conn.createStatement();
+//            String sql = "SELECT * FROM p_person";
+//            rs = stmt.executeQuery(sql);
+//            while (rs.next()) {
+//                list.add(rs.getString("value").toLowerCase());
+//            }
+//            return list;
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        } finally {
+//            rs.close();
+//            stmt.close();
+//            conn.close();
+//        }
+//        return null;
+//    }
 
     @Test
     public void translator() {

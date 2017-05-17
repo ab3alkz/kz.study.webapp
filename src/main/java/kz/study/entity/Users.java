@@ -37,6 +37,8 @@ public class Users implements Serializable {
     private String uDescription;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "uName")
     private UserDetail userDetail;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "users")
+    private Groupmembers groupmembers;
 
     public Users(String uName) {
         this.uName = uName;
@@ -76,5 +78,13 @@ public class Users implements Serializable {
 
     public void setUserDetail(UserDetail userDetail) {
         this.userDetail = userDetail;
+    }
+
+    public Groupmembers getGroupmembers() {
+        return groupmembers;
+    }
+
+    public void setGroupmembers(Groupmembers groupmembers) {
+        this.groupmembers = groupmembers;
     }
 }

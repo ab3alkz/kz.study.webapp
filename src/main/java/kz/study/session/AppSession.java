@@ -7,6 +7,7 @@ package kz.study.session;
 
 import kz.study.entity.*;
 import kz.study.gson.*;
+import kz.study.lang.Lang;
 import kz.study.util.Utx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +33,6 @@ import static kz.study.wrapper.Wrapper.*;
 @Stateless
 public class AppSession extends Utx {
 
-
     private static final Logger logger = LoggerFactory.getLogger(AppSession.class);
 
     @PersistenceContext(unitName = "study")
@@ -43,6 +43,16 @@ public class AppSession extends Utx {
     private static final int PER_DEF_COUNT = 30;
 
     private List<Integer> randList;
+
+    public static Lang language = Lang.valueOf("Kz");
+
+    public Boolean changeLang(String lang) {
+        if (!isNullOrEmpty(lang)) {
+            language = Lang.valueOf(lang);
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
 
     public List<Words> getRandom10WordList() {
         List<Words> list = em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(100).getResultList();

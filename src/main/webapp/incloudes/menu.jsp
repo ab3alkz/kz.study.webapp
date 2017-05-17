@@ -1,3 +1,4 @@
+<%@ page import="kz.study.gson.GsonUsers" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -16,7 +17,7 @@
     <script>
         function logout() {
             $.post("${contextPath}/auth", function () {
-                window.location.href = "${contextPath}/login.jsp";
+                window.location.href = "${contextPath}/valuation/index.jsp";
             });
         }
     </script>
@@ -33,19 +34,27 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href=${contextPath}><span class="glyphicon glyphicon-home"></span></a></li>
-                <li><a href="${contextPath}/pages/letter.jsp"><span class="glyphicon glyphicon-sort-by-alphabet">&nbsp;<span class="menuAplh"></span></span></a></li>
-                <li><a href="${contextPath}/pages/video.jsp"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;<span class="videLess"></span></a></li>
+                <li><a href="${contextPath}/pages/letter.jsp"><span
+                        class="glyphicon glyphicon-sort-by-alphabet">&nbsp;<span class="menuAplh"></span></span></a>
+                </li>
+                <li><a href="${contextPath}/pages/video.jsp"><span class="glyphicon glyphicon-facetime-video"></span>&nbsp;<span
+                        class="videLess"></span></a></li>
                 <li><a href="${contextPath}/pages/translate.jsp"><span class="translateMenu"></span></a></li>
 
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span class="lessonsMenu"></span><span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a onclick="setLocalStorage('part', 'A1')" href="${contextPath}/pages/A2.jsp" class="classA1"></a></li>
-                        <li><a onclick="setLocalStorage('part', 'A2')" href="${contextPath}/pages/A2.jsp" class="classA2"></a></li>
-                        <li><a onclick="setLocalStorage('part', 'B1')" href="${contextPath}/pages/A2.jsp" class="classB1"></a></li>
-                        <li><a onclick="setLocalStorage('part', 'B2')" href="${contextPath}/pages/A2.jsp" class="classB2"></a></li>
-                        <li><a onclick="setLocalStorage('part', 'C1')" href="${contextPath}/pages/A2.jsp" class="classC1"></a></li>
+                        <li><a onclick="setLocalStorage('part', 'A1')" href="${contextPath}/pages/A2.jsp"
+                               class="classA1"></a></li>
+                        <li><a onclick="setLocalStorage('part', 'A2')" href="${contextPath}/pages/A2.jsp"
+                               class="classA2"></a></li>
+                        <li><a onclick="setLocalStorage('part', 'B1')" href="${contextPath}/pages/A2.jsp"
+                               class="classB1"></a></li>
+                        <li><a onclick="setLocalStorage('part', 'B2')" href="${contextPath}/pages/A2.jsp"
+                               class="classB2"></a></li>
+                        <li><a onclick="setLocalStorage('part', 'C1')" href="${contextPath}/pages/A2.jsp"
+                               class="classC1"></a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
@@ -58,8 +67,10 @@
                         <li><a onclick="analizeType(4);" class="analizeLexicMenu"></a></li>
                     </ul>
                 </li>
-
+                <% GsonUsers user = (GsonUsers) request.getSession().getAttribute("user");
+                    if (user.getRole().equals("admin_role")) { %>
                 <li><a href="${contextPath}/pages/adminstrate.jsp"><span>Администрирование</span></a></li>
+                <% } %>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -69,7 +80,7 @@
                             class="caret"></b>
                     </a>
                     <ul class="dropdown-menu pull-right" style="max-height: 407px;">
-                        <li dir="ltr" onclick="changeLangSubmit('ln')"><a href="#">Latynsha</a></li>
+                        <li dir="ltr" onclick="changeLangSubmit('Ln')"><a href="#">Latynsha</a></li>
                         <li dir="ltr" onclick="changeLangSubmit('Kz')"><a href="#">Қазақша</a></li>
                         <li dir="ltr" onclick="changeLangSubmit('Ru')"><a href="#">Русский</a></li>
                     </ul>
@@ -79,6 +90,21 @@
                         <span class="glyphicon glyphicon-leaf">&nbsp;</span>
                         <span class="proverMenu"></span>
                     </a>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"
+                       style="padding-left: 45px;padding-right: 45px; width: auto;">
+                        <span class="glyphicon glyphicon-user">&nbsp;</span>
+                        <span id="profileName" style="text-transform: capitalize"></span>
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+
+                        <li class="nav-divider"></li>
+                        <li><a href="javascript:void(0)" onclick="logout()"><span
+                                class="glyphicon glyphicon-log-out"></span>&nbsp;<span class="menuExit"></span></a></li>
+                    </ul>
                 </li>
             </ul>
         </div>
@@ -91,16 +117,6 @@
     function analizeType(id) {
         setLocalStorage("analize", id);
         window.location.href = "${contextPath}/pages/analize.jsp";
-    }
-</script>
-<script>
-    function changeLangSubmit(e) {
-        var language = e;
-        if (e == undefined)
-            language = 'Ru';
-        $('#langBlock').html(' ' + language + ' ');
-        localStorage.setItem("lang", language);
-        window.location.href = "";
     }
 </script>
 <script type="text/javascript">
@@ -130,6 +146,7 @@
             document.querySelector('.classB1').innerHTML = getResourceName('b.one.urover');
             document.querySelector('.classB2').innerHTML = getResourceName('b.two.urover');
             document.querySelector('.classC1').innerHTML = getResourceName('c.one.urover');
+            document.querySelector('.menuExit').innerHTML = getResourceName('menu.exit.admin');
         }
     });
 

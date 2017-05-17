@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import static kz.study.session.AnalizeSession.getTestStringLatyn;
-import static kz.study.session.LearnSession.language;
+import static kz.study.session.AppSession.language;
 
 public class Util {
 

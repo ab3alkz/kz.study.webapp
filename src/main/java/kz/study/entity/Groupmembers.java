@@ -33,6 +33,9 @@ public class Groupmembers implements Serializable {
     @JoinColumn(name = "G_NAME", referencedColumnName = "G_NAME", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Groups groups;
+    @JoinColumn(name = "G_MEMBER", referencedColumnName = "U_NAME", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Users users;
 
     public Groupmembers() {
     }
@@ -67,5 +70,13 @@ public class Groupmembers implements Serializable {
 
     public void setGroups(Groups groups) {
         this.groups = groups;
+    }
+
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
     }
 }

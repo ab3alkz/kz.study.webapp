@@ -2,10 +2,13 @@ package kz.study.wrapper;
 
 import kz.study.entity.*;
 import kz.study.gson.*;
+import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.Contract;
 
 import javax.ws.rs.core.MultivaluedMap;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +28,7 @@ public class Wrapper {
             GsonUsers gson = new GsonUsers();
             gson.setuName(user.getuName());
             gson.setUserDetail(wrapToGsonUserDetail(user.getUserDetail()));
+            gson.setRole(user.getGroupmembers().getGroups().getGName());
             return gson;
         }
         return null;
@@ -335,6 +339,7 @@ public class Wrapper {
             gson.setAudioLink(obj.getdAudioLessonImg().getLink());
             gson.setImg(new String(obj.getdAudioLessonImg().getImg(), StandardCharsets.UTF_8));
         }
+
         return gson;
     }
 

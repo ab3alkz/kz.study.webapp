@@ -29,6 +29,7 @@
 <div>
     <div class="panel panel-default">
         <div class="panel-body">
+            <h1>Қазақ тілін интеллектуалды оқыту жүйесі</h1>
             <div>
                 <div id="mainContainer"></div>
                 <div id="sldesContainer"></div>

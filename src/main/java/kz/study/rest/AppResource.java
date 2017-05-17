@@ -30,17 +30,22 @@ import static kz.study.util.Util.objectToJson;
 public class AppResource {
 
     @Context
-    private HttpServletRequest request;
-
-    @Context
     SecurityContext sc;
+    @Context
+    private HttpServletRequest request;
+    @EJB
+    private
+    AppSession appSession;
+
+    @GET
+    @Path("changeLang")
+    public String changeLang(@QueryParam("lang") String lang) {
+        return objectToJson(appSession.changeLang(lang));
+    }
 
     private String getUserName() {
         return sc.getUserPrincipal().getName();
     }
-
-    @EJB
-    AppSession appSession;
 
     @GET
     @Produces("application/json")
@@ -91,14 +96,15 @@ public class AppResource {
                                        @QueryParam("lang") String lang) {
         return objectToJson(appSession.getRandom25Guestions(srcId, start, count, lang));
     }
+
     @GET
     @Produces("application/json")
     @Path("getRandom25determineGuestions")
     public String getRandom25determineGuestions(
-                                       @QueryParam("start") Integer start,
-                                       @QueryParam("count") Integer count,
-                                       @QueryParam("lang") String lang) {
-        return objectToJson(appSession.getRandom25determineGuestions( start, count, lang));
+            @QueryParam("start") Integer start,
+            @QueryParam("count") Integer count,
+            @QueryParam("lang") String lang) {
+        return objectToJson(appSession.getRandom25determineGuestions(start, count, lang));
     }
 
     @GET
@@ -219,7 +225,7 @@ public class AppResource {
     @GET
     @Produces("application/json")
     @Path("getRandom10AudiList")
-    public String getRandom10AudiList(@QueryParam("srcId")  Integer srcId) {
+    public String getRandom10AudiList(@QueryParam("srcId") Integer srcId) {
         return objectToJson(appSession.getRandom10AudiList(srcId));
     }
 

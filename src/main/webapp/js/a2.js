@@ -3,13 +3,18 @@ $(document).ready(function () {
     getLessonValue();
 });
 
+var k = 0;
+
 function form_init() {
     webix.ui({
         id: "mainlayot",
         container: "mainContainer",
         css: 'blueW',
         autoheight: true,
-        rows: []
+        rows: [{
+            id: 'addSomeThink',
+            cols: []
+        }]
     });
 }
 
@@ -20,23 +25,21 @@ function getLessonValue() {
             notifyMessage('Ошибка! ', gson.message, notifyType.danger);
             return;
         }
-
         gson.message.forEach(function (e) {
-
-            $$('mainlayot').addView(
+            $$('addSomeThink').addView(
                 {
-                    id: "content",
                     css: 'boxLetter',
-                    rows: [
+                    cols: [
                         {
                             view: "button",
                             id: e.id,
                             value: e.value,
                             width: 190,
+                            height: 60,
                             on: {
                                 onItemClick: function () {
-                                    this.hide();
                                     addViewLocal(this.data.id);
+                                    reViewRemove();
                                 }
                             }
                         },
@@ -48,19 +51,27 @@ function getLessonValue() {
     });
 }
 
+function reViewRemove() {
+    $$('mainlayot').removeView('addSomeThink');
+}
+
+function adViewAddView() {
+    $$("mainlayot").addView({
+        id: 'addSomeThink',
+        rows: []
+    });
+}
+
 function addVideoViewByID() {
-    var j = 0;
     get_ajax('/study/wr/lrn/getVideoFormById', 'GET', {param: getLocalStorage("btnParam")}, function (gson) {
         if (!gson || !gson.result) {
             notifyMessage('Ошибка! ', gson.message, notifyType.danger);
             return;
         }
-        for (var i = 0; i <= gson.message.length; i++) {
-            removeView(i);
-        }
+        reViewRemove();
+        adViewAddView();
         gson.message.forEach(function (e) {
-            $$("mainlayot").addView({
-                id: "videoContent" + j,
+            $$("addSomeThink").addView({
                 css: 'boxLetter',
                 rows: [
                     {
@@ -91,24 +102,20 @@ function addVideoViewByID() {
                     {height: 30}
                 ]
             });
-            j++;
         })
     });
 }
 
 function addAudioViewByID() {
-    var j = 0;
     get_ajax('/study/wr/lrn/getAudioFormById', 'GET', {param: getLocalStorage("btnParam")}, function (gson) {
         if (!gson || !gson.result) {
             notifyMessage('Ошибка! ', gson.message, notifyType.danger);
             return;
         }
-        for (var i = 0; i <= gson.message.length; i++) {
-            removeView(i);
-        }
+        reViewRemove();
+        adViewAddView();
         gson.message.forEach(function (e) {
-            $$("mainlayot").addView({
-                id: "audioContent" + j,
+            $$("addSomeThink").addView({
                 css: 'boxLetter',
                 rows: [
                     {
@@ -148,24 +155,20 @@ function addAudioViewByID() {
                     }
                 ]
             });
-            j++;
         })
     });
 }
 
 function addGrammarViewByID() {
-    var j = 0;
     get_ajax('/study/wr/lrn/getGrammarFormById', 'GET', {param: getLocalStorage("btnParam")}, function (gson) {
         if (!gson || !gson.result) {
             notifyMessage('Ошибка! ', gson.message, notifyType.danger);
             return;
         }
-        for (var i = 0; i <= gson.message.length; i++) {
-            removeView(i);
-        }
+        reViewRemove();
+        adViewAddView();
         gson.message.forEach(function (e) {
-            $$("mainlayot").addView({
-                id: "grammarContent"+j,
+            $$("addSomeThink").addView({
                 css: 'boxLetter',
                 rows: [
                     {
@@ -189,13 +192,6 @@ function addGrammarViewByID() {
                     {height: 80}
                 ]
             });
-            j++;
         })
     });
-}
-
-function removeView(id) {
-    $$("mainlayot").removeView('videoContent' + id);
-    $$("mainlayot").removeView('grammarContent' + id);
-    $$("mainlayot").removeView('audioContent' + id);
 }

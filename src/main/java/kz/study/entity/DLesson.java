@@ -13,7 +13,7 @@ import java.io.Serializable;
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "DLesson.findAll", query = "SELECT g FROM DLesson g"),
-        @NamedQuery(name = "DLesson.findByDUrovenId", query = "SELECT g FROM DLesson g where g.dUroven = :id"),
+        @NamedQuery(name = "DLesson.findByDUrovenId", query = "SELECT g FROM DLesson g where g.dUroven = :id order by g.nameRus asc"),
         @NamedQuery(name = "DLesson.findById", query = "SELECT g FROM DLesson g where g.id = :id"),
 })
 public class DLesson implements Serializable {
