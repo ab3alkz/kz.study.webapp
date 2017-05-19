@@ -20,6 +20,16 @@ public class GsonAdminValue {
     private String audioLessonId;
     private String img;
     private String audioLink;
+    private String question;
+    private String answer;
+    private String var1;
+    private String var2;
+    private String var3;
+    private String var4;
+    private String ch_var1;
+    private String ch_var2;
+    private String ch_var3;
+    private String ch_var4;
 
     public String getId() {
         return id;
@@ -131,5 +141,85 @@ public class GsonAdminValue {
 
     public void setAudioLink(String audioLink) {
         this.audioLink = audioLink;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getVar1() {
+        return var1;
+    }
+
+    public void setVar1(String var1) {
+        this.var1 = var1;
+    }
+
+    public String getVar2() {
+        return var2;
+    }
+
+    public void setVar2(String var2) {
+        this.var2 = var2;
+    }
+
+    public String getVar3() {
+        return var3;
+    }
+
+    public void setVar3(String var3) {
+        this.var3 = var3;
+    }
+
+    public String getVar4() {
+        return var4;
+    }
+
+    public void setVar4(String var4) {
+        this.var4 = var4;
+    }
+
+    public String getCh_var1() {
+        return ch_var1;
+    }
+
+    public void setCh_var1(String ch_var1) {
+        this.ch_var1 = ch_var1;
+    }
+
+    public String getCh_var2() {
+        return ch_var2;
+    }
+
+    public void setCh_var2(String ch_var2) {
+        this.ch_var2 = ch_var2;
+    }
+
+    public String getCh_var3() {
+        return ch_var3;
+    }
+
+    public void setCh_var3(String ch_var3) {
+        this.ch_var3 = ch_var3;
+    }
+
+    public String getCh_var4() {
+        return ch_var4;
+    }
+
+    public void setCh_var4(String ch_var4) {
+        this.ch_var4 = ch_var4;
     }
 }

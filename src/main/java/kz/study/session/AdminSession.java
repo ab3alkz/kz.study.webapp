@@ -255,4 +255,36 @@ public class AdminSession extends Utx {
 
         return getGsonResult(Boolean.TRUE, "Сохранено");
     }
+
+    public GsonResult addDataDGameW(GsonAdminValue gson) {
+        String wordAnswerId = createGuid();
+        String answer = "";
+
+        if (gson.getCh_var1().equals("1")) {
+            answer = gson.getVar1();
+        } else if (gson.getCh_var2().equals("1")) {
+            answer = gson.getVar2();
+        } else if (gson.getCh_var3().equals("1")) {
+            answer = gson.getVar3();
+        } else if (gson.getCh_var4().equals("1")) {
+            answer = gson.getVar4();
+        } else {
+            return getGsonResult(Boolean.FALSE, "Выберите правильный ответ");
+        }
+
+        DGameWordAnswerFactory<DGameWordAnswer> aNew = DGameWordAnswer::new;
+        DGameWordAnswer dGameWordAnswer = aNew.create(wordAnswerId, gson.getVar1(), gson.getVar2(), gson.getVar3(), gson.getVar4());
+
+        em.persist(dGameWordAnswer);
+        em.flush();
+
+        DGameWordFactory<DGameWord> factory = DGameWord::new;
+        DGameWord dGameWord = factory.create(createGuid(), new DLesson(gson.getParamId()),
+                gson.getQuestion(), new DGameWordAnswer(wordAnswerId), answer);
+
+        em.persist(dGameWord);
+        em.flush();
+
+        return getGsonResult(Boolean.TRUE, "Сохранено");
+    }
 }

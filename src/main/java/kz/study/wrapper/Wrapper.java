@@ -231,6 +231,15 @@ public class Wrapper {
             gson.setAudioLessonId(formParams.getFirst("audioLessonId"));
             gson.setImg(formParams.getFirst("img"));
             gson.setAudioLink(formParams.getFirst("audioLink"));
+            gson.setQuestion(formParams.getFirst("question"));
+            gson.setVar1(formParams.getFirst("var1"));
+            gson.setVar2(formParams.getFirst("var2"));
+            gson.setVar3(formParams.getFirst("var3"));
+            gson.setVar4(formParams.getFirst("var4"));
+            gson.setCh_var1(formParams.getFirst("ch_var1"));
+            gson.setCh_var2(formParams.getFirst("ch_var2"));
+            gson.setCh_var3(formParams.getFirst("ch_var3"));
+            gson.setCh_var4(formParams.getFirst("ch_var4"));
 
             return gson;
         }
@@ -483,4 +492,21 @@ public class Wrapper {
         return gsonList;
     }
 
+    private static GsonAdminValue wrapToDGameWord(DGameWord obj) {
+        GsonAdminValue gson = new GsonAdminValue();
+        gson.setId(obj.getId());
+        gson.setQuestion(obj.getQuestion());
+        gson.setVar1(obj.getdGameWordAnswer().getVar1());
+        gson.setVar2(obj.getdGameWordAnswer().getVar2());
+        gson.setVar3(obj.getdGameWordAnswer().getVar3());
+        gson.setVar4(obj.getdGameWordAnswer().getVar4());
+
+        return gson;
+    }
+
+    public static List<GsonAdminValue> wrapTDGameWordList(List<DGameWord> list) {
+        List<GsonAdminValue> gsonList = new ArrayList<>();
+        list.forEach(s -> gsonList.add(wrapToDGameWord(s)));
+        return gsonList;
+    }
 }

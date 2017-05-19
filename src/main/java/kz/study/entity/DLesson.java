@@ -40,6 +40,8 @@ public class DLesson implements Serializable {
     private DGrammarLesson dGrammarLesson;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "dLesson")
     private DGamesW dGamesW;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "dLesson")
+    private DGameWord dGameWord;
 
     public DLesson() {
     }

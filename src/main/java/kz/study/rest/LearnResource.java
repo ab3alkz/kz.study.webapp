@@ -90,4 +90,11 @@ public class LearnResource {
     public String getGrammarFormById(@QueryParam("param") final String param) {
         return objectToJson(learnSession.getGrammarFormById(param));
     }
+
+    @GET
+    @Produces("application/json")
+    @Path("getGame1FormById")
+    public String getGame1FormById(@QueryParam("param") final String param) {
+        return objectToJson(learnSession.getGame1FormById(param));
+    }
 }

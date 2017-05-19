@@ -135,4 +135,16 @@ public class LearnSession extends Utx {
         }
         return null;
     }
+
+    public GsonResult getGame1FormById(String id) {
+        try {
+            List<GsonAdminValue> list =
+                    wrapTDGameWordList(em.createNamedQuery("DGameWord.findByDUrovenId")
+                            .setParameter("id", new DLesson(id)).getResultList());
+            return getGsonResult(Boolean.TRUE, list);
+        } catch (Exception e) {
+            LOGGER.error("error", e);
+        }
+        return null;
+    }
 }

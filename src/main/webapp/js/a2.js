@@ -1,6 +1,7 @@
 $(document).ready(function () {
     form_init();
-    getLessonValue();
+    // getLessonValue();
+    addGame1ViewByID()
 });
 
 var k = 0;
@@ -193,5 +194,17 @@ function addGrammarViewByID() {
                 ]
             });
         })
+    });
+}
+
+function addGame1ViewByID() {
+    get_ajax('/study/wr/lrn/getGame1FormById', 'GET', {param: getLocalStorage("btnParam")}, function (gson) {
+        if (!gson || !gson.result) {
+            notifyMessage('Ошибка! ', gson.message, notifyType.danger);
+            return;
+        }
+        reViewRemove();
+        adViewAddView();
+        addGame1Data(gson.message);
     });
 }

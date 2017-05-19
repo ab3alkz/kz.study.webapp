@@ -100,4 +100,12 @@ public class AdminResource {
         GsonAdminValue gson = wrapToGsonAdminValue(formParams);
         return objectToJson(adminSession.addDataAntOrSynonym(gson));
     }
+
+    @POST
+    @Produces("application/json")
+    @Path("addDataDGameW")
+    public String addDataDGameW(MultivaluedMap<String, String> formParams) {
+        GsonAdminValue gson = wrapToGsonAdminValue(formParams);
+        return objectToJson(adminSession.addDataDGameW(gson));
+    }
 }

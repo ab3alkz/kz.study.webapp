@@ -1092,13 +1092,90 @@ function addViewGameWToLesson(lessonId) {
                         labelPosition: "top"
                     },
                     rows: [
-                        {view: 'label', label: "Упражнения на русском"},
+                        {view: 'text', name: 'question', label: 'Основной вопрос', required: true},
                         {
-                            view: "template",
-                            height: 300,
-                            name: 'descRus',
-                            id: 'descRus',
-                            template: '<div id="descRus"></div>'
+                            cols: [
+                                {view: 'text', name: 'var1', label: 'Вариант 1', required: true},
+                                {
+                                    view: "checkbox",
+                                    name: "ch_var1",
+                                    id: "ch_var1",
+                                    label: "Отметить как правильный",
+                                    value: 0,
+                                    on: {
+                                        onItemClick: function () {
+                                            if (this.getValue() == 1) {
+                                                $$("ch_var2").setValue(0);
+                                                $$("ch_var3").setValue(0);
+                                                $$("ch_var4").setValue(0);
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            cols: [
+                                {view: 'text', name: 'var2', label: 'Вариант 2', required: true},
+                                {
+                                    view: "checkbox",
+                                    name: "ch_var2",
+                                    id: "ch_var2",
+                                    label: "Отметить как правильный",
+                                    value: 0,
+                                    on: {
+                                        onItemClick: function () {
+                                            if (this.getValue() == 1) {
+                                                $$("ch_var1").setValue(0);
+                                                $$("ch_var3").setValue(0);
+                                                $$("ch_var4").setValue(0);
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            cols: [
+                                {view: 'text', name: 'var3', label: 'Вариант 3', required: true},
+                                {
+                                    view: "checkbox",
+                                    name: "ch_var3",
+                                    id: "ch_var3",
+                                    label: "Отметить как правильный",
+                                    value: 0,
+                                    on: {
+                                        onItemClick: function () {
+                                            if (this.getValue() == 1) {
+                                                $$("ch_var2").setValue(0);
+                                                $$("ch_var1").setValue(0);
+                                                $$("ch_var4").setValue(0);
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            cols: [
+                                {view: 'text', name: 'var4', label: 'Вариант 4', required: true},
+                                {
+                                    view: "checkbox",
+                                    name: "ch_var4",
+                                    id: "ch_var4",
+                                    label: "Отметить как правильный",
+                                    value: 0,
+                                    on: {
+                                        onItemClick: function () {
+                                            if (this.getValue() == 1) {
+                                                $$("ch_var2").setValue(0);
+                                                $$("ch_var3").setValue(0);
+                                                $$("ch_var1").setValue(0);
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
                         },
                         {
                             cols: [
@@ -1106,13 +1183,13 @@ function addViewGameWToLesson(lessonId) {
                                     css: "noBorder",
                                     width: 190,
                                     height: 40,
-                                    template: '<button type="button" onclick="addDataToAudio(' + lessonId + ')" class="btn btn-success">Сохранить</button>'
+                                    template: '<button type="button" onclick="saveViewGameWToLesson(' + lessonId + ')" class="btn btn-success">Сохранить</button>'
                                 },
                                 {
                                     css: "noBorder",
                                     width: 190,
                                     height: 40,
-                                    template: '<button type="button" onclick="clearFormByid(\'videoView\')" class="btn btn-danger">Очистить</button>'
+                                    template: '<button type="button" onclick="clearFormByid(\'gameForm\')" class="btn btn-danger">Очистить</button>'
                                 }
                             ]
                         },
@@ -1126,5 +1203,32 @@ function addViewGameWToLesson(lessonId) {
         }
     );
     loadData(1);
-    initSample();
+}
+
+function saveViewGameWToLesson(paramId) {
+    var form = $$('gameForm');
+    if (!isNullOrEmpty(paramId)) {
+        get_ajax('/study/wr/admin/addDataDGameW', 'POST',
+            {
+                paramId: $$('parentId').getValue(),
+                question: form.elements['question'].getValue(),
+                var1: form.elements['var1'].getValue(),
+                ch_var1: form.elements['ch_var1'].getValue(),
+                var2: form.elements['var2'].getValue(),
+                ch_var2: form.elements['ch_var2'].getValue(),
+                var3: form.elements['var3'].getValue(),
+                ch_var3: form.elements['ch_var3'].getValue(),
+                var4: form.elements['var4'].getValue(),
+                ch_var4: form.elements['ch_var4'].getValue()
+            }, function (gson) {
+                if (gson && !gson.result) {
+                    notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
+                } else {
+                    clearFormByid('gameForm');
+                    notifyMessage("Сохранено", "Сохранено", notifyType.info)
+                }
+            });
+    } else {
+        notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
+    }
 }

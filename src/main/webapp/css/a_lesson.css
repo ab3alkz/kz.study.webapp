@@ -160,3 +160,30 @@
     -webkit-animation-name: fadeInUp;
     animation-name: fadeInUp;
 }
+
+.ui-drop-hover {
+    border: 2px solid #bbb;
+}
+
+#dragdiv {
+    width: 180px;
+    height: 400px;
+    float: left;
+}
+
+#dropdiv {
+    width: 380px;
+    height: 40px;
+    float: right;
+    margin-right: 10px;
+}
+
+#dropdiv li {
+    padding-left: 10px;
+}
+
+#maindiv {
+    width: 580px;
+    height: 300px;
+    border: 2px solid #bbb;
+}
