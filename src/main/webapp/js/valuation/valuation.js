@@ -434,7 +434,6 @@ function createAudioContainer(id, item) {
     startAudi();
 }
 
-
 function createIntelectualTestContainer(id, item) {
     webix.ui(
         {

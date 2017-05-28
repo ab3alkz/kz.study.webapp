@@ -367,7 +367,13 @@ public class AppSession extends Utx {
         }
     }
 
-
+    /**
+     * Сөйлемдерді талдау және салыстыру
+     *
+     * @param userFirstFormSentence
+     * @param dbFirstFormSentence
+     * @return String;
+     */
     private String validateStrings(String userFirstFormSentence, String dbFirstFormSentence) {
         String[] userWordsArr = userFirstFormSentence.toLowerCase().split(" ");
         String[] dbWordsArr = dbFirstFormSentence.toLowerCase().split(" ");
@@ -404,7 +410,7 @@ public class AppSession extends Utx {
         } else {
             resultStr = "<h1 style='color:red;'>Дұрыс емес</h1>";
         }
-        return getNewLine() + "Cөздер саны " + containsWords + ", деректер қорында " + userWordsArr.length + ", сәйкес " + dbWordsArr.length
+        return getNewLine() + "Cөздер саны " + dbWordsArr.length + ", деректер қорында " + userWordsArr.length + ", сәйкес " + containsWords
                 + getNewLine()
                 + " allEquals = " + allEq
                 + ", order true = " + trueIdxCnt
@@ -412,9 +418,14 @@ public class AppSession extends Utx {
                 + getNewLine()
                 + " result = " + result + "%"
                 + resultStr;
-
     }
 
+    /**
+     * сөздер массивінен элемент индексін алу
+     * @param arr
+     * @param word
+     * @return Integer
+     */
     private Integer getIndexInArray(String[] arr, String word) {
         int index = -1;
         for (int i = 0; i < arr.length; i++) {
