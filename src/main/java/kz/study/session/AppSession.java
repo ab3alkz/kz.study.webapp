@@ -54,8 +54,8 @@ public class AppSession extends Utx {
         return Boolean.FALSE;
     }
 
-    public List<Words> getRandom10WordList() {
-        List<Words> list = em.createNamedQuery("Words.findAll").setFirstResult(0).setMaxResults(100).getResultList();
+    public List<Words> getRandom10WordList(Integer idTest) {
+        List<Words> list = getWordsListByIdTest(0, 100, idTest);
         List<Words> result = new ArrayList<>();
         randList = new ArrayList<>();
         Integer cnt = 10 > list.size() - 1 ? list.size() - 1 : 10;
@@ -79,6 +79,29 @@ public class AppSession extends Utx {
         wordsList.add(new Words("a"+(i++),"Қазақ"));
         return wordsList;*/
     }
+
+
+    public List<Words> getWordsListByIdTest(Integer start, Integer count, Integer idTest) {
+        if (start == null) start = 0;
+        if (count == null) count = start + 10;
+        return em.createNamedQuery("Words.findByIdTest").setParameter("idTest", idTest)
+                .setFirstResult(start).setMaxResults(count).getResultList();
+    }
+    public GsonDatatableData getWordsDataByIdTest(Integer start, Integer count, Integer idTest) {
+        if (start == null) start = 0;
+        if (count == null) count = start + 10;
+        GsonDatatableData data = new GsonDatatableData();
+        data.setData(getWordsListByIdTest(start, count, idTest));
+        data.setPos(start);
+        data.setTotal_count(getWordsCountByIdTest(idTest).intValue());
+        return data;
+    }
+
+
+    public Long getWordsCountByIdTest(Integer idTest) {
+        return (Long) getSingleResultOrNull(em.createQuery("SELECT count(g) FROM Words g WHERE g.idTest = :idTest").setParameter("idTest", idTest));
+    }
+
 
     public List<GsonTestQuestions> getRandom25Guestions(Integer srcId, Integer start, Integer count, String lang) {
         if (start == null) {
@@ -198,6 +221,9 @@ public class AppSession extends Utx {
                 case "intelectualTest":
                     GsonIntelectualQuestion gson = wrapToGsonIntelectualQuestionByJsonString(json);
                     return intelectualQuestionValidate(gson);
+                case "audi":
+                    gson = wrapToGsonIntelectualQuestionByJsonString(json);
+                    return audiValidate(gson);
             }
         }
         return getGsonResult(true, null);
@@ -234,6 +260,26 @@ public class AppSession extends Utx {
         }
     }
 
+    public GsonResult saveWord(String json) {
+        try {
+            GsonWords gson = wrapToGsonWordsByJsonString(json);
+            Words words = new Words();
+            words.setValueKz(gson.getValueKz());
+            words.setIdTest(gson.getIdTest());
+
+            if (isNullOrEmpty(gson.getId())) {
+                words.setId(getSequenceNextVal());
+            } else {
+                words.setId(Integer.parseInt(gson.getId()));
+            }
+            em.merge(words);
+            return getGsonResult(true, words);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getGsonResult(false, e.toString());
+        }
+    }
+
 
     public GsonResult saveAudiQuestion(String json) {
         try {
@@ -256,6 +302,12 @@ public class AppSession extends Utx {
         }
     }
 
+
+    public GsonResult removeWordById(Integer id) {
+        Query q = em.createQuery("delete  FROM Words g WHERE g.id = :id").setParameter("id", id);
+        q.executeUpdate();
+        return getGsonResult(true, null);
+    }
 
     public GsonResult removeAudiQuestionById(Integer id) {
         Query q = em.createQuery("delete  FROM AudiTest g WHERE g.id = :id").setParameter("id", id);
@@ -422,6 +474,7 @@ public class AppSession extends Utx {
 
     /**
      * сөздер массивінен элемент индексін алу
+     *
      * @param arr
      * @param word
      * @return Integer
@@ -653,5 +706,34 @@ public class AppSession extends Utx {
             result.add(list.get(randIdx));
         }
         return result;
+    }
+
+
+    private GsonResult audiValidate(GsonIntelectualQuestion gson) {
+        try {
+            for (GsonIntelectualQuestion obj : gson.getData()) {
+                String userAnsw = obj.getAnsw();
+                String answerDB = obj.getDbAnsw();
+
+                if (isNullOrEmpty(answerDB)) {
+                    obj.setDbAnsw("деректер қорында жауап берілмеген");
+                } else {
+
+                    obj.setDbAnsw(answerDB);
+                    if (isNullOrEmpty(userAnsw)) {
+                        obj.setResult(getGsonResult(false, "Сіз жауап бермедіңіз"));
+                    } else {
+                        obj.setResult(isIntelectualQuestionValidate(userAnsw, answerDB));
+                    }
+                }
+
+            }
+            return getGsonResult(true, gson);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+            return getGsonResult(false, e.toString());
+        }
     }
 }

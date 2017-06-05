@@ -267,8 +267,10 @@ function viewTestTypeListWin(gson) {
                                         obj.editBtn = "<button style='width:40px;'  title='Сынақ тапсырмаларын өңдеу'  class='editTesting btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
                                     } else if (obj.type == 'intelectualTest') {
                                         obj.editBtn = "<button style='width:40px;' title='Сынақ тапсырмаларын өңдеу'   class='editIntelectualTest btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
-                                    }else if (obj.type == 'audi') {
+                                    } else if (obj.type == 'audi') {
                                         obj.editBtn = "<button style='width:40px;' title='Сынақ тапсырмаларын өңдеу'   class='editAudiTest btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
+                                    } else if (obj.type == 'fillWords') {
+                                        obj.editBtn = "<button style='width:40px;' title='Сынақ тапсырмаларын өңдеу'   class='editFillWords btn btn-danger'><i class=\" fa fa-pencil-square-o\" aria-hidden=\"true\"></i></button>";
                                     }
                                 } else {
                                     obj.editBtn = "<button style='width:40px;'  title='Жаңа сынақ түрын қосу'  class='addTesting btn btn-primary'><i class=\" fa fa-plus\" aria-hidden=\"true\"></i></button>";
@@ -308,6 +310,14 @@ function viewTestTypeListWin(gson) {
                                 setTimeout(function () {
                                     var obj = $$("viewTestTypeListTable").getSelectedItem();
                                     intelectualTestAdmin(obj);
+                                    $("#mainContainer").hide();
+                                    $$("viewTestTypeListWin").hide();
+                                }, 100)
+                            },
+                            editFillWords: function (e, item, cell) {
+                                setTimeout(function () {
+                                    var obj = $$("viewTestTypeListTable").getSelectedItem();
+                                    editFillWords(obj);
                                     $("#mainContainer").hide();
                                     $$("viewTestTypeListWin").hide();
                                 }, 100)
@@ -388,7 +398,7 @@ function createFillWordsContainer(id, item) {
         }
     );
 
-    startFillWords();
+    startFillWords(id);
 }
 
 function createTestsContainer(id, item) {

@@ -14,15 +14,6 @@ function startAudi() {
 function createAudi() {
     var data = testData[activeQuestionIdx];
     var resultLabel = "";
-    if (testFinish) {
-        resultLabel = "<h3 style='color:";
-        if (data.result) {
-            resultLabel += "green' >Дұрыс";
-        } else {
-            resultLabel += "red' >Дұрыc емес ";
-        }
-        resultLabel += "</h3>";
-    }
     $$("audioContainer").removeView("audioQuestion");
     $$("audioContainer").addView({
         id: "audioQuestion",
@@ -35,19 +26,6 @@ function createAudi() {
                         width: 310,
                         height: 210,
                         template: "<iframe width='300' height='200' src='" + data.frame + "'liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false'></iframe>"
-                    }, {
-
-                    }, {
-                        rows: [
-                            {},
-                            {
-                                view: "label",
-                                width: 200,
-                                height: 80,
-                                label: resultLabel
-                            },
-                            {}
-                        ]
                     }, {
 
                     }
@@ -147,21 +125,10 @@ function finishAudi() {
     getAudiAnswTextareaVal(activeQuestionIdx);
     testFinish = true;
     $$('finishAudiBtn').disable();
-    var resCount = 0;
-    console.log(testData)
-    for (var i in testData) {
-        if (!isNullOrEmpty(testData[i].answ) && !isNullOrEmpty(testData[i].text) &&
-            testData[i].answ.trim().toLowerCase() == testData[i].text.trim().toLowerCase()) {
-            resCount++;
-        }
-    }
 
-    var round = Math.round;
-    var total = round(100 / testData.length * resCount);
-    var json = {};
+
     json.data = testData;
-    json.total = total;
-    setGameResult(total, json,
+    setGameResult(null, testData,
         function (gson) {
 
         }

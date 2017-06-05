@@ -13,7 +13,8 @@ import java.io.Serializable;
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "Words.findAll", query = "SELECT g FROM Words g"),
-        @NamedQuery(name = "Words.findById", query = "SELECT g FROM Words g WHERE g.id = :id")
+        @NamedQuery(name = "Words.findById", query = "SELECT g FROM Words g WHERE g.id = :id"),
+        @NamedQuery(name = "Words.findByIdTest", query = "SELECT g FROM Words g WHERE g.idTest = :idTest")
 })
 public class Words implements Serializable {
 
@@ -21,16 +22,26 @@ public class Words implements Serializable {
 
     @Id
     @Column(name = "id")
-    private String id;
+    private Integer id;
     @Basic
     @Column(name = "value_kz")
     private String valueKz;
+    @Basic
+    @Column(name = "id_test")
+    private Integer idTest;
 
-    public String getId() {
+    public Words(Integer id) {
+        this.id = id;
+    }
+
+    public Words() {
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,16 +53,11 @@ public class Words implements Serializable {
         this.valueKz = valueKz;
     }
 
-    public Words(String id) {
-        this.id = id;
+    public Integer getIdTest() {
+        return idTest;
     }
 
-    public Words(String id, String valueKz) {
-        this.id = id;
-        this.valueKz = valueKz;
-
-    }
-
-    public Words() {
+    public void setIdTest(Integer idTest) {
+        this.idTest = idTest;
     }
 }

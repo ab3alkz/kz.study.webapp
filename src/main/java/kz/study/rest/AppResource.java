@@ -57,10 +57,18 @@ public class AppResource {
     @GET
     @Produces("application/json")
     @Path("getRandom10WordList")
-    public String getRandom10WordList() {
-        return objectToJson(appSession.getRandom10WordList());
+    public String getRandom10WordList(@QueryParam("idTest") Integer idTest) {
+        return objectToJson(appSession.getRandom10WordList(idTest));
     }
 
+    @GET
+    @Produces("application/json")
+    @Path("getWordsDataByIdTest")
+    public String getWordsDataByIdTest(@QueryParam("idTest") Integer idTest,
+                                       @QueryParam("start") Integer start,
+                                       @QueryParam("count") Integer count) {
+        return objectToJson(appSession.getWordsDataByIdTest(start, count, idTest));
+    }
 
     @GET
     @Produces("application/json")
@@ -135,7 +143,20 @@ public class AppResource {
         return objectToJson(appSession.saveQuestion(json));
     }
 
+    @POST
+    @Produces("application/json")
+    @Path("saveWord")
+    public String saveWord(String json) {
+        return objectToJson(appSession.saveWord(json));
+    }
 
+
+    @GET
+    @Produces("application/json")
+    @Path("removeWordById")
+    public String removeWordById(@QueryParam("id") Integer id) {
+        return objectToJson(appSession.removeWordById(id));
+    }
     @GET
     @Produces("application/json")
     @Path("removeAudiQuestionById")
