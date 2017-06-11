@@ -1,7 +1,7 @@
 $(document).ready(function () {
     form_init();
-    // getLessonValue();
-    addGame1ViewByID()
+    getLessonValue();
+    // addGame1ViewByID()
 });
 
 var k = 0;
@@ -141,16 +141,6 @@ function addAudioViewByID() {
                                 view: 'template',
                                 autoheight: true,
                                 template: e.descValue
-                            },
-                            {
-                                data: {title: "Image One", src: e.img},
-                                template: function (obj) {
-                                    return '<img src="' + obj.src + '" width="300" height="150"/>'
-                                }
-                            },
-                            {
-                                view: 'label',
-                                template: '<a href="' + e.audioLink + '">Ссылка</a>'
                             }
                         ]
                     }
@@ -173,7 +163,7 @@ function addGrammarViewByID() {
                 css: 'boxLetter',
                 rows: [
                     {
-                        height: 60,
+                        height: 90,
                         cols: [
                             {},
                             {
@@ -186,7 +176,7 @@ function addGrammarViewByID() {
                     },
                     {height: 10},
                     {
-                        height: 1000,
+                        height: 6000,
                         view: 'label',
                         template: e.descValue
                     },
@@ -205,6 +195,19 @@ function addGame1ViewByID() {
         }
         reViewRemove();
         adViewAddView();
-        addGame1Data(gson.message);
+        gson.message.forEach(function (e) {
+            $$("addSomeThink").addView({
+                css: 'boxLetter',
+                rows: [
+                    {height: 10},
+                    {
+                        height: 6000,
+                        view: 'label',
+                        template: e.descRus
+                    },
+                    {height: 80}
+                ]
+            });
+        })
     });
 }

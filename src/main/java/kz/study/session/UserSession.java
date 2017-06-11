@@ -41,11 +41,8 @@ public class UserSession {
 
     public Users getUser(String uName) {
         try {
-            Users users = (Users) getSingleResultOrNull(em.createNamedQuery("Users.findByUName").setParameter("uName", uName));
-
-            System.out.println(users.getuPassword());
-
-            return users;
+            return (Users)
+                    getSingleResultOrNull(em.createNamedQuery("Users.findByUName").setParameter("uName", uName));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,6 +69,7 @@ public class UserSession {
             data.setTotal_count(recordSize.intValue());
 
         } catch (NoResultException e) {
+            e.printStackTrace();
         }
         return data;
     }
@@ -104,7 +102,7 @@ public class UserSession {
             em.persist(g);
         }
         em.flush();
-        return getGsonResult(true, null);
+        return getGsonResult(Boolean.TRUE, null);
     }
 
 
@@ -112,14 +110,14 @@ public class UserSession {
         try {
             GsonRegistration gson = wrapToGsonRegistrationByJsonString(json);
             if (!gson.getPassword().equals(gson.getPasswordс())) {
-                return getGsonResult(false, "Құпия сөздер сәйкес келмейді");
+                return getGsonResult(Boolean.FALSE, "Құпия сөздер сәйкес келмейді");
             }
             if (isNullOrEmpty(gson.getuName())) {
-                return getGsonResult(false, "Логинды енгізіңіз");
+                return getGsonResult(Boolean.FALSE, "Логинды енгізіңіз");
             }
             Users user = getUser(gson.getuName());
             if (user != null) {
-                return getGsonResult(false, gson.getuName()+ " Логин жүйеде бар, басқасын енгізіңіз");
+                return getGsonResult(Boolean.FALSE, gson.getuName() + " Логин жүйеде бар, басқасын енгізіңіз");
             }
             user = new Users(gson.getuName());
             user.setuPassword(getMd5Apache(gson.getPassword()));
@@ -131,9 +129,9 @@ public class UserSession {
             uDet.setLocked(0);
             user.setUserDetail(uDet);
             em.persist(user);
-            return getGsonResult(true, null);
+            return getGsonResult(Boolean.TRUE, null);
         } catch (Exception e) {
-            return getGsonResult(false, e.toString());
+            return getGsonResult(Boolean.FALSE, e.toString());
         }
     }
 

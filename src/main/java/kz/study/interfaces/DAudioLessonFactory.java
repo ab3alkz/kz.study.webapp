@@ -11,5 +11,5 @@ import kz.study.entity.DVideoLesson;
  */
 public interface DAudioLessonFactory<P extends DAudioLesson> {
 
-    P create(String id, String nameRus, String nameKaz, String nameLan, String link, String descRus, String descKaz, String descLan, DLesson dLesson);
+    P create(String id, String nameRus, String link, String descKaz, String descLan, DLesson dLesson);
 }

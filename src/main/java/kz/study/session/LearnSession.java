@@ -37,6 +37,9 @@ public class LearnSession extends Utx {
     @PersistenceContext(unitName = "study")
     private EntityManager em;
 
+    @PersistenceContext(unitName = "armaSecond")
+    private EntityManager em2;
+
     public GsonResult getLessonValue(String part) {
         String id = null;
         switch (part) {
@@ -139,8 +142,8 @@ public class LearnSession extends Utx {
     public GsonResult getGame1FormById(String id) {
         try {
             List<GsonAdminValue> list =
-                    wrapTDGameWordList(em.createNamedQuery("DGameWord.findByDUrovenId")
-                            .setParameter("id", new DLesson(id)).getResultList());
+                    wrapToDGameBrainList(em.createNamedQuery("DGameBrain.findByDLessonId")
+                            .setParameter("dLesson", new DLesson(id)).getResultList());
             return getGsonResult(Boolean.TRUE, list);
         } catch (Exception e) {
             LOGGER.error("error", e);

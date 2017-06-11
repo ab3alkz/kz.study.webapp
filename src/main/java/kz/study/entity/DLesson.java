@@ -42,6 +42,8 @@ public class DLesson implements Serializable {
     private DGamesW dGamesW;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "dLesson")
     private DGameWord dGameWord;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "dLesson")
+    private DGameBrain dGameBrain;
 
     public DLesson() {
     }

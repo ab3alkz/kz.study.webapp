@@ -8,5 +8,5 @@ import kz.study.entity.DSynonym;
  */
 public interface DSynonymFactory<P extends DSynonym> {
 
-    P create(String id, String value, String secValue);
+    P create(String id, String value);
 }

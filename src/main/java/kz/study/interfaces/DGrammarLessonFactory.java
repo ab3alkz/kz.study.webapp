@@ -10,5 +10,5 @@ import kz.study.entity.DLesson;
  */
 public interface DGrammarLessonFactory<P extends DGrammarLesson> {
 
-    P create(String id, String nameRus, String nameKaz, String nameLan, String descRus, String descKaz, String descLan, DLesson dLesson);
+    P create(String id, String nameRus, String descRus, DLesson dLesson);
 }

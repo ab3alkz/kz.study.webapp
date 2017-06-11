@@ -4,14 +4,10 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.swing.*;
-
-import static kz.study.jdbc.Jdbc.getTestBd;
 
 /*
  * @Author Nachinka!
@@ -23,20 +19,6 @@ public class SemanticGo extends JFrame implements ActionListener {
     private JTextArea textArea;
     private JTextArea textAreaAsk;
     private JTextArea textAreaT;
-
-    private static void createAndShowGUI() {
-        JFrame frame = new SemanticGo();
-
-        frame.pack();
-
-        frame.setSize(610, 680);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.getContentPane().setLayout(new FlowLayout());
-
-        frame.getContentPane().add(button);
-
-    }
 
     private SemanticGo() {
         textArea = new JTextArea(13, 46);
@@ -78,12 +60,22 @@ public class SemanticGo extends JFrame implements ActionListener {
 
     }
 
+    private static void createAndShowGUI() {
+        JFrame frame = new SemanticGo();
+
+        frame.pack();
+
+        frame.setSize(610, 680);
+        frame.setVisible(true);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.getContentPane().setLayout(new FlowLayout());
+
+        frame.getContentPane().add(button);
+
+    }
+
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
+        javax.swing.SwingUtilities.invokeLater(SemanticGo::createAndShowGUI);
     }
 
     @Override
@@ -92,17 +84,12 @@ public class SemanticGo extends JFrame implements ActionListener {
         // "Основателем фирмы 'НовоКорп' был Иван Семенович, вторым директором фирмы был Сергей Валентинович, фирма просуществовала от 2009 до 2014 года";
         // String s2 = "Кто был основателем фирмы 'НовоКорп'?";
 
-        String[][] SimWorldBase = { { "день", "будень" },
-                { "будень", "будни", }, { "зимний", "зима", } };
+        String[] NameBaseS = {"Маша", "Света", "Иван", "Сергей", "Ольга",
+                "Александр", "Семен", "Семён", "Валентин"};
 
-        String[] NameBaseS = { "Маша", "Света", "Иван", "Сергей", "Ольга",
-                "Александр", "Семен", "Семён", "Валентин" };
-
-        Set<String> setEq = new HashSet<>(); // БАЗА СИНОНИМОВ
         Set<String> EqS = new HashSet<>(); // БАЗА СИНОНИМОВ В ТЕКсТЕ
         Set<String> NameS = new HashSet<>(); // БАЗА ИМЕН
         Set<String> OtchS = new HashSet<>(); // БАЗА ОТЧЕСТВ
-        ArrayList<String> simW = new ArrayList<>();
         String s = textArea.getText(); // ВЫДЕРГИВАЕМ ОСНОВНОЙ ТЕКСТ
         String ask = textAreaAsk.getText(); // ВЫДЕРГИВАЕМ ВОПРОС
         s = s.toLowerCase();
@@ -114,11 +101,6 @@ public class SemanticGo extends JFrame implements ActionListener {
 
         String[] SplitS = s.split(" "); // СЛОВА ТЕКСТА
         String[] Sask = ask.split(" "); // СЛОВА ВОПРОСА
- 
-        /*
-         * for (int i = 0; i < SplitS.length; i++) { boolean b =
-         * setEq.add(SplitS[i]); if (b == false) { simW.add(SplitS[i]); } }
-         */
 
         textAreaT.setText("========= Характеристика предложения: =======\n");
 
@@ -134,15 +116,11 @@ public class SemanticGo extends JFrame implements ActionListener {
         textAreaT.append("[Предложение состоит из " + SplitS.length
                 + " слов] \n");
 
-        for (String Split1 : SplitS) {
-            try {
-                for (String NameBase : getTestBd("SELECT * from p_person")) {
-                    if (Split1.equalsIgnoreCase(NameBase)) {
-                        NameS.add(NameBase);
-                    }
+        for (String Split2 : SplitS) {
+            for (String NameBase : NameBaseS) {
+                if (Split2.equalsIgnoreCase(NameBase)) {
+                    NameS.add(NameBase);
                 }
-            } catch (SQLException e1) {
-                e1.printStackTrace();
             }
         }
         for (String strNpr : NameS) {
@@ -150,14 +128,14 @@ public class SemanticGo extends JFrame implements ActionListener {
                     + strNpr + "\n");
         }
 
-        for (String Split : SplitS) {
+        for (String Split1 : SplitS) {
             for (String strN : NameS) {
                 // if (SplitS[g].indexOf(strN) != -1) {
-                if (!Split.equalsIgnoreCase(strN)) {
-                    if (Split.contains("ич") || Split.contains("ов") || Split.contains("ова")) {
+                if (!Split1.equalsIgnoreCase(strN)) {
+                    if (Split1.contains("ич")) {
                         // textAreaT.append("В предложении были найдены Отчества: "
                         // + SplitS[g] + "\n");
-                        OtchS.add(Split);
+                        OtchS.add(Split1);
                     }
                 }
             }
@@ -172,23 +150,6 @@ public class SemanticGo extends JFrame implements ActionListener {
                 }
             }
         }
- 
-        /*
-         * String result = ""; if (simW.size() != 0) {
-         * textAreaT.append("В предложении было найдено " + simW.size() +
-         * " похожих слова: \n"); for (int i = 0; i < simW.size(); i++) {
-         * textAreaT.append("[" + simW.get(i) + "] "); for (int с = 0; с <
-         * SimWorldBase.length; ++с) { if
-         * (SimWorldBase[с][0].equalsIgnoreCase(simW.get(i))) { result =
-         * SimWorldBase[с][1]; textAreaT.append("Синонимы [" + result + "]\n");
-         * // Логическая цепочка. if
-         * (SimWorldBase[с][0].equalsIgnoreCase(result)) { result =
-         * SimWorldBase[с][1]; textAreaT.append("Синонимы к син [" + result +
-         * "]\n"); break; } break; } } }
-         * 
-         * } else {
-         * textAreaT.append("[Похожих слов в предложении не найдено]\n"); }
-         */
 
         textAreaT.append("\n");
         textAreaT.append("Найденные Факты: \n");

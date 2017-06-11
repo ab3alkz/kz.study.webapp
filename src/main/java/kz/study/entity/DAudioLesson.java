@@ -25,14 +25,8 @@ public class DAudioLesson implements Serializable {
     private String id;
     @Column(name = "NAME_RUS")
     private String nameRus;
-    @Column(name = "NAME_KAZ")
-    private String nameKaz;
-    @Column(name = "NAME_LAN")
-    private String nameLan;
     @Column(name = "LINK")
     private String link;
-    @Column(name = "DESC_RUS")
-    private String descRus;
     @Column(name = "DESC_KAZ")
     private String descKaz;
     @Column(name = "DESC_LAN")
@@ -40,8 +34,6 @@ public class DAudioLesson implements Serializable {
     @JoinColumn(name = "D_LESSON_ID", referencedColumnName = "ID")
     @OneToOne(optional = false)
     private DLesson dLesson;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "dAudioLesson")
-    private DAudioLessonImg dAudioLessonImg;
 
     public DAudioLesson() {
     }
@@ -50,13 +42,10 @@ public class DAudioLesson implements Serializable {
         this.id = id;
     }
 
-    public DAudioLesson(String id, String nameRus, String nameKaz, String nameLan, String link, String descRus, String descKaz, String descLan, DLesson dLesson) {
+    public DAudioLesson(String id, String nameRus, String link, String descKaz, String descLan, DLesson dLesson) {
         this.id = id;
         this.nameRus = nameRus;
-        this.nameKaz = nameKaz;
-        this.nameLan = nameLan;
         this.link = link;
-        this.descRus = descRus;
         this.descKaz = descKaz;
         this.descLan = descLan;
         this.dLesson = dLesson;
@@ -78,36 +67,12 @@ public class DAudioLesson implements Serializable {
         this.nameRus = nameRus;
     }
 
-    public String getNameKaz() {
-        return nameKaz;
-    }
-
-    public void setNameKaz(String nameKaz) {
-        this.nameKaz = nameKaz;
-    }
-
-    public String getNameLan() {
-        return nameLan;
-    }
-
-    public void setNameLan(String nameLan) {
-        this.nameLan = nameLan;
-    }
-
     public String getLink() {
         return link;
     }
 
     public void setLink(String link) {
         this.link = link;
-    }
-
-    public String getDescRus() {
-        return descRus;
-    }
-
-    public void setDescRus(String descRus) {
-        this.descRus = descRus;
     }
 
     public String getDescKaz() {
@@ -132,13 +97,5 @@ public class DAudioLesson implements Serializable {
 
     public void setdLesson(DLesson dLesson) {
         this.dLesson = dLesson;
-    }
-
-    public DAudioLessonImg getdAudioLessonImg() {
-        return dAudioLessonImg;
-    }
-
-    public void setdAudioLessonImg(DAudioLessonImg dAudioLessonImg) {
-        this.dAudioLessonImg = dAudioLessonImg;
     }
 }

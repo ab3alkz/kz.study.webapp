@@ -25,40 +25,40 @@ public class AllTest {
     private static final String pass = "123456";
     private static List<String> mainName = new ArrayList<>();
 
-//    @Test
-//    public void getTest() throws SQLException {
-//        List<String> textList = new ArrayList<>();
-//        String newS = "асланмен әлихан доп ойнады ";
-//        textList.addAll(Arrays.asList(newS.toLowerCase().split(" ")));
-//
-//
+    @Test
+    public void getTest() throws SQLException {
+        List<String> textList = new ArrayList<>();
+        String newS = "асланмен әлихан доп ойнады ";
+        textList.addAll(Arrays.asList(newS.toLowerCase().split(" ")));
+
+
 //        List<String> allNameList = getTestAllName();
 //        if (allNameList != null) {
-//
-////            String[] sNew = s.split(" ");
+
+//            String[] sNew = s.split(" ");
 //            for (String s : getUniqueName(allNameList, textList)) {
-////                if (newS.contains(allName)) {
-////                    String ending = newS.replace(allName, "");
-////                    newS = "";
-////                    mainName = names;
-////                    getEngingAnalyze(ending, 1);
-////                } else {
-////
-////                }
+//                if (newS.contains(allName)) {
+//                    String ending = newS.replace(allName, "");
+//                    newS = "";
+//                    mainName = names;
+//                    getEngingAnalyze(ending, 1);
+//                } else {
+//
+//                }
 //                if (!isNullOrEmpty(s)) {
 //                    getEngingAnalyze(s, 1);
 //                    break;
 //                }
 //            }
-////            for (String allName : allNameList) {
-//////                for (String newS : sNew) {
-////
-////
-////            }
-////            }
-//        }
+//            for (String allName : allNameList) {
+////                for (String newS : sNew) {
 //
-//    }
+//
+//            }
+//            }
+//        }
+
+    }
 
     private List<String> getUniqueName(List<String> allNameLis, List<String> textList) {
         List<String> uniqueName = new ArrayList<>();

@@ -5,7 +5,6 @@ import kz.study.gson.GsonAdminValue;
 import kz.study.gson.GsonResult;
 import kz.study.gson.GsonTreeDictionary;
 import kz.study.interfaces.*;
-import kz.study.lang.Lang;
 import kz.study.util.Utx;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +14,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -66,13 +64,15 @@ public class AdminSession extends Utx {
 
     public GsonResult addVideoLessonByPart(final GsonAdminValue gson) {
         try {
-            if (isNullOrEmpty(gson.getId())) {
+            if (gson.getId() == null) {
                 DVideoLessonFactory<DVideoLesson> aNew = DVideoLesson::new;
                 DVideoLesson dVideoLesson = aNew.create(createGuid(), gson.getNameRus(), gson.getNameKaz(), gson.getNameLan(),
                         gson.getLink(), gson.getDescRus(), gson.getDescKaz(), gson.getDescLan(), new DLesson(gson.getParamId()));
 
                 em.persist(dVideoLesson);
                 em.flush();
+
+                return getGsonResult(Boolean.TRUE, "Сохранено");
             } else {
                 DVideoLesson dLesson = new DVideoLesson(gson.getId());
                 dLesson.setNameRus(gson.getNameRus());
@@ -100,8 +100,8 @@ public class AdminSession extends Utx {
             String id = createGuid();
 
             DAudioLessonFactory<DAudioLesson> aNew = DAudioLesson::new;
-            DAudioLesson dAudioLesson = aNew.create(id, gson.getNameRus(), gson.getNameKaz(), gson.getNameLan(),
-                    gson.getLink(), gson.getDescRus(), gson.getDescKaz(), gson.getDescLan(), new DLesson(gson.getParamId()));
+            DAudioLesson dAudioLesson = aNew.create(id, gson.getNameRus(), gson.getLink(),
+                    gson.getDescKaz(), gson.getDescLan(), new DLesson(gson.getParamId()));
 
             em.persist(dAudioLesson);
             em.flush();
@@ -114,29 +114,6 @@ public class AdminSession extends Utx {
         return getGsonResult(Boolean.FALSE, "Ошибка");
     }
 
-    public byte[] addImgToAudioLessonByPart(final GsonAdminValue gson, HttpServletRequest request, String uName) {
-        try {
-
-            DAudioLessonImg audioLessonImg = new DAudioLessonImg();
-            audioLessonImg.setId(createGuid());
-            audioLessonImg.setdAudioLesson(new DAudioLesson(gson.getAudioLessonId()));
-            audioLessonImg.setImg(gson.getImg().getBytes());
-            audioLessonImg.setLink(gson.getAudioLink());
-
-
-            em.persist(audioLessonImg);
-            em.flush();
-
-            Users user = getUserByUName(uName);
-
-            setGsonUserSession(request, user);
-
-        } catch (Exception ex) {
-            LOGGER.error("error", ex);
-        }
-        return null;
-    }
-
     private Users getUserByUName(String uName) {
         return (Users) getSingleResultOrNull(em.createNamedQuery("Users.findByUName").setParameter("uName", uName));
     }
@@ -147,24 +124,12 @@ public class AdminSession extends Utx {
         session.setAttribute("user", user);
     }
 
-    public String getImageById(String id) {
-        String ava = "";
-        DAudioLessonImg obj = (DAudioLessonImg)
-                getSingleResultOrNull(em.createNamedQuery("DAudioLessonImg.findById").setParameter("id", new DAudioLesson(id)));
-        if (obj != null) {
-            if (obj.getImg() != null) {
-                ava = new String(obj.getImg(), StandardCharsets.UTF_8);
-            }
-        }
-        return ava;
-    }
-
     public GsonResult addGrammarLessonByPart(final GsonAdminValue gson) {
         try {
             if (isNullOrEmpty(gson.getId())) {
                 DGrammarLessonFactory<DGrammarLesson> aNew = DGrammarLesson::new;
-                DGrammarLesson dGrammarLesson = aNew.create(createGuid(), gson.getNameRus(), gson.getNameKaz(), gson.getNameLan(),
-                        gson.getDescRus(), gson.getDescKaz(), gson.getDescLan(), new DLesson(gson.getParamId()));
+                DGrammarLesson dGrammarLesson = aNew.create(createGuid(), gson.getNameRus(),
+                        gson.getDescRus(), new DLesson(gson.getParamId()));
 
                 em.persist(dGrammarLesson);
                 em.flush();
@@ -173,11 +138,7 @@ public class AdminSession extends Utx {
             } else {
                 DGrammarLesson dLesson = new DGrammarLesson(gson.getId());
                 dLesson.setNameRus(gson.getNameRus());
-                dLesson.setNameKaz(gson.getNameKaz());
-                dLesson.setNameLan(gson.getNameLan());
                 dLesson.setDescRus(gson.getDescRus());
-                dLesson.setDescKaz(gson.getDescKaz());
-                dLesson.setDescLan(gson.getDescLan());
                 dLesson.setdLessonId(new DLesson(gson.getParamId()));
                 em.merge(dLesson);
                 em.flush();
@@ -247,8 +208,12 @@ public class AdminSession extends Utx {
     }
 
     private GsonResult addSynonym(final GsonAdminValue gson) {
+        String s = gson.getNameRus();
+        s = s.replace(".","");
+        s = s.replace(",","");
+        s = s.replace("-","");
         DSynonymFactory<DSynonym> aNew = DSynonym::new;
-        DSynonym dSynonym = aNew.create(createGuid(), gson.getNameRus(), gson.getNameKaz());
+        DSynonym dSynonym = aNew.create(createGuid(), s);
 
         em2.persist(dSynonym);
         em2.flush();
@@ -283,6 +248,18 @@ public class AdminSession extends Utx {
                 gson.getQuestion(), new DGameWordAnswer(wordAnswerId), answer);
 
         em.persist(dGameWord);
+        em.flush();
+
+        return getGsonResult(Boolean.TRUE, "Сохранено");
+    }
+
+    public GsonResult addDataDGameWBrain(GsonAdminValue gson) {
+        DGameBrain dGame = new DGameBrain();
+        dGame.setId(createGuid());
+        dGame.setDescRus(gson.getDescRus());
+        dGame.setdLesson(new DLesson(gson.getParamId()));
+
+        em.persist(dGame);
         em.flush();
 
         return getGsonResult(Boolean.TRUE, "Сохранено");

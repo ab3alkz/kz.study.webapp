@@ -1,6 +1,3 @@
-<%@ page import="kz.study.entity.UserDetail" %>
-<%@ page import="kz.study.entity.Users" %>
-<%@ page import="java.util.Date" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
@@ -41,8 +38,15 @@
         </div>
         <div class="panel-body">
             <div>
-                <div id="mainContainer"></div>
-                <div id="maindiv"></div>
+                <%--<h1 class="page-header game1Tbl"></h1>--%>
+                <div id="mainContainer">
+                    <%--<span class="label label-info" style="font-size: 16px">1. Прочтите краткий текст и найдите правильный перевод выделенных слов.</span>--%>
+                    <%--<br><br><br>--%>
+                    <%--<span class="label label-success">Перетащите нужный вариант удерживая левую кнопку мышки.</span>--%>
+                    <%--<br><br><br>--%>
+                    <%--<span class="label label-info lblCls"></span>--%>
+                </div>
+                <%--<div id="maindiv"></div>--%>
             </div>
         </div>
     </div>
@@ -70,62 +74,54 @@
             document.querySelector('.audioBtn').innerHTML = getResourceName('aone.audi.btn');
             document.querySelector('.game1Btn').innerHTML = getResourceName('btn.game.adw');
             document.querySelector('.game2Btn').innerHTML = getResourceName('btn.game.adw2');
+//            document.querySelector('.game1Tbl').innerHTML = getResourceName('btn.game.adw');
         }
     });
-
     function getResourceName(prop) {
         return jQuery.i18n.prop(prop);
     }
 </script>
-
 <script src="${contextPath}/plugin/drag/jquery.min.js" type="text/javascript"></script>
 <script src="${contextPath}/plugin/drag/jquery-ui.min.js" type="text/javascript"></script>
 <script src="${contextPath}/plugin/drag/bgiframe-2.1.2.js" type="text/javascript"></script>
 <script src="${contextPath}/plugin/drag/jquery-ui-i18n.min.js" type="text/javascript"></script>
-<script>
-    var k = 0;
-    function addGame1Data(list) {
-        list.forEach(function (e) {
-            $('#maindiv').html('<input id="dropdiv" type="text" style="overflow:scroll"  />' + e.question + '<div id="dragdiv"></div>');
-            $('#dragdiv').html('<ul id="allItems" runat="server">'
-                + '<li id="node' + 1 + '">' + e.var1 + 'JOLKK</li>'
-                + '<li id="node' + 2 + '">' + e.var2 + 'KPK</li>'
-                + '<li id="node' + 3 + '">' + e.var3 + 'KPK</li>'
-                + '<li id="node' + 4 + '">' + e.var4 + 'KOPKOP</li>'
-                + ' </ul>');
-            k++;
-        });
-        SDDF();
-        function SDDF() {
-            $("#dragdiv li").draggable({
-                appendTo: "body",
-                helper: "clone",
-                cursor: "move",
-                revert: "invalid"
-            });
+<%--<script>--%>
+<%--var k = 0;--%>
+<%--function addGame1Data(list) {--%>
+<%--list.forEach(function (e) {--%>
+<%--$('#maindiv').html(e.question + '<input class="dropdiv" type="text" style="overflow:scroll"/><div id="dragdiv"></div>');--%>
+<%--$('#dragdiv').html('<ul id="allItems" runat="server">'--%>
+<%--+ '<li id="node' + 1 + '">' + e.var1 + '</li>'--%>
+<%--+ '<li id="node' + 2 + '">' + e.var2 + '</li>'--%>
+<%--+ '<li id="node' + 3 + '">' + e.var3 + '</li>'--%>
+<%--+ '<li id="node' + 4 + '">' + e.var4 + '</li>'--%>
+<%--+ ' </ul>');--%>
+<%--k++;--%>
+<%--});--%>
+<%--SDDF();--%>
+<%--function SDDF() {--%>
+<%--$("#dragdiv li").draggable({--%>
+<%--appendTo: "body",--%>
+<%--helper: "clone",--%>
+<%--cursor: "move",--%>
+<%--revert: "invalid"--%>
+<%--});--%>
 
-            initDroppable($("#dropdiv"));
-            function initDroppable($elements) {
-                $elements.droppable({
-                    activeClass: "ui-state-default",
-                    hoverClass: "ui-drop-hover",
-                    accept: ":not(.ui-sortable-helper)",
+<%--initDroppable($(".dropdiv"));--%>
+<%--function initDroppable($elements) {--%>
+<%--$elements.droppable({--%>
+<%--activeClass: "ui-state-default",--%>
+<%--hoverClass: "ui-drop-hover",--%>
+<%--accept: ":not(.ui-sortable-helper)",--%>
 
-                    over: function (event, ui) {
-                        var $this = $(this);
-                    },
-                    drop: function (event, ui) {
-                        var $this = $(this);
-                        if ($this.val() == '') {
-                            $this.val(ui.draggable.text());
-                        } else {
-                            $this.val($this.val() + "," + ui.draggable.text());
-                        }
-                    }
-                });
-            }
-        }
-    }
-</script>
+<%--drop: function (event, ui) {--%>
+<%--var $this = $(this);--%>
+<%--$this.val(ui.draggable.text());--%>
+<%--}--%>
+<%--});--%>
+<%--}--%>
+<%--}--%>
+<%--}--%>
+<%--</script>--%>
 </body>
 </html>

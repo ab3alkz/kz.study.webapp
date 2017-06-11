@@ -14,6 +14,7 @@ import java.io.Serializable;
 @XmlRootElement
 @NamedQueries({
         @NamedQuery(name = "DSynonym.findAll", query = "SELECT g FROM DSynonym g"),
+        @NamedQuery(name = "DSynonym.findOnlyValue", query = "SELECT g FROM DSynonym g"),
         @NamedQuery(name = "DSynonym.findById", query = "SELECT g FROM DSynonym g where g.id = :id")
 })
 public class DSynonym implements Serializable {
@@ -25,16 +26,13 @@ public class DSynonym implements Serializable {
     private String id;
     @Column(name = "VALUE")
     private String value;
-    @Column(name = "SECVALUE")
-    private String secValue;
 
     public DSynonym() {
     }
 
-    public DSynonym(String id, String value, String secValue) {
+    public DSynonym(String id, String value) {
         this.id = id;
         this.value = value;
-        this.secValue = secValue;
     }
 
     public String getId() {
@@ -51,13 +49,5 @@ public class DSynonym implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
-    }
-
-    public String getSecValue() {
-        return secValue;
-    }
-
-    public void setSecValue(String secValue) {
-        this.secValue = secValue;
     }
 }

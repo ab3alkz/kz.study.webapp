@@ -14,7 +14,8 @@ var foldersTreeMenu = [
     {id: "EDITAUDIO", icon: " fa fa-file-audio-o", value: "Изменить аудио к уровням"},
     {id: "ANTO", icon: " fa fa-bullhorn", value: "Антонимы"},
     {id: "SYN", icon: " fa fa-free-code-camp", value: "Синонимы"},
-    {id: "GAMEW", icon: " fa fa-gamepad", value: "Игра слов"}
+    {id: "GAMEW", icon: " fa fa-gamepad", value: "Игра слов"},
+    {id: "BRAIN", icon: " fa fa-gamepad", value: "Игра на запоминание"}
 ];
 
 function form_init() {
@@ -100,6 +101,9 @@ function getApps(id) {
         case "GAMEW":
             addLessonType(9);
             break;
+        case "BRAIN":
+            addLessonType(10);
+            break;
     }
 }
 
@@ -125,6 +129,7 @@ function addSynOrAnto(param) {
                     view: 'text',
                     required: true,
                     name: 'secValue',
+                    hidden: param == 2,
                     label: 'Второе значение'
                 },
                 {
@@ -157,22 +162,24 @@ function addSynOrAnto(param) {
 }
 
 function addDataAntOrSynonym(param) {
-    if (!isNullOrEmpty(param)) {
-        get_ajax('/study/wr/admin/addDataAntOrSynonym', 'POST',
-            {
-                paramId: param,
-                nameRus: $$('antView').elements['value'].getValue(),
-                nameKaz: $$('antView').elements['secValue'].getValue()
-            }, function (gson) {
-                if (gson && !gson.result) {
-                    notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
-                } else {
-                    clearFormByid('antView');
-                    notifyMessage(gson.message, gson.message, notifyType.info)
-                }
-            });
-    } else {
-        notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
+    if ($$('antView').validate()) {
+        if (!isNullOrEmpty(param)) {
+            get_ajax('/study/wr/admin/addDataAntOrSynonym', 'POST',
+                {
+                    paramId: param,
+                    nameRus: $$('antView').elements['value'].getValue(),
+                    nameKaz: $$('antView').elements['secValue'].getValue()
+                }, function (gson) {
+                    if (gson && !gson.result) {
+                        notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
+                    } else {
+                        clearFormByid('antView');
+                        notifyMessage(gson.message, gson.message, notifyType.info)
+                    }
+                });
+        } else {
+            notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
+        }
     }
 }
 
@@ -287,6 +294,9 @@ function addInfoByParam(partNum, btnId) {
         case 9:
             addViewGameWToLesson(btnId);
             break;
+        case 10:
+            addViewGameWToLessonForget(btnId);
+            break;
     }
 }
 
@@ -387,36 +397,19 @@ function addViewVideoToLesson(lessonId) {
                     cols: [
                         {
                             view: "richselect",
-                            label: 'Выберите уровень',
-                            labelPosition: "top",
-                            id: "dUroven",
-                            inputHeight: 37,
-                            height: 70,
-                            suggest: {
-                                body: {template: "#nameRus#"}
-                            },
-                            on: {
-                                onChange: function (newV) {
-                                    if (!isNullOrEmpty(newV)) {
-                                        $$('parentId').enable();
-                                        loadData(2, newV);
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            view: "richselect",
                             label: 'Выберите родительский элемент',
                             labelPosition: "top",
                             name: "parentId",
                             id: "parentId",
-                            disabled: true,
                             inputHeight: 37,
                             height: 70,
                             suggest: {
                                 body: {template: "#nameRus#"}
                             },
                             on: {
+                                onItemClick: function () {
+                                    loadData(2, lessonId);
+                                },
                                 onChange: function () {
                                     $$('videoView').enable();
                                 }
@@ -518,7 +511,6 @@ function addViewVideoToLesson(lessonId) {
     initSample();
     initSample2();
     initSample3();
-    loadData(1);
 }
 
 function loadData(param, newV) {
@@ -587,36 +579,19 @@ function addViewGrammarToLesson(lessonId) {
                     cols: [
                         {
                             view: "richselect",
-                            label: 'Выберите уровень',
-                            labelPosition: "top",
-                            id: "dUroven",
-                            inputHeight: 37,
-                            height: 70,
-                            suggest: {
-                                body: {template: "#nameRus#"}
-                            },
-                            on: {
-                                onChange: function (newV) {
-                                    if (!isNullOrEmpty(newV)) {
-                                        $$('parentId').enable();
-                                        loadData(2, newV);
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            view: "richselect",
                             label: 'Выберите родительский элемент',
                             labelPosition: "top",
                             name: "parentId",
                             id: "parentId",
-                            disabled: true,
                             inputHeight: 37,
                             height: 70,
                             suggest: {
                                 body: {template: "#nameRus#"}
                             },
                             on: {
+                                onItemClick: function () {
+                                    loadData(2, lessonId);
+                                },
                                 onChange: function (newV, oldV) {
                                     $$('grammarView').enable();
                                 }
@@ -644,18 +619,6 @@ function addViewGrammarToLesson(lessonId) {
                             required: true,
                             label: 'Наименование на русском'
                         },
-                        {
-                            view: 'text',
-                            name: 'nameKaz',
-                            required: true,
-                            label: 'Наименование на казахском'
-                        },
-                        {
-                            view: 'text',
-                            name: 'nameLan',
-                            required: true,
-                            label: 'Наименование на латынском'
-                        },
                         {view: 'label', label: "Упражнения на русском"},
                         {
                             view: "template",
@@ -663,22 +626,6 @@ function addViewGrammarToLesson(lessonId) {
                             name: 'descRus',
                             id: 'descRus',
                             template: '<div id="descRus"></div>'
-                        },
-                        {view: 'label', label: "Упражнения на казахском"},
-                        {
-                            view: "template",
-                            height: 300,
-                            name: 'descKaz',
-                            id: 'descKaz',
-                            template: '<div id="descKaz"></div>'
-                        },
-                        {view: 'label', label: "Упражнения на латынском"},
-                        {
-                            view: "template",
-                            height: 300,
-                            name: 'descLan',
-                            id: 'descLan',
-                            template: '<div id="descLan"></div>'
                         },
                         {
                             cols: [
@@ -712,7 +659,6 @@ function addViewGrammarToLesson(lessonId) {
     initSample();
     initSample2();
     initSample3();
-    loadData(1);
 }
 
 function addDataToGrammar(paramId) {
@@ -722,11 +668,7 @@ function addDataToGrammar(paramId) {
                 paramId: $$('parentId').getValue(),
                 id: $$('grammarView').elements['id'].getValue(),
                 nameRus: $$('grammarView').elements['nameRus'].getValue(),
-                nameKaz: $$('grammarView').elements['nameKaz'].getValue(),
-                nameLan: $$('grammarView').elements['nameLan'].getValue(),
-                descRus: CKEDITOR.instances.descRus.getData(),
-                descKaz: CKEDITOR.instances.descKaz.getData(),
-                descLan: CKEDITOR.instances.descLan.getData()
+                descRus: CKEDITOR.instances.descRus.getData()
             }, function (gson) {
                 if (gson && !gson.result) {
                     notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
@@ -755,36 +697,19 @@ function addViewAudioToLesson(lessonId) {
                     cols: [
                         {
                             view: "richselect",
-                            label: 'Выберите уровень',
-                            labelPosition: "top",
-                            id: "dUroven",
-                            inputHeight: 37,
-                            height: 70,
-                            suggest: {
-                                body: {template: "#nameRus#"}
-                            },
-                            on: {
-                                onChange: function (newV) {
-                                    if (!isNullOrEmpty(newV)) {
-                                        $$('parentId').enable();
-                                        loadData(2, newV);
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            view: "richselect",
                             label: 'Выберите родительский элемент',
                             labelPosition: "top",
                             name: "parentId",
                             id: "parentId",
-                            disabled: true,
                             inputHeight: 37,
                             height: 70,
                             suggest: {
                                 body: {template: "#nameRus#"}
                             },
                             on: {
+                                onItemClick: function () {
+                                    loadData(2, lessonId);
+                                },
                                 onChange: function (newV, oldV) {
                                     $$('audioView').enable();
                                 }
@@ -812,26 +737,6 @@ function addViewAudioToLesson(lessonId) {
                             name: 'nameRus',
                             required: true,
                             label: 'Наименование на русском'
-                        },
-                        {
-                            view: 'text',
-                            name: 'nameKaz',
-                            required: true,
-                            label: 'Наименование на казахском'
-                        },
-                        {
-                            view: 'text',
-                            name: 'nameLan',
-                            required: true,
-                            label: 'Наименование на латынском'
-                        },
-                        {view: 'label', label: "Упражнения на русском"},
-                        {
-                            view: "template",
-                            height: 300,
-                            name: 'descRus',
-                            id: 'descRus',
-                            template: '<div id="descRus"></div>'
                         },
                         {view: 'label', label: "Упражнения на казахском"},
                         {
@@ -874,11 +779,8 @@ function addViewAudioToLesson(lessonId) {
             ]
         }
     );
-    loadData(1);
-    initSample();
     initSample2();
     initSample3();
-    addProfilePhotoBlock();
 }
 
 function addDataToAudio(paramId) {
@@ -888,17 +790,15 @@ function addDataToAudio(paramId) {
                 paramId: $$('parentId').getValue(),
                 link: $$('audioView').elements['link'].getValue(),
                 nameRus: $$('audioView').elements['nameRus'].getValue(),
-                nameKaz: $$('audioView').elements['nameKaz'].getValue(),
-                nameLan: $$('audioView').elements['nameLan'].getValue(),
-                descRus: CKEDITOR.instances.descRus.getData(),
                 descKaz: CKEDITOR.instances.descKaz.getData(),
                 descLan: CKEDITOR.instances.descLan.getData()
             }, function (gson) {
                 if (gson && !gson.result) {
                     notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
                 } else {
-                    clearFormByid('audioView');
-                    $$('lessonId').setValue(gson.message);
+                    $$('audioView').clear();
+                    CKEDITOR.instances.descKaz.setData("");
+                    CKEDITOR.instances.descLan.setData("");
                     notifyMessage("Сохранено", "Сохранено", notifyType.info)
                 }
             });
@@ -909,126 +809,9 @@ function addDataToAudio(paramId) {
 
 function clearFormByid(id) {
     $$(id).clear();
-}
-
-function uploadUserPhoto() {
-    var y = window.scrollY;
-    window.onscroll = function () {
-        window.scrollTo(0, y);
-    };
-    if (!$$('uploadUserPhoto')) {
-        webix.ui({
-            view: "window",
-            id: "uploadUserPhoto",
-            modal: true,
-            position: "center",
-            height: 400,
-            width: 700,
-            head: {
-                view: "toolbar", cols: [
-                    {view: "label", label: "Фото профиля"},
-                    {
-                        view: "button", label: 'Закрыть', width: 100, height: 34, align: 'right',
-                        click: function () {
-                            this.getTopParentView().hide();
-                            window.onscroll = null;
-                        }
-                    }
-                ]
-            },
-            body: {view: "template", content: "uploadCropContainer", height: 500}
-        }).hide();
-    }
-
-    $$('uploadUserPhoto').show();
-}
-
-function removeUserPhoto() {
-    get_ajax('/xdoc/ws/profile/removeProfile', 'POST', {}, function (gson) {
-        if (!gson.result) {
-            notifyMessage('danger', 'Ошибка! ', gson.message);
-            return;
-        }
-        $$('avaRows').removeView('ava');
-        var ava = '/xdoc/plugin/img/ava4.png';
-        addProfilePhotoBlock(ava);
-        notifyMessage('info', 'Редактирование! ', 'Профиль пользователя удалено');
-    });
-}
-
-function addProfilePhotoBlock(ava) {
-    $$('avaRows').removeView('ava');
-    var avatar;
-    if (!ava) {
-        avatar = '/study/plugin/img/ava4.png';
-    } else {
-        avatar = ava;
-    }
-    $$('avaRows').addView(
-        {
-            id: 'ava',
-            rows: [
-                {
-                    cols: [
-                        {},
-                        {
-                            width: 200,
-                            minHeight: 180,
-                            id: "person_template",
-                            css: "header_personAva",
-                            borderless: true,
-                            data: {id: 3, name: ""},
-                            template: function () {
-                                var html = "<div style='height:100%;width:100%;'>";
-                                html += "<img class='photo' src='" + avatar + "'/></span>";
-                                html += "</div>";
-                                return html;
-                            }
-                        },
-                        {}
-                    ]
-                },
-                {
-                    view: 'text',
-                    label: 'Ссылка на картинку',
-                    id: 'audioLink'
-                },
-                {
-                    cols: [
-                        {
-                            view: 'text',
-                            hidden: true,
-                            id: 'lessonId'
-                        },
-                        {
-                            view: "button",
-                            icon: "cloud-upload",
-                            label: "Загрузить",
-                            type: "iconButton",
-                            align: 'left',
-                            on: {
-                                onItemClick: function (pid, e) {
-                                    uploadUserPhoto();
-                                }
-                            }
-                        },
-                        {
-                            view: "button",
-                            icon: "file-o",
-                            label: "Очистить",
-                            type: "iconButton",
-                            align: 'left',
-                            on: {
-                                onItemClick: function (pid, e) {
-                                    removeUserPhoto();
-                                }
-                            }
-                        }
-                    ]
-                }
-            ]
-        }
-    )
+    CKEDITOR.instances.descRus.setData("");
+    CKEDITOR.instances.descKaz.setData("");
+    CKEDITOR.instances.descLan.setData("");
 }
 
 function addViewGameWToLesson(lessonId) {
@@ -1040,43 +823,26 @@ function addViewGameWToLesson(lessonId) {
             rows: [
                 {
                     view: 'label',
-                    label: 'Добавить аудио к уроку'
+                    label: 'Добавить игру'
                 },
                 {
                     cols: [
-                        {
-                            view: "richselect",
-                            label: 'Выберите уровень',
-                            labelPosition: "top",
-                            id: "dUroven",
-                            inputHeight: 37,
-                            height: 70,
-                            suggest: {
-                                body: {template: "#nameRus#"}
-                            },
-                            on: {
-                                onChange: function (newV) {
-                                    if (!isNullOrEmpty(newV)) {
-                                        $$('parentId').enable();
-                                        loadData(2, newV);
-                                    }
-                                }
-                            }
-                        },
                         {
                             view: "richselect",
                             label: 'Выберите родительский элемент',
                             labelPosition: "top",
                             name: "parentId",
                             id: "parentId",
-                            disabled: true,
                             inputHeight: 37,
                             height: 70,
                             suggest: {
                                 body: {template: "#nameRus#"}
                             },
                             on: {
-                                onChange: function (newV, oldV) {
+                                onItemClick: function () {
+                                    loadData(2, lessonId);
+                                },
+                                onChange: function () {
                                     $$('gameForm').enable();
                                 }
                             }
@@ -1202,7 +968,6 @@ function addViewGameWToLesson(lessonId) {
             ]
         }
     );
-    loadData(1);
 }
 
 function saveViewGameWToLesson(paramId) {
@@ -1225,6 +990,102 @@ function saveViewGameWToLesson(paramId) {
                     notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
                 } else {
                     clearFormByid('gameForm');
+                    notifyMessage("Сохранено", "Сохранено", notifyType.info)
+                }
+            });
+    } else {
+        notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
+    }
+}
+
+function addViewGameWToLessonForget(lessonId) {
+    reViewRemove();
+    adViewAddView();
+    $$('addMainVIew').addView(
+        {
+            id: 'gameView',
+            rows: [
+                {
+                    view: 'label',
+                    label: 'Добавить игру на запоминание'
+                },
+                {
+                    cols: [
+                        {
+                            view: "richselect",
+                            label: 'Выберите родительский элемент',
+                            labelPosition: "top",
+                            name: "parentId",
+                            id: "parentId",
+                            inputHeight: 37,
+                            height: 70,
+                            suggest: {
+                                body: {template: "#nameRus#"}
+                            },
+                            on: {
+                                onItemClick: function () {
+                                    loadData(2, lessonId);
+                                },
+                                onChange: function () {
+                                    $$('brainForm').enable();
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    id: 'brainForm',
+                    width: 800,
+                    disabled: true,
+                    view: 'form',
+                    elementsConfig: {
+                        labelPosition: "top"
+                    },
+                    rows: [
+                        {view: 'label', label: "Добавить упражнения"},
+                        {
+                            view: "template",
+                            height: 300,
+                            name: 'descRus',
+                            id: 'descRus',
+                            template: '<div id="descRus"></div>'
+                        },
+                        {
+                            cols: [
+                                {
+                                    css: "noBorder",
+                                    width: 190,
+                                    height: 40,
+                                    template: '<button type="button" onclick="saveViewGameWToLessonBrain(' + lessonId + ')" class="btn btn-success">Сохранить</button>'
+                                },
+                                {
+                                    css: "noBorder",
+                                    width: 190,
+                                    height: 40,
+                                    template: '<button type="button" onclick="clearFormByid(\'brainForm\')" class="btn btn-danger">Очистить</button>'
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    );
+    initSample();
+}
+
+function saveViewGameWToLessonBrain(paramId) {
+    var form = $$('brainForm');
+    if (!isNullOrEmpty(paramId)) {
+        get_ajax('/study/wr/admin/addDataDGameWBrain', 'POST',
+            {
+                paramId: $$('parentId').getValue(),
+                descRus: CKEDITOR.instances.descRus.getData()
+            }, function (gson) {
+                if (gson && !gson.result) {
+                    notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
+                } else {
+                    clearFormByid('brainForm');
                     notifyMessage("Сохранено", "Сохранено", notifyType.info)
                 }
             });

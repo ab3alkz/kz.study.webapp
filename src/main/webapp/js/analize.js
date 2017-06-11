@@ -15,7 +15,7 @@ function form_init() {
                     {
                         width: 500,
                         view: 'label',
-                        id: 'mainAnalizeTitle',
+                        value: getResourceName("menu.analize"),
                         css: 'mainAnalizeTitle'
                     },
                     {}
@@ -44,22 +44,20 @@ function form_init() {
                         params: 1,
                         width: 190,
                         height: 40,
-                        template: '<button type="button" onclick="btnTypeRec(1)" class="btn btn-primary">'+getResourceName('btn.lbl.check')+'</button>'
+                        template: '<button type="button" onclick="btnTypeRec(1)" class="btn btn-primary">' + getResourceName('btn.lbl.check') + '</button>'
                     },
                     {
                         css: "noBorder",
                         id: "btnClearAnalize",
                         params: 2,
                         width: 180,
-                        template: '<button type="button" onclick="btnTypeRec(2)" class="btn btn-danger">'+getResourceName('menu.clear.btn')+'</button>'
+                        template: '<button type="button" onclick="btnTypeRec(2)" class="btn btn-danger">' + getResourceName('menu.clear.btn') + '</button>'
                     },
                     {}
                 ]
             }
         ]
     });
-
-    setTitle();
 }
 
 function btnTypeRec(id) {
@@ -73,34 +71,14 @@ function btnTypeRec(id) {
     }
 }
 
-function setTitle() {
-    var title ="";
-    switch (getLocalStorage("analize")) {
-        case "1":
-            title = getResourceName('menu.analize.sem');
-            break;
-        case "2":
-            title = getResourceName('menu.analize.morph');
-            break;
-        case "3":
-            title = getResourceName('menu.analize.syntax');
-            break;
-        case "4":
-            title = getResourceName('menu.analize.lex');
-            break;
-    }
-    $$('mainAnalizeTitle').setValue(title);
-}
-
 function getAnalizeResult() {
-    var id = getLocalStorage("analize");
     var text = $$('analizeTxtArea').getValue();
     if (!isNullOrEmpty(text)) {
-        get_ajax('/study/wr/anal/getAnalize', 'GET', {id: id, text: text}, function (gson) {
+        get_ajax('/study/wr/anal/getAnalize', 'GET', {text: text}, function (gson) {
             if (gson && !gson.result) {
                 notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
             } else {
-                openWindowToAnalize(gson.message);
+                openWindowToAnalize(gson.message.symantic.message, gson.message.morph.message);
             }
         });
     } else {
@@ -108,7 +86,7 @@ function getAnalizeResult() {
     }
 }
 
-function openWindowToAnalize(json) {
+function openWindowToAnalize(json, morphJson) {
 
     var cont_h = $(window).height() - 70;
     if (!$$('analWin')) {
@@ -127,8 +105,7 @@ function openWindowToAnalize(json) {
             },
             head: {
                 cols: [
-                    {width: 10},
-                    {view: 'label', label: getResourceName('main.txt.stat'), css: 'windowLabel'},
+                    {},
                     {
                         borderless: true,
                         view: "toolbar",
@@ -153,54 +130,195 @@ function openWindowToAnalize(json) {
             body: {
                 rows: [
                     {
-                        height: 80,
-                        cols: [
-                            {},
+                        view: "accordion",
+                        multi: true,
+                        css: 'mainAccordion',
+                        margin: 20,
+                        rows: [
                             {
-                                width: 850,
-                                view: "datatable",
-                                id: 'analizeTable',
-                                scroll: false,
-                                columns: [
-                                    {id: "mLength", header: getResourceName("anal.s.count"), width: 200},
-                                    {id: "woutMLength", header: getResourceName("anal.s.space.count"), width: 200},
-                                    {id: "wordCount", header: getResourceName("anal.w.count"), width: 200},
-                                    {id: "uniqueWordCount", header: getResourceName("anal.w.id.count"), fillspace: 1}
-                                ]
-                            },
-                            {}
+                                view: "accordionitem",
+                                header: "<span class='webix_icon fa-user'></span><span class='wordStyle'>" + getResourceName('main.txt.stat') + "</span>",
+                                autoheight: true,
+                                collapsed: true,
+                                body: {
+                                    rows: [
+                                        {
+                                            view: "accordion",
+                                            rows: [
+                                                {
+                                                    height: 80,
+                                                    cols: [
+                                                        {},
+                                                        {
+                                                            width: 850,
+                                                            view: "datatable",
+                                                            id: 'analizeTable',
+                                                            scroll: false,
+                                                            columns: [
+                                                                {
+                                                                    id: "mLength",
+                                                                    header: getResourceName("anal.s.count"),
+                                                                    width: 200
+                                                                },
+                                                                {
+                                                                    id: "woutMLength",
+                                                                    header: getResourceName("anal.s.space.count"),
+                                                                    width: 200
+                                                                },
+                                                                {
+                                                                    id: "wordCount",
+                                                                    header: getResourceName("anal.w.count"),
+                                                                    width: 200
+                                                                },
+                                                                {
+                                                                    id: "uniqueWordCount",
+                                                                    header: getResourceName("anal.w.id.count"),
+                                                                    fillspace: 1
+                                                                }
+                                                            ]
+                                                        },
+                                                        {}
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
                         ]
                     },
                     {
-                        cols: [
-                            {},
+                        view: "accordion",
+                        multi: true,
+                        css: 'mainAccordion',
+                        margin: 20,
+                        rows: [
                             {
-                                width: 850,
-                                view: 'label',
-                                css: 'wordStyle',
-                                label: getResourceName('anal.w.id.main.label')
-                            },
-                            {}
+                                view: "accordionitem",
+                                header: "<span class='webix_icon fa-user'></span><span class='wordStyle'>" + getResourceName('anal.w.id.main.label') + "</span>",
+                                autoheight: true,
+                                collapsed: true,
+                                body: {
+                                    rows: [
+                                        {
+                                            view: "accordion",
+                                            rows: [
+                                                {
+                                                    height: 500,
+                                                    cols: [
+                                                        {},
+                                                        {
+                                                            width: 850,
+                                                            view: "datatable",
+                                                            id: 'analizeRepeatTable',
+                                                            scroll: true,
+                                                            columns: [
+                                                                {
+                                                                    id: "value",
+                                                                    header: getResourceName("words"),
+                                                                    fillspace: 1
+                                                                },
+                                                                {
+                                                                    id: "addValue",
+                                                                    header: getResourceName("counts"),
+                                                                    width: 200
+                                                                }
+                                                            ]
+                                                        },
+                                                        {}
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
                         ]
                     },
                     {
-                        height: 500,
-                        cols: [
-                            {},
+                        view: "accordion",
+                        multi: true,
+                        css: 'mainAccordion',
+                        margin: 20,
+                        rows: [
                             {
-                                width: 850,
-                                view: "datatable",
-                                id: 'analizeRepeatTable',
-                                scroll: true,
-                                columns: [
-                                    {id: "value", header: getResourceName("words"), fillspace: 1},
-                                    {id: "addValue", header: getResourceName("counts"), width: 200}
-                                ]
-                            },
-                            {}
+                                view: "accordionitem",
+                                header: "<span class='webix_icon fa-user'></span><span class='wordStyle'>" + getResourceName('main.antonym') + "</span>",
+                                autoheight: true,
+                                collapsed: true,
+                                body: {
+                                    rows: [
+                                        {
+                                            view: "accordion",
+                                            rows: [
+                                                {
+                                                    width: 850,
+                                                    view: 'label',
+                                                    id: 'antlabel',
+                                                    css: 'wordStyle'
+                                                },
+                                                {
+                                                    width: 850,
+                                                    view: "datatable",
+                                                    id: 'antonymDataTable',
+                                                    scroll: true,
+                                                    columns: [
+                                                        {
+                                                            id: "value",
+                                                            header: getResourceName("words"),
+                                                            fillspace: 1
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
                         ]
                     },
-                    {height: 30}
+                    {
+                        view: "accordion",
+                        multi: true,
+                        css: 'mainAccordion',
+                        margin: 20,
+                        rows: [
+                            {
+                                view: "accordionitem",
+                                header: "<span class='webix_icon fa-user'></span><span class='wordStyle'>" + getResourceName('main.synonym') + "</span>",
+                                autoheight: true,
+                                collapsed: true,
+                                body: {
+                                    rows: [
+                                        {
+                                            view: "accordion",
+                                            rows: [
+                                                {
+                                                    width: 850,
+                                                    view: 'label',
+                                                    id: 'synlabel',
+                                                    css: 'wordStyle'
+                                                },
+                                                {
+                                                    width: 850,
+                                                    view: "datatable",
+                                                    id: 'synonymDataTable',
+                                                    scroll: true,
+                                                    columns: [
+                                                        {
+                                                            id: "value",
+                                                            header: getResourceName("words"),
+                                                            fillspace: 1
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
                 ]
             }
         }).hide();
@@ -214,11 +332,32 @@ function openWindowToAnalize(json) {
     $$('analizeTable').parse(json);
 
     var items = [];
-    for(var n in json.repeatedWord) {
+    for (var n in json.repeatedWord) {
         var object = {};
         object['value'] = n;
         object['addValue'] = json.repeatedWord[n];
         items.push(object)
     }
     $$('analizeRepeatTable').parse(items);
+
+    $$('antlabel').setValue(morphJson.antonym.antonymTitle);
+    $$('synlabel').setValue(morphJson.synonym.synonymTitle);
+
+    var items2 = [];
+    morphJson.antonym.antonymResult.forEach(function (e) {
+        var object2 = {};
+        object2['value'] = e;
+        items2.push(object2)
+    });
+
+    $$('antonymDataTable').parse(items2);
+
+    var items3 = [];
+    morphJson.synonym.synonymResult.forEach(function (e) {
+        var object3 = {};
+        object3['value'] = e;
+        items3.push(object3)
+    });
+
+    $$('synonymDataTable').parse(items3);
 }

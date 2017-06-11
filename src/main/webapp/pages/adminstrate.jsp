@@ -70,7 +70,9 @@
             <div class="image-size-label">
                 Размер фото
             </div>
-            <input type="range" class="cropit-image-zoom-input">
+            <label>
+                <input type="range" class="cropit-image-zoom-input">
+            </label>
             <div class="cropBtn">
                 <input type="file" class="cropit-image-input">
                 <button data-action="rotate-left" title="Перевернуть (L)" class="rotate-ccw">
@@ -116,7 +118,7 @@
                 audioLessonId: $$('lessonId').getValue(),
                 img: e
             },
-            function (gson) {
+            function () {
                 $$('uploadUserPhoto').hide();
                 $$('avaRows').removeView('ava');
                 window.onscroll = null;

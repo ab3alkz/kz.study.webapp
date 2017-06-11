@@ -522,7 +522,6 @@ function getResourceName(prop) {
     return jQuery.i18n.prop(prop);
 }
 
-
 function registrationWin() {
     if (!$$('registrationWin')) {
         webix.ui({

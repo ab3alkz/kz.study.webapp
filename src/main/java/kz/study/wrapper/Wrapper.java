@@ -2,13 +2,10 @@ package kz.study.wrapper;
 
 import kz.study.entity.*;
 import kz.study.gson.*;
-import org.apache.commons.io.IOUtils;
 import org.jetbrains.annotations.Contract;
 
 import javax.ws.rs.core.MultivaluedMap;
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -341,13 +338,9 @@ public class Wrapper {
     private static GsonAdminValue wrapToDAudioLessonDic(DAudioLesson obj) {
         GsonAdminValue gson = new GsonAdminValue();
         gson.setId(obj.getId());
-        gson.setValue(getInscriptionByLang(obj.getNameRus(), obj.getNameKaz(), obj.getNameLan()));
-        gson.setDescValue(getInscriptionByLang(obj.getDescRus(), obj.getDescKaz(), obj.getDescLan()));
+        gson.setValue(obj.getNameRus());
+        gson.setDescValue(getInscriptionByLang(obj.getDescKaz(), obj.getDescKaz(), obj.getDescLan()));
         gson.setLink(obj.getLink());
-        if (obj.getdAudioLessonImg() != null) {
-            gson.setAudioLink(obj.getdAudioLessonImg().getLink());
-            gson.setImg(new String(obj.getdAudioLessonImg().getImg(), StandardCharsets.UTF_8));
-        }
 
         return gson;
     }
@@ -362,17 +355,10 @@ public class Wrapper {
         GsonAdminValue gson = new GsonAdminValue();
         gson.setId(obj.getId());
         gson.setNameRus(obj.getNameRus());
-        gson.setNameKaz(obj.getNameKaz());
-        gson.setNameLan(obj.getNameLan());
-        gson.setDescRus(obj.getDescRus());
         gson.setDescKaz(obj.getDescKaz());
         gson.setDescLan(obj.getDescLan());
         gson.setParamId(obj.getdLesson().getId());
         gson.setLink(obj.getLink());
-        if (obj.getdAudioLessonImg() != null) {
-            gson.setAudioLink(obj.getdAudioLessonImg().getLink());
-            gson.setImg(new String(obj.getdAudioLessonImg().getImg(), StandardCharsets.UTF_8));
-        }
         return gson;
     }
 
@@ -385,8 +371,8 @@ public class Wrapper {
     private static GsonAdminValue wrapToDGrammarLessonDic(DGrammarLesson obj) {
         GsonAdminValue gson = new GsonAdminValue();
         gson.setId(obj.getId());
-        gson.setValue(getInscriptionByLang(obj.getNameRus(), obj.getNameKaz(), obj.getNameLan()));
-        gson.setDescValue(getInscriptionByLang(obj.getDescRus(), obj.getDescKaz(), obj.getDescLan()));
+        gson.setValue(obj.getNameRus());
+        gson.setDescValue(obj.getDescRus());
         return gson;
     }
 
@@ -400,11 +386,7 @@ public class Wrapper {
         GsonAdminValue gson = new GsonAdminValue();
         gson.setId(obj.getId());
         gson.setNameRus(obj.getNameRus());
-        gson.setNameKaz(obj.getNameKaz());
-        gson.setNameLan(obj.getNameLan());
         gson.setDescRus(obj.getDescRus());
-        gson.setDescKaz(obj.getDescKaz());
-        gson.setDescLan(obj.getDescLan());
         gson.setParamId(obj.getdLessonId().getId());
         return gson;
     }
@@ -507,6 +489,20 @@ public class Wrapper {
     public static List<GsonAdminValue> wrapTDGameWordList(List<DGameWord> list) {
         List<GsonAdminValue> gsonList = new ArrayList<>();
         list.forEach(s -> gsonList.add(wrapToDGameWord(s)));
+        return gsonList;
+    }
+
+    private static GsonAdminValue wrapToDGameBrainGson(DGameBrain obj) {
+        GsonAdminValue gson = new GsonAdminValue();
+        gson.setId(obj.getId());
+        gson.setDescRus(obj.getDescRus());
+
+        return gson;
+    }
+
+    public static List<GsonAdminValue> wrapToDGameBrainList(List<DGameBrain> list) {
+        List<GsonAdminValue> gsonList = new ArrayList<>();
+        list.forEach(s -> gsonList.add(wrapToDGameBrainGson(s)));
         return gsonList;
     }
 }

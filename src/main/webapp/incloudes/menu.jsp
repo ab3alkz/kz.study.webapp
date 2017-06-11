@@ -57,16 +57,8 @@
                                class="classC1"></a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <span class="analizeMenu"></span><span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a onclick="analizeType(1);" class="analizeSemMenu"></a></li>
-                        <li><a onclick="analizeType(2);" href="" class="analizeMorMenu"></a></li>
-                        <li><a onclick="analizeType(3);" class="analizeSyntaxMenu"></a></li>
-                        <li><a onclick="analizeType(4);" class="analizeLexicMenu"></a></li>
-                    </ul>
-                </li>
+                <li><a href=${contextPath}/pages/analize.jsp><span class="analize"></span></a></li>
+
                 <% GsonUsers user = (GsonUsers) request.getSession().getAttribute("user");
                     if (user.getRole().equals("admin_role")) { %>
                 <li><a href="${contextPath}/pages/adminstrate.jsp"><span>Администрирование</span></a></li>
@@ -116,7 +108,7 @@
 <script type="text/javascript">
     function analizeType(id) {
         setLocalStorage("analize", id);
-        window.location.href = "${contextPath}/pages/analize.jsp";
+        window.location.href = "/study/pages/analize.jsp";
     }
 </script>
 <script type="text/javascript">
@@ -136,11 +128,7 @@
             document.querySelector('.translateMenu').innerHTML = getResourceName('menu.translate');
             document.querySelector('.lessonsMenu').innerHTML = getResourceName('menu.lessons');
             document.querySelector('.proverMenu').innerHTML = getResourceName('menu.prover');
-            document.querySelector('.analizeMenu').innerHTML = getResourceName('menu.analize');
-            document.querySelector('.analizeSemMenu').innerHTML = getResourceName('menu.analize.sem');
-            document.querySelector('.analizeMorMenu').innerHTML = getResourceName('menu.analize.morph');
-            document.querySelector('.analizeSyntaxMenu').innerHTML = getResourceName('menu.analize.syntax');
-            document.querySelector('.analizeLexicMenu').innerHTML = getResourceName('menu.analize.lex');
+            document.querySelector('.analize').innerHTML = getResourceName('menu.analize');
             document.querySelector('.classA1').innerHTML = getResourceName('a.one.urover');
             document.querySelector('.classA2').innerHTML = getResourceName('a.two.urover');
             document.querySelector('.classB1').innerHTML = getResourceName('b.one.urover');

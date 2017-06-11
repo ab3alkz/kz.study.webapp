@@ -69,23 +69,6 @@ public class AdminResource {
         return objectToJson(adminSession.addGrammarLessonByPart(gson));
     }
 
-    @POST
-    @Path("addImgToAudioLessonByPart")
-    @Produces("image/jpeg")
-    public Response uploadUserAva(MultivaluedMap<String, String> formParams) {
-        GsonAdminValue gson = wrapToGsonAdminValue(formParams);
-        Response.ResponseBuilder response = Response.ok(adminSession.addImgToAudioLessonByPart(gson, request, sc.getUserPrincipal().getName()));
-        response.header("Content-Disposition", "filename=doc.jpg");
-        return response.build();
-    }
-
-    @GET
-    @Produces("application/json")
-    @Path("getImageById")
-    public String getImageById(@QueryParam("id") String id) {
-        return objectToJson(adminSession.getImageById(id));
-    }
-
     @GET
     @Produces("application/json")
     @Path("editAdmin")
@@ -107,5 +90,13 @@ public class AdminResource {
     public String addDataDGameW(MultivaluedMap<String, String> formParams) {
         GsonAdminValue gson = wrapToGsonAdminValue(formParams);
         return objectToJson(adminSession.addDataDGameW(gson));
+    }
+
+    @POST
+    @Produces("application/json")
+    @Path("addDataDGameWBrain")
+    public String addDataDGameWBrain(MultivaluedMap<String, String> formParams) {
+        GsonAdminValue gson = wrapToGsonAdminValue(formParams);
+        return objectToJson(adminSession.addDataDGameWBrain(gson));
     }
 }

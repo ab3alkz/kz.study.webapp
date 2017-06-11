@@ -46,9 +46,8 @@ public class AnalizeResource {
     @GET
     @Produces("application/json")
     @Path("getAnalize")
-    public String getAnalize(@QueryParam("id") final int id,
-                             @QueryParam("text") final String text) {
-        return objectToJson(analizeSession.getAnalize(id, text));
+    public String getAnalize(@QueryParam("text") final String text) throws Exception {
+        return objectToJson(analizeSession.getAnalize(text));
     }
 
     @GET
