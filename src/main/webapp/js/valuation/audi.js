@@ -126,9 +126,9 @@ function finishAudi() {
     testFinish = true;
     $$('finishAudiBtn').disable();
 
-
+    var json = {};
     json.data = testData;
-    setGameResult(null, testData,
+    setGameResult(0, json,
         function (gson) {
 
         }
@@ -166,8 +166,8 @@ function audiAdmin(item) {
     $('.mainwrapper').removeClass(' top80px');
     $('.mainwrapper').addClass(' top20px');
     webix.ui({
-        id: "audioContainerAdmin",
-        container: "audioContainerAdmin",
+        id: "testsContainerAdmin",
+        container: "testsContainerAdmin",
         rows: [
             {
                 cols: [
@@ -205,7 +205,7 @@ function audiAdmin(item) {
                     {id: "removBtn", header: " ", width: 60},
                 ],
                 pager: {
-                    container: "audioContainerAdminPaging",
+                    container: "testsContainerAdminPaging",
                     size: 10,
                     group: 15
                 },
@@ -243,7 +243,7 @@ function audiAdmin(item) {
             {
                 view: "template",
                 height: 50,
-                content: "audioContainerAdminPaging"
+                content: "testsContainerAdminPaging"
             }
         ]
     })

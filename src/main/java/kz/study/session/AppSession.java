@@ -87,6 +87,7 @@ public class AppSession extends Utx {
         return em.createNamedQuery("Words.findByIdTest").setParameter("idTest", idTest)
                 .setFirstResult(start).setMaxResults(count).getResultList();
     }
+
     public GsonDatatableData getWordsDataByIdTest(Integer start, Integer count, Integer idTest) {
         if (start == null) start = 0;
         if (count == null) count = start + 10;
@@ -222,8 +223,8 @@ public class AppSession extends Utx {
                     GsonIntelectualQuestion gson = wrapToGsonIntelectualQuestionByJsonString(json);
                     return intelectualQuestionValidate(gson);
                 case "audi":
-                    gson = wrapToGsonIntelectualQuestionByJsonString(json);
-                    return audiValidate(gson);
+                    GsonAudiTest gsonAudi = wrapToGsonAudiTestByJsonString(json);
+                    return audiValidate(gsonAudi);
             }
         }
         return getGsonResult(true, null);
@@ -301,7 +302,6 @@ public class AppSession extends Utx {
             return getGsonResult(false, e.toString());
         }
     }
-
 
     public GsonResult removeWordById(Integer id) {
         Query q = em.createQuery("delete  FROM Words g WHERE g.id = :id").setParameter("id", id);
@@ -709,21 +709,19 @@ public class AppSession extends Utx {
     }
 
 
-    private GsonResult audiValidate(GsonIntelectualQuestion gson) {
+    private GsonResult audiValidate(GsonAudiTest gson) {
         try {
-            for (GsonIntelectualQuestion obj : gson.getData()) {
+            for (GsonAudiTest obj : gson.getData()) {
                 String userAnsw = obj.getAnsw();
-                String answerDB = obj.getDbAnsw();
+                String answerDB = obj.getText();
 
                 if (isNullOrEmpty(answerDB)) {
-                    obj.setDbAnsw("деректер қорында жауап берілмеген");
+                    obj.setResult(getGsonResult(false, "деректер қорында жауап берілмеген"));
                 } else {
-
-                    obj.setDbAnsw(answerDB);
                     if (isNullOrEmpty(userAnsw)) {
                         obj.setResult(getGsonResult(false, "Сіз жауап бермедіңіз"));
                     } else {
-                        obj.setResult(isIntelectualQuestionValidate(userAnsw, answerDB));
+                        obj.setResult(isAudiValidate(userAnsw, answerDB));
                     }
                 }
 
@@ -735,5 +733,84 @@ public class AppSession extends Utx {
             e.printStackTrace();
             return getGsonResult(false, e.toString());
         }
+    }
+
+
+    private GsonResult isAudiValidate(String userAnsw, String dBAnswer) {
+        try {
+            userAnsw = getReplaceSpecialChars(userAnsw);
+            dBAnswer = getReplaceSpecialChars(dBAnswer);
+
+            if (isNullOrEmpty(dBAnswer)) {
+                return getGsonResult(false, "Деректер қорында жауап жазылмаған");
+            }
+            if (isNullOrEmpty(userAnsw)) {
+                return getGsonResult(false, "0% <h1 style='color:red;'>Дұрыс емес</h1>");
+            }
+            if (userAnsw.equals(dBAnswer)) {
+                return getGsonResult(true, "100% <h1 style='color:green;'>Дұрыс</h1>");
+            }
+
+            String vs = validateAudiStrings(userAnsw, dBAnswer);
+            //return getGsonResult(true, vs);
+            return getGsonResult(true, userAnsw + getNewLine() + getNewLine() + dBAnswer + getNewLine() + vs);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getGsonResult(false, e.getMessage());
+        }
+    }
+
+    /**
+     * Сөйлемдерді талдау және салыстыру
+     *
+     * @param userSentence
+     * @param dbSentence
+     * @return String;
+     */
+    private String validateAudiStrings(String userSentence, String dbSentence) {
+        String[] userWordsArr = userSentence.toLowerCase().split(" ");
+        String[] dbWordsArr = dbSentence.toLowerCase().split(" ");
+
+        Integer containsWords = 0;
+        for (String dBAnswerWord : dbWordsArr) {
+            if (stringContainsItemFromList(dBAnswerWord, userWordsArr)) {
+                containsWords++;
+            }
+        }
+
+        Integer allEq = 0;
+        Integer trueIdxCnt = 0;
+        Integer lastDBIdx = -1;
+
+        for (String word : userWordsArr) {
+            Integer dbWordIdx = getIndexInArray(dbWordsArr, word);
+            if (dbWordIdx > 0) {
+                allEq++;
+                if (dbWordIdx > lastDBIdx) {
+                    lastDBIdx = dbWordIdx;
+                    trueIdxCnt++;
+                }
+            }
+        }
+
+        float result = 0;
+        if (allEq > 0) {
+            result = 100 / allEq * trueIdxCnt;
+        }
+        String resultStr = "";
+        if (result > 80) {
+            resultStr = "<h1 style='color:green;'>Дұрыс</h1>";
+        } else {
+            resultStr = "<h1 style='color:red;'>Дұрыс емес</h1>";
+        }
+        return getNewLine() + "Cөздер саны " + dbWordsArr.length + ", деректер қорында " + userWordsArr.length + ", сәйкес " + containsWords
+                + getNewLine()
+                + " allEquals = " + allEq
+                + ", order true = " + trueIdxCnt
+                + " false = " + (allEq - trueIdxCnt)
+                + getNewLine()
+                + " result = " + result + "%"
+                + resultStr;
     }
 }
