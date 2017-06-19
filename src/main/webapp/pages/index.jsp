@@ -26,18 +26,8 @@
     <%@include file='/incloudes/menu.jsp' %>
 </div>
 
-<div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <h1>Қазақ тілін интеллектуалды оқыту жүйесі</h1>
-            <div>
-                <div id="mainContainer"></div>
-                <div id="sldesContainer"></div>
-                <div id="slidesTablePager"></div>
-                <div id="archiveTablePager"></div>
-            </div>
-        </div>
-    </div>
+<div style="text-align: center;">
+    <h1 class="display-1" style="color: black">Қазақ тілін интеллектуалды оқыту жүйесі</h1>
 </div>
 </body>
 </html>

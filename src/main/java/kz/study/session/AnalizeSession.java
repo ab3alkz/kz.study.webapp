@@ -355,7 +355,7 @@ public class AnalizeSession extends Utx {
         gson.setAntonymTitle(titleText);
 
         if (list.size() != 0) {
-            List<String> resList = new ArrayList<>();
+            List<String> resList = null;
             for (String aSimW : list) {
                 TestClass testClass = getAntonymByName(aSimW);
                 if (testClass != null) {
@@ -365,6 +365,7 @@ public class AnalizeSession extends Utx {
                         antonym = testClass.getValue();
                     }
                 }
+                resList = new ArrayList<>();
                 resList.add("[" + aSimW + "] " + dopText + "[" + antonym + "] ");
             }
             gson.setAntonymResult(resList);
