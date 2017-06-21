@@ -337,7 +337,11 @@ public class AppSession extends Utx {
         try {
             GsonTestType gson = wrapToGsonTestTypeByJsonString(json);
             TestType testType = new TestType();
-            testType.setId(getSequenceNextVal());
+            if (gson.getId() != null) {
+                testType.setId(gson.getId());
+            } else {
+                testType.setId(getSequenceNextVal());
+            }
             testType.setType(gson.getType());
             testType.setIsPublic(1);
             testType.setName(gson.getName());
@@ -751,10 +755,12 @@ public class AppSession extends Utx {
                 return getGsonResult(true, "100% <h1 style='color:green;'>Дұрыс</h1>");
             }
 
-            String vs = validateAudiStrings(userAnsw, dBAnswer);
+            return getGsonResult(true, validateAudiStrings(userAnsw, dBAnswer));
+
+            /*String vs = validateAudiStrings(userAnsw, dBAnswer);
             //return getGsonResult(true, vs);
             return getGsonResult(true, userAnsw + getNewLine() + getNewLine() + dBAnswer + getNewLine() + vs);
-
+*/
         } catch (Exception e) {
             e.printStackTrace();
             return getGsonResult(false, e.getMessage());
@@ -771,9 +777,33 @@ public class AppSession extends Utx {
     private String validateAudiStrings(String userSentence, String dbSentence) {
         String[] userWordsArr = userSentence.toLowerCase().split(" ");
         String[] dbWordsArr = dbSentence.toLowerCase().split(" ");
+        StringBuilder res = new StringBuilder();
 
-        Integer containsWords = 0;
-        for (String dBAnswerWord : dbWordsArr) {
+        int i = 0;
+        for (String usrAnswerWord : userWordsArr) {
+            if (i < dbWordsArr.length) {
+                if (usrAnswerWord.equals(dbWordsArr[i])) {
+                    res.append("<span style='color:green;'>");
+                } else {
+                    res.append("<span style='color:red; text-decoration: line-through;'>");
+                }
+            } else {
+                res.append("<span style='color:red; text-decoration: line-through;'>");
+            }
+
+            res.append(usrAnswerWord).append("</span> ");
+            i++;
+        }
+
+        if (userWordsArr.length < dbWordsArr.length) {
+            for (int j = 1; j < dbWordsArr.length - userWordsArr.length; j++) {
+                res.append("<span style='color:red;'>_________</span> ");
+            }
+        }
+        return res.toString();
+       /*
+       Integer containsWords = 0;
+       for (String dBAnswerWord : dbWordsArr) {
             if (stringContainsItemFromList(dBAnswerWord, userWordsArr)) {
                 containsWords++;
             }
@@ -811,6 +841,6 @@ public class AppSession extends Utx {
                 + " false = " + (allEq - trueIdxCnt)
                 + getNewLine()
                 + " result = " + result + "%"
-                + resultStr;
+                + resultStr;*/
     }
 }
