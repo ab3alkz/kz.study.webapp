@@ -33,8 +33,8 @@
             <button type="button" class="btn btnWidth classA1_10 audioBtn" onclick="addAudioViewByID()"></button>
             <button type="button" class="btn btn-success btnWidth classA1_10 game1Btn"
                     onclick="addGame1ViewByID()"></button>
-            <button type="button" class="btn btn-primary btnWidth classA1_10 game2Btn"
-                    onclick="addAudioViewByID()"></button>
+            <%--<button type="button" class="btn btn-primary btnWidth classA1_10 game2Btn"--%>
+                    <%--onclick="addAudioViewByID()"></button>--%>
         </div>
         <div class="panel-body">
             <div>
@@ -73,7 +73,7 @@
             document.querySelector('.grammarBtn').innerHTML = getResourceName('aone.grammar.btn');
             document.querySelector('.audioBtn').innerHTML = getResourceName('aone.audi.btn');
             document.querySelector('.game1Btn').innerHTML = getResourceName('btn.game.adw');
-            document.querySelector('.game2Btn').innerHTML = getResourceName('btn.game.adw2');
+//            document.querySelector('.game2Btn').innerHTML = getResourceName('btn.game.adw2');
 //            document.querySelector('.game1Tbl').innerHTML = getResourceName('btn.game.adw');
         }
     });

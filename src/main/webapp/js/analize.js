@@ -6,20 +6,11 @@ function form_init() {
     webix.ui({
         id: "mainlayot",
         container: "mainContainer",
-        css: 'blueW',
-        height: 600,
         rows: [
             {
-                cols: [
-                    {},
-                    {
-                        width: 500,
-                        view: 'label',
-                        value: getResourceName("menu.analize"),
-                        css: 'mainAnalizeTitle'
-                    },
-                    {}
-                ]
+                view: 'label',
+                value: getResourceName("menu.analize"),
+                css: 'mainAnalizeTitle'
             },
             {height: 40},
             {
@@ -343,21 +334,24 @@ function openWindowToAnalize(json, morphJson) {
     $$('antlabel').setValue(morphJson.antonym.antonymTitle);
     $$('synlabel').setValue(morphJson.synonym.synonymTitle);
 
-    var items2 = [];
-    morphJson.antonym.antonymResult.forEach(function (e) {
-        var object2 = {};
-        object2['value'] = e;
-        items2.push(object2)
-    });
+    if (morphJson.antonym.antonymResult) {
+        var items2 = [];
+        morphJson.antonym.antonymResult.forEach(function (e) {
+            var object2 = {};
+            object2['value'] = e;
+            items2.push(object2)
+        });
 
-    $$('antonymDataTable').parse(items2);
+        $$('antonymDataTable').parse(items2);
+    }
+    if (morphJson.synonym.synonymResult) {
+        var items3 = [];
+        morphJson.synonym.synonymResult.forEach(function (e) {
+            var object3 = {};
+            object3['value'] = e;
+            items3.push(object3)
+        });
 
-    var items3 = [];
-    morphJson.synonym.synonymResult.forEach(function (e) {
-        var object3 = {};
-        object3['value'] = e;
-        items3.push(object3)
-    });
-
-    $$('synonymDataTable').parse(items3);
+        $$('synonymDataTable').parse(items3);
+    }
 }

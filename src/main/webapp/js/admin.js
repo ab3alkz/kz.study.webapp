@@ -14,8 +14,8 @@ var foldersTreeMenu = [
     {id: "EDITAUDIO", icon: " fa fa-file-audio-o", value: "Изменить аудио к уровням"},
     {id: "ANTO", icon: " fa fa-bullhorn", value: "Антонимы"},
     {id: "SYN", icon: " fa fa-free-code-camp", value: "Синонимы"},
-    {id: "GAMEW", icon: " fa fa-gamepad", value: "Игра слов"},
-    {id: "BRAIN", icon: " fa fa-gamepad", value: "Игра на запоминание"}
+    {id: "GAMEW", icon: " fa fa-gamepad", value: "Игра на запоминание"},
+    {id: "BRAIN", icon: " fa fa-gamepad", value: "Игра слов"}
 ];
 
 function form_init() {
@@ -173,7 +173,7 @@ function addDataAntOrSynonym(param) {
                     if (gson && !gson.result) {
                         notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
                     } else {
-                        clearFormByid('antView');
+                        $$('antView').clear();
                         notifyMessage(gson.message, gson.message, notifyType.info)
                     }
                 });
@@ -373,7 +373,7 @@ function addDataToLesson(paramId) {
                 if (gson && !gson.result) {
                     notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
                 } else {
-                    clearFormByid('lessonView');
+                    $$('lessonView').clear();
                     notifyMessage(gson.message, gson.message, notifyType.info)
                 }
             });
@@ -673,7 +673,8 @@ function addDataToGrammar(paramId) {
                 if (gson && !gson.result) {
                     notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
                 } else {
-                    clearFormByid('grammarView');
+                    $$('grammarView').clear();
+                    CKEDITOR.instances.descRus.setData("");
                     notifyMessage("Сохранено", "Сохранено", notifyType.info)
                 }
             });
@@ -1085,7 +1086,8 @@ function saveViewGameWToLessonBrain(paramId) {
                 if (gson && !gson.result) {
                     notifyMessage(getResourceName("error.txt"), getResourceName("error.txt.mess"), notifyType.danger)
                 } else {
-                    clearFormByid('brainForm');
+                    form.clear();
+                    CKEDITOR.instances.descRus.setData("");
                     notifyMessage("Сохранено", "Сохранено", notifyType.info)
                 }
             });
