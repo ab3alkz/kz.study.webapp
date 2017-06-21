@@ -51,6 +51,7 @@
 </head>
 <body>
 
+<div id="loginMark"/>
 <div class="mainwrapper top80px" style="margin-bottom: 70px">
 
     <div class="container" style="background: transparent">
