@@ -26,8 +26,8 @@
     <%@include file='/incloudes/menu.jsp' %>
 </div>
 
-<div style="text-align: center;">
-    <h1 class="display-1" style="color: black">Қазақ тілін интеллектуалды оқыту жүйесі</h1>
+<div style="text-align: center; margin-top: 12%">
+    <h1 class="display-1" style="color: black; font-size: 51px">Қазақ тілін оқытудың интеллектуалды жүйесі</h1>
 </div>
 </body>
 </html>

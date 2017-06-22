@@ -79,7 +79,8 @@ function getAnalizeResult() {
 
 function openWindowToAnalize(json, morphJson) {
 
-    var cont_h = $(window).height() - 70;
+    var cont_h = $(window).height();
+    var cont_w = $(window).width();
     if (!$$('analWin')) {
         webix.ui({
             view: "window",
@@ -88,7 +89,7 @@ function openWindowToAnalize(json, morphJson) {
             scroll: true,
             position: "center",
             height: cont_h,
-            width: 900,
+            width: cont_w,
             on: {
                 onHide: function () {
                     window.onscroll = null;
@@ -111,6 +112,8 @@ function openWindowToAnalize(json, morphJson) {
                                     window.onscroll = null;
                                     $$('analizeTable').clearAll();
                                     $$('analizeRepeatTable').clearAll();
+                                    $$('synonymDataTable').clearAll();
+                                    $$('antonymDataTable').clearAll();
                                 }
                             },
                             {width: 5}
@@ -123,6 +126,7 @@ function openWindowToAnalize(json, morphJson) {
                     {
                         view: "accordion",
                         multi: true,
+                        scroll: true,
                         css: 'mainAccordion',
                         margin: 20,
                         rows: [
@@ -181,6 +185,7 @@ function openWindowToAnalize(json, morphJson) {
                     {
                         view: "accordion",
                         multi: true,
+                        scroll: true,
                         css: 'mainAccordion',
                         margin: 20,
                         rows: [
@@ -309,6 +314,102 @@ function openWindowToAnalize(json, morphJson) {
                                 }
                             }
                         ]
+                    },
+                    {
+                        view: "accordion",
+                        multi: true,
+                        scroll: true,
+                        css: 'mainAccordion',
+                        margin: 20,
+                        rows: [
+                            {
+                                view: "accordionitem",
+                                header: "<span class='webix_icon fa-user'></span><span class='wordStyle'>Морфологический разбор</span>",
+                                autoheight: true,
+                                scroll: true,
+                                collapsed: true,
+                                body: {
+                                    rows: [
+                                        {
+                                            view: "accordion",
+                                            scroll: true,
+                                            rows: [
+                                                {
+                                                    view: "scrollview",
+                                                    id: "scrollview",
+                                                    scroll: "y",
+                                                    height: 400,
+                                                    width: 150,
+                                                    body: {
+                                                        rows: [
+                                                            {
+                                                                width: 1200,
+                                                                view: 'label',
+                                                                id: 'morphLabel',
+                                                                css: 'wordStyle'
+                                                            },
+                                                            {
+                                                                cols: [
+                                                                    {
+                                                                        view: 'label',
+                                                                        id: 'sentenceType',
+                                                                        css: 'wordStyle'
+                                                                    },
+                                                                    {
+                                                                        view: 'label',
+                                                                        id: 'aLetter'
+                                                                    },
+                                                                    {
+                                                                        view: 'label',
+                                                                        id: 'bLetter'
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                view: 'label',
+                                                                label: 'Есімдік',
+                                                                css: 'wordStyle'
+                                                            },
+                                                            {
+                                                                id: 'esimdikList',
+                                                                cols: []
+                                                            },
+                                                            {
+                                                                view: 'label',
+                                                                label: 'Қалау',
+                                                                css: 'wordStyle'
+                                                            },
+                                                            {
+                                                                id: 'qalauList',
+                                                                cols: []
+                                                            },
+                                                            {
+                                                                view: 'label',
+                                                                label: 'Тұйық',
+                                                                css: 'wordStyle'
+                                                            },
+                                                            {
+                                                                id: 'tuyqList',
+                                                                cols: []
+                                                            },
+                                                            {
+                                                                view: 'label',
+                                                                label: 'Негiзгi талдау',
+                                                                css: 'wordStyle'
+                                                            },
+                                                            {
+                                                                id: 'mainAnalize',
+                                                                cols: []
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
                     }
                 ]
             }
@@ -348,10 +449,89 @@ function openWindowToAnalize(json, morphJson) {
         var items3 = [];
         morphJson.synonym.synonymResult.forEach(function (e) {
             var object3 = {};
-            object3['value'] = e;
+            if (e != null) {
+                object3['value'] = e;
+            } else {
+                object3['value'] = "Сөйлемде 0 синоним табылды :";
+            }
+
             items3.push(object3)
         });
 
         $$('synonymDataTable').parse(items3);
     }
+
+    $$('morphLabel').setValue(morphJson.mainAnalyze.qLabel);
+    $$('bLetter').setValue(morphJson.mainAnalyze.consonant);
+    $$('aLetter').setValue(morphJson.mainAnalyze.vowel);
+    $$('sentenceType').setValue(morphJson.mainAnalyze.sentenceType);
+
+    $$('esimdikList').removeView('esimdikListV');
+    $$("esimdikList").addView({
+        id: 'esimdikListV',
+        rows: []
+    });
+    morphJson.mainAnalyze.esimdikList.forEach(function (e) {
+        $$('esimdikListV').addView(
+            {
+                rows: [
+                    {
+                        view: 'label',
+                        label: e
+                    }
+                ]
+            }
+        );
+    });
+    $$('qalauList').removeView('qalauListV');
+    $$("qalauList").addView({
+        id: 'qalauListV',
+        rows: []
+    });
+    morphJson.mainAnalyze.qalauList.forEach(function (e) {
+        $$('qalauListV').addView(
+            {
+                rows: [
+                    {
+                        view: 'label',
+                        label: e
+                    }
+                ]
+            }
+        );
+    });
+    $$('tuyqList').removeView('tuyqListV');
+    $$("tuyqList").addView({
+        id: 'tuyqListV',
+        rows: []
+    });
+    morphJson.mainAnalyze.tuyqList.forEach(function (e) {
+        $$('tuyqListV').addView(
+            {
+                rows: [
+                    {
+                        view: 'label',
+                        label: e
+                    }
+                ]
+            }
+        );
+    });
+    $$('mainAnalize').removeView('mainAnalizeV');
+    $$("mainAnalize").addView({
+        id: 'mainAnalizeV',
+        rows: []
+    });
+    morphJson.mainAnalyze.mainAnalize.forEach(function (e) {
+        $$('mainAnalizeV').addView(
+            {
+                rows: [
+                    {
+                        view: 'label',
+                        label: e
+                    }
+                ]
+            }
+        );
+    });
 }

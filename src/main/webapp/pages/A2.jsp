@@ -33,20 +33,10 @@
             <button type="button" class="btn btnWidth classA1_10 audioBtn" onclick="addAudioViewByID()"></button>
             <button type="button" class="btn btn-success btnWidth classA1_10 game1Btn"
                     onclick="addGame1ViewByID()"></button>
-            <%--<button type="button" class="btn btn-primary btnWidth classA1_10 game2Btn"--%>
-                    <%--onclick="addAudioViewByID()"></button>--%>
         </div>
         <div class="panel-body">
             <div>
-                <%--<h1 class="page-header game1Tbl"></h1>--%>
-                <div id="mainContainer">
-                    <%--<span class="label label-info" style="font-size: 16px">1. Прочтите краткий текст и найдите правильный перевод выделенных слов.</span>--%>
-                    <%--<br><br><br>--%>
-                    <%--<span class="label label-success">Перетащите нужный вариант удерживая левую кнопку мышки.</span>--%>
-                    <%--<br><br><br>--%>
-                    <%--<span class="label label-info lblCls"></span>--%>
-                </div>
-                <%--<div id="maindiv"></div>--%>
+                <div id="mainContainer"></div>
             </div>
         </div>
     </div>
@@ -73,8 +63,6 @@
             document.querySelector('.grammarBtn').innerHTML = getResourceName('aone.grammar.btn');
             document.querySelector('.audioBtn').innerHTML = getResourceName('aone.audi.btn');
             document.querySelector('.game1Btn').innerHTML = getResourceName('btn.game.adw');
-//            document.querySelector('.game2Btn').innerHTML = getResourceName('btn.game.adw2');
-//            document.querySelector('.game1Tbl').innerHTML = getResourceName('btn.game.adw');
         }
     });
     function getResourceName(prop) {
@@ -85,43 +73,5 @@
 <script src="${contextPath}/plugin/drag/jquery-ui.min.js" type="text/javascript"></script>
 <script src="${contextPath}/plugin/drag/bgiframe-2.1.2.js" type="text/javascript"></script>
 <script src="${contextPath}/plugin/drag/jquery-ui-i18n.min.js" type="text/javascript"></script>
-<%--<script>--%>
-<%--var k = 0;--%>
-<%--function addGame1Data(list) {--%>
-<%--list.forEach(function (e) {--%>
-<%--$('#maindiv').html(e.question + '<input class="dropdiv" type="text" style="overflow:scroll"/><div id="dragdiv"></div>');--%>
-<%--$('#dragdiv').html('<ul id="allItems" runat="server">'--%>
-<%--+ '<li id="node' + 1 + '">' + e.var1 + '</li>'--%>
-<%--+ '<li id="node' + 2 + '">' + e.var2 + '</li>'--%>
-<%--+ '<li id="node' + 3 + '">' + e.var3 + '</li>'--%>
-<%--+ '<li id="node' + 4 + '">' + e.var4 + '</li>'--%>
-<%--+ ' </ul>');--%>
-<%--k++;--%>
-<%--});--%>
-<%--SDDF();--%>
-<%--function SDDF() {--%>
-<%--$("#dragdiv li").draggable({--%>
-<%--appendTo: "body",--%>
-<%--helper: "clone",--%>
-<%--cursor: "move",--%>
-<%--revert: "invalid"--%>
-<%--});--%>
-
-<%--initDroppable($(".dropdiv"));--%>
-<%--function initDroppable($elements) {--%>
-<%--$elements.droppable({--%>
-<%--activeClass: "ui-state-default",--%>
-<%--hoverClass: "ui-drop-hover",--%>
-<%--accept: ":not(.ui-sortable-helper)",--%>
-
-<%--drop: function (event, ui) {--%>
-<%--var $this = $(this);--%>
-<%--$this.val(ui.draggable.text());--%>
-<%--}--%>
-<%--});--%>
-<%--}--%>
-<%--}--%>
-<%--}--%>
-<%--</script>--%>
 </body>
 </html>

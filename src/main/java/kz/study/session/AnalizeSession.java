@@ -1,6 +1,8 @@
 package kz.study.session;
 
+import com.sun.istack.internal.Nullable;
 import kz.study.entity.DAntonym;
+import kz.study.entity.DEnding;
 import kz.study.entity.DSynonym;
 import kz.study.gson.*;
 import kz.study.util.Utx;
@@ -30,6 +32,14 @@ public class AnalizeSession extends Utx {
     private static final String url2 = "jdbc:mysql://localhost:3306/armasecond";
     private static final String user = "pma";
     private static final String pass = "123456";
+
+    private static final String[] aSymbols = new String[]{"а", "ә", "е", "ё", "и", "о", "ө", "ұ", "ү", "ы", "і", "э", "ю", "я"};
+    private static final String[] bSymbols = new String[]{"б", "в", "г", "ғ", "д", "ж", "з", "й", "к", "қ",
+            "л", "м", "н", "ң", "п", "р", "с", "т", "у", "ф", "х", "һ", "ц", "ч", "ш", "щ", "ъ", "ь"};
+    private static final String[] halouRay = new String[]{"қы", "кі", "ғы", "гі"};// жұрнақты қалау рай
+    private static final String[] tuyqRay = new String[]{"ып", "іп", "п"};// жұрнақты көсемшеге бол
+    private static final String[] questionEsimdik = new String[]{"ма", "ме", "ба", "бе", "па", "пе", "ша", "ше"};// Сөйлемде сұрау есімдігінің қолданылуы арқылы
+
     @PersistenceContext(unitName = "armaSecond")
     private EntityManager em2;
 
@@ -395,6 +405,45 @@ public class AnalizeSession extends Utx {
         return list;
     }
 
+    private static Boolean findIntoArrays(Character osnId, String... array) {
+        for (String seArray : array) {
+            if (seArray.equals(String.valueOf(osnId))) return true;
+        }
+
+        return false;
+    }
+
+    @Nullable
+    private static List<GsonAllDic> getTestBd() throws SQLException {
+        List<GsonAllDic> list = new ArrayList<>();
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            Class.forName(driverName);
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM all_ending s");
+            while (rs.next()) {
+                GsonAllDic gsonAllDic = new GsonAllDic();
+                gsonAllDic.setId(rs.getString("id"));
+                gsonAllDic.setAddValue(String.valueOf(rs.getInt("d_ending_id")));
+                gsonAllDic.setValue(rs.getString("value"));
+                gsonAllDic.setAddDopValue(rs.getInt("D_CASE_ID"));
+                list.add(gsonAllDic);
+            }
+            return list;
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            assert rs != null;
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        return null;
+    }
+
     public GsonResult getAnalize(String text) throws Exception {
         GsonRazbor gsonRazbor = new GsonRazbor();
         gsonRazbor.setSymantic(getSymanticAnalyze(text));
@@ -443,6 +492,7 @@ public class AnalizeSession extends Utx {
             GsonMorphologyMain gson = new GsonMorphologyMain();
             gson.setSynonym(getSynonyms(text));
             gson.setAntonym(getAntonyms(text));
+            gson.setMainAnalyze(getMainAnalize(text));
 
             return getGsonResult(Boolean.TRUE, gson);
         }
@@ -484,6 +534,8 @@ public class AnalizeSession extends Utx {
                 break;
         }
 
+        gson.setSynonymTitle(titleText);
+
         if (list.size() != 0) {
             List<String> resList = new ArrayList<>();
             for (String aSimW : list) {
@@ -502,6 +554,7 @@ public class AnalizeSession extends Utx {
             }
             gson.setSynonymResult(resList);
         }
+
 
         return gson;
     }
@@ -534,5 +587,150 @@ public class AnalizeSession extends Utx {
 
         }
         return getGsonResult(Boolean.FALSE, null);
+    }
+
+    private String wordType(String mainText) {
+        String str = "";
+        if (mainText.contains("?")) {
+            str = "Сұраулы сөйлем";
+        } else if (mainText.contains("!")) {
+            str = "Лептi сөйлем";
+        } else {
+            str = "Жай сөйлем";
+        }
+        return str;
+    }
+
+    private String getValueOrEmpty(String value) {
+        if (!isNullOrEmpty(value)) {
+            return value;
+        }
+        return "";
+    }
+
+    private GsonMain getMainAnalize(String text) throws SQLException {
+        GsonMain gsonMain = new GsonMain();
+
+        gsonMain.setSentenceType(wordType(text));
+
+        int a = 0;
+        int b = 0;
+
+        text = text.toLowerCase();
+
+        gsonMain.setqLabel("Жақсыз сөйлемнің баяндауыштары мынадай тұлғада келеді: ");
+        List<String> qalauList = new ArrayList<>();
+        List<String> esimdikList = new ArrayList<>();
+        List<String> tuyqList = new ArrayList<>();
+        for (String str : text.split(" ")) {
+            for (String s : halouRay) {
+                if (str.contains(s)) {
+                    qalauList.add("жұрнақты қалау рай етістікке бол көмекші етістігі тіркесіп келеді: " + str + " " + s);
+                }
+            }
+
+            for (String s : tuyqRay) {
+                if (str.contains(s)) {
+                    tuyqList.add("жұрнақты көсемшеге бол (көбіне болма тәрізді болымсыз түрінде) көмекші етістігі тіркесіп келеді: " + str + " " + s);
+                }
+            }
+            for (String s : questionEsimdik) {
+                if (str.contains(s)) {
+                    esimdikList.add("Сөйлемде сұрау есімдігінің қолданылуы арқылы " + str + " " + s);
+                }
+            }
+        }
+        gsonMain.setTuyqList(tuyqList);
+        gsonMain.setEsimdikList(esimdikList);
+        gsonMain.setQalauList(qalauList);
+
+        char[] myCharArray = text.toCharArray();
+        for (Character s : myCharArray) {
+            if (findIntoArrays(s, aSymbols)) {
+                a += 1;
+            }
+            if (findIntoArrays(s, bSymbols)) {
+                b += 1;
+            }
+        }
+        gsonMain.setVowel("Дауысты дыбыстар саны: " + a);//гласный
+        gsonMain.setConsonant("Дауыссыз дыбыстар саны: " + b);//согласный
+
+        List<String> list = new ArrayList<>();
+        for (String s : text.split(" ")) {
+            if (s.length() >= 3) {
+                int i = s.length();
+                String sr = s.substring(i / 2);
+                list.add(String.valueOf(getEngingAnalyze(s, sr)));
+            }
+        }
+        gsonMain.setMainAnalize(list);
+
+        return gsonMain;
+    }
+
+    private List<String> getEngingAnalyze(String newS, String ending) throws SQLException {
+        List<String> list = new ArrayList<>();
+        for (GsonAllDic string : getTestBd()) {
+            if (ending.contains(string.getValue())) {
+                DEnding obj = getTestBdC((Integer) string.getAddDopValue());
+                list.add(newS + " " + string.getValue() + " " + getTestDEnding(Integer.parseInt(string.getAddValue())).getValue() + "    " + getValueOrEmpty(obj.getValue()));
+            }
+        }
+        return list;
+    }
+
+    @Nullable
+    private DEnding getTestBdC(int id) throws SQLException {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        DEnding dending = new DEnding();
+        try {
+            Class.forName(driverName);
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM d_case WHERE id = " + id;
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                dending.setId((long) rs.getInt("id"));
+                dending.setValue(rs.getString("name"));
+            }
+            return dending;
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        return null;
+    }
+
+    @Nullable
+    private DEnding getTestDEnding(int id) throws SQLException {
+        Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        DEnding dending = new DEnding();
+        try {
+            Class.forName(driverName);
+            conn = DriverManager.getConnection(url, user, pass);
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM d_ending WHERE id = " + id;
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                dending.setId((long) rs.getInt("id"));
+                dending.setValue(rs.getString("name"));
+            }
+            return dending;
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            rs.close();
+            stmt.close();
+            conn.close();
+        }
+        return null;
     }
 }

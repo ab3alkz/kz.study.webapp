@@ -10,6 +10,7 @@ public class GsonMorphologyMain {
 
     private GsonMorphology synonym;
     private GsonMorphology antonym;
+    private GsonMain mainAnalyze;
 
     public GsonMorphology getSynonym() {
         return synonym;
@@ -25,5 +26,13 @@ public class GsonMorphologyMain {
 
     public void setAntonym(GsonMorphology antonym) {
         this.antonym = antonym;
+    }
+
+    public GsonMain getMainAnalyze() {
+        return mainAnalyze;
+    }
+
+    public void setMainAnalyze(GsonMain mainAnalyze) {
+        this.mainAnalyze = mainAnalyze;
     }
 }

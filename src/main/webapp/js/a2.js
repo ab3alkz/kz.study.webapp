@@ -211,3 +211,19 @@ function addGame1ViewByID() {
         })
     });
 }
+
+function gameData() {
+    $('#mainContainer2').css("visibility", "visible");
+    $('#mainContainer2').css("display", "block");
+    $('#mainContainer').css("display", "none");
+    webix.ui({
+        id: "mainlayot2",
+        container: "mainContainer2",
+        css: 'blueW',
+        autoheight: true,
+        rows: [{
+            id: 'addSomeThink',
+            cols: []
+        }]
+    });
+}

@@ -482,6 +482,7 @@ public class Wrapper {
         gson.setVar2(obj.getdGameWordAnswer().getVar2());
         gson.setVar3(obj.getdGameWordAnswer().getVar3());
         gson.setVar4(obj.getdGameWordAnswer().getVar4());
+        gson.setAnswer(obj.getAnswer());
 
         return gson;
     }

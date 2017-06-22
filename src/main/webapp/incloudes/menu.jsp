@@ -66,11 +66,16 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+
+                <li><a href="${contextPath}/pages/game.jsp"><i class="fa fa-gamepad" aria-hidden="true"></i></a></li>
+
                 <li class="dropdown light only-icon language-selector ">
                     <a class="dropdown-toggle btn " data-toggle="dropdown" href="#">
                         <i class="fa fa-globe hidden-xs"></i>&nbsp;<span id='langBlock' class="menuLang"></span>&nbsp;<b
                             class="caret"></b>
                     </a>
+
+
                     <ul class="dropdown-menu pull-right" style="max-height: 407px;">
                         <li dir="ltr" onclick="changeLangSubmit('Ln')"><a href="#">Latynsha</a></li>
                         <li dir="ltr" onclick="changeLangSubmit('Kz')"><a href="#">Қазақша</a></li>
