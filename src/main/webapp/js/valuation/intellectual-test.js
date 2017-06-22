@@ -72,19 +72,22 @@ function createIntellectTempl() {
             ]
         });
     }
-
-    $$("answTextarea").setValue(nvl(obj.answ, ""));
+    if (obj) {
+        $$("answTextarea").setValue(nvl(obj.answ, ""));
+    }
     if (testFinish) {
         $$("dbAnswTextarea").show();
         $$("trueanswer").show();
-        $$("dbAnswTextarea").setValue(nvl(obj.dbAnsw, ""));
+        if (obj) {
+            $$("dbAnswTextarea").setValue(nvl(obj.dbAnsw, ""));
+        }
     } else {
         $$("dbAnswTextarea").hide();
         $$("trueanswer").hide();
     }
 
     $$("iQuestionResultWrap").removeView("iQuestionResult");
-    if (obj.result && obj.result.message) {
+    if (obj && obj.result && obj.result.message) {
         $$("iQuestionResultWrap").addView({
             width: 900,
             autoheight: true,

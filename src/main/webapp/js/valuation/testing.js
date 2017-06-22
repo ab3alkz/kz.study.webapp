@@ -175,9 +175,10 @@ function finishTesting() {
     var json = {};
     json.data = testData;
     json.total = total;
+
+    messageBox("Сынақ аяқталды", "сіздің нәтиже: " + total + '%');
     setGameResult(total, json,
         function () {
-
         }
     );
     questionPagingClick(0);

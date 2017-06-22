@@ -26,9 +26,7 @@ function createAudi() {
                         width: 310,
                         height: 210,
                         template: "<iframe width='300' height='200' src='" + data.frame + "'liking=false&amp;sharing=false&amp;show_artwork=false&amp;color=ff9900&amp;download=false&amp;auto_play=false&amp;hide_related=true&amp;show_comments=false&amp;show_user=false&amp;show_reposts=false'></iframe>"
-                    }, {
-
-                    }
+                    }, {}
                 ]
             },
             {
@@ -54,9 +52,9 @@ function createAudi() {
             },
             {
                 hidden: !testFinish,
-                view: 'textarea',
-                value: testData[activeQuestionIdx].text,
-                height: 70
+                view: 'label',
+                height: 70,
+                label: '<H3>'+(testData[activeQuestionIdx].result != null ? testData[activeQuestionIdx].result.message : '')+'</H3>'
             },
             {
                 id: "answTemplRow",
@@ -130,10 +128,10 @@ function finishAudi() {
     json.data = testData;
     setGameResult(0, json,
         function (gson) {
-
+            testData = gson.message.data;
+            audiQuestionPagingClick(null, 0);
         }
     );
-    audiQuestionPagingClick(null, 0);
 }
 
 function audiQuestionPagingClick(idx, nextIdx) {
